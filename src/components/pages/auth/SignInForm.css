@@ -1,0 +1,18 @@
+.SignInForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    width: 334px;
+    height: 80px;
+}
+
+.SignInForm>input{
+    margin-top: 20px;
+    border-bottom: 1px solid #DBDBDB;
+}
+
+.SignInForm>input::placeholder{
+    color: black;
+    font-size: 14px;
+}
