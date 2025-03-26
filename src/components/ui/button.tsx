@@ -9,14 +9,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'h-[50px] w-[334px] py-[12px] rounded-[50px]',
-        hugButton: 'h-[36] min-w-[63] py-[6px] font-size-[15px]',
+        default: '',
       },
       size: {
-        default: 'h-[50px] w-[334px]',
-        sm: 'h-[26px] w-[67px] py-[4px] font-size-[11px]',
-        md: 'h-[44px] w-[166px] py-[13.5px] font-size-[14px]',
-        lg: 'h-[50px] w-[334px] rounded-[12px] font-size-[14px]',
+        default: 'h-[50px] w-[334px] py-[12px] text-[14px] rounded-[50px]',
+        sm: 'h-[26px] w-[67px] py-[4px] text-[11px] rounded-[50px]',
+        md: 'h-[44px] w-[166px] py-[13.5px] text-[14px] rounded-[50px]',
+        lg: 'h-[50px] w-[334px] py-[16.5px] text-[14px] rounded-[12px]',
+        hug: 'h-[36px] min-w-[63px] py-[6px] px-[17px] text-[15px] rounded-[20px]',
       },
       color: {
         default: 'bg-[#FFFFFF] text-[#00A862] border-[1px] border-[#00A862]',
