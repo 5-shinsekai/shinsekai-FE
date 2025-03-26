@@ -1,10 +1,8 @@
 import CartIcon from "@/components/ui/icons/CartIcon";
-import cartIcon from "@/components/ui/icons/CartIcon";
 import CloseIcon from "@/components/ui/icons/CloseIcon";
 import gnbMenuIcon from "@/components/ui/icons/GnbMenuIcon";
 import SearchIcon from "@/components/ui/icons/SearchIcon";
-import searchIcon from "@/components/ui/icons/SearchIcon";
-import { gnbMenuType } from "@/types/InitialDataTypes";
+import { gnbMenuType,mainTabMenuType } from "@/types/InitialDataTypes";
 
 export const navLeftMenuData: gnbMenuType[] = [
   {
@@ -29,5 +27,28 @@ export const navRightMenuData: gnbMenuType[] = [
     id: 3,
     title: "cart",
     icon: CloseIcon,
+  },
+];
+
+export const mainTabMenuData: mainTabMenuType[] = [
+  {
+    id: 1,
+    title: "메인",
+    link: "/main",
+  },
+  {
+    id: 2,
+    title: "기획전",
+    link: "/event",
+  },
+  {
+    id: 3,
+    title: "베스트",
+    link: "/best",
+  },
+  {
+    id: 4,
+    title: "마이페이지",
+    link: "/mypage",
   },
 ];
