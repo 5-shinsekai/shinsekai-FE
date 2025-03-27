@@ -15,7 +15,7 @@ export default function MainFooter() {
         <p>개인정보처리방침</p>|<p>홈페이지 이용약관</p>|
         <p>스타벅스카드 이용약관</p>
       </div>
-      <div className="px-6 py-2">
+      <div className="px-6 py-2 min-h-[180px]">
         <div className="flex items-center gap-2">
           <Image src={StarbucksLogo} alt="Starbucks Logo" />
           <div onClick={toggleExpand} className="cursor-pointer">
