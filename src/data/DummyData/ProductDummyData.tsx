@@ -24,8 +24,10 @@ export const productDummyData: productType[] = [
     id: 1,
     title: 'SS 핑크 탱크 텀블러 503ml',
     price: 10000,
-    discountRate: 10,
+    discountRate: 11,
     productImage: DummyItemImage,
+    isNew: true,
+    isBest: true,
   },
   {
     id: 2,
@@ -33,6 +35,8 @@ export const productDummyData: productType[] = [
     price: 9000,
     discountRate: 0,
     productImage: DummyItemImage,
+    isNew: true,
+    isBest: false,
   },
   {
     id: 3,
@@ -40,6 +44,8 @@ export const productDummyData: productType[] = [
     price: 10000,
     discountRate: 10,
     productImage: DummyItemImage,
+    isNew: false,
+    isBest: false,
   },
   {
     id: 4,
@@ -47,6 +53,8 @@ export const productDummyData: productType[] = [
     price: 1000,
     discountRate: 0,
     productImage: DummyItemImage,
+    isNew: false,
+    isBest: true,
   },
   {
     id: 5,
@@ -54,6 +62,8 @@ export const productDummyData: productType[] = [
     price: 1000,
     discountRate: 0,
     productImage: DummyItemImage,
+    isNew: true,
+    isBest: true,
   },
   {
     id: 6,
@@ -61,6 +71,8 @@ export const productDummyData: productType[] = [
     price: 1000,
     discountRate: 0,
     productImage: DummyItemImage,
+    isNew: true,
+    isBest: true,
   },
   {
     id: 7,
@@ -68,6 +80,8 @@ export const productDummyData: productType[] = [
     price: 1000,
     discountRate: 0,
     productImage: DummyItemImage,
+    isNew: false,
+    isBest: false,
   },
   {
     id: 8,
@@ -75,6 +89,8 @@ export const productDummyData: productType[] = [
     price: 1000,
     discountRate: 0,
     productImage: DummyItemImage,
+    isNew: false,
+    isBest: true,
   },
   {
     id: 9,
@@ -82,6 +98,8 @@ export const productDummyData: productType[] = [
     price: 1000,
     discountRate: 0,
     productImage: DummyItemImage,
+    isNew: true,
+    isBest: true,
   },
   {
     id: 10,
@@ -89,5 +107,7 @@ export const productDummyData: productType[] = [
     price: 1000,
     discountRate: 0,
     productImage: DummyItemImage,
+    isNew: true,
+    isBest: true,
   },
 ];
