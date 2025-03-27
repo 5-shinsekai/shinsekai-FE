@@ -5,15 +5,10 @@ import { Button } from '@/components/ui/button';
 
 export default function LogInSection() {
   return (
-    <form className="relative h-full">
+    <form className="h-full">
       <LogInForm />
-      <nav>
-        <AuthMenu />
-      </nav>
-      <div
-        className="w-full absolute
-       bottom-5 right-0 px-[28px]"
-      >
+      <AuthMenu />
+      <div className="w-full fixed bottom-5 right-0 px-[28px]">
         <Button size="default" color="green" className="w-full">
           로그인
         </Button>
