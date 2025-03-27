@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function LogInInput() {
+export default function LogInForm() {
   return (
     <>
       <input

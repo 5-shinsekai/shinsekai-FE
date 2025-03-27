@@ -6,7 +6,7 @@ export default function layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      {/* <LogInHeader /> */}
+      <LogInHeader />
       {children}
     </>
   );
