@@ -11,4 +11,6 @@ export interface productType {
   price: number;
   discountRate: number;
   productImage: StaticImageData;
+  isNew: boolean;
+  isBest: boolean;
 }
