@@ -1,21 +1,17 @@
 import React from 'react';
 import LogInInput from './LogInInput';
 import { Button } from '@/components/ui/button';
-import WelcomeMessage from './WelcomeMessage';
 
 export default function LogInSection() {
   return (
-    <main className="flex flex-col justify-between items-center px-[28px]">
-      <section className="flex flex-col justify-center gap-[58px]">
-        <WelcomeMessage />
-        <LogInInput />
-      </section>
+    <form className="">
+      <LogInInput />
       <nav>...</nav>
-      <section className="w-full flex justify-center mt-[282px]">
-        <Button size="default" color="green">
+      <div className="w-full absolute bottom-5 right-0 px-[28px]">
+        <Button size="default" color="green" className="w-full">
           로그인
         </Button>
-      </section>
-    </main>
+      </div>
+    </form>
   );
 }

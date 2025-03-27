@@ -4,7 +4,7 @@ import img from '@/components/ui/logo.png';
 
 export default function WelcomeMessage() {
   return (
-    <section className="flex flex-col items-start w-[334px]">
+    <section className="w-full py-10">
       <Image src={img} alt="로고" className="size-[62px] mb-[24px]" />
       <h1 className="text-[22px] font-semibold">
         안녕하세요.
