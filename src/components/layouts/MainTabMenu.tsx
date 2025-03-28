@@ -51,7 +51,9 @@ export default function MainTabMenu() {
               ref={(el) => {
                 menuRefs.current[index] = el; // 콜백 함수가 값을 반환하지 않도록 수정
               }}
-              data-state={pathName === menu.link ? 'active' : 'inactive'}
+              data-state={
+                pathName.startsWith(menu.link) ? 'active' : 'inactive'
+              }
               className={cn(
                 'text-center font-normal cursor-pointer',
                 'data-[state=active]:font-semibold'
