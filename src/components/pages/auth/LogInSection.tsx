@@ -9,7 +9,7 @@ export default function LogInSection() {
       <LogInForm />
       <AuthMenu />
       <div className="w-full fixed bottom-5 right-0 px-[28px]">
-        <Button size="default" color="green" className="w-full">
+        <Button size="default" color="green" className="w-full h-[40px]">
           로그인
         </Button>
       </div>
