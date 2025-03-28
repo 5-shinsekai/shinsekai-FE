@@ -13,13 +13,14 @@ export default function ProductListItem({
   return (
     <li
       key={product.id}
-      className={`shrink-0 flex justify-self-center flex-col w-${size}`}
+      className={`shrink-0 flex flex-col w-[${size}px] mx-auto`}
     >
       <Image
         src={product.productImage}
         alt={product.title}
         width={size}
         height={size}
+        className="mx-auto"
       />
       <div
         className={cn(
