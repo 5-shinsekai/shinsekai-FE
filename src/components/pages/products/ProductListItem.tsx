@@ -8,14 +8,19 @@ const CaveatFont = Caveat({ subsets: ['latin'] });
 
 export default function ProductListItem({
   product,
-}: Readonly<{ product: productType }>) {
+  size,
+}: Readonly<{ product: productType; size: number }>) {
   return (
-    <li key={product.id} className="shrink-0 flex flex-col w-[140px]">
+    <li
+      key={product.id}
+      className={`shrink-0 flex flex-col w-[${size}px] mx-auto`}
+    >
       <Image
         src={product.productImage}
         alt={product.title}
-        width={140}
-        height={140}
+        width={size}
+        height={size}
+        className="mx-auto"
       />
       <div
         className={cn(

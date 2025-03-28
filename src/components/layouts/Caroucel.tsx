@@ -132,8 +132,7 @@ export default function Carousel() {
               src={item.src}
               alt={item.alt}
               width={item.width}
-              layout="responsive"
-              className="w-full"
+              className="w-full md:w-3xl justify-self-center"
             />
           </div>
         ))}
