@@ -1,5 +1,6 @@
-import React from "react";
+import DeliveryStatusSection from '@/components/pages/mypage/DeliveryStatusPage';
+import React from 'react';
 
-export default function page() {
-  return <div>mypage</div>;
+export default function mypage() {
+  return <DeliveryStatusSection />;
 }
