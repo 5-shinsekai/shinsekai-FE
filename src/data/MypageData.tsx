@@ -1,7 +1,9 @@
-import { shoppingInfoType } from '@/types/mypageDataType';
+import { myPageInfoType } from '@/types/mypageDataType';
 import CartIcon from '@/components/ui/icons/CartIcon';
+import { deliveryStatusType } from '@/types/mypageDataType';
 
-export const shoppingInfoData: shoppingInfoType[] = [
+
+export const shoppingInfoData: myPageInfoType[] = [
   {
     id: 1,
     title: '주문 내역',
@@ -33,3 +35,40 @@ export const shoppingInfoData: shoppingInfoType[] = [
     icon: CartIcon,
   },
 ];
+
+export const settingData: myPageInfoType[] = [
+  {
+    id: 1,
+    title: '배송지 정보 수집 및 이용 동의',
+    link: './ 배송지정보수집동의',
+    icon: CartIcon,
+  }
+];
+
+export const deliveryStatusData: deliveryStatusType[] = [
+  {
+    id: 1,
+    title: '결제완료',
+    count: 1,
+    link: './결제완료'
+  },
+  {
+    id: 2,
+    title: '상품준비중',
+    count: 2,
+    link: './상품준비중'
+  },
+  {
+    id: 3,
+    title: '배송중',
+    count: 1,
+    link: './배송중'
+  },
+  {
+    id: 4,
+    title: '배송완료',
+    count: 4,
+    link: './배송완료'
+  },
+];
+
