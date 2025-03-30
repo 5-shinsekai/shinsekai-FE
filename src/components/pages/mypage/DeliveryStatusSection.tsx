@@ -1,7 +1,6 @@
 import React from 'react';
 import DeliveryStatus from '@/components/ui/DeliveryStatus';
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
-import ShoppingInfo from './ShoppingInfo';
 import { deliveryStatusData } from '@/data/MypageData';
 
 export default function DeliveryStatusSection() {

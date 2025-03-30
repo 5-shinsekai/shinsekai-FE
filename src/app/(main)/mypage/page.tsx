@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function mypage() {
   return (
-    <main className='min-h-screen'>
+    <main className='flex flex-col min-h-screen'>
       <DeliveryStatusSection/>
       <InfoListSectionLayout 
           title="쇼핑정보" 
@@ -15,8 +15,8 @@ export default function mypage() {
       <InfoListSectionLayout
           title="설정"
           items={settingData}
-          className='pb-3.5'
+          className='grow'
           />
-  </main>
+    </main>
   )
 }

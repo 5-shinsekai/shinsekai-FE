@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { infoSectionLayoutType} from "@/types/mypageDataType";
+import { infoSectionLayoutType } from "@/types/mypageDataType";
 
 export default function InfoListSectionLayout({title, items, className = "",}: infoSectionLayoutType) {
     return (
-        <section className="bg-[#F5F5F5] px-[24px] ${className}">
+        <section className={`bg-[#F5F5F5] px-[24px] ${className}`}>
             <h1 className="text-[16px] font-semibold pt-[30px] pb-[20px]">
                 {title}
             </h1>
