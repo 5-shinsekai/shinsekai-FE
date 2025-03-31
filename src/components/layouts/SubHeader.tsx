@@ -14,7 +14,7 @@ export default function SubHeader({
   showBackButton = false,
 }: SubHeaderPropsType) {
   return (
-    <header className="w-full h-[56px] content-center px-[16px] py-[6px] shadow-sm">
+    <header className="sticky top-0 bg-white w-full h-[56px] content-center px-[16px] shadow-sm">
       <nav className="relative">
         <ul className="flex justify-between items-center">
           <li>{showBackButton ? <LeftArrowIcon /> : null}</li>

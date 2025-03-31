@@ -15,7 +15,7 @@ export default function InputInfo({
 }: InputInfoPropsType) {
   return (
     <form className="border-b-1 content-center w-full h-[38px]">
-      <label className="text-[0.625rem] font-medium pr-1">
+      <label className="text-[0.938rem] font-medium pr-1">
         {title}
         <span className="text-[#00A862]">{optional ? null : '*'}</span>
       </label>
@@ -24,7 +24,7 @@ export default function InputInfo({
         id={id}
         name={name}
         placeholder=" "
-        className="outline-none text-[0.625rem]"
+        className="outline-none text-[0.938rem]"
       />
     </form>
   );
