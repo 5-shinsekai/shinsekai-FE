@@ -3,6 +3,7 @@ import React from 'react';
 export default function LogInForm() {
   return (
     <>
+      {/* div */}
       <input
         placeholder="아이디"
         className="w-full h-[28px] border-b border-[#bdbdbd] placeholder-black focus:outline-none"
