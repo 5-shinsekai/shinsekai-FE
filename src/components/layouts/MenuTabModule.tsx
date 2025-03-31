@@ -1,16 +1,16 @@
 'use client';
 import React from 'react';
-import { eventData } from '@/data/DummyData/EventDummyData';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { MenuType } from '@/types/MenuTypes';
+import { MenuBarType } from '@/types/MenuTypes';
 
 export default function MenuTab({
-  menuName,
+  data,
   isDefault,
   isMultiple,
-}: Readonly<MenuType>) {
+}: Readonly<MenuBarType>) {
+  const menuName = data.keyname;
   const params = useSearchParams();
   const currentValues = params.get(menuName)?.split(',') || [];
 
@@ -38,22 +38,22 @@ export default function MenuTab({
         className="flex overflow-x-scroll h-14 items-center shadow relative"
         style={{ scrollbarWidth: 'none' }}
       >
-        {eventData.map((event, index) => (
+        {data.data.map((item, index) => (
           <Link
-            href={buildQueryString(menuName, String(event.eventCode))}
-            key={event.eventCode}
+            href={buildQueryString(menuName, String(item.code))}
+            key={item.code}
           >
             <li
-              key={event.eventCode}
+              key={item.code}
               className={cn(
                 'text-center font-normal text-nowrap p-5',
-                currentValues.includes(String(event.eventCode)) ||
+                currentValues.includes(String(item.code)) ||
                   (isDefault && currentValues.length === 0 && index === 0)
                   ? 'text-[#00A862] font-bold'
                   : 'text-[#7F7F7F]'
               )}
             >
-              {event.eventName}
+              {item.name}
             </li>
           </Link>
         ))}

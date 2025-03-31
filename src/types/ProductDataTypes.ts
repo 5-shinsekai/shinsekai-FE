@@ -1,8 +1,8 @@
 import { StaticImageData } from 'next/image';
 
-export interface eventType {
-  eventCode: number;
-  eventName: string;
+export interface CategoryDataType {
+  code: number;
+  name: string;
 }
 
 export interface seasonType {
