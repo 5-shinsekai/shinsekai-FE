@@ -1,7 +1,9 @@
 import { navLeftMenuData, navRightMenuData } from '@/data/InitialData';
 import { gnbMenuType } from '@/types/InitialDataTypes';
 import React from 'react';
-
+import Image from 'next/image';
+import mainlogo from '@/components/ui/mainlogo.png';
+import Link from 'next/link';
 export default function MainHeader() {
   return (
     <header className="h-14 flex items-center w-full">
@@ -9,15 +11,22 @@ export default function MainHeader() {
         <ul className="w-full flex justify-between items-center">
           {navLeftMenuData.map((menu: gnbMenuType) => (
             <li key={menu.id}>
-              <menu.icon className="" />
+              <menu.icon />
             </li>
           ))}
         </ul>
-        <p className=" text-center my-auto font-semibold">메인 페이지</p>
-        <ul className="w-full flex justify-between items-center sm:justify-end sm:gap-14">
+        <Link href="/">
+          <Image
+            src={mainlogo}
+            alt="mainlogo"
+            width={120}
+            className="mx-auto"
+          />
+        </Link>
+        <ul className="w-full flex justify-around items-center">
           {navRightMenuData.map((menu: gnbMenuType) => (
             <li key={menu.id}>
-              <menu.icon className="" />
+              <menu.icon />
             </li>
           ))}
         </ul>

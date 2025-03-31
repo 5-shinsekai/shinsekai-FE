@@ -24,11 +24,6 @@ export const navRightMenuData: gnbMenuType[] = [
     title: 'search',
     icon: CartIcon,
   },
-  {
-    id: 3,
-    title: 'cart',
-    icon: CloseIcon,
-  },
 ];
 
 export const navBackButton: gnbMenuType[] = [
