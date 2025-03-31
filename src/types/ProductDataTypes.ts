@@ -1,5 +1,10 @@
 import { StaticImageData } from 'next/image';
 
+export interface CategoryDataType {
+  code: number;
+  name: string;
+}
+
 export interface seasonType {
   id: number;
   seasonName: string;
