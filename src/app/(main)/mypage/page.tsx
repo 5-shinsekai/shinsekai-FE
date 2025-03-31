@@ -6,17 +6,14 @@ import React from 'react';
 
 export default function mypage() {
   return (
-    <main className='flex flex-col min-h-screen'>
-      <DeliveryStatusSection/>
-      <InfoListSectionLayout 
-          title="쇼핑정보" 
-          items={shoppingInfoData}
-          />
+    <main className="flex flex-col h-full min-h-screen">
+      <DeliveryStatusSection />
+      <InfoListSectionLayout title="쇼핑정보" items={shoppingInfoData} />
       <InfoListSectionLayout
-          title="설정"
-          items={settingData}
-          className='grow'
-          />
+        title="설정"
+        items={settingData}
+        className="grow"
+      />
     </main>
-  )
+  );
 }
