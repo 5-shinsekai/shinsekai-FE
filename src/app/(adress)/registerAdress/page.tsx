@@ -1,6 +1,7 @@
 import React from 'react';
 import InputInfo from '@/components/ui/InputInfo';
 import { Button } from '@/components/ui/button';
+import { SelectMemo } from '@/components/ui/selectMemo';
 
 export default function page() {
   return (
@@ -12,11 +13,19 @@ export default function page() {
           <InputInfo id="receiver" name="receiver" title="우편번호" />
           <Button size="sm">주소검색</Button>
         </div>
+        {/* 더미데이터 받아서 처리하도록 변경하기 */}
         <InputInfo id="receiver" name="receiver" title="기본 주소" />
         <InputInfo id="receiver" name="receiver" title="상세 주소" />
         <InputInfo id="receiver" name="receiver" title="연락처1" />
         <InputInfo id="receiver" name="receiver" title="연락처2" optional />
       </section>
+      <SelectMemo />
+
+      <div className="pt-[13px] pb-[35px] px-[28px]">
+        <Button color="gray" className="w-full">
+          등록하기
+        </Button>
+      </div>
     </main>
   );
 }
