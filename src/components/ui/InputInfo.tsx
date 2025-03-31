@@ -4,20 +4,20 @@ interface InputInfoPropsType {
   id: string;
   name: string;
   title: string;
-  optional?: boolean;
+  required?: boolean;
 }
 
 export default function InputInfo({
   id,
   name,
   title,
-  optional = false,
+  required = false,
 }: InputInfoPropsType) {
   return (
-    <form className="border-b-1 content-center w-full h-[38px]">
+    <div className="border-b-1 content-center w-full h-[38px]">
       <label className="text-[0.938rem] font-medium pr-1">
         {title}
-        <span className="text-[#00A862]">{optional ? null : '*'}</span>
+        {required && <span className="text-[#00A862]">*</span>}
       </label>
       <input
         type="text"
@@ -26,6 +26,6 @@ export default function InputInfo({
         placeholder=" "
         className="outline-none text-[0.938rem]"
       />
-    </form>
+    </div>
   );
 }
