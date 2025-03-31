@@ -33,9 +33,9 @@ export default function MenuTab({
   };
 
   return (
-    <div>
+    <>
       <ul
-        className="flex overflow-x-scroll h-14 items-center shadow relative"
+        className="flex overflow-x-scroll items-center shadow"
         style={{ scrollbarWidth: 'none' }}
       >
         {data.data.map((item, index) => (
@@ -58,6 +58,6 @@ export default function MenuTab({
           </Link>
         ))}
       </ul>
-    </div>
+    </>
   );
 }

@@ -7,7 +7,9 @@ import { eventData } from '@/data/DummyData/CategoryDummyData';
 export default function page() {
   return (
     <main>
-      <MenuTab data={eventData} isMultiple={false} isDefault={true} />
+      <nav className=" sticky top-28 shadow z-10 bg-white">
+        <MenuTab data={eventData} isMultiple={false} isDefault={true} />
+      </nav>
       <Image
         src={EventDummyImage}
         alt="EventDummyImage"
