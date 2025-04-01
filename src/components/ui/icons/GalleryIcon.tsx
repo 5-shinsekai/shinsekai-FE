@@ -1,5 +1,5 @@
-import React from "react";
-import { cn } from "@/lib/utils";
+import React from 'react';
+import { cn } from '@/lib/utils';
 export default function GalleryIcon({
   className,
 }: Readonly<{ className?: string }>) {
@@ -14,7 +14,7 @@ export default function GalleryIcon({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={cn("lucide lucide-image", className)}
+      className={cn('lucide lucide-image', className)}
     >
       <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
       <circle cx="9" cy="9" r="2" />
