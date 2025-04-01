@@ -111,3 +111,15 @@ export const productDummyData: productType[] = [
     isBest: true,
   },
 ];
+
+export const productDummyDetailData = {
+  id: 1,
+  title: 'SS 핑크 탱크 텀블러 503ml',
+  price: 10000,
+  discountRate: 11,
+  productImage: DummyItemImage,
+  isNew: true,
+  isBest: true,
+  detailImages: [DummyItemImage, DummyItemImage, DummyItemImage],
+  description: '상품 설명 개요입니다 참고해주세요',
+};
