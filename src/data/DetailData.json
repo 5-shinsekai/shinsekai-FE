@@ -1,0 +1,53 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "productCode": "1",
+      "productImagePath": "/DummyItemImage.png",
+      "productDescriptionPath": [
+        "/detail1.png",
+        "/detail2.png",
+        "/detail3.png"
+      ],
+      "productPrice": 10000,
+      "title": "상품 이름 텀블러라는 텀블러",
+      "productSummary": " 상품 요약 3줄가량을 적어야하는데 적어야 할 내용이 없어 최대한 길게 무언가의 글씨를 써봅니다.",
+      "limitCount": 10,
+      "discountRate": 0,
+      "isBest": true,
+      "isNew": true
+    }
+  ],
+  "options": [
+    {
+      "id": "1",
+      "productCode": "1",
+      "options": [
+        {
+          "productStockCount": 10,
+          "sizeName": "Tall",
+          "ColorName": "Black",
+          "optionPrice": 0
+        },
+        {
+          "productStockCount": 10,
+          "sizeName": "Tall",
+          "ColorName": "White",
+          "optionPrice": 0
+        },
+        {
+          "productStockCount": 10,
+          "sizeName": "Venti",
+          "ColorName": "Black",
+          "optionPrice": 0
+        },
+        {
+          "productStockCount": 10,
+          "sizeName": "Venti",
+          "ColorName": "White",
+          "optionPrice": 0
+        }
+      ]
+    }
+  ]
+}

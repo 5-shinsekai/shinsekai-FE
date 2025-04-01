@@ -1,11 +1,14 @@
 import React from 'react';
 import ProductDetail from '@/components/pages/products/ProductDetail';
-export default function page({ params }: { params: { productId: string } }) {
-  //   Thumbnail,이름 가격 설명
+export default async function page({
+  params,
+}: {
+  params: Promise<{ productId: string }>;
+}) {
+  const { productId } = await params;
   return (
     <main>
-      <ProductDetail productId={params.productId}></ProductDetail>
-      <></>
+      <ProductDetail productId={productId} />
     </main>
   );
 }
