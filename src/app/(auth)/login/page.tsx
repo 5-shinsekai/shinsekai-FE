@@ -4,7 +4,7 @@ import LogInSection from '@/components/pages/auth/LogInSection';
 
 export default function page() {
   return (
-    <main className="px-[28px] mx-auto min-h-screen">
+    <main className="px-[1.75rem] mx-auto min-h-screen">
       <WelcomeMessage />
       <LogInSection />
     </main>

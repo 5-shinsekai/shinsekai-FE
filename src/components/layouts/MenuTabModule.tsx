@@ -49,8 +49,8 @@ export default function MenuTab({
                 'text-center font-normal text-nowrap p-5',
                 currentValues.includes(String(item.code)) ||
                   (isDefault && currentValues.length === 0 && index === 0)
-                  ? 'text-[#00A862] font-bold'
-                  : 'text-[#7F7F7F]'
+                  ? 'text-custom-green-200 font-bold'
+                  : 'text-custom-gray-500'
               )}
             >
               {/* 컴포넌트로 안으로 던져서 위로 받는 로직이 필요 한 파일에서 다 진행X */}

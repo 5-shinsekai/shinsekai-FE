@@ -14,10 +14,10 @@ export default function InputInfo({
   required = false,
 }: InputInfoPropsType) {
   return (
-    <div className="border-b-1 content-center w-full h-[38px]">
+    <div className="border-b-1 content-center w-full h-[2.375rem]">
       <label className="text-[0.938rem] font-medium pr-1">
         {title}
-        {required && <span className="text-[#00A862]">*</span>}
+        {required && <span className="text-custom-green-200">*</span>}
       </label>
       <input
         type="text"

@@ -5,24 +5,26 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 focus-visible:ring-ring/50 focus-visible:ring-[0.1875rem] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
   {
     variants: {
       variant: {
         default: '',
       },
       size: {
-        default: 'h-[42px] w-[334px] py-[12px] text-[0.875rem] rounded-[50px]',
-        sm: 'h-[26px] min-w-[63px] py-[4px] text-[0.688rem] rounded-[50px]',
-        md: 'h-[44px] w-[166px] py-[13.5px] text-[0.875rem] rounded-[50px]',
-        lg: 'h-[50px] w-[334px] py-[16.5px] text-[0.875rem] rounded-[12px]',
-        hug: 'h-[36px] min-w-[63px] py-[6px] px-[17px] text-[0.938rem] rounded-[20px]',
+        default:
+          'h-[2.625rem] w-[20.875rem] py-3 text-[0.875rem] rounded-[3.125rem]',
+        sm: 'h-[1.625rem] min-w-[4rem] py-1 text-[0.688rem] rounded-[3.125rem]',
+        md: 'h-[2.75rem] w-[10.375rem] py-[0.84375rem] text-[0.875rem] rounded-[3.125rem]',
+        lg: 'h-[3.125rem] w-[20.875rem] py-[1.03125rem] text-[0.875rem] rounded-3',
+        hug: 'h-9 min-w-[4rem] py-[0.375rem] px-[1.0625rem] text-[0.938rem] rounded-[1.25rem]',
       },
       color: {
-        default: 'bg-[#FFFFFF] text-[#00A862] border-[1px] border-[#00A862]',
-        gray: 'bg-[#E0E0E0] text-[#FFFFFF]',
-        blue: 'bg-[#3182F6] text-[#FFFFFF]',
-        green: 'bg-[#00A862] text-[#FFFFFF]',
+        default:
+          'bg-white text-custom-green-200 border-[1px] border-custom-green-200',
+        gray: 'bg-custom-gray-300 text-white',
+        blue: 'bg-custom-blue-100 text-white',
+        green: 'bg-custom-green-200 text-white',
       },
     },
     defaultVariants: {

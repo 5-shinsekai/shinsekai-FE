@@ -11,7 +11,7 @@ export default function Carousel() {
     { id: 4, src: DummyEventImage, alt: 'main_banner', width: 1920 },
     { id: 5, src: DummyEventImage, alt: 'main_banner', width: 1920 },
   ];
-
+  // 실제로 쓸 데이터 형식으로
   const extendedItems = [items[items.length - 1], ...items, items[0]]; // 무한 루프를 위한 확장 배열
   const [currentIndex, setCurrentIndex] = useState(1); // 실제 첫 번째 아이템에서 시작
   const [transition, setTransition] = useState(true); // 애니메이션 제어

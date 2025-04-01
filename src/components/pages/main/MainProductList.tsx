@@ -10,11 +10,13 @@ export default function MainProductList({
 
   return (
     <section>
-      <p className="px-6 mb-[30px] text-2xl font-bold">{season.seasonName}</p>
+      <p className="px-6 mb-[1.875rem] text-2xl font-bold">
+        {season.seasonName}
+      </p>
       {/* ul 부분은 렌더링 형식 (grid로 보여줄건지 한줄에 스크롤로 보여줄건지)*/}
       <ul
         style={{ scrollbarWidth: 'none' }}
-        className="flex flex-nowrap overflow-x-scroll  px-6 gap-x-[18px]"
+        className="flex flex-nowrap overflow-x-scroll  px-6 gap-x-[1.125rem]"
       >
         {productDummyData.map((product) => (
           <ProductListItem key={product.id} product={product} size={140} />

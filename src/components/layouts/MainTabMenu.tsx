@@ -65,7 +65,7 @@ export default function MainTabMenu() {
         ))}
         <div
           className={cn(
-            'absolute bottom-0 h-[3px] bg-[#00A862]',
+            'absolute bottom-0 h-[0.1875rem] bg-custom-green-200',
             isResizing ? '' : 'transition-all duration-300'
           )}
           style={{ left: activeMenuStyle.left, width: activeMenuStyle.width }}

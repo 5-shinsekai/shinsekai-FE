@@ -10,7 +10,7 @@ import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 export default function RegisterAdressForm() {
   return (
     <form>
-      <section className="space-y-[20px] mt-[20px] ">
+      <section className="space-y-[1.25rem] mt-[1.25rem] ">
         <InputInfo id="receiver" name="receiver" title="주소별칭" />
         <InputInfo id="receiver" name="receiver" title="받는 분" required />
         <div className="flex justify-between gap-5">

@@ -11,7 +11,7 @@ export default function LogInSection() {
       <LogInForm />
       <AuthMenu />
       <ButtonWrapper>
-        <Button size="default" color="green" className="w-full h-[40px]">
+        <Button size="default" color="green" className="w-full h-10">
           로그인
         </Button>
       </ButtonWrapper>
