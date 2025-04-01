@@ -12,7 +12,7 @@ import {
 
 export function SelectMemo() {
   return (
-    <form className="w-full flex flex-col mt-[1.375rem]">
+    <div className="w-full flex flex-col mt-[1.375rem]">
       <label
         className="font-medium *:**:
       text-[0.75rem]"
@@ -36,6 +36,6 @@ export function SelectMemo() {
           </SelectGroup>
         </SelectContent>
       </Select>
-    </form>
+    </div>
   );
 }
