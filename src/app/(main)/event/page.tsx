@@ -10,6 +10,7 @@ export default function page() {
       <nav className=" sticky top-28 shadow z-10 bg-white">
         <MenuTab data={eventData} isMultiple={false} isDefault={true} />
       </nav>
+      {/* 안에 넣을 것 */}
       <Image
         src={EventDummyImage}
         alt="EventDummyImage"

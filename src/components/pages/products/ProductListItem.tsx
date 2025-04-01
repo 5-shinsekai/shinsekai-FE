@@ -28,6 +28,7 @@ export default function ProductListItem({
             height={size}
             className="mx-auto"
           />
+          {/* svg 분리할 것 */}
           {rank && (
             <svg
               className=" absolute top-0 right-1/12 text-xs fill-[#00A862]"
@@ -72,6 +73,7 @@ export default function ProductListItem({
               ).toLocaleString()}
               원{' '}
             </p>
+            {/* 자주쓰는 스타일 등을 컴포넌트화 진행 */}
             <p className="text-[16px] font-bold text-[#00A862]">
               {product.discountRate}%
             </p>

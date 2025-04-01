@@ -53,6 +53,8 @@ export default function MenuTab({
                   : 'text-[#7F7F7F]'
               )}
             >
+              {/* 컴포넌트로 안으로 던져서 위로 받는 로직이 필요 한 파일에서 다 진행X */}
+              {/* radio checkbox */}
               {item.name}
             </li>
           </Link>
