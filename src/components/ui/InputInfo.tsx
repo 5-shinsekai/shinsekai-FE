@@ -24,7 +24,7 @@ export default function InputInfo({
         id={id}
         name={name}
         placeholder=" "
-        className="outline-none text-[0.938rem]"
+        className="outline-none text-[0.9375rem]"
       />
     </div>
   );
