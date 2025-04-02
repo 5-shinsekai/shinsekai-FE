@@ -4,10 +4,14 @@ import MainProductList from '@/components/pages/main/MainProductList';
 import { seasonType } from '@/types/ProductDataTypes';
 export default function MainProductsSection() {
   return (
-    // space-x, space-y
-    <section className="flex flex-col pb-20 pt-10 gap-y-[3.125rem]">
+    <section className="space-y-[3.125rem] pb-20 pt-10">
       {seasons.map((season: seasonType) => (
-        <MainProductList key={season.id} season={season} />
+        <div key={season.id}>
+          <p className="px-6 mb-[1.875rem] text-2xl font-bold">
+            {season.seasonName}
+          </p>
+          <MainProductList season={season} />
+        </div>
       ))}
     </section>
   );
