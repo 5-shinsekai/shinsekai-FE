@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ProductDescription from './ProductDescription';
 import { Button } from '@/components/ui/button';
 import CartIcon from '@/components/ui/icons/CartIcon';
+import ProductPrice from '@/components/commons/ProductPrice';
 export default async function ProductDetail({
   productId,
 }: Readonly<{ productId: string }>) {
@@ -22,8 +23,14 @@ export default async function ProductDetail({
       <p>{productDetail.isBest}</p>
       <p>{productDetail.isNew}</p>
       <p>{productDetail.productSummary}</p>
-      <p>{productDetail.productPrice.toLocaleString()}원</p>
-      <p>{productDetail.discountRate}</p>
+      <ProductPrice
+        price={productDetail.productPrice}
+        discountRate={2}
+        priceClassName={productDetail.discountRate ? 'text-2xl' : 'text-xl'}
+        discountPriceClassName="text-2xl"
+        discountRateClassName="text-2xl"
+        discountContainerClassName="justify-end gap-x-4 flex-row-reverse"
+      />
       <ProductDescription ImagePath={productDetail.productDescriptionPath} />
 
       <div className="flex px-6 pt-4 justify-between bg-white inset-shadow-xs h-28 w-full rounded-t-3xl fixed bottom-0">

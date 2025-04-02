@@ -6,7 +6,7 @@ export default function ScrollableList({
 }: Readonly<{ children: React.ReactNode; className?: string }>) {
   return (
     <ul
-      className={cn('flex overflow-x-scroll shadow px-6', className)}
+      className={cn('flex overflow-x-scroll px-6', className)}
       style={{ scrollbarWidth: 'none' }}
     >
       {children}
