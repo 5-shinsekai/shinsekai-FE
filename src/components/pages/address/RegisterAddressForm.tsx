@@ -7,7 +7,7 @@ import { SelectMemo } from '@/components/ui/selectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import DefaultCheck from '@/components/ui/forms/defaultCheck copy';
 
-export default function RegisterAdressForm() {
+export default function RegisterAddressForm() {
   return (
     <form className="mt-[1.25rem] mb-[10rem]">
       <section className="space-y-[1.25rem]">
