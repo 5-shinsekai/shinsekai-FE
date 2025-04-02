@@ -1,4 +1,3 @@
-import { Chilanka } from 'next/font/google';
 import React from 'react';
 
 export default function StickyHeader({
