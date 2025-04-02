@@ -10,7 +10,7 @@ export default function MainFooter() {
     setIsExpanded((prev) => !prev);
   };
   return (
-    <footer>
+    <footer className="mb-30">
       <div className="bg-custom-gray-200 text-custom-gray-500 h-full items-center px-6 py-4 flex text-[0.6875rem] flex-wrap font-sans gap-x-3 gap-y-1">
         <p>개인정보처리방침</p>|<p>홈페이지 이용약관</p>|
         <p>스타벅스카드 이용약관</p>

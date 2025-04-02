@@ -1,5 +1,5 @@
-import React from "react";
-import { cn } from "@/lib/utils";
+import React from 'react';
+import { cn } from '@/lib/utils';
 export default function DownArrowIcon({
   className,
 }: Readonly<{ className?: string }>) {
@@ -18,6 +18,7 @@ export default function DownArrowIcon({
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className={cn(className)}
       />
     </svg>
   );

@@ -31,7 +31,6 @@ export default function MenuTab({
     query.set(key, updatedValues.join(','));
     return `?${query.toString()}`;
   };
-
   return (
     <>
       <ul
