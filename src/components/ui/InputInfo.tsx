@@ -21,6 +21,8 @@ interface InputInfoPropsType {
   buttonText?: string;
   link?: string;
   readonly?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 function HasButtonInputInfo({
@@ -32,6 +34,8 @@ function HasButtonInputInfo({
   buttonText,
   link,
   readonly = false,
+  className,
+  onChange,
 }: InputInfoPropsType) {
   const router = useRouter();
   return (
@@ -45,7 +49,11 @@ function HasButtonInputInfo({
           placeholder=" "
           readOnly={readonly}
           // required={required}
-          className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
+          onChange={onChange}
+          className={cn(
+            'peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200',
+            className
+          )}
         />
         <label
           htmlFor={id}
@@ -84,6 +92,7 @@ function InputInfo({
   required = false,
   defaultValue = '',
   readonly = false,
+  onChange,
 }: InputInfoPropsType) {
   return (
     <div className="relative w-full pt-4 ">
@@ -94,6 +103,7 @@ function InputInfo({
         defaultValue={defaultValue !== '' ? defaultValue : ''}
         placeholder=" "
         readOnly={readonly}
+        onChange={onChange}
         // required={required}
         className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
       />
