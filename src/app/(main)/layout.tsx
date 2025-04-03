@@ -2,16 +2,17 @@ import MainHeader from '@/components/layouts/MainHeader';
 import MainFooter from '@/components/layouts/MainFooter';
 import React from 'react';
 import MainTabMenu from '@/components/layouts/MainTabMenu';
+import StickyHeader from '@/components/layouts/StickyHeader';
 
 export default function layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="relative">
-      <div className=" sticky top-0 z-10  bg-white">
+      <StickyHeader>
         <MainHeader />
         <MainTabMenu />
-      </div>
+      </StickyHeader>
       {children}
       <MainFooter />
     </div>

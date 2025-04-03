@@ -19,3 +19,17 @@ export interface productType {
   isNew: boolean;
   isBest: boolean;
 }
+
+export interface productDetailType {
+  id: number;
+  productCode: string;
+  productImagePath: string;
+  productDescriptionPath: string[];
+  productPrice: number;
+  title: string;
+  productSummary: string;
+  limitCount: number;
+  discountRate: number;
+  isNew: boolean;
+  isBest: boolean;
+}

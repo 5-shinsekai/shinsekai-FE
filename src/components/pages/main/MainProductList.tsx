@@ -2,6 +2,7 @@ import React from 'react';
 import { productDummyData } from '@/data/DummyData/ProductDummyData';
 import { seasonType } from '@/types/ProductDataTypes';
 import ProductListItem from '../products/ProductListItem';
+import ScrollableList from '@/components/layouts/ScrollableList';
 
 export default function MainProductList({
   season,
@@ -9,19 +10,10 @@ export default function MainProductList({
   // 데이터 fetch 관련 필요 현재 dummy 이용
 
   return (
-    <section>
-      <p className="px-6 mb-[1.875rem] text-2xl font-bold">
-        {season.seasonName}
-      </p>
-      {/* ul 부분은 렌더링 형식 (grid로 보여줄건지 한줄에 스크롤로 보여줄건지)*/}
-      <ul
-        style={{ scrollbarWidth: 'none' }}
-        className="flex flex-nowrap overflow-x-scroll  px-6 gap-x-[1.125rem]"
-      >
-        {productDummyData.map((product) => (
-          <ProductListItem key={product.id} product={product} size={140} />
-        ))}
-      </ul>
-    </section>
+    <ScrollableList className="gap-x-[1.125rem]">
+      {productDummyData.map((product) => (
+        <ProductListItem key={product.id} product={product} size={140} />
+      ))}
+    </ScrollableList>
   );
 }

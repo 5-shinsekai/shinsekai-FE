@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useSearchParams } from 'next/navigation';
 import { MenuBarType } from '@/types/MenuTypes';
-
+import ScrollableList from '@/components/layouts/ScrollableList';
 export default function MenuTab({
   data,
   isDefault,
@@ -31,35 +31,29 @@ export default function MenuTab({
     query.set(key, updatedValues.join(','));
     return `?${query.toString()}`;
   };
-
   return (
-    <>
-      <ul
-        className="flex overflow-x-scroll items-center shadow"
-        style={{ scrollbarWidth: 'none' }}
-      >
-        {data.data.map((item, index) => (
-          <Link
-            href={buildQueryString(menuName, String(item.code))}
+    <ScrollableList className="gap-x-5">
+      {data.data.map((item, index) => (
+        <Link
+          href={buildQueryString(menuName, String(item.code))}
+          key={item.code}
+        >
+          <li
             key={item.code}
+            className={cn(
+              'text-center font-normal text-nowrap py-5',
+              currentValues.includes(String(item.code)) ||
+                (isDefault && currentValues.length === 0 && index === 0)
+                ? 'text-custom-green-200 font-bold'
+                : 'text-custom-gray-500'
+            )}
           >
-            <li
-              key={item.code}
-              className={cn(
-                'text-center font-normal text-nowrap p-5',
-                currentValues.includes(String(item.code)) ||
-                  (isDefault && currentValues.length === 0 && index === 0)
-                  ? 'text-custom-green-200 font-bold'
-                  : 'text-custom-gray-500'
-              )}
-            >
-              {/* 컴포넌트로 안으로 던져서 위로 받는 로직이 필요 한 파일에서 다 진행X */}
-              {/* radio checkbox */}
-              {item.name}
-            </li>
-          </Link>
-        ))}
-      </ul>
-    </>
+            {/* 컴포넌트로 안으로 던져서 위로 받는 로직이 필요 한 파일에서 다 진행X */}
+            {/* radio checkbox */}
+            {item.name}
+          </li>
+        </Link>
+      ))}
+    </ScrollableList>
   );
 }

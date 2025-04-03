@@ -42,7 +42,7 @@ export default function MainTabMenu() {
   }, [pathName]);
 
   return (
-    <div>
+    <>
       <ul className="grid grid-cols-4 h-14 items-center shadow-sm relative">
         {mainTabMenuData.map((menu, index) => (
           <Link href={menu.link} key={menu.id}>
@@ -71,6 +71,6 @@ export default function MainTabMenu() {
           style={{ left: activeMenuStyle.left, width: activeMenuStyle.width }}
         ></div>
       </ul>
-    </div>
+    </>
   );
 }

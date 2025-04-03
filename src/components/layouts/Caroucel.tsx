@@ -1,15 +1,15 @@
 'use client';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import DummyEventImage from '@/components/images/DummyEventImage.png';
 
 export default function Carousel() {
   const items = [
-    { id: 1, src: DummyEventImage, alt: 'main_banner', width: 1920 },
-    { id: 2, src: DummyEventImage, alt: 'main_banner', width: 1920 },
-    { id: 3, src: DummyEventImage, alt: 'main_banner', width: 1920 },
-    { id: 4, src: DummyEventImage, alt: 'main_banner', width: 1920 },
-    { id: 5, src: DummyEventImage, alt: 'main_banner', width: 1920 },
+    { id: 1, src: DummyEventImage, alt: 'main_banner' },
+    { id: 2, src: DummyEventImage, alt: 'main_banner' },
+    { id: 3, src: DummyEventImage, alt: 'main_banner' },
+    { id: 4, src: DummyEventImage, alt: 'main_banner' },
+    { id: 5, src: DummyEventImage, alt: 'main_banner' },
   ];
   // 실제로 쓸 데이터 형식으로
   const extendedItems = [items[items.length - 1], ...items, items[0]]; // 무한 루프를 위한 확장 배열
@@ -23,14 +23,14 @@ export default function Carousel() {
   const prevTranslate = useRef(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const goToNext = useCallback(() => {
-    setTransition(true);
+  const goToNext = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
-  }, []);
+    setTransition(true);
+  };
 
   const goToPrevious = () => {
-    setTransition(true);
     setCurrentIndex((prevIndex) => prevIndex - 1);
+    setTransition(true);
   };
 
   useEffect(() => {
@@ -43,30 +43,25 @@ export default function Carousel() {
   }, [goToNext, isPaused]);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-
     if (currentIndex === 0) {
       // 0번(가장 처음 이전)으로 이동 시
-      timeoutId = setTimeout(() => {
+      setTimeout(() => {
         setTransition(false); // 애니메이션 제거
         setCurrentIndex(extendedItems.length - 2); // 마지막 실제 아이템으로 점프
-      }, 500); // 애니메이션 지속 시간 후 실행
+      }, 500);
     } else if (currentIndex === extendedItems.length - 1) {
       // 마지막 다음(6번)으로 이동 시
-      timeoutId = setTimeout(() => {
+      setTimeout(() => {
         setTransition(false); // 애니메이션 제거
         setCurrentIndex(1); // 첫 번째 실제 아이템으로 점프
-      }, 500); // 애니메이션 지속 시간 후 실행
+      }, 500);
     }
-
-    return () => clearTimeout(timeoutId);
   }, [currentIndex, extendedItems.length]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setIsDragging(true);
     setIsClick(true); // 클릭 여부 초기화
     setIsPaused(true); // 드래그 중 자동 슬라이드 일시 정지
-    setTransition(false); // 드래그 중 애니메이션 비활성화
     startX.current = e.touches[0].clientX;
     prevTranslate.current = -currentIndex * 100; // 현재 위치 기준으로 시작
   };
@@ -87,7 +82,6 @@ export default function Carousel() {
   const handleTouchEnd = () => {
     setIsDragging(false);
     setIsPaused(false); // 드래그 종료 후 자동 슬라이드 재개
-    setTransition(true); // 애니메이션 재활성화
 
     if (isClick) return; // 클릭만 발생한 경우 이동하지 않음
 
@@ -107,17 +101,12 @@ export default function Carousel() {
     }
   };
 
-  const handleMouseEnter = () => setIsPaused(true); // 마우스 오버 시 자동 슬라이드 일시 정지
-  const handleMouseLeave = () => setIsPaused(false); // 마우스 아웃 시 자동 슬라이드 재개
-
   return (
     <div
       className="relative w-full overflow-hidden"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <div
         ref={sliderRef}
@@ -131,7 +120,8 @@ export default function Carousel() {
             <Image
               src={item.src}
               alt={item.alt}
-              width={item.width}
+              width={600}
+              height={600}
               className="w-full md:w-3xl justify-self-center"
             />
           </div>
