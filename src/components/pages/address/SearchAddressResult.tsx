@@ -27,7 +27,7 @@ export default function SearchAdressResult({ search }: Props) {
   useEffect(() => {
     const fetchAddresses = async () => {
       const params = {
-        keyword: search,
+        keyword: search.trim(), // 공백 제거 후 넘겨주기 (띄어쓰기 여러 번 했을 때 검색 안되는 것 방지)
         currentPage: '1',
         countPerPage: '10000',
         resultType: 'json',

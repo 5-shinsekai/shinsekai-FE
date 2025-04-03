@@ -13,7 +13,7 @@ export default function SearchAddressForm() {
 
   const handleInputchange = () => {
     const value = inputRef.current?.value || '';
-    setButtonActive(value.length > 0);
+    setButtonActive(value.length != 0);
   };
 
   const handleSearch = () => {
@@ -24,7 +24,7 @@ export default function SearchAddressForm() {
 
   return (
     <div className="">
-      <div className="">
+      <div className="space-y-3 py-3">
         <input
           onChange={handleInputchange}
           ref={inputRef}
@@ -35,6 +35,7 @@ export default function SearchAddressForm() {
           onClick={handleSearch}
           disabled={!buttonActive}
           color={!buttonActive ? 'gray' : 'green'}
+          className="w-full mx-auto"
         >
           검색
         </Button>

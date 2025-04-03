@@ -1,3 +1,12 @@
+// import React from 'react';
+
+// interface InputInfoPropsType {
+//   id: string;
+//   name: string;
+//   title: string;
+//   required?: boolean;
+// }
+
 import React from 'react';
 
 interface InputInfoPropsType {
@@ -14,18 +23,25 @@ export default function InputInfo({
   required = false,
 }: InputInfoPropsType) {
   return (
-    <div className="flex border-b-1 items-center w-full h-[2.375rem]">
-      <label className="min-w-18 text-[0.938rem] font-medium pr-1">
-        {title}
-        {required && <span className="text-custom-green-200">*</span>}
-      </label>
+    <div className="relative w-full pt-4 ">
       <input
         type="text"
         id={id}
         name={name}
         placeholder=" "
-        className="outline-none text-[0.9375rem] w-full"
+        // required={required}
+        className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
       />
+      <label
+        htmlFor={id}
+        className="absolute left-0 text-[0.938rem] text-gray-600 font-medium ease-in-out duration-150
+          peer-focus:top-0
+          peer-focus:text-xs 
+          peer-focus:text-custom-green-200"
+      >
+        {title}
+        {required && <span className="text-custom-green-200 px-0.5">*</span>}
+      </label>
     </div>
   );
 }
