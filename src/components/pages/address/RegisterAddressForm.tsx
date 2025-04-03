@@ -33,7 +33,7 @@ export default function RegisterAddressForm({
         defaultValue={zipCode}
         title="우편번호"
         buttonText="주소검색"
-        link="searchAddress"
+        link="search-address"
         readonly={true}
       />
       <InputType.InputInfo

@@ -19,7 +19,7 @@ export default function DefaultCheck({ id, children }: AgreeCheckPropsType) {
         <label
           id={id}
           htmlFor="terms"
-          className="text-[0.875rem] text-custom-gray-600 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          className="text-[0.875rem] text-custom-gray-600 font-medium "
         >
           {children}
         </label>

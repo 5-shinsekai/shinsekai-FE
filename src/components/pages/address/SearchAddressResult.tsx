@@ -53,9 +53,10 @@ export default function SearchAdressResult({ search }: Props) {
 
   const handleGetAddress = (address: AddressResult) => {
     router.push(
-      `/registerAddress?roadAddr=${address.roadAddr}&zipCode=${address.zipNo}`
+      `/register-address?roadAddr=${address.roadAddr}&zipCode=${address.zipNo}`
     );
   };
+
   return (
     <div className="mt-4">
       {commonResult?.errorCode == 'E0005' && (

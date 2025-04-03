@@ -7,7 +7,7 @@
 //   required?: boolean;
 // }
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from './button';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -82,26 +82,28 @@ function InputInfo({
   name,
   title,
   required = false,
-  defaultValue = '',
+  // defaultValue = '',
   readonly = false,
 }: InputInfoPropsType) {
+  const [value, setValue] = useState('');
+
   return (
     <div className="relative w-full pt-4 ">
       <input
         type="text"
         id={id}
         name={name}
-        defaultValue={defaultValue !== '' ? defaultValue : ''}
-        placeholder=" "
+        // defaultValue={defaultValue !== '' ? defaultValue : ''}
+        value={value}
         readOnly={readonly}
-        // required={required}
+        onChange={(e) => setValue(e.target.value)}
         className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
       />
       <label
         htmlFor={id}
         className={cn(
           'absolute left-0 text-[0.938rem] text-gray-600 font-medium ease-in-out duration-150',
-          defaultValue
+          value
             ? 'top-0 text-xs text-custom-green-200'
             : 'peer-focus:top-0 peer-focus:text-xs peer-focus:text-custom-green-200'
         )}
