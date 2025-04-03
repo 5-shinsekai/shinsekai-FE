@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 const CaveatFont = Caveat({ subsets: ['latin'] });
 
-export default function NewTag({
+export default function Tag({
   active = false,
   text,
   className,
@@ -12,7 +12,7 @@ export default function NewTag({
   return (
     <>
       {active && (
-        <p
+        <span
           className={cn(
             'text-[0.8125rem] font-bold ',
             CaveatFont.className,
@@ -20,7 +20,7 @@ export default function NewTag({
           )}
         >
           {text}
-        </p>
+        </span>
       )}
     </>
   );
