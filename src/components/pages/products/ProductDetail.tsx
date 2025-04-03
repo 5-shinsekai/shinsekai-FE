@@ -38,7 +38,7 @@ export default async function ProductDetail({
               className="text-custom-red-100 text-sm"
             />
           </div>
-          <ShareIcon className=" min-w-5 size-5" />
+          <ShareIcon className=" min-w-5 size-5 mt-2" />
         </div>
         <p className=" text-xs text-custom-gray-500">
           {productDetail.productSummary}
