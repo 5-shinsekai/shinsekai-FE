@@ -1,17 +1,18 @@
+import localFont from 'next/font/local';
 import type { Metadata } from 'next';
-import { Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Inter } from 'next/font/google';
+
+const pretendard = localFont({
+  src: '../fonts/PretendardVariable.woff2',
+  variable: '--font-pretendard',
+  display: 'swap',
+});
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
 });
 
 // 변경
@@ -37,7 +38,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${inter.variable} ${pretendard.className}  ${pretendard.variable} antialiased`}
+      >
         {children}
       </body>
     </html>
