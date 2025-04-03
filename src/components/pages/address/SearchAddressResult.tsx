@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export default function SearchAdressResult({ search }: Props) {
+  const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_SEARCH_ADRESS_BASE_URL;
   const serviceKey = process.env.NEXT_PUBLIC_SEARCH_ADRESS_SECRET_KEY;
   console.log(serviceKey);
@@ -49,6 +51,11 @@ export default function SearchAdressResult({ search }: Props) {
     fetchAddresses();
   }, [search]);
 
+  const handleGetAddress = (address: AddressResult) => {
+    router.push(
+      `/registerAddress?roadAddr=${address.roadAddr}&zipCode=${address.zipNo}`
+    );
+  };
   return (
     <div className="mt-4">
       {commonResult?.errorCode == 'E0005' && (
@@ -59,7 +66,11 @@ export default function SearchAdressResult({ search }: Props) {
           <p>총 '{commonResult?.totalCount}'건의 검색결과</p>
           <ul className="border rounded p-4">
             {addressResult.map((item, index) => (
-              <li key={index} className="border-1">
+              <li
+                key={index}
+                className="border-1"
+                onClick={() => handleGetAddress(item)}
+              >
                 <p>도로명주소: {item.roadAddr}</p>
                 <p>우편번호: {item.zipNo}</p>
               </li>
