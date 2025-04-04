@@ -49,5 +49,316 @@
         }
       ]
     }
+  ],
+  "categories": [
+    {
+      "categoryId": "1",
+      "categoryName": "머그/컵",
+      "subCategory": [
+        {
+          "keyname": "카테고리",
+          "data": [
+            {
+              "code": "1",
+              "name": "머그"
+            },
+            {
+              "code": "2",
+              "name": "글라스"
+            },
+            {
+              "code": "3",
+              "name": "리유저블"
+            }
+          ]
+        },
+        {
+          "keyname": "사이즈",
+          "data": [
+            {
+              "code": "1",
+              "name": "Tall"
+            },
+            {
+              "code": "2",
+              "name": "Venti"
+            },
+            {
+              "code": "3",
+              "name": "Trenta"
+            }
+          ]
+        },
+        {
+          "keyname": "색상",
+          "data": [
+            {
+              "code": "1",
+              "name": "Black"
+            },
+            {
+              "code": "2",
+              "name": "White"
+            }
+          ]
+        },
+        {
+          "keyname": "시즌",
+          "data": [
+            {
+              "code": "1",
+              "name": "액티브"
+            },
+            {
+              "code": "2",
+              "name": "바디워크 페스티벌"
+            },
+            {
+              "code": "3",
+              "name": "신라오 콜라보"
+            },
+            {
+              "code": "4",
+              "name": "여름"
+            },
+            {
+              "code": "5",
+              "name": "겨울"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "2",
+      "categoryName": "텀블러",
+      "subCategory": [
+        {
+          "keyname": "카테고리",
+          "data": [
+            {
+              "code": "1",
+              "name": "스테인리스"
+            },
+            {
+              "code": "2",
+              "name": "플라스틱"
+            },
+            {
+              "code": "3",
+              "name": "리유저블"
+            }
+          ]
+        },
+        {
+          "keyname": "사이즈",
+          "data": [
+            {
+              "code": "1",
+              "name": "Tall"
+            },
+            {
+              "code": "2",
+              "name": "Grande"
+            },
+            {
+              "code": "3",
+              "name": "Venti"
+            }
+          ]
+        },
+        {
+          "keyname": "색상",
+          "data": [
+            {
+              "code": "1",
+              "name": "Red"
+            },
+            {
+              "code": "2",
+              "name": "Blue"
+            }
+          ]
+        },
+        {
+          "keyname": "시즌",
+          "data": [
+            {
+              "code": "1",
+              "name": "봄"
+            },
+            {
+              "code": "2",
+              "name": "여름"
+            },
+            {
+              "code": "3",
+              "name": "가을"
+            },
+            {
+              "code": "4",
+              "name": "겨울"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "3",
+      "categoryName": "보온병",
+      "subCategory": [
+        {
+          "keyname": "카테고리",
+          "data": [
+            {
+              "code": "1",
+              "name": "스테인리스"
+            },
+            {
+              "code": "2",
+              "name": "플라스틱"
+            }
+          ]
+        },
+        {
+          "keyname": "용량",
+          "data": [
+            {
+              "code": "1",
+              "name": "500ml"
+            },
+            {
+              "code": "2",
+              "name": "750ml"
+            },
+            {
+              "code": "3",
+              "name": "1L"
+            }
+          ]
+        },
+        {
+          "keyname": "색상",
+          "data": [
+            {
+              "code": "1",
+              "name": "Black"
+            },
+            {
+              "code": "2",
+              "name": "Silver"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "4",
+      "categoryName": "악세서리",
+      "subCategory": [
+        {
+          "keyname": "카테고리",
+          "data": [
+            {
+              "code": "1",
+              "name": "스트로우"
+            },
+            {
+              "code": "2",
+              "name": "리드"
+            },
+            {
+              "code": "3",
+              "name": "홀더"
+            }
+          ]
+        },
+        {
+          "keyname": "소재",
+          "data": [
+            {
+              "code": "1",
+              "name": "실리콘"
+            },
+            {
+              "code": "2",
+              "name": "플라스틱"
+            },
+            {
+              "code": "3",
+              "name": "스테인리스"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "5",
+      "categoryName": "기프트 세트",
+      "subCategory": [
+        {
+          "keyname": "구성",
+          "data": [
+            {
+              "code": "1",
+              "name": "머그 + 텀블러"
+            },
+            {
+              "code": "2",
+              "name": "텀블러 + 보온병"
+            },
+            {
+              "code": "3",
+              "name": "머그 + 보온병"
+            }
+          ]
+        },
+        {
+          "keyname": "포장",
+          "data": [
+            {
+              "code": "1",
+              "name": "기본 포장"
+            },
+            {
+              "code": "2",
+              "name": "선물 포장"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "6",
+      "categoryName": "한정판",
+      "subCategory": [
+        {
+          "keyname": "시즌",
+          "data": [
+            {
+              "code": "1",
+              "name": "여름"
+            },
+            {
+              "code": "2",
+              "name": "겨울"
+            }
+          ]
+        },
+        {
+          "keyname": "디자인",
+          "data": [
+            {
+              "code": "1",
+              "name": "콜라보"
+            },
+            {
+              "code": "2",
+              "name": "리미티드 에디션"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

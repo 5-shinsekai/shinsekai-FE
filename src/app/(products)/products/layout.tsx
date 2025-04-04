@@ -9,7 +9,7 @@ export default function layout({
   return (
     <div className="relative">
       <StickyHeader>
-        <MainHeader />
+        <MainHeader className="shadow-md" />
       </StickyHeader>
       {children}
       <MainFooter />

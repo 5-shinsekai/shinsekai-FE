@@ -9,7 +9,8 @@ export default function MenuTab({
   data,
   isDefault,
   isMultiple,
-}: Readonly<MenuBarType>) {
+  className,
+}: Readonly<MenuBarType & { className?: string }>) {
   const menuName = data.keyname;
   const params = useSearchParams();
   const currentValues = params.get(menuName)?.split(',') || [];
@@ -32,16 +33,12 @@ export default function MenuTab({
     return `?${query.toString()}`;
   };
   return (
-    <ScrollableList className="gap-x-5">
+    <ScrollableList className={cn(`gap-x-5`, className)}>
       {data.data.map((item, index) => (
-        <Link
-          href={buildQueryString(menuName, String(item.code))}
-          key={item.code}
-        >
+        <Link href={buildQueryString(menuName, String(item.code))} key={index}>
           <li
-            key={item.code}
             className={cn(
-              'text-center font-normal text-nowrap py-5',
+              'text-center font-normal text-nowrap py-3.5',
               currentValues.includes(String(item.code)) ||
                 (isDefault && currentValues.length === 0 && index === 0)
                 ? 'text-custom-green-200 font-bold'
