@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 import { InputType } from '@/components/ui/InputInfo';
 import { getAddressList } from '@/action/address-service';
 import { addressResultType } from '@/types/addressApiType';
-import { get } from 'http';
 
 export default function SearchAddressForm() {
   const [submitAddressInfo, setSubmitAddressInfo] = useState<string>();
@@ -51,7 +50,7 @@ export default function SearchAddressForm() {
   return (
     <>
       <section className="fixed top-[3.5rem] w-full left-0 bg-white z-5 px-[1.5rem] py-[1.25rem]">
-        <h1 className="text-[1.625rem] font-semibold">어디로 배송할까요?</h1>
+        <h1 className="">어디로 배송할까요?</h1>
         <form onSubmit={handleSearchSubmit} className="space-y-3 py-3 relative">
           <p
             className={cn(
