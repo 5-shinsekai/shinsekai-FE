@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 export default function LoadingIcon({
   className,
-}: Readonly<{ className: string }>) {
+}: Readonly<{ className?: string }>) {
   return (
     <div
       className={cn('flex justify-center items-center space-x-3', className)}
