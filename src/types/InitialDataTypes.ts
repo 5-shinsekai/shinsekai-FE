@@ -9,3 +9,12 @@ export interface mainTabMenuType {
   title: string;
   link: string;
 }
+
+export interface policyDataType {
+  id: number;
+  title: string;
+  sub?: {
+    title: string;
+    policy: policyDataType[];
+  };
+}
