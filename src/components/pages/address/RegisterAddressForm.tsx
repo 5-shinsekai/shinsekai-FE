@@ -16,12 +16,12 @@ export default function RegisterAddressForm({
 }) {
   return (
     <form className="mt-[1.25rem] mb-[10rem] space-y-[1.25rem]">
-      <InputType.InputInfo
+      <InputType.FormInputInfo
         id="address-nickname"
         name="address-nickname"
         title="주소별칭"
       />
-      <InputType.InputInfo
+      <InputType.FormInputInfo
         id="receiver-name"
         name="receiver-name"
         title="받는 분"
@@ -37,16 +37,30 @@ export default function RegisterAddressForm({
         readonly={true}
       />
       <InputType.InputInfo
-        id="4"
-        name="4"
+        id="default-address"
+        name="default-address"
         title="기본주소"
         defaultValue={roadAddr}
         readonly={true}
         required
       />
-      <InputType.InputInfo id="5" name="5" title="상세주소" required />
-      <InputType.InputInfo id="6" name="6" title="연락처1" required />
-      <InputType.InputInfo id="7" name="7" title="연락처2" />
+      <InputType.FormInputInfo
+        id="detailed-address"
+        name="detailed-address"
+        title="상세주소"
+        required
+      />
+      <InputType.FormInputInfo
+        id="phone-number-1"
+        name="phone-number-1"
+        title="연락처1"
+        required
+      />
+      <InputType.FormInputInfo
+        id="phone-number-2"
+        name="phone-number-2"
+        title="연락처2"
+      />
       <SelectMemo />
       <DefaultCheck id="배송지등록" optional>
         기본배송지로 저장합니다.
