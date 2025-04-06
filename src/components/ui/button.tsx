@@ -13,11 +13,11 @@ const buttonVariants = cva(
       },
       size: {
         default:
-          'h-[2.625rem] w-[20.875rem] py-3 text-[0.875rem] rounded-[3.125rem]',
-        sm: 'h-[1.625rem] min-w-[4rem] py-1 text-[0.688rem] rounded-[3.125rem]',
-        md: 'h-[2.75rem] w-[10.375rem] py-[0.84375rem] text-[0.875rem] rounded-[3.125rem]',
-        lg: 'h-[3.125rem] w-[20.875rem] py-[1.03125rem] text-[0.875rem] rounded-3',
-        hug: 'h-9 min-w-[4rem] py-[0.375rem] px-[1.0625rem] text-[0.938rem] rounded-[1.25rem]',
+          'h-[2.625rem] w-[20.875rem] text-[0.875rem] rounded-[3.125rem]',
+        sm: 'h-[1.625rem] min-w-[4rem] text-[0.688rem] rounded-[3.125rem]',
+        md: 'h-[2.75rem] w-[10.375rem] text-[0.875rem] rounded-[3.125rem]',
+        lg: 'h-[3.125rem] w-[20.875rem] text-[0.875rem] rounded-3',
+        hug: 'h-[2.25rem] min-w-[4rem] px-[1.0625rem] text-[0.938rem] rounded-[1.25rem]',
       },
       color: {
         default:

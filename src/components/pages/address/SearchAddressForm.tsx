@@ -2,11 +2,11 @@
 
 import { Button } from '@/components/ui/button';
 import React, { ChangeEvent, useState } from 'react';
-import SearchAddressResult from './SearchAddressResult';
+import GetAddress from './SearchAddressResult';
 import { cn } from '@/lib/utils';
 import { InputType } from '@/components/ui/InputInfo';
 import { getAddressList } from '@/action/address-service';
-import { addressResultType } from '@/types/addressApiType';
+import { addressResultType, searchResultType } from '@/types/addressApiType';
 
 export default function SearchAddressForm() {
   const [submitAddressInfo, setSubmitAddressInfo] = useState<string>();
@@ -15,7 +15,9 @@ export default function SearchAddressForm() {
   });
   const [isActive, setIsActive] = useState(false);
   const [addressList, setAddressList] = useState<addressResultType[]>([]);
-  const [totalCount, setTotalCount] = useState<string>();
+  const [searchResult, setSearchResult] = useState<searchResultType | null>(
+    null
+  );
 
   const handleInputchange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -32,11 +34,11 @@ export default function SearchAddressForm() {
 
   const getData = async (keyword: string) => {
     const res = await getAddressList(keyword, '1', '100');
-    console.log('주소 검색 결과:', res);
     setAddressList(res.results.juso);
-    setTotalCount(res.results.common.totalCount);
+    setSearchResult(res.results.common);
     console.log('주소 검색 결과:', res);
   };
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('주소 검색:', submitAddressInfo);
@@ -49,9 +51,9 @@ export default function SearchAddressForm() {
 
   return (
     <>
-      <section className="fixed top-[3.5rem] w-full left-0 bg-white z-5 px-[1.5rem] py-[1.25rem]">
+      <section className="fixed top-[3.5rem] w-full text-2xl left-0 bg-white z-5 px-[1.5rem] py-[1.25rem]">
         <h1 className="">어디로 배송할까요?</h1>
-        <form onSubmit={handleSearchSubmit} className="space-y-3 py-3 relative">
+        <form onSubmit={handleSearchSubmit} className="space-y-3 pt-3 relative">
           <p
             className={cn(
               'w-fit px-4 py-1 bg-red-400 text-xs text-white rounded-full absolute top-[-1.8rem] left-[-0.3rem]',
@@ -65,6 +67,7 @@ export default function SearchAddressForm() {
           </p>
           <InputType.InputInfo
             onChange={handleInputchange}
+            type="text"
             id="searchAddress"
             name="searchAddress"
             title="주소입력"
@@ -79,16 +82,10 @@ export default function SearchAddressForm() {
             검색
           </Button>
         </form>
-        <p
-          className={cn(
-            'w-full text-right text-green-600 text-xs font-semibold px-4',
-            totalCount ? 'block' : 'hidden'
-          )}
-        >
-          총 {totalCount} 건의 검색결과
-        </p>
       </section>
-      <SearchAddressResult search={addressList} />
+      {searchResult && (
+        <GetAddress searchResult={searchResult} addressList={addressList} />
+      )}
     </>
   );
 }

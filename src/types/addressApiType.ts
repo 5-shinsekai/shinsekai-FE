@@ -24,16 +24,16 @@ export interface addressResultType {
   bdMgtSn: number;
   buldSlno: number;
 }
-
+export interface searchResultType {
+  errorMessage: string;
+  countPerPage: string;
+  totalCount: string;
+  errorCode: string;
+  currentPage: string;
+}
 export interface addressApiType {
   results: {
-    common: {
-      errorMessage: string;
-      countPerPage: string;
-      totalCount: string;
-      errorCode: string;
-      currentPage: string;
-    };
+    common: searchResultType;
     juso: addressResultType[];
   };
 }
