@@ -11,7 +11,7 @@ export default async function ProductDetail({
   productId,
 }: Readonly<{ productId: string }>) {
   const productDetail = await getProductDetail({ productCode: '1' });
-  console.log(productDetail);
+  console.log(productId);
   return (
     <div className="pb-30">
       <Image

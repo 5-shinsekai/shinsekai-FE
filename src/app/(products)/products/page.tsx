@@ -1,7 +1,7 @@
-import MenuTab from '@/components/layouts/MenuTabModule';
+import MenuTab from '@/components/layouts/MenuTab';
 import ProductSubCategory from '@/components/pages/products/ProductSubCategory';
 import { CategoryDataType } from '@/types/ProductDataTypes';
-import React from 'react';
+import React, { Suspense } from 'react';
 export default function page() {
   const Data: CategoryDataType[] = [
     {
@@ -45,7 +45,9 @@ export default function page() {
         isDefault={true}
         isMultiple={false}
       />
-      <ProductSubCategory />
+      <Suspense>
+        <ProductSubCategory />
+      </Suspense>
       <p>상품 정보들입니다</p>
     </div>
   );

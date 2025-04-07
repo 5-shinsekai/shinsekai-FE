@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCategoryList } from '@/actions/product-service';
 import { useSearchParams } from 'next/navigation';
-import MenuTab from '@/components/layouts/MenuTabModule';
+import MenuTab from '@/components/layouts/MenuTab';
 import UpArrowIcon from '@/components/ui/icons/UpArrowIcon';
 import DownArrowIcon from '@/components/ui/icons/DownArrowIcon';
 
