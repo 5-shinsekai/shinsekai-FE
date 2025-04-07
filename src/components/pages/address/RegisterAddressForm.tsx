@@ -12,7 +12,7 @@ import { tempService } from '@/action/input-check';
 interface RegisterAddressFormType {
   addressNickname: string;
   receiverName: string;
-  detailedAddress: string;
+  RoadAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
   roadAddr: string;
@@ -22,7 +22,7 @@ interface RegisterAddressFormType {
 export default function RegisterAddressForm({
   addressNickname,
   receiverName,
-  detailedAddress,
+  RoadAddress,
   firstPhoneNumber,
   secondPhoneNumber,
   roadAddr,
@@ -37,7 +37,7 @@ RegisterAddressFormType) {
   >({
     addressNickname: '',
     receiverName: '',
-    detailedAddress: '',
+    RoadAddress: '',
     firstPhoneNumber: '',
     secondPhoneNumber: '',
   });
@@ -115,8 +115,8 @@ RegisterAddressFormType) {
       />
       <InputType.InputInfo
         type="text"
-        id="default-address"
-        name="default-address"
+        id="RoadAddress"
+        name="RoadAddress"
         title="기본주소"
         defaultValue={roadAddr}
         readonly={true}
@@ -126,7 +126,7 @@ RegisterAddressFormType) {
         type="text"
         id="detailedAddress"
         name="detailedAddress"
-        defaultValue={detailedAddress}
+        defaultValue={RoadAddress}
         title="상세주소"
         onChange={handleChange}
         required

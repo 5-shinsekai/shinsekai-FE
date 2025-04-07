@@ -6,7 +6,7 @@ import { CategoryData } from '@/data/DummyData/CategoryDummyData';
 import { productDummyData } from '@/data/DummyData/ProductDummyData';
 import React, { Suspense } from 'react';
 
-export default function page() {
+export default function Page() {
   return (
     <div>
       <MenuTab
@@ -14,15 +14,13 @@ export default function page() {
         isDefault={true}
         isMultiple={false}
       />
-     <Suspense>
-
-      <ProductSubCategory />
-              </Suspense>
+      <Suspense>
+        <ProductSubCategory />
+      </Suspense>
 
       <ProductListArticle data={productDummyData} />
 
       <LoadingIcon />
-
     </div>
   );
 }

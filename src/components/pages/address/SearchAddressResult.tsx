@@ -15,12 +15,12 @@ export default function GetAddress({
 
   const handleGetAddress = (address: addressResultType) => {
     const currentInputValues = new URLSearchParams(InputValues.toString());
-    console.log(currentInputValues);
-    router.push(
-      `/register-address?${currentInputValues.toString()}&roadAddr=${address.roadAddr}&zipCode=${address.zipNo}`
-    );
-  };
 
+    currentInputValues.set('roadAddr', address.roadAddr);
+    currentInputValues.set('zipCode', address.zipCode);
+
+    router.push(`/register-address?${currentInputValues.toString()}`);
+  };
   if (searchResult.errorCode !== '0') {
     return (
       <section className="mt-[20rem]">
@@ -52,7 +52,7 @@ export default function GetAddress({
               className="py-4 border-b-1 border-b-gray-200 cursor-pointer"
               onClick={() => handleGetAddress(item)}
             >
-              <p>{item.zipNo}</p>
+              <p>{item.zipCode}</p>
               <p>{item.roadAddr}</p>
             </li>
           ))}
