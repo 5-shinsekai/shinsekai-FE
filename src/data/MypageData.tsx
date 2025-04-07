@@ -53,7 +53,7 @@ export const deliveryStatusData: deliveryStatusType[] = [
   {
     id: 1,
     title: '결제완료',
-    count: 1,
+    count: 0,
     link: './결제완료',
   },
   {

@@ -15,9 +15,9 @@ export default function GetAddress({
 
   const handleGetAddress = (address: addressResultType) => {
     const currentInputValues = new URLSearchParams(InputValues.toString());
-
+    console.log(typeof address.zipNo, address.zipNo);
     currentInputValues.set('roadAddr', address.roadAddr);
-    currentInputValues.set('zipCode', address.zipCode);
+    currentInputValues.set('zipNo', address.zipNo.toString());
 
     router.push(`/register-address?${currentInputValues.toString()}`);
   };
@@ -52,7 +52,7 @@ export default function GetAddress({
               className="py-4 border-b-1 border-b-gray-200 cursor-pointer"
               onClick={() => handleGetAddress(item)}
             >
-              <p>{item.zipCode}</p>
+              <p>{item.zipNo}</p>
               <p>{item.roadAddr}</p>
             </li>
           ))}

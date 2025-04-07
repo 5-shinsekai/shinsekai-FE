@@ -12,32 +12,32 @@ import { tempService } from '@/action/input-check';
 interface RegisterAddressFormType {
   addressNickname: string;
   receiverName: string;
-  RoadAddress: string;
+  detailedAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
   roadAddr: string;
-  zipCode: string;
+  zipNo: string;
 }
 
 export default function RegisterAddressForm({
   addressNickname,
   receiverName,
-  RoadAddress,
+  detailedAddress,
   firstPhoneNumber,
   secondPhoneNumber,
   roadAddr,
-  zipCode,
+  zipNo,
   // roadAddr,
-  // zipCode,
+  // zipNo,
 }: // roadAddr: string;
-// zipCode: string;
+// zipNo: string;
 RegisterAddressFormType) {
   const [inputValues, setInputValues] = useState<
     Partial<RegisterAddressFormType>
   >({
     addressNickname: '',
     receiverName: '',
-    RoadAddress: '',
+    detailedAddress: '',
     firstPhoneNumber: '',
     secondPhoneNumber: '',
   });
@@ -68,10 +68,12 @@ RegisterAddressFormType) {
       });
       setErrorMessages(fieldErros);
       setIsActive(false);
+      console.log('에러');
       // console.log(errorMessages);
     } else {
       setErrorMessages({});
       setIsActive(true);
+      console.log('성공');
     }
   };
 
@@ -105,9 +107,9 @@ RegisterAddressFormType) {
       />
       <InputType.HasButtonInputInfo
         type="text"
-        id="zipcode"
-        name="zipcode"
-        defaultValue={zipCode}
+        id="zipNo"
+        name="zipNo"
+        defaultValue={zipNo}
         title="우편번호"
         buttonText="주소검색"
         link={`search-address?${queryString}`}
@@ -115,8 +117,8 @@ RegisterAddressFormType) {
       />
       <InputType.InputInfo
         type="text"
-        id="RoadAddress"
-        name="RoadAddress"
+        id="roadAddr"
+        name="roadAddr"
         title="기본주소"
         defaultValue={roadAddr}
         readonly={true}
@@ -126,7 +128,7 @@ RegisterAddressFormType) {
         type="text"
         id="detailedAddress"
         name="detailedAddress"
-        defaultValue={RoadAddress}
+        defaultValue={detailedAddress}
         title="상세주소"
         onChange={handleChange}
         required

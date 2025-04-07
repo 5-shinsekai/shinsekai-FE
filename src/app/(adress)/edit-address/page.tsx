@@ -4,11 +4,11 @@ import RegisterAddressForm from '@/components/pages/address/RegisterAddressForm'
 interface RegisterAddressFormType {
   addressNickname: string;
   receiverName: string;
-  RoadAddress: string;
+  detailedAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
   roadAddr: string;
-  zipCode: string;
+  zipNo: string;
 }
 
 export default async function page({
@@ -19,11 +19,11 @@ export default async function page({
   const {
     addressNickname,
     receiverName,
-    RoadAddress,
+    detailedAddress,
     firstPhoneNumber,
     secondPhoneNumber,
     roadAddr,
-    zipCode,
+    zipNo,
   } = await searchParams;
 
   return (
@@ -38,8 +38,8 @@ export default async function page({
         receiverName={decodeURIComponent(
           receiverName === undefined ? '' : receiverName
         )}
-        RoadAddress={decodeURIComponent(
-          RoadAddress === undefined ? '' : RoadAddress
+        detailedAddress={decodeURIComponent(
+          detailedAddress === undefined ? '' : detailedAddress
         )}
         firstPhoneNumber={decodeURIComponent(
           firstPhoneNumber === undefined ? '' : firstPhoneNumber
@@ -48,7 +48,7 @@ export default async function page({
           secondPhoneNumber === undefined ? '' : secondPhoneNumber
         )}
         roadAddr={decodeURIComponent(roadAddr === undefined ? '' : roadAddr)}
-        zipCode={decodeURIComponent(zipCode === undefined ? '' : zipCode)}
+        zipNo={decodeURIComponent(zipNo === undefined ? '' : zipNo)}
       />
     </main>
   );
