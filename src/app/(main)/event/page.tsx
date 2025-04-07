@@ -4,6 +4,8 @@ import EventDummyImage from '@/components/images/EventDummyImage.png';
 import Image from 'next/image';
 import MenuTab from '@/components/layouts/MenuTab';
 import { eventData } from '@/data/DummyData/CategoryDummyData';
+import { productDummyData } from '@/data/DummyData/ProductDummyData';
+
 export default function page() {
   return (
     <main>
@@ -18,7 +20,7 @@ export default function page() {
         alt="EventDummyImage"
         className=" w-full md:w-3xl justify-self-center"
       />
-      <ProductList />
+      <ProductList data={productDummyData} />
     </main>
   );
 }
