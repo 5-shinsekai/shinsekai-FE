@@ -23,7 +23,7 @@ export function SelectMemo() {
   return (
     <div className="w-full">
       <label className="font-medium text-[0.75rem]">배송메모</label>
-      <Select onValueChange={handleSelectMemo}>
+      <Select name="deliveryMemo" onValueChange={handleSelectMemo}>
         <SelectTrigger className="w-full text-[0.938rem] font-medium border-b-1 border-t-0 border-x-0 rounded-none *outline-none p-0">
           <SelectValue placeholder="배송 메모를 선택해 주세요." className="" />
         </SelectTrigger>

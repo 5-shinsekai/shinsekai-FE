@@ -1,6 +1,5 @@
 'use client';
 
-import { z } from 'zod';
 import React, { useState } from 'react';
 import { InputType } from '@/components/ui/InputInfo';
 import { Button } from '@/components/ui/button';
@@ -8,8 +7,7 @@ import { SelectMemo } from '@/components/ui/selectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { registerAddressSchema } from '@/schemas/registerAddressSchema';
-import { error } from 'console';
-import { DeliveryMemo } from '@/data/DummyData/DeliveryMemoData';
+import { tempService } from '@/action/input-check';
 
 interface RegisterAddressFormType {
   addressNickname: string;
@@ -17,28 +15,38 @@ interface RegisterAddressFormType {
   detailedAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
+  roadAddr: string;
+  zipCode: string;
 }
 
 export default function RegisterAddressForm({
+  addressNickname,
+  receiverName,
+  detailedAddress,
+  firstPhoneNumber,
+  secondPhoneNumber,
   roadAddr,
   zipCode,
-}: {
-  roadAddr: string;
-  zipCode: string;
-}) {
-  const [inputValues, setInputValues] = useState<RegisterAddressFormType>({
+  // roadAddr,
+  // zipCode,
+}: // roadAddr: string;
+// zipCode: string;
+RegisterAddressFormType) {
+  const [inputValues, setInputValues] = useState<
+    Partial<RegisterAddressFormType>
+  >({
     addressNickname: '',
     receiverName: '',
     detailedAddress: '',
     firstPhoneNumber: '',
     secondPhoneNumber: '',
   });
+
   const [errorMessages, setErrorMessages] = useState<
     Partial<RegisterAddressFormType>
   >({});
   const [isActive, setIsActive] = useState(false);
-  // const [deliveryMemo, setDeliveryMemo] = useState<string>('');
-  // const [isDefaultAddress, setIsDefaultAddress] = useState<boolean>(false);
+  const [queryString, setQueryString] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -49,7 +57,9 @@ export default function RegisterAddressForm({
       ...inputValues,
       [name]: value,
     });
-    console.log(res);
+    const searchParams = new URLSearchParams(Object.entries(inputValues));
+    setQueryString(searchParams.toString());
+    console.log(queryString);
     if (!res.success) {
       const fieldErros: Partial<RegisterAddressFormType> = {};
       res.error.errors.forEach((error) => {
@@ -58,35 +68,22 @@ export default function RegisterAddressForm({
       });
       setErrorMessages(fieldErros);
       setIsActive(false);
-      console.log(errorMessages);
+      // console.log(errorMessages);
     } else {
       setErrorMessages({});
       setIsActive(true);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const payload = {
-      ...inputValues,
-      // deliveryMemo,
-      // isDefaultAddress,
-      zipCode,
-      roadAddr,
-    };
-
-    console.log('배송지등록정보:', payload);
-  };
-
   return (
     <form
+      action={tempService}
       className="mt-[1.25rem] mb-[10rem] space-y-[1.25rem]"
-      onSubmit={handleSubmit}
     >
       <InputType.FormInputInfo
         id="addressNickname"
         name="addressNickname"
+        defaultValue={addressNickname}
         title="주소별칭"
         onChange={handleChange}
         type="text"
@@ -98,6 +95,7 @@ export default function RegisterAddressForm({
         type="text"
         id="receiverName"
         name="receiverName"
+        defaultValue={receiverName}
         title="받는 분"
         onChange={handleChange}
         required
@@ -112,7 +110,7 @@ export default function RegisterAddressForm({
         defaultValue={zipCode}
         title="우편번호"
         buttonText="주소검색"
-        link="search-address"
+        link={`search-address?${queryString}`}
         readonly={true}
       />
       <InputType.InputInfo
@@ -128,6 +126,7 @@ export default function RegisterAddressForm({
         type="text"
         id="detailedAddress"
         name="detailedAddress"
+        defaultValue={detailedAddress}
         title="상세주소"
         onChange={handleChange}
         required
@@ -136,6 +135,7 @@ export default function RegisterAddressForm({
         type="text"
         id="firstPhoneNumber"
         name="firstPhoneNumber"
+        defaultValue={firstPhoneNumber}
         title="연락처1"
         onChange={handleChange}
         required
@@ -147,6 +147,7 @@ export default function RegisterAddressForm({
         type="text"
         id="secondPhoneNumber"
         name="secondPhoneNumber"
+        defaultValue={secondPhoneNumber}
         onChange={handleChange}
         title="연락처2"
         errorMessage={
