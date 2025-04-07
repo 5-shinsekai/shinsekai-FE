@@ -1,9 +1,7 @@
 import MenuTab from '@/components/layouts/MenuTab';
-import ProductListArticle from '@/components/pages/products/ProductList';
 import ProductSubCategory from '@/components/pages/products/ProductSubCategory';
-import LoadingIcon from '@/components/ui/icons/LoadingIcon';
 import { CategoryData } from '@/data/DummyData/CategoryDummyData';
-import { productDummyData } from '@/data/DummyData/ProductDummyData';
+import AllProductList from '@/components/pages/products/AllProductList';
 import React, { Suspense } from 'react';
 
 export default function page() {
@@ -14,15 +12,10 @@ export default function page() {
         isDefault={true}
         isMultiple={false}
       />
-     <Suspense>
-
-      <ProductSubCategory />
-              </Suspense>
-
-      <ProductListArticle data={productDummyData} />
-
-      <LoadingIcon />
-
+      <Suspense>
+        <ProductSubCategory />
+        <AllProductList />
+      </Suspense>
     </div>
   );
 }

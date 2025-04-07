@@ -28,7 +28,7 @@ export default function MenuTabModule({
     } else {
       updatedValues = [value];
     }
-
+    query.set('page', '1');
     query.set(key, updatedValues.join(','));
     return `?${query.toString()}`;
   };
