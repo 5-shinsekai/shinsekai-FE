@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: 009160040466.dkr.ecr.ap-northeast-2.amazonaws.com/shinsekai-frontend:latest
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:3000"
