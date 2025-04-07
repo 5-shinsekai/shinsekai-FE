@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from './button';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface InputInfoPropsType {
   id: string;
