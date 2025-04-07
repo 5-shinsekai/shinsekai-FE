@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from './button';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface InputInfoPropsType {
   id: string;
@@ -16,6 +16,8 @@ interface InputInfoPropsType {
   readonly?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  type: string;
+  errorMessage?: string;
 }
 
 function HasButtonInputInfo({
@@ -41,7 +43,7 @@ function HasButtonInputInfo({
           defaultValue={defaultValue ? defaultValue : ''}
           placeholder=" "
           readOnly={readonly}
-          // required={required}
+          required={required}
           onChange={onChange}
           className={cn(
             'peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200',
@@ -103,7 +105,7 @@ function InputInfo({
         placeholder=" "
         readOnly={readonly}
         onChange={handleChange}
-        // required={required}
+        required={required}
         className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
       />
       <label
@@ -122,32 +124,87 @@ function InputInfo({
   );
 }
 
+// function FormInputInfo({
+//   id,
+//   name,
+//   title,
+//   required = false,
+//   readonly = false,
+//   type,
+// }: InputInfoPropsType) {
+//   const [value, setValue] = useState('');
+//   // const [click, setClick] = useState(0);
+//   // const [focus, setFocus] = useState(false);
+//   // console.log(click);
+
+//   return (
+//     <div className="relative w-full pt-4 ">
+//       <input
+//         type={type}
+//         id={id}
+//         name={name}
+//         placeholder=" "
+//         readOnly={readonly}
+//         // onClick={() => setClick(click + 1)}
+//         // onFocus={() => setFocus(true)}
+//         // onBlur={() => setFocus(false)}
+//         onChange={(e) => setValue(e.target.value)}
+//         // required={required}
+//         className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
+//       />
+//       <label
+//         htmlFor={id}
+//         className={cn(
+//           'absolute left-0 text-[0.938rem] text-gray-600 font-medium ease-in-out duration-150',
+//           value
+//             ? 'top-0 text-xs text-custom-green-200'
+//             : 'peer-focus:top-0 peer-focus:text-xs peer-focus:text-custom-green-200'
+//         )}
+//       >
+//         {title}
+//         {required && <span className="text-custom-green-200 px-0.5">*</span>}
+//       </label>
+//       {/* {click > 0 && !focus && value.trim() === '' && (
+//         <p className="text-xs top-1 text-red-500">error 메시지 출력하기</p>
+//       )} */}
+//     </div>
+//   );
+// }
+
 function FormInputInfo({
   id,
   name,
   title,
   required = false,
   readonly = false,
+  defaultValue = '',
+  onChange,
+  errorMessage = '',
 }: InputInfoPropsType) {
-  const [value, setValue] = useState('');
-  const [click, setClick] = useState(0);
-  const [focus, setFocus] = useState(false);
-  console.log(click);
+  const [value, setValue] = useState(defaultValue);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    if (onChange) onChange(e);
+  };
 
   return (
-    <div className="relative w-full pt-4 ">
+    <div className="relative w-full pt-4">
       <input
         type="text"
         id={id}
         name={name}
+        value={value}
         placeholder=" "
         readOnly={readonly}
-        onClick={() => setClick(click + 1)}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        onChange={(e) => setValue(e.target.value)}
-        // required={required}
-        className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
+        onChange={handleChange}
+        required={required}
+        className={cn(
+          'peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150',
+          'border-gray-300 focus:border-custom-green-200',
+          readonly && 'bg-gray-100 cursor-not-allowed',
+          errorMessage && 'border-red-500 focus:border-red-500'
+        )}
       />
       <label
         htmlFor={id}
@@ -161,8 +218,8 @@ function FormInputInfo({
         {title}
         {required && <span className="text-custom-green-200 px-0.5">*</span>}
       </label>
-      {click > 0 && !focus && value.trim() === '' && (
-        <p className="text-xs top-1 text-red-500">error 메시지 출력하기</p>
+      {errorMessage !== '' && (
+        <p className="text-xs mt-1 text-red-500">{errorMessage}</p>
       )}
     </div>
   );

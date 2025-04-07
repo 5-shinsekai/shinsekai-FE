@@ -1,5 +1,3 @@
-import { navBackButton, navRightMenuData } from '@/data/InitialData';
-import { gnbMenuType } from '@/types/InitialDataTypes';
 import LeftArrowIcon from '../ui/icons/LeftArrowIcon';
 import CloseIcon from '../ui/icons/CloseIcon';
 import React from 'react';
