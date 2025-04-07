@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
 import { MenuBarType } from '@/types/MenuTypes';
 import ScrollableList from '@/components/layouts/ScrollableList';
-export default function MenuTab({
+export default function MenuTabModule({
   data,
   isDefault,
   isMultiple,

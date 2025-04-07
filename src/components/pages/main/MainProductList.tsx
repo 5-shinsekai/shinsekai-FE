@@ -8,7 +8,7 @@ export default function MainProductList({
   season,
 }: Readonly<{ season: seasonType }>) {
   // 데이터 fetch 관련 필요 현재 dummy 이용
-
+  console.log(season);
   return (
     <ScrollableList className="gap-x-[1.125rem]">
       {productDummyData.map((product) => (

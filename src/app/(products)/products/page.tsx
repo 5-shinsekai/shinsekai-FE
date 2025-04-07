@@ -1,10 +1,11 @@
-import MenuTab from '@/components/layouts/MenuTabModule';
+import MenuTab from '@/components/layouts/MenuTab';
 import ProductListArticle from '@/components/pages/products/ProductList';
 import ProductSubCategory from '@/components/pages/products/ProductSubCategory';
 import LoadingIcon from '@/components/ui/icons/LoadingIcon';
 import { CategoryData } from '@/data/DummyData/CategoryDummyData';
 import { productDummyData } from '@/data/DummyData/ProductDummyData';
-import React from 'react';
+import React, { Suspense } from 'react';
+
 export default function page() {
   return (
     <div>
@@ -13,10 +14,15 @@ export default function page() {
         isDefault={true}
         isMultiple={false}
       />
+     <Suspense>
+
       <ProductSubCategory />
+              </Suspense>
+
       <ProductListArticle data={productDummyData} />
 
       <LoadingIcon />
+
     </div>
   );
 }
