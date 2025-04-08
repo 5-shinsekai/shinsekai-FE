@@ -4,10 +4,9 @@ import ProductList from './ProductList';
 import LoadingIcon from '@/components/ui/icons/LoadingIcon';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import { getAllProductList } from '@/actions/product-service';
+// import { getAllProductList } from '@/actions/product-service';
 import { productType } from '@/types/ProductDataTypes';
 import { cn } from '@/lib/utils';
-import { set } from 'zod';
 
 export default function AllProductList({
   data,
