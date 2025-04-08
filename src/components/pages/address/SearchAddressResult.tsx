@@ -21,7 +21,7 @@ export default function GetAddress({
 
     router.push(`/register-address?${currentInputValues.toString()}`);
   };
-  if (searchResult.errorCode !== '0') {
+  if (searchResult.errorCode !== '0' || searchResult.totalCount === '0') {
     return (
       <section className="mt-[20rem]">
         <p className="text-center text-xs text-red-700">

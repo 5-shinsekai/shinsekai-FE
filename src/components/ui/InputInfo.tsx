@@ -89,7 +89,6 @@ function InputInfo({
   title,
   required = false,
   defaultValue = '',
-  value,
   readonly = false,
   onChange,
 }: InputInfoPropsType) {
@@ -110,7 +109,7 @@ function InputInfo({
         htmlFor={id}
         className={cn(
           'absolute left-0 text-[0.938rem] text-gray-600 font-medium ease-in-out duration-150',
-          value
+          defaultValue
             ? 'top-0 text-xs text-custom-green-200'
             : 'peer-focus:top-0 peer-focus:text-xs peer-focus:text-custom-green-200'
         )}
@@ -208,7 +207,7 @@ function FormInputInfo({
         htmlFor={id}
         className={cn(
           'absolute left-0 text-[0.938rem] text-gray-600 font-medium ease-in-out duration-150',
-          value
+          defaultValue
             ? 'top-0 text-xs text-custom-green-200'
             : 'peer-focus:top-0 peer-focus:text-xs peer-focus:text-custom-green-200'
         )}

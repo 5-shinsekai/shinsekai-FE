@@ -13,6 +13,7 @@ export default function page() {
     const secondPhoneNumber = addressForm.get('secondPhoneNumber');
     const deliveryMemo = addressForm.get('deliveryMemo');
     const defaultAddress = addressForm.get('defaultAddress');
+    const isDirectInputMemo = addressForm.get('isDirectInputMemo');
     const addressData = {
       addressNickname,
       receiverName,
@@ -23,6 +24,7 @@ export default function page() {
       secondPhoneNumber,
       deliveryMemo,
       defaultAddress,
+      isDirectInputMemo,
     };
     console.log(addressData);
     // const res = await fetch('/api/address', {
