@@ -2,8 +2,8 @@
 import React from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
-import UpArrowIcon from '@/components/ui/icons/UpArrowIcon';
-import DownArrowIcon from '@/components/ui/icons/DownArrowIcon';
+import { cn } from '@/lib/utils';
+import { ChevronUp } from 'lucide-react';
 export default function ProductDescription({
   ImagePath,
 }: Readonly<{ ImagePath: string[] }>) {
@@ -11,6 +11,8 @@ export default function ProductDescription({
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
+  // overflow 활용 - hidden 높이 조절
+  // 컴포넌트 분리하기
   return (
     <div className="relative">
       {isExpanded
@@ -38,15 +40,16 @@ export default function ProductDescription({
         className="flex justify-center items-center h-12 text-md mt-6 bg-white text-center w-5/6 rounded-full shadow-md inset-shadow-sm mx-auto"
         onClick={toggleExpand}
       >
-        {isExpanded ? (
-          <>
-            상품정보 접기 <UpArrowIcon className="stroke-black" />
-          </>
-        ) : (
-          <>
-            상품정보 더보기 <DownArrowIcon className="stroke-black" />
-          </>
-        )}
+        <p className="w-[120px] text-left pr-2">
+          상품접기{isExpanded ? '접기' : '더보기'}
+        </p>
+        <ChevronUp
+          size={16}
+          className={cn(
+            isExpanded ? 'rotate-0' : 'rotate-180',
+            'stroke-black transition-all'
+          )}
+        />
       </div>
     </div>
   );

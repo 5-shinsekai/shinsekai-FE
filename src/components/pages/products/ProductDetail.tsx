@@ -23,10 +23,8 @@ export default async function ProductDetail({
       />
       <div id="productSummary" className="p-6 space-y-4">
         <div className="flex justify-between">
-          <div className="space-x-1 items-center">
-            <span className=" text-[1.375rem] font-bold">
-              {productDetail.title}
-            </span>
+          <h1 className=" text-[1.375rem] font-bold w-fit ">
+            {productDetail.title}
             <Tag
               active={productDetail.isNew}
               text="new"
@@ -37,12 +35,12 @@ export default async function ProductDetail({
               text="best"
               className="text-custom-red-100 text-sm"
             />
-          </div>
+          </h1>
           <ShareIcon className=" min-w-5 size-5 mt-2" />
         </div>
-        <p className=" text-xs text-custom-gray-500">
+        <h2 className=" text-xs text-custom-gray-500">
           {productDetail.productSummary}
-        </p>
+        </h2>
         <ProductPrice
           price={productDetail.productPrice}
           discountRate={2}
