@@ -1,6 +1,7 @@
 'use client';
 
 import { Checkbox } from '@/components/ui/checkbox';
+import { cn } from '@/lib/utils';
 
 interface AgreeCheckPropsType {
   id: string;
@@ -18,7 +19,7 @@ export default function DefaultCheck({
   defaultChecked = false,
 }: AgreeCheckPropsType) {
   return (
-    <div className="flex mt-[1.875rem] items-center">
+    <div className={cn('flex items-center', className)}>
       <div className="flex items-center space-x-2 flex-1">
         <Checkbox
           id={id}
