@@ -6,7 +6,7 @@ import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { InputType } from '@/components/ui/InputInfo';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import { registerCardSchema } from '@/schemas/registerCardSchema';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface RegisterStarbucksCardFormType {
   cardName: string;
@@ -15,25 +15,18 @@ interface RegisterStarbucksCardFormType {
 }
 
 export default function RegisterStarbucksCardForm() {
+  const [isValid, setIsValid] = useState(false);
   const [inputValues, setInputValues] = useState<RegisterStarbucksCardFormType>(
-    {
-      cardName: '',
-      cardNumber: '',
-      pinNumber: '',
-    }
+    {} as RegisterStarbucksCardFormType
   );
-  const [validCheck, setvalidCheck] = useState<RegisterStarbucksCardFormType>({
-    cardName: '0',
-    cardNumber: '0',
-    pinNumber: '0',
-  });
 
-  const [errorMessages, setErrorMessages] =
-    useState<RegisterStarbucksCardFormType>({
-      cardName: '',
-      cardNumber: '',
-      pinNumber: '',
-    });
+  const [errorMessages, setErrorMessages] = useState<
+    Partial<RegisterStarbucksCardFormType>
+  >({
+    cardName: '',
+    cardNumber: '',
+    pinNumber: '',
+  });
   //   useEffect(() => {
   //     const res = registerCardSchema.safeParse(inputValues);
 
@@ -59,44 +52,51 @@ export default function RegisterStarbucksCardForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log(name, value);
 
-    const current = {
-      ...inputValues,
-      [name]: value,
-    };
-
-    setInputValues(current);
-
-    setvalidCheck((prev) => ({
+    setInputValues((prev) => ({
       ...prev,
-      [name]: '1',
+      [name]: value,
     }));
 
-    if (validCheck[name as keyof RegisterStarbucksCardFormType] === '1') {
-      const res = registerCardSchema.safeParse(current);
-
-      if (!res.success) {
-        const fieldErrors: Partial<RegisterStarbucksCardFormType> = {};
-        res.error.errors.forEach((error) => {
-          const fieldName = error
-            .path[0] as keyof RegisterStarbucksCardFormType;
-          fieldErrors[fieldName] = error.message;
-        });
-
-        setErrorMessages((prev) => ({
-          ...prev,
-          ...fieldErrors,
-        }));
-
-        console.log(errorMessages);
-      } else {
-        setErrorMessages((prev) => ({
-          ...prev,
-          [name]: '',
-        }));
-      }
+    const res = registerCardSchema.safeParse({
+      ...inputValues,
+      [name]: value,
+    });
+    if (!res.success) {
+      const fieldErrors: Partial<RegisterStarbucksCardFormType> = {};
+      res.error.errors.forEach((error) => {
+        const fieldName = error.path[0] as keyof RegisterStarbucksCardFormType;
+        fieldErrors[fieldName] = error.message;
+      });
+      setErrorMessages(fieldErrors);
     }
   };
+
+  useEffect(() => {
+    const res = registerCardSchema.safeParse(inputValues);
+    console.log(res);
+    if (!res.success) {
+      const fieldErrors: Partial<RegisterStarbucksCardFormType> = {};
+      res.error.errors.forEach((error) => {
+        const fieldName = error.path[0] as keyof RegisterStarbucksCardFormType;
+        fieldErrors[fieldName] = error.message;
+      });
+
+      setErrorMessages((prev) => ({
+        ...prev,
+        ...fieldErrors,
+      }));
+      setIsValid(false);
+    } else {
+      setErrorMessages({
+        cardName: '',
+        cardNumber: '',
+        pinNumber: '',
+      });
+      setIsValid(true);
+    }
+  }, [inputValues]);
 
   return (
     <form action={tempService} className="mx-4 my-10 space-y-15">
@@ -105,27 +105,27 @@ export default function RegisterStarbucksCardForm() {
         name="cardName"
         title="카드명 최대 20자 (선택)"
         onChange={handleChange}
-        defaultValue={inputValues.cardName ? inputValues.cardName : ''}
+        defaultValue={inputValues.cardName}
         type="text"
-        errorMessage={errorMessages.cardName ? errorMessages.cardName : ''}
+        errorMessage={errorMessages.cardName}
       />
       <InputType.FormInputInfo
         id="cardNumber"
         name="cardNumber"
         title="스타벅스 카드번호 16자리 (필수)"
         onChange={handleChange}
-        defaultValue={inputValues.cardNumber ? inputValues.cardNumber : ''}
+        defaultValue={inputValues.cardNumber}
         type="text"
-        errorMessage={errorMessages.cardNumber ? errorMessages.cardNumber : ''}
+        errorMessage={errorMessages.cardNumber}
       />
       <InputType.FormInputInfo
         id="pinNumber"
         name="pinNumber"
         title="pin번호 8자리 (필수)"
         onChange={handleChange}
-        defaultValue={inputValues.pinNumber ? inputValues.pinNumber : ''}
+        defaultValue={inputValues.pinNumber}
         type="text"
-        errorMessage={errorMessages.pinNumber ? errorMessages.pinNumber : ''}
+        errorMessage={errorMessages.pinNumber}
       />
 
       <ButtonWrapper>
@@ -136,7 +136,7 @@ export default function RegisterStarbucksCardForm() {
         >
           {'스타벅스 카드 이용약관 동의 [필수]'}
         </DefaultCheck>
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={!isValid}>
           등록하기
         </Button>
       </ButtonWrapper>
