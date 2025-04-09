@@ -15,13 +15,13 @@ export default function GetAddress({
 
   const handleGetAddress = (address: addressResultType) => {
     const currentInputValues = new URLSearchParams(InputValues.toString());
-    console.log(currentInputValues);
-    router.push(
-      `/register-address?${currentInputValues.toString()}&roadAddr=${address.roadAddr}&zipCode=${address.zipNo}`
-    );
-  };
+    console.log(typeof address.zipNo, address.zipNo);
+    currentInputValues.set('roadAddr', address.roadAddr);
+    currentInputValues.set('zipNo', address.zipNo.toString());
 
-  if (searchResult.errorCode !== '0') {
+    router.push(`/register-address?${currentInputValues.toString()}`);
+  };
+  if (searchResult.errorCode !== '0' || searchResult.totalCount === '0') {
     return (
       <section className="mt-[20rem]">
         <p className="text-center text-xs text-red-700">

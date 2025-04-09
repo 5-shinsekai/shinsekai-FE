@@ -4,7 +4,7 @@ import { settingData, shoppingInfoData } from '@/data/MypageData';
 
 import React from 'react';
 
-export default function mypage() {
+export default function myPage() {
   return (
     <main className="flex flex-col h-full min-h-screen">
       <DeliveryStatusSection />

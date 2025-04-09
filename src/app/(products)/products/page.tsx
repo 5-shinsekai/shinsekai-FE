@@ -12,7 +12,6 @@ export default async function page({
 }) {
   const { page } = await searchParams;
   const data = await getAllProductList({ page });
-
   return (
     <div>
       <MenuTab
