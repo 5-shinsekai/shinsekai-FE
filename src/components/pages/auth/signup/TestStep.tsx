@@ -3,9 +3,22 @@ import { SignUpContext } from '@/context/SignUpContext';
 import { useContext } from 'react';
 
 export default function TestStep() {
-  const { formData } = useContext(SignUpContext);
+  const { emailForm, policyCheckedForm, idForm, nicknameForm, personalForm } =
+    useContext(SignUpContext);
+  const formdata = {
+    ...emailForm,
+    ...policyCheckedForm,
+    ...idForm,
+    ...nicknameForm,
+    ...personalForm,
+  };
   useEffect(() => {
-    console.log(formData);
+    console.log(formdata);
   });
-  return <div>TestStep</div>;
+  return (
+    <div>
+      TestStep
+      <button type="submit">제출하기</button>
+    </div>
+  );
 }

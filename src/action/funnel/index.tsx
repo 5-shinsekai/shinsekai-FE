@@ -12,7 +12,6 @@ export interface FunnelProps {
 
 export const useFunnel = (defaultStep: string) => {
   const [step, setStep] = useState(defaultStep);
-  const [data, setData] = useState<Record<string, string>>({});
 
   const Step = (props: StepProps): ReactElement => {
     return <>{props.children}</>;
@@ -25,5 +24,5 @@ export const useFunnel = (defaultStep: string) => {
     return <>{targetStep}</>;
   };
 
-  return { Funnel, Step, setStep, step, data, setData } as const;
+  return { Funnel, Step, setStep, step } as const;
 };

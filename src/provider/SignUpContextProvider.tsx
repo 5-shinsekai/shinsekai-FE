@@ -6,23 +6,30 @@ export const SignUpContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [idForm, setIdForm] = useState({ id: '', password: '' });
-  const [namesForm, setNamesForm] = useState({ name: '', phone: '' });
-  const [addressForm, setAddressForm] = useState({ address: '' });
+  const [policyCheckedForm, setPolicyCheckedForm] = useState<{
+    checkedId: number[];
+  }>({ checkedId: [] });
+  const [idForm, setIdForm] = useState({ loginId: '', password: '' });
+  const [personalForm, setPersonalForm] = useState({
+    name: '',
+    phone: '',
+    gender: '',
+    birth: '',
+  });
   const [nicknameForm, setNicknameForm] = useState({ nickname: '' });
-  const [formData, setFormData] = useState({ input1: '', input2: '' });
+  const [emailForm, setemailForm] = useState({ email: '' });
 
   const value = {
+    policyCheckedForm,
+    setPolicyCheckedForm,
     idForm,
     setIdForm,
-    namesForm,
-    setNamesForm,
-    addressForm,
-    setAddressForm,
+    personalForm,
+    setPersonalForm,
     nicknameForm,
     setNicknameForm,
-    formData,
-    setFormData,
+    emailForm,
+    setemailForm,
   };
 
   return (

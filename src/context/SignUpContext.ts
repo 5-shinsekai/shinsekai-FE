@@ -2,35 +2,40 @@
 import { createContext, useContext } from 'react';
 
 interface SignUpContextType {
-  idForm: { id: string; password: string };
+  policyCheckedForm: { checkedId: number[] };
+  setPolicyCheckedForm: React.Dispatch<
+    React.SetStateAction<{ checkedId: number[] }>
+  >;
+  idForm: { loginId: string; password: string };
   setIdForm: React.Dispatch<
-    React.SetStateAction<{ id: string; password: string }>
+    React.SetStateAction<{ loginId: string; password: string }>
   >;
-  namesForm: { name: string; phone: string };
-  setNamesForm: React.Dispatch<
-    React.SetStateAction<{ name: string; phone: string }>
+  personalForm: { name: string; phone: string; gender: string; birth: string };
+  setPersonalForm: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      phone: string;
+      gender: string;
+      birth: string;
+    }>
   >;
-  addressForm: { address: string };
-  setAddressForm: React.Dispatch<React.SetStateAction<{ address: string }>>;
   nicknameForm: { nickname: string };
   setNicknameForm: React.Dispatch<React.SetStateAction<{ nickname: string }>>;
-  formData: { input1: string; input2: string };
-  setFormData: React.Dispatch<
-    React.SetStateAction<{ input1: string; input2: string }>
-  >;
+  emailForm: { email: string };
+  setemailForm: React.Dispatch<React.SetStateAction<{ email: string }>>;
 }
 
 export const SignUpContext = createContext<SignUpContextType>({
-  idForm: { id: '', password: '' },
+  policyCheckedForm: { checkedId: [] },
+  setPolicyCheckedForm: () => {},
+  idForm: { loginId: '', password: '' },
   setIdForm: () => {},
-  namesForm: { name: '', phone: '' },
-  setNamesForm: () => {},
-  addressForm: { address: '' },
-  setAddressForm: () => {},
+  personalForm: { name: '', phone: '', gender: '', birth: '' },
+  setPersonalForm: () => {},
   nicknameForm: { nickname: '' },
   setNicknameForm: () => {},
-  formData: { input1: '', input2: '' },
-  setFormData: () => {},
+  emailForm: { email: '' },
+  setemailForm: () => {},
 });
 
 export const useSignUpContext = () => useContext(SignUpContext);
