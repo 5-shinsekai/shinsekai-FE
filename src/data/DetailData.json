@@ -360,5 +360,547 @@
         }
       ]
     }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "title": "SS 핑크 탱크 텀블러 503ml",
+      "price": 10000,
+      "discountRate": 11,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": true
+    },
+    {
+      "id": 2,
+      "title": "SS 블랙 탱크 텀블러 503ml",
+      "price": 9000,
+      "discountRate": 0,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 3,
+      "title": "상품 3번",
+      "price": 10000,
+      "discountRate": 10,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": false
+    },
+    {
+      "id": 4,
+      "title": "상품 4번",
+      "price": 1000,
+      "discountRate": 0,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 5,
+      "title": "상품 5번",
+      "price": 1000,
+      "discountRate": 0,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": true
+    },
+    {
+      "id": 6,
+      "title": "상품 6번",
+      "price": 1000,
+      "discountRate": 0,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": true
+    },
+    {
+      "id": 7,
+      "title": "상품 7번",
+      "price": 1000,
+      "discountRate": 0,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": false
+    },
+    {
+      "id": 8,
+      "title": "상품 8번",
+      "price": 1000,
+      "discountRate": 0,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 9,
+      "title": "상품 9번",
+      "price": 1000,
+      "discountRate": 0,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": true
+    },
+    {
+      "id": 10,
+      "title": "상품 10번",
+      "price": 1000,
+      "discountRate": 0,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": true
+    },
+    {
+      "id": 11,
+      "title": "상품 11번",
+      "price": 1100,
+      "discountRate": 5,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": false
+    },
+    {
+      "id": 12,
+      "title": "상품 12번",
+      "price": 1200,
+      "discountRate": 10,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 13,
+      "title": "상품 13번",
+      "price": 1300,
+      "discountRate": 15,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 14,
+      "title": "상품 14번",
+      "price": 1400,
+      "discountRate": 20,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 15,
+      "title": "상품 15번",
+      "price": 1500,
+      "discountRate": 25,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 16,
+      "title": "상품 16번",
+      "price": 1600,
+      "discountRate": 30,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 17,
+      "title": "상품 17번",
+      "price": 1700,
+      "discountRate": 35,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 18,
+      "title": "상품 18번",
+      "price": 1800,
+      "discountRate": 40,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 19,
+      "title": "상품 19번",
+      "price": 1900,
+      "discountRate": 45,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 20,
+      "title": "상품 20번",
+      "price": 2000,
+      "discountRate": 50,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 21,
+      "title": "상품 21번",
+      "price": 2100,
+      "discountRate": 5,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 22,
+      "title": "상품 22번",
+      "price": 2200,
+      "discountRate": 10,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 23,
+      "title": "상품 23번",
+      "price": 2300,
+      "discountRate": 15,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 24,
+      "title": "상품 24번",
+      "price": 2400,
+      "discountRate": 20,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 25,
+      "title": "상품 25번",
+      "price": 2500,
+      "discountRate": 25,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 26,
+      "title": "상품 26번",
+      "price": 2600,
+      "discountRate": 30,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 27,
+      "title": "상품 27번",
+      "price": 2700,
+      "discountRate": 35,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 28,
+      "title": "상품 28번",
+      "price": 2800,
+      "discountRate": 40,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 29,
+      "title": "상품 29번",
+      "price": 2900,
+      "discountRate": 45,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 30,
+      "title": "상품 30번",
+      "price": 3000,
+      "discountRate": 50,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 31,
+      "title": "상품 31번",
+      "price": 3100,
+      "discountRate": 5,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 32,
+      "title": "상품 32번",
+      "price": 3200,
+      "discountRate": 10,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 33,
+      "title": "상품 33번",
+      "price": 3300,
+      "discountRate": 15,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 34,
+      "title": "상품 34번",
+      "price": 3400,
+      "discountRate": 20,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 35,
+      "title": "상품 35번",
+      "price": 3500,
+      "discountRate": 25,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 36,
+      "title": "상품 36번",
+      "price": 3600,
+      "discountRate": 30,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 37,
+      "title": "상품 37번",
+      "price": 3700,
+      "discountRate": 35,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 38,
+      "title": "상품 38번",
+      "price": 3800,
+      "discountRate": 40,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 39,
+      "title": "상품 39번",
+      "price": 3900,
+      "discountRate": 45,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 40,
+      "title": "상품 40번",
+      "price": 4000,
+      "discountRate": 50,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 41,
+      "title": "상품 41번",
+      "price": 4100,
+      "discountRate": 5,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 42,
+      "title": "상품 42번",
+      "price": 4200,
+      "discountRate": 10,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 43,
+      "title": "상품 43번",
+      "price": 4300,
+      "discountRate": 15,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 44,
+      "title": "상품 44번",
+      "price": 4400,
+      "discountRate": 20,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 45,
+      "title": "상품 45번",
+      "price": 4500,
+      "discountRate": 25,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 46,
+      "title": "상품 46번",
+      "price": 4600,
+      "discountRate": 30,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 47,
+      "title": "상품 47번",
+      "price": 4700,
+      "discountRate": 35,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 48,
+      "title": "상품 48번",
+      "price": 4800,
+      "discountRate": 40,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 49,
+      "title": "상품 49번",
+      "price": 4900,
+      "discountRate": 45,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 50,
+      "title": "상품 50번",
+      "price": 5000,
+      "discountRate": 50,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 51,
+      "title": "상품 51번",
+      "price": 5100,
+      "discountRate": 5,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 52,
+      "title": "상품 52번",
+      "price": 5200,
+      "discountRate": 10,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 53,
+      "title": "상품 53번",
+      "price": 5300,
+      "discountRate": 15,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 54,
+      "title": "상품 54번",
+      "price": 5400,
+      "discountRate": 20,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 55,
+      "title": "상품 55번",
+      "price": 5500,
+      "discountRate": 25,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 56,
+      "title": "상품 56번",
+      "price": 5600,
+      "discountRate": 30,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 57,
+      "title": "상품 57번",
+      "price": 5700,
+      "discountRate": 35,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 58,
+      "title": "상품 58번",
+      "price": 5800,
+      "discountRate": 40,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    },
+    {
+      "id": 59,
+      "title": "상품 59번",
+      "price": 5900,
+      "discountRate": 45,
+      "productImage": "/DummyItemImage.png",
+      "isNew": false,
+      "isBest": true
+    },
+    {
+      "id": 60,
+      "title": "상품 60번",
+      "price": 6000,
+      "discountRate": 50,
+      "productImage": "/DummyItemImage.png",
+      "isNew": true,
+      "isBest": false
+    }
   ]
 }
