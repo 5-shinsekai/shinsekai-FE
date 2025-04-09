@@ -16,7 +16,7 @@ export default function InfoListSectionLayout({
         <ul className="flex flex-col justify-between gap-[1.75rem]">
           {items.map((item) => (
             <li key={item.id} className="flex items-center gap-2">
-              <item.icon />
+              <item.icon className="size-[30px]" />
               <Link href={item.link} key={item.id}>
                 {item.title}
               </Link>

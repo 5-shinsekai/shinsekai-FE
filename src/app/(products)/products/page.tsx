@@ -4,7 +4,7 @@ import { CategoryData } from '@/data/DummyData/CategoryDummyData';
 import AllProductList from '@/components/pages/products/AllProductList';
 import React, { Suspense } from 'react';
 
-export default function page() {
+export default function Page() {
   return (
     <div>
       <MenuTab

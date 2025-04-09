@@ -6,12 +6,16 @@ interface AgreeCheckPropsType {
   id: string;
   name: string;
   children: React.ReactNode;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  defaultChecked?: boolean;
 }
 
 export default function DefaultCheck({
   id,
   children,
   name,
+  onChange,
+  defaultChecked = false,
 }: AgreeCheckPropsType) {
   return (
     <div className="flex mt-[1.875rem] items-center">
@@ -19,6 +23,17 @@ export default function DefaultCheck({
         <Checkbox
           id={id}
           name={name}
+          checked={defaultChecked}
+          onCheckedChange={(checked) => {
+            if (onChange) {
+              onChange({
+                target: {
+                  name,
+                  value: checked,
+                },
+              } as React.ChangeEvent<HTMLInputElement>);
+            }
+          }}
           className="border-custom-green-300 data-[state=checked]:border-custom-green-300  data-[state=checked]:bg-custom-green-300 size-[1.375rem] rounded-[0.2rem]"
         />
         <label

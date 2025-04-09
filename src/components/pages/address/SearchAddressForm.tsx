@@ -68,6 +68,7 @@ export default function SearchAddressForm() {
           <InputType.InputInfo
             onChange={handleInputchange}
             type="text"
+            defaultValue={submitAddressInfo}
             id="searchAddress"
             name="searchAddress"
             title="주소입력"

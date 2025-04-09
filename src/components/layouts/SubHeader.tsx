@@ -1,5 +1,8 @@
+'use client';
+
 import LeftArrowIcon from '../ui/icons/LeftArrowIcon';
 import CloseIcon from '../ui/icons/CloseIcon';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 interface SubHeaderPropsType {
@@ -11,6 +14,11 @@ export default function SubHeader({
   title,
   showBackButton = false,
 }: SubHeaderPropsType) {
+  const router = useRouter();
+
+  const close = () => {
+    router.back();
+  };
   return (
     <header className="fixed top-0 bg-white w-full h-14 content-center px-4 shadow-sm z-10">
       <nav className="relative">
@@ -20,7 +28,9 @@ export default function SubHeader({
             {title}
           </li>
           <li>
-            <CloseIcon className="" />
+            <button onClick={close}>
+              <CloseIcon className="" />
+            </button>
           </li>
         </ul>
       </nav>

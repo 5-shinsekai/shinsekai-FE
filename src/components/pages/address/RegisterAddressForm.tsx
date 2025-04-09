@@ -1,91 +1,83 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputType } from '@/components/ui/InputInfo';
 import { Button } from '@/components/ui/button';
 import { SelectMemo } from '@/components/ui/selectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { registerAddressSchema } from '@/schemas/registerAddressSchema';
-import { tempService } from '@/action/input-check';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface RegisterAddressFormType {
   addressNickname: string;
   receiverName: string;
+  zipNo: string;
+  roadAddr: string;
   detailedAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
-  roadAddr: string;
-  zipCode: string;
+  deliveryMemo: string;
+  defaultAddress: string;
 }
 
 export default function RegisterAddressForm({
-  addressNickname,
-  receiverName,
-  detailedAddress,
-  firstPhoneNumber,
-  secondPhoneNumber,
-  roadAddr,
-  zipCode,
-  // roadAddr,
-  // zipCode,
-}: // roadAddr: string;
-// zipCode: string;
-RegisterAddressFormType) {
-  const [inputValues, setInputValues] = useState<
-    Partial<RegisterAddressFormType>
-  >({
-    addressNickname: '',
-    receiverName: '',
-    detailedAddress: '',
-    firstPhoneNumber: '',
-    secondPhoneNumber: '',
-  });
-
+  action,
+}: {
+  action: (addressForm: FormData) => void;
+}) {
   const [errorMessages, setErrorMessages] = useState<
     Partial<RegisterAddressFormType>
   >({});
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [isActive, setIsActive] = useState(false);
-  const [queryString, setQueryString] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+    // e.preventDefault();
     const { name, value } = e.target;
+    const updatedSearchParams = new URLSearchParams(searchParams.toString());
+    if (updatedSearchParams.get(name) !== value) {
+      updatedSearchParams.set(name, value);
+      router.push(`/register-address?${updatedSearchParams.toString()}`);
+    }
 
-    setInputValues({ ...inputValues, [name]: value });
     const res = registerAddressSchema.safeParse({
-      ...inputValues,
+      ...Object.fromEntries(searchParams.entries()),
       [name]: value,
     });
-    const searchParams = new URLSearchParams(Object.entries(inputValues));
-    setQueryString(searchParams.toString());
-    console.log(queryString);
+    console.log(res);
     if (!res.success) {
-      const fieldErros: Partial<RegisterAddressFormType> = {};
+      const fieldErrors: Partial<RegisterAddressFormType> = {};
       res.error.errors.forEach((error) => {
         const fieldName = error.path[0] as keyof RegisterAddressFormType;
-        fieldErros[fieldName] = error.message;
+        fieldErrors[fieldName] = error.message;
       });
-      setErrorMessages(fieldErros);
+      setErrorMessages(fieldErrors);
       setIsActive(false);
-      // console.log(errorMessages);
-    } else {
-      setErrorMessages({});
-      setIsActive(true);
     }
   };
 
+  useEffect(() => {
+    const res = registerAddressSchema.safeParse(
+      Object.fromEntries(searchParams.entries())
+    );
+    if (res.success) {
+      setErrorMessages({});
+      setIsActive(true);
+    }
+  }, [searchParams]);
+
   return (
-    <form
-      action={tempService}
-      className="mt-[1.25rem] mb-[10rem] space-y-[1.25rem]"
-    >
+    <form action={action} className="mt-[1.25rem] mb-[10rem] space-y-[1.25rem]">
       <InputType.FormInputInfo
         id="addressNickname"
         name="addressNickname"
-        defaultValue={addressNickname}
         title="주소별칭"
         onChange={handleChange}
+        defaultValue={searchParams.get('addressNickname') || ''}
+        // value={inputValues.addressNickname}
         type="text"
         errorMessage={
           errorMessages.addressNickname ? errorMessages.addressNickname : ''
@@ -95,9 +87,9 @@ RegisterAddressFormType) {
         type="text"
         id="receiverName"
         name="receiverName"
-        defaultValue={receiverName}
         title="받는 분"
         onChange={handleChange}
+        defaultValue={searchParams.get('receiverName') || ''}
         required
         errorMessage={
           errorMessages.receiverName ? errorMessages.receiverName : ''
@@ -105,39 +97,43 @@ RegisterAddressFormType) {
       />
       <InputType.HasButtonInputInfo
         type="text"
-        id="zipcode"
-        name="zipcode"
-        defaultValue={zipCode}
+        id="zipNo"
+        name="zipNo"
         title="우편번호"
         buttonText="주소검색"
-        link={`search-address?${queryString}`}
+        defaultValue={searchParams.get('zipNo') || ''}
+        link={`search-address?${new URLSearchParams(searchParams.toString())}`}
         readonly={true}
+        required
       />
       <InputType.InputInfo
         type="text"
-        id="default-address"
-        name="default-address"
+        id="roadAddr"
+        name="roadAddr"
         title="기본주소"
-        defaultValue={roadAddr}
         readonly={true}
+        defaultValue={searchParams.get('roadAddr') || ''}
         required
       />
       <InputType.FormInputInfo
         type="text"
         id="detailedAddress"
         name="detailedAddress"
-        defaultValue={detailedAddress}
         title="상세주소"
         onChange={handleChange}
+        defaultValue={searchParams.get('detailedAddress') || ''}
         required
+        errorMessage={
+          errorMessages.detailedAddress ? errorMessages.detailedAddress : ''
+        }
       />
       <InputType.FormInputInfo
         type="text"
         id="firstPhoneNumber"
         name="firstPhoneNumber"
-        defaultValue={firstPhoneNumber}
         title="연락처1"
         onChange={handleChange}
+        defaultValue={searchParams.get('firstPhoneNumber') || ''}
         required
         errorMessage={
           errorMessages.firstPhoneNumber ? errorMessages.firstPhoneNumber : ''
@@ -147,23 +143,34 @@ RegisterAddressFormType) {
         type="text"
         id="secondPhoneNumber"
         name="secondPhoneNumber"
-        defaultValue={secondPhoneNumber}
         onChange={handleChange}
+        defaultValue={searchParams.get('secondPhoneNumber') || ''}
         title="연락처2"
         errorMessage={
           errorMessages.secondPhoneNumber ? errorMessages.secondPhoneNumber : ''
         }
       />
-      <SelectMemo />
-      <DefaultCheck id="defaultAddress" name="defaultAddress">
+      <SelectMemo
+        onChange={handleChange}
+        directDefaultValue={searchParams.get('isDirectInputMemo') || ''}
+        defaultValue={searchParams.get('deliveryMemo') || ''}
+      />
+      <DefaultCheck
+        id="defaultAddress"
+        name="defaultAddress"
+        onChange={handleChange}
+        defaultChecked={
+          searchParams.get('defaultAddress') === 'true' ? true : false
+        }
+      >
         기본배송지로 저장합니다.
       </DefaultCheck>
       <ButtonWrapper>
         <Button
           type="submit"
-          disabled={!isActive}
-          color={isActive ? 'green' : 'gray'}
+          color="green"
           className="w-full mx-auto"
+          disabled={!isActive}
         >
           등록하기
         </Button>
