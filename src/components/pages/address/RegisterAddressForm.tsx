@@ -40,7 +40,9 @@ export default function RegisterAddressForm({
     const updatedSearchParams = new URLSearchParams(searchParams.toString());
     if (updatedSearchParams.get(name) !== value) {
       updatedSearchParams.set(name, value);
-      router.push(`/register-address?${updatedSearchParams.toString()}`);
+      router.push(`/register-address?${updatedSearchParams.toString()}`, {
+        scroll: false,
+      });
     }
 
     const res = registerAddressSchema.safeParse({
