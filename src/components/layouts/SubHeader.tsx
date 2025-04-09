@@ -14,7 +14,7 @@ interface SubHeaderPropsType {
 export default function SubHeader({
   title,
   showBackButton = false,
-  showCloseButton = false,
+  // showCloseButton = false,
 }: SubHeaderPropsType) {
   const router = useRouter();
 

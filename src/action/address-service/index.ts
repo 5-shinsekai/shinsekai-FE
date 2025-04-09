@@ -37,22 +37,29 @@ export const setAddress = async (addressForm: FormData) => {
   const detailedAddress = addressForm.get('detailedAddress');
   const firstPhoneNumber = addressForm.get('firstPhoneNumber');
   const secondPhoneNumber = addressForm.get('secondPhoneNumber');
-  const deliveryMemo = addressForm.get('deliveryMemo');
+  const deliveryMemo =
+    addressForm.get('deliveryMemo') === '직접입력'
+      ? addressForm.get('deliveryMemo')
+      : addressForm.get('isDirectInputMemo');
   const defaultAddress = addressForm.get('defaultAddress');
-  const isDirectInputMemo = addressForm.get('isDirectInputMemo');
+  // const isDirectInputMemo = addressForm.get('isDirectInputMemo');
+  const totalAddress = `${roadAddr} ${detailedAddress}`;
+  const isMainAddress = defaultAddress === 'on' ? true : false;
+  console.log('rr', addressNickname);
+
   const addressData = {
     addressNickname,
     receiverName,
     zipNo,
-    roadAddr,
-    detailedAddress,
+    totalAddress,
     firstPhoneNumber,
     secondPhoneNumber,
     deliveryMemo,
-    defaultAddress,
-    isDirectInputMemo,
+    isMainAddress,
+    // isDirectInputMemo,
   };
-  console.log(addressData);
+
+  console.log('addressData', addressData);
   // const res = await fetch('/api/address', {
   //   method: 'POST',
   //   headers: {
