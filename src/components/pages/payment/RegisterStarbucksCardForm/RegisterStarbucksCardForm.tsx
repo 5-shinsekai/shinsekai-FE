@@ -3,52 +3,37 @@
 import { tempService } from '@/action/input-check';
 import { Button } from '@/components/ui/button';
 import DefaultCheck from '@/components/ui/forms/defaultCheck';
+import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import { InputType } from '@/components/ui/InputInfo';
+import { Modal } from '@/components/ui/Modal';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import { registerCardSchema } from '@/schemas/registerCardSchema';
+import { RegisterStarbucksCardDataType } from '@/types/PaymentDataType';
 import React, { useEffect, useState } from 'react';
-
-interface RegisterStarbucksCardFormType {
-  cardName: string;
-  cardNumber: string;
-  pinNumber: string;
-}
+import RegisterStarbucksCardTerm from './RegisterStarbucksCardTerm';
+import { cn } from '@/lib/utils';
 
 export default function RegisterStarbucksCardForm() {
   const [isValid, setIsValid] = useState(false);
-  const [inputValues, setInputValues] = useState<RegisterStarbucksCardFormType>(
-    {} as RegisterStarbucksCardFormType
+  const [inputValues, setInputValues] = useState<RegisterStarbucksCardDataType>(
+    {
+      cardName: '',
+      cardNumber: '',
+      pinNumber: '',
+    }
   );
 
   const [errorMessages, setErrorMessages] = useState<
-    Partial<RegisterStarbucksCardFormType>
+    Partial<RegisterStarbucksCardDataType>
   >({
     cardName: '',
     cardNumber: '',
     pinNumber: '',
   });
-  //   useEffect(() => {
-  //     const res = registerCardSchema.safeParse(inputValues);
-
-  //     if (!res.success) {
-  //       const fieldErrors: Partial<RegisterStarbucksCardFormType> = {};
-  //       res.error.errors.forEach((error) => {
-  //         const fieldName = error.path[0] as keyof RegisterStarbucksCardFormType;
-  //         fieldErrors[fieldName] = error.message;
-  //       });
-
-  //       setErrorMessages((prev) => ({
-  //         ...prev,
-  //         ...fieldErrors,
-  //       }));
-  //     } else {
-  //       setErrorMessages({
-  //         cardName: '',
-  //         cardNumber: '',
-  //         pinNumber: '',
-  //       });
-  //     }
-  //   }, [inputValues]);
+  const [modal, setModal] = useState(false);
+  const handle = () => {
+    setModal(!modal);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,22 +49,29 @@ export default function RegisterStarbucksCardForm() {
       [name]: value,
     });
     if (!res.success) {
-      const fieldErrors: Partial<RegisterStarbucksCardFormType> = {};
+      const fieldErrors: Partial<RegisterStarbucksCardDataType> = {};
       res.error.errors.forEach((error) => {
-        const fieldName = error.path[0] as keyof RegisterStarbucksCardFormType;
+        const fieldName = error.path[0] as keyof RegisterStarbucksCardDataType;
         fieldErrors[fieldName] = error.message;
       });
       setErrorMessages(fieldErrors);
     }
   };
 
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+
   useEffect(() => {
+    if (isFirstLoad) {
+      setIsFirstLoad(false);
+      return; // 첫 마운트 시에는 검사하지 않음
+    }
+
     const res = registerCardSchema.safeParse(inputValues);
     console.log(res);
     if (!res.success) {
-      const fieldErrors: Partial<RegisterStarbucksCardFormType> = {};
+      const fieldErrors: Partial<RegisterStarbucksCardDataType> = {};
       res.error.errors.forEach((error) => {
-        const fieldName = error.path[0] as keyof RegisterStarbucksCardFormType;
+        const fieldName = error.path[0] as keyof RegisterStarbucksCardDataType;
         fieldErrors[fieldName] = error.message;
       });
 
@@ -129,13 +121,31 @@ export default function RegisterStarbucksCardForm() {
       />
 
       <ButtonWrapper>
-        <DefaultCheck
-          id="RegisterCardAgreeCheck"
-          name="RegisterCardAgreeCheck"
-          className="pb-4 pt-1"
-        >
-          {'스타벅스 카드 이용약관 동의 [필수]'}
-        </DefaultCheck>
+        <div className="flex justify-between content-center pb-4 pt-1 px-1">
+          <DefaultCheck
+            id="RegisterCardAgreeCheck"
+            name="RegisterCardAgreeCheck"
+          >
+            {'스타벅스 카드 이용약관 동의 [필수]'}
+          </DefaultCheck>
+
+          <button
+            title="modal-button"
+            type="button"
+            onClick={handle}
+            className={cn(
+              'text-gray-400 size-3 scale-130',
+              'hover:text-accent-foreground/70'
+            )}
+          >
+            <RightArrowIcon />
+          </button>
+          {modal && (
+            <Modal title="카드 등록 이용약관" setModal={handle}>
+              <RegisterStarbucksCardTerm />
+            </Modal>
+          )}
+        </div>
         <Button type="submit" className="w-full" disabled={!isValid}>
           등록하기
         </Button>

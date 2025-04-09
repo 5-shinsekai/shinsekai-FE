@@ -3,10 +3,12 @@ import React from 'react';
 export default function RegisterStarbucksCardTerm() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6">카드 등록 약관</h1>
+      <h1 className="text-3xl font-bold mb-6">
+        카드 등록 약관 (임시입니다아..)
+      </h1>
 
       <section className="text-sm leading-relaxed space-y-4 overflow-y-auto">
-        {/* <p>
+        <p>
           제1조 (목적): 본 약관은 이용자가 회사(이하 “당사”)가 제공하는 카드
           등록 서비스를 이용함에 있어 필요한 제반 사항을 규정함을 목적으로
           합니다.
@@ -54,7 +56,7 @@ export default function RegisterStarbucksCardTerm() {
           고지합니다.
         </p>
 
-        <p>본 약관은 2025년 4월 9일부터 적용됩니다.</p> */}
+        <p>본 약관은 2025년 4월 9일부터 적용됩니다.</p>
       </section>
     </div>
   );

@@ -1,7 +1,8 @@
 'use server';
 
-import { addressApiType } from '@/types/addressApiType';
+import { addressApiType, postAddressDataType } from '@/types/AddressApiType';
 
+// 주소검색
 export const getAddressList = async (
   keyword: string,
   currentPage: string,
@@ -29,38 +30,25 @@ export const getAddressList = async (
   return data;
 };
 
+// 배송지 등록
 export const setAddress = async (addressForm: FormData) => {
-  const addressNickname = addressForm.get('addressNickname');
-  const receiverName = addressForm.get('receiverName');
-  const zipNo = addressForm.get('zipNo');
-  const roadAddr = addressForm.get('roadAddr');
-  const detailedAddress = addressForm.get('detailedAddress');
-  const firstPhoneNumber = addressForm.get('firstPhoneNumber');
-  const secondPhoneNumber = addressForm.get('secondPhoneNumber');
-  const deliveryMemo =
-    addressForm.get('deliveryMemo') === '직접입력'
-      ? addressForm.get('deliveryMemo')
-      : addressForm.get('isDirectInputMemo');
-  const defaultAddress = addressForm.get('defaultAddress');
-  // const isDirectInputMemo = addressForm.get('isDirectInputMemo');
-  const totalAddress = `${roadAddr} ${detailedAddress}`;
-  const isMainAddress = defaultAddress === 'on' ? true : false;
-  console.log('rr', addressNickname);
-
-  const addressData = {
-    addressNickname,
-    receiverName,
-    zipNo,
-    totalAddress,
-    firstPhoneNumber,
-    secondPhoneNumber,
-    deliveryMemo,
-    isMainAddress,
-    // isDirectInputMemo,
+  const addressData: postAddressDataType = {
+    addressNickname: addressForm.get('addressNickname') as string,
+    receiverName: addressForm.get('receiverName') as string,
+    zipNo: addressForm.get('zipNo') as string,
+    totalAddress: `${addressForm.get('roadAddr') as string} ${addressForm.get('detailedAddress') as string}`,
+    firstPhoneNumber: addressForm.get('firstPhoneNumber') as string,
+    secondPhoneNumber: addressForm.get('secondPhoneNumber') as string,
+    deliveryMemo:
+      addressForm.get('deliveryMemo') === '직접입력'
+        ? (addressForm.get('isDirectInputMemo') as string)
+        : (addressForm.get('deliveryMemo') as string),
+    isMainAddress:
+      (addressForm.get('defaultAddress') as string) === 'on' ? true : false,
   };
 
-  console.log('addressData', addressData);
-  // const res = await fetch('/api/address', {
+  console.log(addressData);
+  // const res = await fetch('http://spharos.shop/api/v1/address', {
   //   method: 'POST',
   //   headers: {
   //     'Content-Type': 'application/json',

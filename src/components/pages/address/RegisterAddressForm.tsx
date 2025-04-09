@@ -8,18 +8,7 @@ import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { registerAddressSchema } from '@/schemas/registerAddressSchema';
 import { useRouter, useSearchParams } from 'next/navigation';
-
-interface RegisterAddressFormType {
-  addressNickname: string;
-  receiverName: string;
-  zipNo: string;
-  roadAddr: string;
-  detailedAddress: string;
-  firstPhoneNumber: string;
-  secondPhoneNumber: string;
-  deliveryMemo: string;
-  defaultAddress: string;
-}
+import { RegisterAddressFormType } from '@/types/AddressDataType';
 
 export default function RegisterAddressForm({
   action,

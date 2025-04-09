@@ -1,6 +1,6 @@
 'use client';
 
-import { myAddressListType } from '@/types/myAddressListType';
+import { myAddressListType } from '@/types/AddressDataType';
 import { useRouter } from 'next/navigation';
 
 export default function MyAddressWrapper({

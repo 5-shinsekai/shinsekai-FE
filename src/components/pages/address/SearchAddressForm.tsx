@@ -6,7 +6,7 @@ import GetAddress from './SearchAddressResult';
 import { cn } from '@/lib/utils';
 import { InputType } from '@/components/ui/InputInfo';
 import { getAddressList } from '@/action/address-service';
-import { addressResultType, searchResultType } from '@/types/addressApiType';
+import { addressResultType, searchResultType } from '@/types/AddressApiType';
 
 export default function SearchAddressForm() {
   const [submitAddressInfo, setSubmitAddressInfo] = useState<string>();

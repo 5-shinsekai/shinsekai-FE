@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { Button } from './button';
 
 interface props {
   title?: string;
@@ -30,12 +31,20 @@ export const Modal = ({ title, setModal, children }: props) => {
         <header>
           <ul className="flex justify-between">
             <li className="text-gray-400">{title}</li>
-            <li onClick={setModal}> X </li>
+            {/* <li onClick={setModal}> X </li> */}
           </ul>
         </header>
         <main>
           <div className="text-black">{children}</div>
         </main>
+        <Button
+          color="green"
+          size="hug"
+          className="text-[1rem] px-6 block mx-auto"
+          onClick={setModal}
+        >
+          확인
+        </Button>
       </div>
     </div>
   );
