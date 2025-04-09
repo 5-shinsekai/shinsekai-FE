@@ -6,7 +6,7 @@ import MenuTab from '@/components/layouts/MenuTab';
 import { eventData } from '@/data/DummyData/CategoryDummyData';
 import { productDummyData } from '@/data/DummyData/ProductDummyData';
 
-export default function page() {
+export default function Page() {
   return (
     <main>
       <nav className=" sticky top-28 shadow z-10 bg-white">
