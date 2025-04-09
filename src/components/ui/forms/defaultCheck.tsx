@@ -9,6 +9,7 @@ interface AgreeCheckPropsType {
   children: React.ReactNode;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: boolean;
+  className?: string;
 }
 
 export default function DefaultCheck({
@@ -16,6 +17,7 @@ export default function DefaultCheck({
   children,
   name,
   onChange,
+  className,
   defaultChecked = false,
 }: AgreeCheckPropsType) {
   return (
