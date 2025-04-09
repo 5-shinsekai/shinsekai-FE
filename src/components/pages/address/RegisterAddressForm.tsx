@@ -22,9 +22,9 @@ interface RegisterAddressFormType {
 }
 
 export default function RegisterAddressForm({
-  setAddress,
+  action,
 }: {
-  setAddress: (addressForm: FormData) => void;
+  action: (addressForm: FormData) => void;
 }) {
   const [errorMessages, setErrorMessages] = useState<
     Partial<RegisterAddressFormType>
@@ -70,10 +70,7 @@ export default function RegisterAddressForm({
   }, [searchParams]);
 
   return (
-    <form
-      action={setAddress}
-      className="mt-[1.25rem] mb-[10rem] space-y-[1.25rem]"
-    >
+    <form action={action} className="mt-[1.25rem] mb-[10rem] space-y-[1.25rem]">
       <InputType.FormInputInfo
         id="addressNickname"
         name="addressNickname"

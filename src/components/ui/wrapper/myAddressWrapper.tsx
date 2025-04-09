@@ -1,7 +1,5 @@
 'use client';
 
-import { myAddressListData } from '@/data/DummyData/myAddressDummyData';
-// import { cn } from '@/lib/utils';
 import { myAddressListType } from '@/types/myAddressListType';
 import { useRouter } from 'next/navigation';
 
