@@ -12,6 +12,7 @@ import { RegisterStarbucksCardDataType } from '@/types/PaymentDataType';
 import React, { useEffect, useState } from 'react';
 import RegisterStarbucksCardTerm from './RegisterStarbucksCardTerm';
 import { cn } from '@/lib/utils';
+import AutoTabInput from '@/components/ui/forms/autoTabInput';
 
 export default function RegisterStarbucksCardForm() {
   const [isValid, setIsValid] = useState(false);
@@ -43,7 +44,7 @@ export default function RegisterStarbucksCardForm() {
       ...prev,
       [name]: value,
     }));
-
+    // console.log(inputValues);
     const res = registerCardSchema.safeParse({
       ...inputValues,
       [name]: value,
@@ -67,7 +68,7 @@ export default function RegisterStarbucksCardForm() {
     }
 
     const res = registerCardSchema.safeParse(inputValues);
-    console.log(res);
+    // console.log(res);
     if (!res.success) {
       const fieldErrors: Partial<RegisterStarbucksCardDataType> = {};
       res.error.errors.forEach((error) => {
@@ -100,14 +101,24 @@ export default function RegisterStarbucksCardForm() {
         defaultValue={inputValues.cardName}
         type="text"
         errorMessage={errorMessages.cardName}
+        maxLength={20}
       />
-      <InputType.FormInputInfo
+      {/* <InputType.FormInputInfo
         id="cardNumber"
         name="cardNumber"
         title="스타벅스 카드번호 16자리 (필수)"
         onChange={handleChange}
         defaultValue={inputValues.cardNumber}
         type="text"
+        errorMessage={errorMessages.cardNumber}
+      /> */}
+      <AutoTabInput
+        id="cardNumber"
+        name="cardNumber"
+        title="스타벅스 카드번호 16자리 (필수)"
+        onChange={handleChange}
+        defaultValue={inputValues.cardNumber}
+        // type="text"
         errorMessage={errorMessages.cardNumber}
       />
       <InputType.FormInputInfo
