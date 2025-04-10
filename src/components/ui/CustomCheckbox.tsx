@@ -8,15 +8,21 @@ export default function CustomCheckbox({
   value,
   id,
   onChange,
+  checked,
+  required = false,
 }: {
   id?: string;
   name?: string;
   size?: number;
   value?: string | number;
+  required?: boolean;
+  checked?: boolean;
   onChange?: (isChecked: boolean) => void;
 }) {
   return (
     <Checkbox
+      checked={checked}
+      data-required={required}
       id={id}
       name={name}
       value={value}

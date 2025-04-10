@@ -13,6 +13,7 @@ export interface mainTabMenuType {
 export interface policyDataType {
   id: number;
   title: string;
+  required: boolean;
   sub?: {
     title: string;
     policy: policyDataType[];
