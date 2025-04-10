@@ -1,6 +1,5 @@
 'use client';
 
-import { tempService } from '@/action/input-check';
 import { Button } from '@/components/ui/button';
 import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
@@ -12,7 +11,6 @@ import { ExternalStarbucksCardDataType } from '@/types/PaymentDataType';
 import React, { useEffect, useState } from 'react';
 import RegisterStarbucksCardTerm from './RegisterStarbucksCardTerm';
 import { cn } from '@/lib/utils';
-import AutoTabInput from '@/components/ui/forms/autoTabInput';
 
 export default function RegisterStarbucksCardForm({
   action,
@@ -20,6 +18,7 @@ export default function RegisterStarbucksCardForm({
   action: (starbuckscardForm: FormData) => void;
 }) {
   const [isValid, setIsValid] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [inputValues, setInputValues] = useState<ExternalStarbucksCardDataType>(
     {
       cardName: '',
@@ -91,9 +90,9 @@ export default function RegisterStarbucksCardForm({
         cardNumber: '',
         pinNumber: '',
       });
-      setIsValid(true);
+      setIsValid(isChecked ? true : false);
     }
-  }, [inputValues]);
+  }, [inputValues, isFirstLoad, isChecked]);
 
   return (
     <form action={action} className="mx-4 my-10">
@@ -143,9 +142,10 @@ export default function RegisterStarbucksCardForm({
           <DefaultCheck
             id="RegisterCardAgreeCheck"
             name="RegisterCardAgreeCheck"
-            onChange={handleChange}
+            onChange={() => setIsChecked(!isChecked)}
+            defaultChecked={isChecked}
           >
-            '스타벅스 카드 이용약관 동의 [필수]'
+            스타벅스 카드 이용약관 동의 [필수]
           </DefaultCheck>
 
           <button
