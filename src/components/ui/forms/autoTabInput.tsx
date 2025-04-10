@@ -14,6 +14,7 @@ interface AutoTabInputProps {
   defaultValue?: string;
   title?: string;
   required?: boolean;
+  className?: string;
 }
 
 export default function AutoTabInput({
@@ -26,26 +27,31 @@ export default function AutoTabInput({
   defaultValue = '',
   title = '',
   required = false,
+  className,
 }: AutoTabInputProps) {
   const inputRef = useRef<(HTMLInputElement | null)[]>([]);
-  const [value, setValue] = useState('');
+  const [values, setValues] = useState<string[]>(Array(inputbox).fill(''));
 
   const handleChange = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log(e.target, e.target.value);
-    console.log('값', value);
-    if (e.target.value.length === maxLength && index < inputbox - 1) {
+    const inputValue = e.target.value;
+
+    const newValues = [...values];
+    newValues[index] = inputValue;
+    setValues(newValues);
+    console.log(newValues);
+
+    if (inputValue.length === maxLength && index < inputbox - 1) {
       inputRef.current[index + 1]?.focus();
-      console.log(inputRef.current[index]);
     }
     if (onChange) onChange(e);
   };
 
   return (
-    <div className="">
-      <div className="relative w-full pt-6">
+    <div className={cn('relative pt-6', className)}>
+      <div className="flex flex-wrap">
         {Array.from({ length: inputbox }).map((item, index) => (
           <input
             id={index === 0 ? id : undefined}
@@ -58,10 +64,11 @@ export default function AutoTabInput({
             }}
             onChange={(e) => handleChange(index, e)}
             className={cn(
-              'peer border-b border-gray-300 rounded p-2 mr-1.5 text-center focus:outline-none focus:ring-2 focus:ring-custom-green-200'
+              'peer border-b border-gray-300 py-1 mr-4 text-center focus:outline-none focus:rounded focus:ring-2 focus:ring-custom-green-200 max-w-1/5'
             )}
           />
         ))}
+
         <label
           htmlFor={id}
           className={cn(
@@ -75,7 +82,6 @@ export default function AutoTabInput({
           {required && <span className="text-custom-green-200 px-0.5">*</span>}
         </label>
       </div>
-
       {errorMessage && (
         <p className="text-xs text-red-500 mt-1">{errorMessage}</p>
       )}

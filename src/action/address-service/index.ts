@@ -37,28 +37,42 @@ export const setAddress = async (addressForm: FormData) => {
     receiverName: addressForm.get('receiverName') as string,
     zipNo: addressForm.get('zipNo') as string,
     totalAddress: `${addressForm.get('roadAddr') as string} ${addressForm.get('detailedAddress') as string}`,
-    firstPhoneNumber: addressForm.get('firstPhoneNumber') as string,
-    secondPhoneNumber: addressForm.get('secondPhoneNumber') as string,
+    firstPhoneNumber: '010-0150-0000',
+    secondPhoneNumber: '010-0440-0000',
     deliveryMemo:
       addressForm.get('deliveryMemo') === '직접입력'
         ? (addressForm.get('isDirectInputMemo') as string)
         : (addressForm.get('deliveryMemo') as string),
     isMainAddress:
-      (addressForm.get('defaultAddress') as string) === 'on' ? true : false,
+      (addressForm.get('defaultAddress') as string) === 'on' ? false : false,
   };
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
   console.log(addressData);
-  // const res = await fetch('http://spharos.shop/api/v1/address', {
-  //   method: 'POST',
+  console.log(ACCESS_TOKEN);
+  const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+    body: JSON.stringify(addressData),
+  });
+
+  // const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
+  //   method: 'GET',
   //   headers: {
   //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${ACCESS_TOKEN}`,
   //   },
-  //   body: JSON.stringify(addressData),
   // });
-  // if (!res.ok) {
-  //   throw new Error('Failed to fetch data');
-  // }
-  // const data = await res.json();
-  // console.log(data);
-  // return data;
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+  const data = await res.json();
+  console.log(data);
+  return data;
 };
