@@ -1,6 +1,6 @@
 'use server';
 
-import { addressApiType, postAddressDataType } from '@/types/AddressApiType';
+import { addressApiType, postAddressDataType } from '@/types/addressApiType';
 
 // 주소검색
 export const getAddressList = async (
