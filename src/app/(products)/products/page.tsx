@@ -3,8 +3,15 @@ import ProductSubCategory from '@/components/pages/products/ProductSubCategory';
 import { CategoryData } from '@/data/DummyData/CategoryDummyData';
 import AllProductList from '@/components/pages/products/AllProductList';
 import React, { Suspense } from 'react';
+import { getAllProductList } from '@/actions/product-service';
 
-export default function page() {
+export default async function page({
+  searchParams,
+}: {
+  searchParams: Promise<Readonly<{ page: number }>>;
+}) {
+  const { page } = await searchParams;
+  const data = await getAllProductList({ page });
   return (
     <div>
       <MenuTab
@@ -14,7 +21,7 @@ export default function page() {
       />
       <Suspense>
         <ProductSubCategory />
-        <AllProductList />
+        <AllProductList data={data} />
       </Suspense>
     </div>
   );

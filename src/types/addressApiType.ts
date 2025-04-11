@@ -3,7 +3,7 @@ export interface addressResultType {
   engAddr: string;
   rn: string;
   emdNm: string;
-  zipNo: number;
+  zipNo: string;
   roadAddrPart2: string;
   emdNo: number;
   sggNm: string;

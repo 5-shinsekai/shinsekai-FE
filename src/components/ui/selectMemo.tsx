@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Select,
@@ -13,17 +13,51 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export function SelectMemo() {
-  const [selectMemo, setSelectMemo] = useState<string | null>(null);
+export function SelectMemo({
+  onChange,
+  defaultValue,
+  directDefaultValue,
+}: {
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  directDefaultValue?: string;
+  defaultValue?: string;
+}) {
+  // const [selectMemo, setSelectMemo] = useState<string | null>(null);
+  const [isDirectInput, setIsDirectInput] = useState(false);
 
   const handleSelectMemo = (value: string) => {
-    setSelectMemo(value);
+    // setSelectMemo(value);
+    if (value === '직접입력') {
+      setIsDirectInput(true);
+    } else {
+      setIsDirectInput(false);
+    }
   };
+
+  useEffect(() => {
+    if (defaultValue === '직접입력') {
+      setIsDirectInput(true);
+    }
+  }, [defaultValue]);
 
   return (
     <div className="w-full">
       <label className="font-medium text-[0.75rem]">배송메모</label>
-      <Select name="deliveryMemo" onValueChange={handleSelectMemo}>
+      <Select
+        name="deliveryMemo"
+        defaultValue={defaultValue}
+        onValueChange={(value) => {
+          handleSelectMemo(value);
+          if (onChange) {
+            onChange({
+              target: {
+                name: 'deliveryMemo',
+                value,
+              },
+            } as React.ChangeEvent<HTMLInputElement>);
+          }
+        }}
+      >
         <SelectTrigger className="w-full text-[0.938rem] font-medium border-b-1 border-t-0 border-x-0 rounded-none *outline-none p-0">
           <SelectValue placeholder="배송 메모를 선택해 주세요." className="" />
         </SelectTrigger>
@@ -46,12 +80,27 @@ export function SelectMemo() {
           </SelectGroup>
         </SelectContent>
       </Select>
-      {selectMemo == '직접입력' && (
+      {isDirectInput && (
         <input
-          id="etc"
-          name="etc"
+          id="isDirectInputMemo"
+          name="isDirectInputMemo"
           placeholder="배송 시 요청사항을 기재해 주세요."
           className="w-full pt-6 border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
+          onChange={
+            onChange &&
+            ((e) => {
+              // setSelectMemo(e.target.value);
+              onChange({
+                target: {
+                  name: 'isDirectInputMemo',
+                  value: e.target.value,
+                },
+              } as React.ChangeEvent<HTMLInputElement>);
+            })
+          }
+          defaultValue={directDefaultValue}
+          type="text"
+          // required={selectMemo == '직접입력' ? true : false}
         />
       )}
     </div>

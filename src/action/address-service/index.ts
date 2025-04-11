@@ -28,3 +28,49 @@ export const getAddressList = async (
   console.log('주소 검색 API 응답:', data);
   return data;
 };
+
+export const setAddress = async (addressForm: FormData) => {
+  const addressNickname = addressForm.get('addressNickname');
+  const receiverName = addressForm.get('receiverName');
+  const zipNo = addressForm.get('zipNo');
+  const roadAddr = addressForm.get('roadAddr');
+  const detailedAddress = addressForm.get('detailedAddress');
+  const firstPhoneNumber = addressForm.get('firstPhoneNumber');
+  const secondPhoneNumber = addressForm.get('secondPhoneNumber');
+  const deliveryMemo =
+    addressForm.get('deliveryMemo') === '직접입력'
+      ? addressForm.get('deliveryMemo')
+      : addressForm.get('isDirectInputMemo');
+  const defaultAddress = addressForm.get('defaultAddress');
+  // const isDirectInputMemo = addressForm.get('isDirectInputMemo');
+  const totalAddress = `${roadAddr} ${detailedAddress}`;
+  const isMainAddress = defaultAddress === 'on' ? true : false;
+  console.log('rr', addressNickname);
+
+  const addressData = {
+    addressNickname,
+    receiverName,
+    zipNo,
+    totalAddress,
+    firstPhoneNumber,
+    secondPhoneNumber,
+    deliveryMemo,
+    isMainAddress,
+    // isDirectInputMemo,
+  };
+
+  console.log('addressData', addressData);
+  // const res = await fetch('/api/address', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(addressData),
+  // });
+  // if (!res.ok) {
+  //   throw new Error('Failed to fetch data');
+  // }
+  // const data = await res.json();
+  // console.log(data);
+  // return data;
+};

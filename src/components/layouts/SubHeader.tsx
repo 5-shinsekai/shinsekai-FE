@@ -1,18 +1,28 @@
+'use client';
+
 import LeftArrowIcon from '../ui/icons/LeftArrowIcon';
 import CloseIcon from '../ui/icons/CloseIcon';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 interface SubHeaderPropsType {
   title: string;
   showBackButton?: boolean;
+  showCloseButton?: boolean;
 }
 
 export default function SubHeader({
   title,
   showBackButton = false,
+  // showCloseButton = false,
 }: SubHeaderPropsType) {
+  const router = useRouter();
+
+  const close = () => {
+    router.back();
+  };
   return (
-    <header className="fixed top-0 bg-white w-full h-14 content-center px-4 shadow-sm z-10">
+    <header className="sitcky top-0 bg-white w-full h-14 content-center px-4 shadow-sm z-10">
       <nav className="relative">
         <ul className="flex justify-between items-center">
           <li>{showBackButton ? <LeftArrowIcon /> : null}</li>
@@ -20,7 +30,9 @@ export default function SubHeader({
             {title}
           </li>
           <li>
-            <CloseIcon className="" />
+            <button onClick={close}>
+              <CloseIcon className="" />
+            </button>
           </li>
         </ul>
       </nav>

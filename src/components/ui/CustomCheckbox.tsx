@@ -7,11 +7,13 @@ export default function CustomCheckbox({
   size = 1.375,
   value,
   id,
+  onChange,
 }: {
   id?: string;
   name?: string;
   size?: number;
   value?: string | number;
+  onChange?: (isChecked: boolean) => void;
 }) {
   return (
     <Checkbox
@@ -20,6 +22,7 @@ export default function CustomCheckbox({
       value={value}
       className={`size-[${size}rem] data-[state=checked]:bg-custom-green-300
          data-[state=checked]:border-custom-green-300 border-custom-green-100 rounded-sm`}
+      onCheckedChange={(e) => onChange?.(typeof e === 'boolean' ? e : false)}
     />
   );
 }
