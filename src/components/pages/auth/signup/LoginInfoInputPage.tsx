@@ -1,8 +1,12 @@
+import NextButton from '@/components/ui/NextButton';
+import SignupInput from '@/components/ui/SignupInput';
+import InputSectionWrapper from '@/components/ui/wrapper/InputSectionWrapper';
+import SignupTitleWrapper from '@/components/ui/wrapper/SignupTitleWrapper';
 import { SignUpContext } from '@/context/SignUpContext';
 import { useState, useContext } from 'react';
 
 export default function LoginInfoInputPage({ onNext }: { onNext: () => void }) {
-  const { setIdForm } = useContext(SignUpContext);
+  const { emailForm, setIdForm, setSteps } = useContext(SignUpContext);
   const [loginForm, setLoginForm] = useState<{
     loginId: string;
     password: string;
@@ -19,30 +23,33 @@ export default function LoginInfoInputPage({ onNext }: { onNext: () => void }) {
     }));
     console.log(`${name}:`, value);
   };
+  console.log(emailForm);
 
   const handleNext = () => {
+    setSteps((prev) => prev + 1);
     setIdForm(loginForm);
     onNext();
   };
 
   return (
-    <div>
-      <p>아이디</p>
-      <input
-        name="loginId"
-        type="text"
-        onChange={handleChange}
-        value={loginForm.loginId}
-      />
-      <p>비밀번호</p>
-      <input
-        name="password"
-        type="password"
-        onChange={handleChange}
-        value={loginForm.password}
-      />
-
-      <button onClick={handleNext}>다음</button>
-    </div>
+    <>
+      <SignupTitleWrapper>아이디와 비밀번호를 입력해주세요.</SignupTitleWrapper>
+      <InputSectionWrapper>
+        <SignupInput
+          name="loginId"
+          onChange={handleChange}
+          value={loginForm.loginId}
+          placeholder="아이디"
+        />
+        <SignupInput
+          type="password"
+          name="password"
+          onChange={handleChange}
+          value={loginForm.password}
+          placeholder="비밀번호"
+        />
+      </InputSectionWrapper>
+      <NextButton onClick={handleNext} />
+    </>
   );
 }

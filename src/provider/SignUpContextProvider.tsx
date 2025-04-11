@@ -6,6 +6,7 @@ export const SignUpContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [steps, setSteps] = useState<number>(0);
   const [policyCheckedForm, setPolicyCheckedForm] = useState<{
     checkedId: number[];
   }>({ checkedId: [] });
@@ -20,6 +21,8 @@ export const SignUpContextProvider = ({
   const [emailForm, setemailForm] = useState({ email: '' });
 
   const value = {
+    steps,
+    setSteps,
     policyCheckedForm,
     setPolicyCheckedForm,
     idForm,

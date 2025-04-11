@@ -2,6 +2,8 @@
 import { createContext, useContext } from 'react';
 
 interface SignUpContextType {
+  steps: number;
+  setSteps: React.Dispatch<React.SetStateAction<number>>;
   policyCheckedForm: { checkedId: number[] };
   setPolicyCheckedForm: React.Dispatch<
     React.SetStateAction<{ checkedId: number[] }>
@@ -26,6 +28,8 @@ interface SignUpContextType {
 }
 
 export const SignUpContext = createContext<SignUpContextType>({
+  steps: 0,
+  setSteps: () => {},
   policyCheckedForm: { checkedId: [] },
   setPolicyCheckedForm: () => {},
   idForm: { loginId: '', password: '' },

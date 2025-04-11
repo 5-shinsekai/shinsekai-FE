@@ -82,30 +82,21 @@ export const policyData: policyDataType[] = [
   {
     id: 1,
     title: '[필수] 이용약관 동의',
+    required: true,
   },
   {
     id: 2,
     title: '[필수] 개인정보 수집 및 이용동의',
+    required: true,
   },
   {
     id: 3,
     title: '[필수] 스타벅스 카드 이용약관',
+    required: true,
   },
   {
     id: 4,
     title: '[선택] 마케팅 활용 수집 • 이용 동의',
-    sub: {
-      title: '광고성 정보 수신 방법',
-      policy: [
-        {
-          id: 5,
-          title: 'E-mail',
-        },
-        {
-          id: 6,
-          title: 'SMS',
-        },
-      ],
-    },
+    required: false,
   },
 ];
