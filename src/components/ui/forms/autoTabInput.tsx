@@ -40,34 +40,58 @@ export default function AutoTabInput({
 
     const newValues = [...values];
     newValues[index] = inputValue;
+    // console.log('new', newValues, 'new');
     setValues(newValues);
-    console.log(newValues);
+    // console.log(values);
 
     if (inputValue.length === maxLength && index < inputbox - 1) {
       inputRef.current[index + 1]?.focus();
     }
-    if (onChange) onChange(e);
+
+    if (onChange) {
+      const fullValue = newValues.join('');
+      console.log('full', fullValue);
+      const syntheticEvent = {
+        ...e,
+        target: {
+          ...e.target,
+          name: name ?? '',
+          value: fullValue,
+        },
+      } as React.ChangeEvent<HTMLInputElement>;
+      onChange(syntheticEvent);
+    }
   };
 
   return (
     <div className={cn('relative pt-6', className)}>
       <div className="flex flex-wrap">
         {Array.from({ length: inputbox }).map((item, index) => (
-          <input
-            id={index === 0 ? id : undefined}
-            name={name}
+          <div
             key={index}
-            type="text"
-            maxLength={maxLength}
-            ref={(e) => {
-              inputRef.current[index] = e;
-            }}
-            onChange={(e) => handleChange(index, e)}
             className={cn(
-              'peer border-b border-gray-300 py-1 mr-4 text-center focus:outline-none focus:rounded focus:ring-2 focus:ring-custom-green-200 max-w-1/5'
+              '',
+              index < inputbox - 1 &&
+                "after:content-['-'] after:text-2xl after:text-gray-400 after:px-2"
             )}
-          />
+          >
+            <input
+              id={index === 0 ? id : undefined}
+              // name={name}
+              // key={index}
+              type="text"
+              maxLength={maxLength}
+              ref={(e) => {
+                inputRef.current[index] = e;
+              }}
+              onChange={(e) => handleChange(index, e)}
+              className={cn(
+                'peer w-18 border-b border-gray-300 py-1 text-center focus:outline-none focus:rounded focus:ring-2 focus:ring-custom-green-200'
+              )}
+            />
+          </div>
         ))}
+        <input type="hidden" name={name} value={values.join('')} />
 
         <label
           htmlFor={id}

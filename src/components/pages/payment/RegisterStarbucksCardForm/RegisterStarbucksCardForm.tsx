@@ -11,6 +11,7 @@ import { ExternalStarbucksCardDataType } from '@/types/PaymentDataType';
 import React, { useEffect, useState } from 'react';
 import RegisterStarbucksCardTerm from './RegisterStarbucksCardTerm';
 import { cn } from '@/lib/utils';
+import AutoTabInput from '@/components/ui/forms/autoTabInput';
 
 export default function RegisterStarbucksCardForm({
   action,
@@ -47,11 +48,13 @@ export default function RegisterStarbucksCardForm({
       ...prev,
       [name]: value,
     }));
-    // console.log(inputValues);
+    console.log(inputValues);
     const res = registerCardSchema.safeParse({
       ...inputValues,
       [name]: value,
     });
+    console.log(inputValues);
+
     if (!res.success) {
       const fieldErrors: Partial<ExternalStarbucksCardDataType> = {};
       res.error.errors.forEach((error) => {
@@ -92,7 +95,7 @@ export default function RegisterStarbucksCardForm({
       });
       setIsValid(isChecked ? true : false);
     }
-  }, [inputValues, isFirstLoad, isChecked]);
+  }, [inputValues, isChecked]);
 
   return (
     <form action={action} className="mx-4 my-10">
@@ -107,7 +110,7 @@ export default function RegisterStarbucksCardForm({
           errorMessage={errorMessages.cardName}
           maxLength={20}
         />
-        <InputType.FormInputInfo
+        {/* <InputType.FormInputInfo
           id="cardNumber"
           name="cardNumber"
           title="스타벅스 카드번호 16자리 (필수)"
@@ -115,8 +118,8 @@ export default function RegisterStarbucksCardForm({
           defaultValue={inputValues.cardNumber}
           type="text"
           errorMessage={errorMessages.cardNumber}
-        />
-        {/* <AutoTabInput
+        /> */}
+        <AutoTabInput
           id="cardNumber"
           name="cardNumber"
           title="스타벅스 카드번호 16자리 (필수)"
@@ -125,7 +128,7 @@ export default function RegisterStarbucksCardForm({
           // type="text"
           errorMessage={errorMessages.cardNumber}
           className=" mx-auto"
-        /> */}
+        />
         <InputType.FormInputInfo
           id="pinNumber"
           name="pinNumber"
@@ -144,6 +147,7 @@ export default function RegisterStarbucksCardForm({
             name="RegisterCardAgreeCheck"
             onChange={() => setIsChecked(!isChecked)}
             defaultChecked={isChecked}
+            className={cn(isChecked ? 'text-black' : '')}
           >
             스타벅스 카드 이용약관 동의 [필수]
           </DefaultCheck>
@@ -165,7 +169,12 @@ export default function RegisterStarbucksCardForm({
             </Modal>
           )}
         </div>
-        <Button type="submit" className="w-full" disabled={!isValid}>
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={!isValid}
+          color={!isValid ? 'gray' : 'green'}
+        >
           등록하기
         </Button>
       </ButtonWrapper>

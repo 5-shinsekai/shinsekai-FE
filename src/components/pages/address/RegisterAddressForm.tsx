@@ -159,7 +159,7 @@ export default function RegisterAddressForm({
       <ButtonWrapper>
         <Button
           type="submit"
-          color="green"
+          color={!isActive ? 'gray' : 'green'}
           className="w-full mx-auto"
           disabled={!isActive}
         >
