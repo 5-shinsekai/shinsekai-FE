@@ -76,3 +76,26 @@ export const setAddress = async (addressForm: FormData) => {
   console.log(data);
   return data;
 };
+
+export const getAddress = async () => {
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+
+  const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('등록된 스타벅스 카드 조회 실패');
+  }
+
+  const cards = await res.json();
+  console.log('조회된 배송지 목록:', cards);
+  return cards;
+};

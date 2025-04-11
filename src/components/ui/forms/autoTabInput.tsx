@@ -50,7 +50,7 @@ export default function AutoTabInput({
 
     if (onChange) {
       const fullValue = newValues.join('');
-      console.log('full', fullValue);
+      // console.log('full', fullValue);
       const syntheticEvent = {
         ...e,
         target: {
