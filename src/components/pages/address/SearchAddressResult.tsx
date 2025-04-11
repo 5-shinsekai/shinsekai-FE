@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { addressResultType, searchResultType } from '@/types/addressApiType';
+import { addressResultType, searchResultType } from '@/types/AddressApiType';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
@@ -22,6 +22,11 @@ export default function GetAddress({
     router.push(`/register-address?${currentInputValues.toString()}`);
   };
   if (searchResult.errorCode !== '0' || searchResult.totalCount === '0') {
+    // const [modal, setModal] = useState(false);
+    // const handle = () => {
+    //   setModal(!modal);
+    // };
+
     return (
       <section className="mt-[20rem]">
         <p className="text-center text-xs text-red-700">

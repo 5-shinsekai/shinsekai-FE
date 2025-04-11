@@ -37,3 +37,14 @@ export interface addressApiType {
     juso: addressResultType[];
   };
 }
+
+export interface postAddressDataType {
+  addressNickname: string;
+  receiverName: string;
+  zipNo: string;
+  totalAddress: string;
+  firstPhoneNumber: string;
+  secondPhoneNumber: string;
+  deliveryMemo: string;
+  isMainAddress: boolean;
+}

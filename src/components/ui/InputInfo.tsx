@@ -19,6 +19,7 @@ interface InputInfoPropsType {
   className?: string;
   type: string;
   errorMessage?: string;
+  maxLength?: number;
 }
 
 function HasButtonInputInfo({
@@ -32,6 +33,7 @@ function HasButtonInputInfo({
   link,
   readonly = false,
   className,
+  maxLength = 100,
   onChange,
 }: InputInfoPropsType) {
   const router = useRouter();
@@ -52,6 +54,7 @@ function HasButtonInputInfo({
             'peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200',
             className
           )}
+          maxLength={maxLength}
         />
         <label
           htmlFor={id}
@@ -90,6 +93,7 @@ function InputInfo({
   required = false,
   defaultValue = '',
   readonly = false,
+  maxLength = 100,
   onChange,
 }: InputInfoPropsType) {
   return (
@@ -103,6 +107,7 @@ function InputInfo({
         readOnly={readonly}
         onChange={onChange}
         required={required}
+        maxLength={maxLength}
         className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
       />
       <label
@@ -177,6 +182,7 @@ function FormInputInfo({
   defaultValue = '',
   onChange,
   errorMessage = '',
+  maxLength = 100,
 }: InputInfoPropsType) {
   const [value, setValue] = useState(defaultValue);
 
@@ -196,6 +202,7 @@ function FormInputInfo({
         readOnly={readonly}
         onChange={handleChange}
         required={required}
+        maxLength={maxLength}
         className={cn(
           'peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150',
           'border-gray-300 focus:border-custom-green-200',

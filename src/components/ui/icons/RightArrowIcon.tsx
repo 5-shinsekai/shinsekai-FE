@@ -1,5 +1,5 @@
-import React from "react";
-import { cn } from "@/lib/utils";
+import React from 'react';
+import { cn } from '@/lib/utils';
 export default function RightArrowIcon({
   className,
 }: Readonly<{ className?: string }>) {
@@ -14,7 +14,7 @@ export default function RightArrowIcon({
     >
       <path
         d="M7.5 15L12.5 10L7.5 5"
-        stroke="#9E9E9E"
+        stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

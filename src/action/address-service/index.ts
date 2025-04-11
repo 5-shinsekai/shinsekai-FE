@@ -1,7 +1,8 @@
 'use server';
 
-import { addressApiType } from '@/types/addressApiType';
+import { addressApiType, postAddressDataType } from '@/types/AddressApiType';
 
+// 주소검색
 export const getAddressList = async (
   keyword: string,
   currentPage: string,
@@ -29,48 +30,49 @@ export const getAddressList = async (
   return data;
 };
 
+// 배송지 등록
 export const setAddress = async (addressForm: FormData) => {
-  const addressNickname = addressForm.get('addressNickname');
-  const receiverName = addressForm.get('receiverName');
-  const zipNo = addressForm.get('zipNo');
-  const roadAddr = addressForm.get('roadAddr');
-  const detailedAddress = addressForm.get('detailedAddress');
-  const firstPhoneNumber = addressForm.get('firstPhoneNumber');
-  const secondPhoneNumber = addressForm.get('secondPhoneNumber');
-  const deliveryMemo =
-    addressForm.get('deliveryMemo') === '직접입력'
-      ? addressForm.get('deliveryMemo')
-      : addressForm.get('isDirectInputMemo');
-  const defaultAddress = addressForm.get('defaultAddress');
-  // const isDirectInputMemo = addressForm.get('isDirectInputMemo');
-  const totalAddress = `${roadAddr} ${detailedAddress}`;
-  const isMainAddress = defaultAddress === 'on' ? true : false;
-  console.log('rr', addressNickname);
-
-  const addressData = {
-    addressNickname,
-    receiverName,
-    zipNo,
-    totalAddress,
-    firstPhoneNumber,
-    secondPhoneNumber,
-    deliveryMemo,
-    isMainAddress,
-    // isDirectInputMemo,
+  const addressData: postAddressDataType = {
+    addressNickname: addressForm.get('addressNickname') as string,
+    receiverName: addressForm.get('receiverName') as string,
+    zipNo: addressForm.get('zipNo') as string,
+    totalAddress: `${addressForm.get('roadAddr') as string} ${addressForm.get('detailedAddress') as string}`,
+    firstPhoneNumber: '010-0150-0000',
+    secondPhoneNumber: '010-0440-0000',
+    deliveryMemo:
+      addressForm.get('deliveryMemo') === '직접입력'
+        ? (addressForm.get('isDirectInputMemo') as string)
+        : (addressForm.get('deliveryMemo') as string),
+    isMainAddress:
+      (addressForm.get('defaultAddress') as string) === 'on' ? false : false,
   };
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
-  console.log('addressData', addressData);
-  // const res = await fetch('/api/address', {
-  //   method: 'POST',
+  console.log(addressData);
+  console.log(ACCESS_TOKEN);
+  const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+    body: JSON.stringify(addressData),
+  });
+
+  // const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
+  //   method: 'GET',
   //   headers: {
   //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${ACCESS_TOKEN}`,
   //   },
-  //   body: JSON.stringify(addressData),
   // });
-  // if (!res.ok) {
-  //   throw new Error('Failed to fetch data');
-  // }
-  // const data = await res.json();
-  // console.log(data);
-  // return data;
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+  const data = await res.json();
+  console.log(data);
+  return data;
 };

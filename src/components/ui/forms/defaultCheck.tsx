@@ -21,7 +21,7 @@ export default function DefaultCheck({
   defaultChecked = false,
 }: AgreeCheckPropsType) {
   return (
-    <div className={cn('flex items-center', className)}>
+    <div className="flex items-center">
       <div className="flex items-center space-x-2 flex-1">
         <Checkbox
           id={id}
@@ -42,7 +42,10 @@ export default function DefaultCheck({
         <label
           id={id}
           htmlFor={id}
-          className="text-[0.875rem] text-custom-gray-600 font-medium "
+          className={cn(
+            'text-[0.875rem] text-custom-gray-600 font-medium ',
+            className
+          )}
         >
           {children}
         </label>

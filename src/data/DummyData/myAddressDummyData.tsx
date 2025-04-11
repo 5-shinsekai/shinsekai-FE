@@ -1,4 +1,4 @@
-import { myAddressListType } from '@/types/myAddressListType';
+import { myAddressListType } from '@/types/AddressDataType';
 
 export const myAddressListData: myAddressListType[] = [
   {

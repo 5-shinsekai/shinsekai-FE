@@ -14,5 +14,7 @@ export const registerAddressSchema = z.object({
     .regex(/^\d{3}\d{3,4}\d{4}$/, '전화번호 형식이 아닙니다.'),
   secondPhoneNumber: z
     .string()
-    .regex(/^\d{3}\d{3,4}\d{4}$/, '전화번호 형식이 아닙니다.'),
+    .regex(/^\d{3}\d{3,4}\d{4}$/, '전화번호 형식이 아닙니다.')
+    .optional()
+    .or(z.literal('').optional()),
 });

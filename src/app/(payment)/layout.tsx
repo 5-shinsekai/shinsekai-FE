@@ -10,7 +10,7 @@ export default function Layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <SubHeader title="" showBackButton />
+      <SubHeader title="" showCloseButton />
       <h1 className="text-[1.625rem] font-semibold py-[20px] px-[24px]">
         카드 등록
       </h1>
