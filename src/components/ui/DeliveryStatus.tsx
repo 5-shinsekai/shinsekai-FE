@@ -1,5 +1,5 @@
 import React from 'react';
-import { deliveryStatusType } from '@/types/MypageDataType';
+import { deliveryStatusType } from '@/types/mypageDataType';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 

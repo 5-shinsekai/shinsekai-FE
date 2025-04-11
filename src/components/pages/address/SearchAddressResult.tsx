@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { addressResultType, searchResultType } from '@/types/AddressApiType';
+import { addressResultType, searchResultType } from '@/types/addressApiType';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
