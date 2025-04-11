@@ -9,20 +9,20 @@ import LoginInfoInputPage from './LoginInfoInputPage';
 import PersonalInfoPage from './PersonalInfoPage';
 import NicknamePage from './NicknamePage';
 import Stepper from '@/components/ui/Stepper';
-
+import { useRouter } from 'next/navigation';
 export default function SignUpSteps() {
   const { Funnel, setStep, Step } = useFunnel('약관');
 
+  const router = useRouter();
+
   const signUpData = useSignUpForms();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     console.log(signUpData);
+    router.push('/main');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="group">
+    <form className="group">
       <Stepper totalSteps={4} />
       <Funnel>
         <Step name="약관">
@@ -38,7 +38,7 @@ export default function SignUpSteps() {
           <PersonalInfoPage onNext={() => setStep('닉네임')} />
         </Step>
         <Step name="닉네임">
-          <NicknamePage onNext={() => setStep('테스트')} />
+          <NicknamePage onNext={() => handleSubmit} />
         </Step>
       </Funnel>
     </form>
