@@ -5,10 +5,12 @@ import { InputType } from '@/components/ui/InputInfo';
 import { Button } from '@/components/ui/button';
 import { SelectMemo } from '@/components/ui/selectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
-import DefaultCheck from '@/components/ui/forms/defaultCheck';
+// import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { registerAddressSchema } from '@/schemas/registerAddressSchema';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { RegisterAddressFormType } from '@/types/AddressDataType';
+import AutoTabInput from '@/components/ui/forms/autoTabInput';
+import { DefaultCheck } from '@/components/ui/forms/defaultCheck';
 
 export default function RegisterAddressForm({
   action,
@@ -17,7 +19,17 @@ export default function RegisterAddressForm({
 }) {
   const [errorMessages, setErrorMessages] = useState<
     Partial<RegisterAddressFormType>
-  >({});
+  >({
+    addressNickname: '',
+    receiverName: '',
+    zipNo: '',
+    roadAddr: '',
+    detailedAddress: '',
+    firstPhoneNumber: '',
+    secondPhoneNumber: '',
+    deliveryMemo: '',
+    defaultAddress: '',
+  });
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -34,19 +46,23 @@ export default function RegisterAddressForm({
       });
     }
 
-    const res = registerAddressSchema.safeParse({
-      ...Object.fromEntries(searchParams.entries()),
-      [name]: value,
-    });
+    const key = name as keyof typeof registerAddressSchema.shape;
+    const res = registerAddressSchema.shape[key].safeParse(value);
+
     console.log(res);
     if (!res.success) {
-      const fieldErrors: Partial<RegisterAddressFormType> = {};
-      res.error.errors.forEach((error) => {
-        const fieldName = error.path[0] as keyof RegisterAddressFormType;
-        fieldErrors[fieldName] = error.message;
-      });
-      setErrorMessages(fieldErrors);
+      const errorMessage = res.error.errors[0].message;
+
+      setErrorMessages((prev) => ({
+        ...prev,
+        [name]: errorMessage,
+      }));
       setIsActive(false);
+    } else {
+      setErrorMessages((prev) => ({
+        ...prev,
+        [name]: '',
+      }));
     }
   };
 
@@ -70,9 +86,7 @@ export default function RegisterAddressForm({
         defaultValue={searchParams.get('addressNickname') || ''}
         // value={inputValues.addressNickname}
         type="text"
-        errorMessage={
-          errorMessages.addressNickname ? errorMessages.addressNickname : ''
-        }
+        errorMessage={errorMessages.addressNickname}
       />
       <InputType.FormInputInfo
         type="text"
@@ -82,9 +96,7 @@ export default function RegisterAddressForm({
         onChange={handleChange}
         defaultValue={searchParams.get('receiverName') || ''}
         required
-        errorMessage={
-          errorMessages.receiverName ? errorMessages.receiverName : ''
-        }
+        errorMessage={errorMessages.receiverName}
       />
       <InputType.HasButtonInputInfo
         type="text"
@@ -114,11 +126,9 @@ export default function RegisterAddressForm({
         onChange={handleChange}
         defaultValue={searchParams.get('detailedAddress') || ''}
         required
-        errorMessage={
-          errorMessages.detailedAddress ? errorMessages.detailedAddress : ''
-        }
+        errorMessage={errorMessages.detailedAddress}
       />
-      <InputType.FormInputInfo
+      {/* <InputType.FormInputInfo
         type="text"
         id="firstPhoneNumber"
         name="firstPhoneNumber"
@@ -129,17 +139,41 @@ export default function RegisterAddressForm({
         errorMessage={
           errorMessages.firstPhoneNumber ? errorMessages.firstPhoneNumber : ''
         }
+      /> */}
+      <AutoTabInput
+        type="text"
+        inputbox={3}
+        maxLength={[3, 4, 4]}
+        id="firstPhoneNumber"
+        name="firstPhoneNumber"
+        title="연락처1"
+        onChange={handleChange}
+        defaultValue={searchParams.get('firstPhoneNumber') || ''}
+        required
+        errorMessage={errorMessages.firstPhoneNumber}
+        className="pt-4"
       />
-      <InputType.FormInputInfo
+      {/* <InputType.FormInputInfo
         type="text"
         id="secondPhoneNumber"
         name="secondPhoneNumber"
         onChange={handleChange}
         defaultValue={searchParams.get('secondPhoneNumber') || ''}
         title="연락처2"
-        errorMessage={
-          errorMessages.secondPhoneNumber ? errorMessages.secondPhoneNumber : ''
-        }
+        errorMessage={errorMessages.secondPhoneNumber}
+      /> */}
+      <AutoTabInput
+        type="text"
+        inputbox={3}
+        maxLength={[3, 4, 4]}
+        id="secondPhoneNumber"
+        name="secondPhoneNumber"
+        title="연락처2"
+        onChange={handleChange}
+        defaultValue={searchParams.get('secondPhoneNumber') || ''}
+        required
+        errorMessage={errorMessages.secondPhoneNumber}
+        className="pt-4"
       />
       <SelectMemo
         onChange={handleChange}

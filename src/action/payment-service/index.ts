@@ -32,8 +32,6 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-  console.log(data);
-
   registerStarbuckscard(data);
 };
 
@@ -63,7 +61,7 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
     throw new Error('Failed to fetch data');
   }
   const success = await res.json();
-  console.log(success);
+  return success;
 };
 
 export const getStarbuckscard = async () => {

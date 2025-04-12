@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const registerCardSchema = z.object({
-  // cardName: z.string().min(1, '필수 입력항목 입니다').max(20, '20자 이하'),
+  cardName: z.string().max(20, '20자 이하').optional(),
   cardNumber: z
     .string()
     .min(1, '카드번호를 입력해주세요')
