@@ -1,4 +1,3 @@
-import { useSignUpForms } from '@/actions/signup-service';
 import SignupInput from '@/components/ui/SignupInput';
 import SubmitButton from '@/components/ui/SubmitButton';
 import InputSectionWrapper from '@/components/ui/wrapper/InputSectionWrapper';
@@ -14,12 +13,8 @@ export default function NicknamePage({ onNext }: { onNext: () => void }) {
     setNickname(e.target.value);
   };
 
-  const forms = useSignUpForms();
-  const handleSubmit = () => {
-    console.log('버튼이 클릭되었어요');
-    setNicknameForm({ nickname });
-    console.log('테스트');
-    console.log(forms);
+  const handleSubmit = async () => {
+    await setNicknameForm({ nickname });
     onNext();
   };
   return (

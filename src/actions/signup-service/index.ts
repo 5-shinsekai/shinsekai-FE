@@ -12,3 +12,26 @@ export const useSignUpForms = () => {
     ...nicknameForm,
   };
 };
+
+export const signup = async (data: {
+  nickname: string;
+  name: string;
+  phone: string;
+  gender: string;
+  birth: string;
+  email: string;
+  loginId: string;
+  password: string;
+}) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/member/sign-up`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  return response.json();
+};
