@@ -1,17 +1,17 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { HasTermCheck } from '@/components/ui/forms/defaultCheck';
-import { InputType } from '@/components/ui/InputInfo';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
-import { registerCardSchema } from '@/schemas/registerCardSchema';
-import { ExternalStarbucksCardDataType } from '@/types/PaymentDataType';
 import React, { useEffect, useState } from 'react';
-import RegisterStarbucksCardTerm from './RegisterStarbucksCardTerm';
+import { InputType } from '../InputInfo';
+import { ExternalStarbucksCardDataType } from '@/types/PaymentDataType';
+import { registerCardSchema } from '@/schemas/registerCardSchema';
+import AutoTabInput from './autoTabInput';
+import { HasTermCheck } from './defaultCheck';
+import ButtonWrapper from '../wrapper/buttonWrapper';
+import RegisterStarbuckscardTerm from '@/components/pages/payment/RegisterStarbucksCardForm/RegisterStarbuckscardTerm';
+import { Button } from '../button';
 import { cn } from '@/lib/utils';
-import AutoTabInput from '@/components/ui/forms/autoTabInput';
 
-export default function RegisterStarbucksCardForm({
+export default function RegisterStarbuckscardForm({
   action,
 }: {
   action: (starbuckscardForm: FormData) => void;
@@ -89,6 +89,8 @@ export default function RegisterStarbucksCardForm({
           type="text"
           id="cardNumber"
           name="cardNumber"
+          inputbox={4}
+          maxLength={[4, 4, 4, 4]}
           title="스타벅스 카드번호 16자리 (필수)"
           onChange={handleChange}
           defaultValue={inputValues.cardNumber}
@@ -112,7 +114,7 @@ export default function RegisterStarbucksCardForm({
           onChange={() => setIsChecked(!isChecked)}
           defaultChecked={isChecked}
           className={cn(isChecked ? 'transition-all text-black' : '')}
-          termLink={<RegisterStarbucksCardTerm />}
+          termLink={<RegisterStarbuckscardTerm />}
         >
           스타벅스 카드 이용약관 동의 [필수]
         </HasTermCheck>

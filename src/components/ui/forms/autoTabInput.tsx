@@ -19,8 +19,8 @@ interface AutoTabInputProps {
 }
 
 export default function AutoTabInput({
-  inputbox = 4,
-  maxLength = [4, 4, 4, 4],
+  inputbox = 0,
+  maxLength = [0],
   id,
   name,
   onChange,
