@@ -2,6 +2,7 @@
 
 import React from 'react';
 import SubHeader from '@/components/layouts/SubHeader';
+import MainFooter from '@/components/layouts/MainFooter';
 
 export default function Layout({
   children,
@@ -13,6 +14,7 @@ export default function Layout({
         결제하기
       </h1>
       {children}
+      <MainFooter />
     </>
   );
 }

@@ -1,5 +1,5 @@
 // import { getStarbuckscard } from '@/action/payment-service';
-import CompleteRegisterCard from '@/components/pages/payment/CompleteRegisterCard';
+import CompleteRegisterCard from '@/components/pages/payment/RegisterStarbucksCardForm/CompleteRegisterCard';
 import { starbuckscardInfoData } from '@/data/DummyData/StarbuckscardDummyData';
 
 // interface Props {

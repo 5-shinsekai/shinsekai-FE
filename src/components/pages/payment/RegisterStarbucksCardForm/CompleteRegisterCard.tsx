@@ -1,6 +1,5 @@
 'use client';
 
-// app/card-complete/page.tsx
 import { Button } from '@/components/ui/button';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import { starbuckscardInfoType } from '@/types/PaymentDataType';
