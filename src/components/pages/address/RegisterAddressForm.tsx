@@ -23,7 +23,7 @@ export default function RegisterAddressForm({
     addressNickname: '',
     receiverName: '',
     zipNo: '',
-    roadAddr: '',
+    roadAddress: '',
     detailedAddress: '',
     firstPhoneNumber: '',
     secondPhoneNumber: '',
@@ -111,11 +111,11 @@ export default function RegisterAddressForm({
       />
       <InputType.InputInfo
         type="text"
-        id="roadAddr"
-        name="roadAddr"
+        id="roadAddress"
+        name="roadAddress"
         title="기본주소"
         readonly={true}
-        defaultValue={searchParams.get('roadAddr') || ''}
+        defaultValue={searchParams.get('roadAddress') || ''}
         required
       />
       <InputType.FormInputInfo

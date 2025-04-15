@@ -23,13 +23,15 @@ export default function PayMethodInfo() {
       <div className="flex overflow-x-auto gap-5">
         {/* 등록된 카드 리스트 */}
         {cards.map((card, index) => (
-          <div key={index} className="relative flex-shrink-0 w-[262px]">
+          <div
+            key={card.memberStarbucksCardListUuid}
+            className="relative flex-shrink-0 w-[262px]"
+          >
             <div className="absolute top-2 left-2 z-10">
               <DefaultCheck
                 id="1"
                 name="cardcheck"
                 defaultChecked={selectedCard === index}
-                // onChange={() => handleSelectCard(index)}
               />
             </div>
             <Image
@@ -53,6 +55,11 @@ export default function PayMethodInfo() {
             </div>
           </div>
         ))}
+        <input
+          type="hidden"
+          name="paymentCardUuid"
+          value={cards[selectedCard].memberStarbucksCardListUuid}
+        />
         {/* 카드 등록 버튼 */}
         <EmptyStarbuckscard />
       </div>

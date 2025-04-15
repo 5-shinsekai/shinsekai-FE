@@ -1,27 +1,28 @@
 'use client';
 
-import { GetAddressType, myAddressListType } from '@/types/AddressDataType';
+import { AddressDataType } from '@/types/AddressDataType';
 import { useRouter } from 'next/navigation';
 
-export default function MyAddressWrapper({
+export default function ShowAddressList({
   myAddressList,
 }: {
-  myAddressList: myAddressListType[];
+  myAddressList: AddressDataType[];
 }) {
   //   const item = myAddressListData[0]; // 첫 번째 주소 객체
   const router = useRouter();
 
-  const handleEdit = (item: Partial<GetAddressType>) => {
+  const handleEdit = (item: Partial<AddressDataType>) => {
     const query = new URLSearchParams({
       zipNo: item.zipNo || '',
       addressNickname: item.addressNickname || '',
-      roadAddr: item.roadAddr || '',
+      roadAddress: item.roadAddress || '',
       detailedAddress: item.detailedAddress || '',
       deliveryMemo: item.deliveryMemo || '',
       firstPhoneNumber: item.firstPhoneNumber || '',
       secondPhoneNumber: item.secondPhoneNumber || '',
       receiverName: item.receiverName || '',
-      mainAddress: String(item.mainAddress || ''),
+      isMainAddress: String(item.isMainAddress || ''),
+      isPersonalMemo: String(item.isPersonalMemo || ''),
     });
     router.push(`/edit-address?${query.toString()}`);
   };
@@ -29,17 +30,17 @@ export default function MyAddressWrapper({
   return (
     <section className="w-full mx-auto relative">
       {myAddressList.map((item) => (
-        <div className="border-b py-4 last:border-none" key={item.id}>
+        <div className="border-b py-4 last:border-none" key={item.addressUuid}>
           <div className="flex justify-between">
             <p className="text-sm font-semibold py-0.5">
               {item.receiverName}({item.addressNickname})
-              {item.defaultAddress === 'on' && (
+              {item.isMainAddress && (
                 <span className="text-[0.6rem] font-light bg-custom-green-300/20 text-custom-green-300 px-1 py-0.8 mx-2">
                   기본
                 </span>
               )}
             </p>
-            {item.defaultAddress ? (
+            {item.isMainAddress ? (
               <nav className="text-xs text-custom-gray-400">
                 <span className="px-3" onClick={() => handleEdit(item)}>
                   수정
@@ -53,7 +54,7 @@ export default function MyAddressWrapper({
             )}
           </div>
           <p className="text-sm">
-            ({item.zipNo}){item.roadAddr}
+            ({item.zipNo}){item.roadAddress}
           </p>
 
           <p className="text-sm leading-tight">{item.detailedAddress}</p>

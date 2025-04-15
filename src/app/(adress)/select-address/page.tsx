@@ -1,35 +1,40 @@
 'use client';
 
-import React from 'react';
-import ShowAddressList from '@/components/pages/address/ShowAddressList';
+import React, { useState } from 'react';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { myAddressListData } from '@/data/DummyData/myAddressDummyData';
+import { getAddressListData } from '@/data/DummyData/myAddressDummyData';
+import SelectAddressList from '@/components/pages/address/SelectAddressList';
 
 export default function Page() {
   const router = useRouter();
+  const [selectedUuid, setSelectedUuid] = useState<string | null>(null);
 
   const handleClick = () => {
-    router.push('/register-address');
+    if (!selectedUuid) return;
+    router.push(`/payment?selected=${selectedUuid}`);
   };
 
-  const sortedList = [...myAddressListData].sort((a) =>
+  const sortedList = [...getAddressListData].sort((a) =>
     a.isMainAddress ? -1 : 1
   );
 
   return (
     <main className="px-5">
       <h1 className="pt-[5rem] pb-[1.25rem] text-[1.625rem] font-semibold">
-        배송지 관리 페이지입니다..^^
+        배송지 선택
       </h1>
       <div>
-        <ShowAddressList myAddressList={sortedList} />
+        <SelectAddressList
+          myAddressList={sortedList}
+          onSelect={setSelectedUuid}
+        />
       </div>
       <div className="py-15"></div>
       <ButtonWrapper>
         <Button color="green" className="w-full" onClick={handleClick}>
-          새 배송지 추가
+          변경
         </Button>
       </ButtonWrapper>
     </main>

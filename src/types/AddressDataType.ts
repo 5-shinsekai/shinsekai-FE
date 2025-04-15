@@ -15,7 +15,7 @@ export interface RegisterAddressFormType {
   addressNickname: string;
   receiverName: string;
   zipNo: string;
-  roadAddr: string;
+  roadAddress: string;
   detailedAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
@@ -23,16 +23,31 @@ export interface RegisterAddressFormType {
   defaultAddress: string;
 }
 
-export interface GetAddressType {
+// export interface GetAddressDataType {
+//   addressUuid: string;
+//   zipNo: string;
+//   roadAddress: string;
+//   detailedAddress: string;
+//   addressNickname: string;
+//   deliveryMemo: string;
+//   totalAddress: string;
+//   firstPhoneNumber: string;
+//   secondPhoneNumber: string;
+//   receiverName: string;
+//   ismainAddress: boolean;
+// }
+
+export interface AddressDataType {
   addressUuid: string;
-  zipNo: string;
-  roadAddr: string;
-  detailedAddress: string;
   addressNickname: string;
-  deliveryMemo: string;
+  receiverName: string;
+  zipNo: string;
+  roadAddress: string;
+  detailedAddress: string;
   totalAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
-  receiverName: string;
-  mainAddress: boolean;
+  deliveryMemo: string;
+  isPersonalMemo: boolean;
+  isMainAddress: boolean;
 }

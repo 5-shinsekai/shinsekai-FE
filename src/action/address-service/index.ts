@@ -1,6 +1,7 @@
 'use server';
 
-import { addressApiType, postAddressDataType } from '@/types/addressApiType';
+import { addressApiType } from '@/types/addressApiType';
+import { AddressDataType } from '@/types/AddressDataType';
 
 // 주소검색
 export const getAddressList = async (
@@ -31,20 +32,24 @@ export const getAddressList = async (
 };
 
 // 배송지 등록
-export const setAddress = async (addressForm: FormData) => {
-  const addressData: postAddressDataType = {
+export const postAddress = async (addressForm: FormData) => {
+  const addressData: Partial<AddressDataType> = {
     addressNickname: addressForm.get('addressNickname') as string,
     receiverName: addressForm.get('receiverName') as string,
     zipNo: addressForm.get('zipNo') as string,
-    totalAddress: `${addressForm.get('roadAddr') as string} ${addressForm.get('detailedAddress') as string}`,
+    roadAddress: addressForm.get('roadAddress') as string,
+    detailedAddress: addressForm.get('detailedAddress') as string,
+    totalAddress: `${addressForm.get('roadAddress') as string} ${addressForm.get('detailedAddress') as string}`,
     firstPhoneNumber: '010-0150-0000',
     secondPhoneNumber: '010-0440-0000',
     deliveryMemo:
       addressForm.get('deliveryMemo') === '직접입력'
         ? (addressForm.get('isDirectInputMemo') as string)
         : (addressForm.get('deliveryMemo') as string),
+    isPersonalMemo:
+      addressForm.get('deliveryMemo') === '직접입력' ? true : false,
     isMainAddress:
-      (addressForm.get('defaultAddress') as string) === 'on' ? false : false,
+      (addressForm.get('defaultAddress') as string) === 'on' ? true : false,
   };
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 

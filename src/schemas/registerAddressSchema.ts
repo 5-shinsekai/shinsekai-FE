@@ -7,7 +7,7 @@ export const registerAddressSchema = z.object({
     .max(10, '10자 이하'),
   receiverName: z.string().min(1, '필수 입력항목 입니다').max(10, '10자 이하'),
   zipNo: z.string().min(1, '필수 입력항목 입니다'),
-  roadAddr: z.string().min(1, '필수 입력항목 입니다'),
+  roadAddress: z.string().min(1, '필수 입력항목 입니다'),
   detailedAddress: z.string().min(1, '필수 입력항목 입니다'),
   firstPhoneNumber: z
     .string()

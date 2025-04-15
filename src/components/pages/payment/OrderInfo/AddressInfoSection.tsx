@@ -2,19 +2,25 @@
 
 import { Button } from '@/components/ui/button';
 import { getAddressListData } from '@/data/DummyData/myAddressDummyData';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
 export default function AddressInfoSection() {
-  const mainAddress = getAddressListData.find(
-    (item) => item.mainAddress === true
+  const searchParams = useSearchParams();
+  const selectedUuid = searchParams.get('selected');
+  const selectedAddress = getAddressListData.find(
+    (item) => item.addressUuid === selectedUuid
   );
-  console.log(mainAddress);
+
+  const address =
+    selectedAddress || getAddressListData.find((item) => item.isMainAddress);
+
+  console.log(address);
 
   const router = useRouter();
   return (
     <>
-      {mainAddress && (
+      {address && (
         <section className="px-6">
           <div className="flex justify-between items-center">
             <h1 className="font-semibold text-[1.125rem]">배송정보</h1>
@@ -22,37 +28,45 @@ export default function AddressInfoSection() {
               color="white"
               size="xs"
               className="font-light border-gray-300"
-              onClick={() => router.push('/management-address')}
+              onClick={() => router.push('/select-address')}
             >
               변경
             </Button>
           </div>
           <div className="py-3 space-y-[0.4rem]">
-            <p className="font-semibold text-[1rem]">
-              {mainAddress.receiverName} ({mainAddress.addressNickname})
-              <span className="text-[0.7rem] font-light bg-custom-green-300/20 text-custom-green-300 px-[0.2rem] py-[0.1rem] mx-2">
-                기본
-              </span>
-            </p>
-            <p className="leading-[1.3]">
-              ({mainAddress.zipNo}) {mainAddress.totalAddress}
-            </p>
-            {mainAddress.secondPhoneNumber ? (
-              <p className="text-[1rem]">
-                {mainAddress.firstPhoneNumber} | {mainAddress.secondPhoneNumber}
+            {address.isMainAddress ? (
+              <p className="font-semibold text-[1rem]">
+                {address.receiverName} ({address.addressNickname})
+                <span className="text-[0.7rem] font-light bg-custom-green-300/20 text-custom-green-300 px-[0.2rem] py-[0.1rem] mx-2">
+                  기본
+                </span>
               </p>
             ) : (
-              <p>{mainAddress.firstPhoneNumber}</p>
+              <p className="font-semibold text-[1rem]">
+                {address.receiverName} ({address.addressNickname})
+              </p>
             )}
-            {mainAddress.deliveryMemo && (
+
+            <p className="leading-[1.3]">
+              ({address.zipNo}) {address.totalAddress}
+            </p>
+            {address.secondPhoneNumber ? (
+              <p className="text-[1rem]">
+                {address.firstPhoneNumber} | {address.secondPhoneNumber}
+              </p>
+            ) : (
+              <p>{address.firstPhoneNumber}</p>
+            )}
+            {address.deliveryMemo && (
               <p className="text-[0.875rem] text-custom-gray-700">
-                {mainAddress.deliveryMemo}
+                {address.deliveryMemo}
               </p>
             )}
           </div>
+          <input type="hidden" name="addressUuid" value={address.addressUuid} />
         </section>
       )}
-      {mainAddress === null && (
+      {address === null && (
         <section className="px-6">
           <h1 className="font-semibold text-[1.125rem]">배송정보</h1>
           <div className="flex flex-col mt-[24px] items-center space-y-[30px] ">

@@ -16,7 +16,7 @@ export default function GetAddress({
   const handleGetAddress = (address: addressResultType) => {
     const currentInputValues = new URLSearchParams(InputValues.toString());
     console.log(typeof address.zipNo, address.zipNo);
-    currentInputValues.set('roadAddr', address.roadAddr);
+    currentInputValues.set('roadAddress', address.roadAddr);
     currentInputValues.set('zipNo', address.zipNo.toString());
 
     router.push(`/register-address?${currentInputValues.toString()}`);

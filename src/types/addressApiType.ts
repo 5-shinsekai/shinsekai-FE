@@ -42,9 +42,27 @@ export interface postAddressDataType {
   addressNickname: string;
   receiverName: string;
   zipNo: string;
+  roadAddress: string;
+  detailedAddress: string;
   totalAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
   deliveryMemo: string;
+  isPersonalMemo: boolean;
   isMainAddress: boolean;
 }
+
+// export interface getAddressDataType {
+//   addressUuid: string;
+//   addressNickname: string;
+//   receiverName: string;
+//   zipNo: string;
+//   roadAddress: string;
+//   detailedAddress: string;
+//   totalAddress: string;
+//   firstPhoneNumber: string;
+//   secondPhoneNumber: string;
+//   deliveryMemo: string;
+//   isPersonalMemo: boolean;
+//   isMainAddress: boolean;
+// }
