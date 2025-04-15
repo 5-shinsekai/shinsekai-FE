@@ -1,6 +1,6 @@
-import { myPageInfoType } from '@/types/MypageDataType';
+import { myPageInfoType } from '@/types/mypageDataType';
 import AgreementIcon from '@/components/ui/icons/AgreementIcon';
-import { deliveryStatusType } from '@/types/MypageDataType';
+import { deliveryStatusType } from '@/types/mypageDataType';
 import AlarmIcon from '@/components/ui/icons/AlarmIcon';
 import CouponIcon from '@/components/ui/icons/CouponIcon';
 import DeliveryIcon from '@/components/ui/icons/DeliveryIcon';

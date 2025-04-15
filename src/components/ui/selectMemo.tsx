@@ -26,8 +26,9 @@ export function SelectMemo({
   const [isDirectInput, setIsDirectInput] = useState(false);
 
   const handleSelectMemo = (value: string) => {
+    console.log(value);
     // setSelectMemo(value);
-    if (value === '직접입력') {
+    if (defaultValue === '직접입력') {
       setIsDirectInput(true);
     } else {
       setIsDirectInput(false);
@@ -35,10 +36,10 @@ export function SelectMemo({
   };
 
   useEffect(() => {
-    if (defaultValue === '직접입력') {
+    if (defaultValue === '직접입력' || directDefaultValue) {
       setIsDirectInput(true);
     }
-  }, [defaultValue]);
+  }, [defaultValue, directDefaultValue]);
 
   return (
     <div className="w-full">

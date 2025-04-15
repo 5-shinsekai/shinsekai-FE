@@ -32,7 +32,15 @@ export default function AutoTabInput({
   type = '',
 }: AutoTabInputProps) {
   const inputRef = useRef<(HTMLInputElement | null)[]>([]);
-  const [values, setValues] = useState<string[]>(Array(inputbox).fill(''));
+  const initialValues = Array.from({ length: inputbox }, (_, i) => {
+    if (!defaultValue) return '';
+    const split = defaultValue.split('-');
+    return split[i] || '';
+  });
+
+  const [values, setValues] = useState<string[]>(
+    Array.from({ length: inputbox }, (_, i) => initialValues[i] || '')
+  );
   const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = (
@@ -43,17 +51,14 @@ export default function AutoTabInput({
 
     const newValues = [...values];
     newValues[index] = inputValue;
-    // console.log('new', newValues, 'new');
     setValues(newValues);
-    // console.log(values);
 
     if (inputValue.length === maxLength[index] && index < inputbox - 1) {
       inputRef.current[index + 1]?.focus();
     }
 
     if (onChange) {
-      const fullValue = newValues.join('');
-      // console.log('full', fullValue);
+      const fullValue = newValues.join('-');
       const syntheticEvent = {
         ...e,
         target: {
@@ -80,8 +85,9 @@ export default function AutoTabInput({
           >
             <input
               id={index === 0 ? id : undefined}
-              // name={name}
+              name={name}
               // key={index}
+              value={values[index]}
               type={type}
               maxLength={maxLength[index]}
               ref={(e) => {
@@ -96,7 +102,7 @@ export default function AutoTabInput({
             />
           </div>
         ))}
-        <input type="hidden" name={name} value={values.join('')} />
+        <input type="hidden" name={name} value={values.join('-')} />
 
         <label
           htmlFor={id}

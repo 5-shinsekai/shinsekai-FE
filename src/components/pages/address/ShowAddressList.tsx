@@ -8,7 +8,6 @@ export default function ShowAddressList({
 }: {
   myAddressList: AddressDataType[];
 }) {
-  //   const item = myAddressListData[0]; // 첫 번째 주소 객체
   const router = useRouter();
 
   const handleEdit = (item: Partial<AddressDataType>) => {
@@ -35,7 +34,7 @@ export default function ShowAddressList({
             <p className="text-sm font-semibold py-0.5">
               {item.receiverName}({item.addressNickname})
               {item.isMainAddress && (
-                <span className="text-[0.6rem] font-light bg-custom-green-300/20 text-custom-green-300 px-1 py-0.8 mx-2">
+                <span className="text-[0.6rem] font-light bg-custom-green-300/20 text-custom-green-300 px-1 py-[0.1rem] mx-2">
                   기본
                 </span>
               )}

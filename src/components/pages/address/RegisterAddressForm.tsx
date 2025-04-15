@@ -28,7 +28,7 @@ export default function RegisterAddressForm({
     firstPhoneNumber: '',
     secondPhoneNumber: '',
     deliveryMemo: '',
-    defaultAddress: '',
+    isMainAddress: '',
   });
 
   const router = useRouter();
@@ -181,11 +181,11 @@ export default function RegisterAddressForm({
         defaultValue={searchParams.get('deliveryMemo') || ''}
       />
       <DefaultCheck
-        id="defaultAddress"
-        name="defaultAddress"
+        id="isMainAddress"
+        name="isMainAddress"
         onChange={handleChange}
         defaultChecked={
-          searchParams.get('defaultAddress') === 'true' ? true : false
+          searchParams.get('isMainAddress') === 'true' ? true : false
         }
       >
         기본배송지로 저장합니다.

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { infoSectionLayoutType } from '@/types/MypageDataType';
+import { infoSectionLayoutType } from '@/types/mypageDataType';
 
 export default function InfoListSectionLayout({
   title,

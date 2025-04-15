@@ -40,8 +40,8 @@ export const postAddress = async (addressForm: FormData) => {
     roadAddress: addressForm.get('roadAddress') as string,
     detailedAddress: addressForm.get('detailedAddress') as string,
     totalAddress: `${addressForm.get('roadAddress') as string} ${addressForm.get('detailedAddress') as string}`,
-    firstPhoneNumber: '010-0150-0000',
-    secondPhoneNumber: '010-0440-0000',
+    firstPhoneNumber: addressForm.get('firstPhoneNumber') as string,
+    secondPhoneNumber: addressForm.get('secondPhoneNumber') as string,
     deliveryMemo:
       addressForm.get('deliveryMemo') === '직접입력'
         ? (addressForm.get('isDirectInputMemo') as string)
@@ -49,7 +49,7 @@ export const postAddress = async (addressForm: FormData) => {
     isPersonalMemo:
       addressForm.get('deliveryMemo') === '직접입력' ? true : false,
     isMainAddress:
-      (addressForm.get('defaultAddress') as string) === 'on' ? true : false,
+      (addressForm.get('isMainAddress') as string) === 'on' ? true : false,
   };
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
@@ -64,13 +64,6 @@ export const postAddress = async (addressForm: FormData) => {
     body: JSON.stringify(addressData),
   });
 
-  // const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${ACCESS_TOKEN}`,
-  //   },
-  // });
   if (!res.ok) {
     const text = await res.text();
     console.error('서버 응답 상태 코드:', res.status);

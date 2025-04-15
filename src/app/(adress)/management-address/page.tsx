@@ -20,9 +20,7 @@ export default function Page() {
 
   return (
     <main className="px-5">
-      <h1 className="pt-[5rem] pb-[1.25rem] text-[1.625rem] font-semibold">
-        배송지 관리 페이지입니다..^^
-      </h1>
+      <h1 className="py-6 text-[1.625rem] font-semibold">배송지 관리</h1>
       <div>
         <ShowAddressList myAddressList={sortedList} />
       </div>

@@ -7,9 +7,9 @@ import { registerCardSchema } from '@/schemas/registerCardSchema';
 import AutoTabInput from './autoTabInput';
 import { HasTermCheck } from './defaultCheck';
 import ButtonWrapper from '../wrapper/buttonWrapper';
-import RegisterStarbuckscardTerm from '@/components/pages/payment/RegisterStarbucksCardForm/RegisterStarbuckscardTerm';
 import { Button } from '../button';
 import { cn } from '@/lib/utils';
+import RegisterStarbuckscardTerm from '@/components/pages/payment/RegisterStarbucksCardForm/RegisterStarbucksCardTerm';
 
 export default function RegisterStarbuckscardForm({
   action,

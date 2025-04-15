@@ -36,15 +36,16 @@ export default function SelectAddressList({
       isMainAddress: String(item.isMainAddress || ''),
       isPersonalMemo: String(item.isPersonalMemo || ''),
     });
-    router.push(`/payment?${query.toString()}`);
+    router.push(`/edit-address?${query.toString()}`);
   };
 
   return (
     <section className="w-full mx-auto relative">
       {myAddressList.map((item) => (
-        <label
+        <div
           className="flex items-start border-b py-4 last:border-none"
           key={item.addressUuid}
+          onClick={() => handleChange(item.addressUuid)}
         >
           <input
             type="radio"
@@ -52,7 +53,7 @@ export default function SelectAddressList({
             value={item.addressUuid}
             checked={selectedAddressUuid === item.addressUuid}
             onChange={() => handleChange(item.addressUuid)}
-            className="mt-[0rem] mr-3 size-6 accent-custom-green-200"
+            className="mt-[0rem] mr-3 size-6 accent-custom-green-200 z-20"
           />
           <div className="w-full">
             <div className="flex justify-between">
@@ -65,14 +66,16 @@ export default function SelectAddressList({
                 )}
               </p>
               {item.isMainAddress ? (
-                <nav className="text-xs text-custom-gray-400">
+                <nav className="text-xs text-custom-gray-400 z-50">
                   <span className="px-3" onClick={() => handleEdit(item)}>
                     수정
                   </span>
                 </nav>
               ) : (
-                <nav className="text-xs text-custom-gray-400">
-                  <span className="px-3">수정</span>
+                <nav className="text-xs text-custom-gray-400 z-50">
+                  <span className="px-3" onClick={() => handleEdit(item)}>
+                    수정
+                  </span>
                   <span className="border-l px-3">삭제</span>
                 </nav>
               )}
@@ -93,7 +96,7 @@ export default function SelectAddressList({
             )}
             <p className="text-xs text-custom-gray-700">{item.deliveryMemo}</p>
           </div>
-        </label>
+        </div>
       ))}
     </section>
   );

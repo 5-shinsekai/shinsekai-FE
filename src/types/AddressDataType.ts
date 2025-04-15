@@ -8,7 +8,7 @@ export interface myAddressListType {
   firstPhoneNumber: string;
   secondPhoneNumber: string;
   deliveryMemo: string;
-  defaultAddress: string;
+  isMainAddress: string;
 }
 
 export interface RegisterAddressFormType {
@@ -20,7 +20,7 @@ export interface RegisterAddressFormType {
   firstPhoneNumber: string;
   secondPhoneNumber: string;
   deliveryMemo: string;
-  defaultAddress: string;
+  isMainAddress: string;
 }
 
 // export interface GetAddressDataType {
