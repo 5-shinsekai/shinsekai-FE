@@ -3,7 +3,7 @@ export interface myAddressListType {
   addressNickname: string;
   receiverName: string;
   zipNo: string;
-  RoadAddress: string;
+  roadAddr: string;
   detailedAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
@@ -26,6 +26,8 @@ export interface RegisterAddressFormType {
 export interface GetAddressType {
   addressUuid: string;
   zipNo: string;
+  roadAddr: string;
+  detailedAddress: string;
   addressNickname: string;
   deliveryMemo: string;
   totalAddress: string;

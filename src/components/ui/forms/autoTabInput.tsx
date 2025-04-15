@@ -25,7 +25,7 @@ export default function AutoTabInput({
   name,
   onChange,
   errorMessage = '',
-  // defaultValue = '',
+  defaultValue = '',
   title = '',
   required = false,
   className,
@@ -102,7 +102,7 @@ export default function AutoTabInput({
           htmlFor={id}
           className={cn(
             'absolute left-0 top-1 text-[0.938rem] text-gray-600 font-medium ease-in-out duration-150',
-            isFocused
+            isFocused || defaultValue
               ? 'top-0 text-xs text-custom-green-200'
               : 'peer-focus:top-0 peer-focus:text-xs peer-focus:text-custom-green-200'
           )}

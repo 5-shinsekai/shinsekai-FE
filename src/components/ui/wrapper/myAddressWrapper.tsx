@@ -1,6 +1,6 @@
 'use client';
 
-import { myAddressListType } from '@/types/AddressDataType';
+import { GetAddressType, myAddressListType } from '@/types/AddressDataType';
 import { useRouter } from 'next/navigation';
 
 export default function MyAddressWrapper({
@@ -11,18 +11,17 @@ export default function MyAddressWrapper({
   //   const item = myAddressListData[0]; // 첫 번째 주소 객체
   const router = useRouter();
 
-  const handleEdit = (item: myAddressListType) => {
+  const handleEdit = (item: Partial<GetAddressType>) => {
     const query = new URLSearchParams({
-      id: String(item.id),
-      addressNickname: item.addressNickname,
-      receiverName: item.receiverName,
-      zipNo: item.zipNo,
-      roadAddr: item.RoadAddress,
-      detailedAddress: item.detailedAddress,
-      firstPhoneNumber: item.firstPhoneNumber,
-      secondPhoneNumber: item.secondPhoneNumber,
-      deliveryMemo: item.deliveryMemo,
-      defaultAddress: item.defaultAddress,
+      zipNo: item.zipNo || '',
+      addressNickname: item.addressNickname || '',
+      roadAddr: item.roadAddr || '',
+      detailedAddress: item.detailedAddress || '',
+      deliveryMemo: item.deliveryMemo || '',
+      firstPhoneNumber: item.firstPhoneNumber || '',
+      secondPhoneNumber: item.secondPhoneNumber || '',
+      receiverName: item.receiverName || '',
+      mainAddress: String(item.mainAddress || ''),
     });
     router.push(`/edit-address?${query.toString()}`);
   };
@@ -54,7 +53,7 @@ export default function MyAddressWrapper({
             )}
           </div>
           <p className="text-sm">
-            ({item.zipNo}){item.RoadAddress}
+            ({item.zipNo}){item.roadAddr}
           </p>
 
           <p className="text-sm leading-tight">{item.detailedAddress}</p>
