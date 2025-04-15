@@ -2,6 +2,8 @@ import localFont from 'next/font/local';
 import type { Metadata } from 'next';
 import './globals.css';
 import { Inter } from 'next/font/google';
+import { SidebarContextProvider } from '@/context/SideBarContext';
+import { Sidebar } from '@/components/commons/SideBar';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -41,7 +43,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${pretendard.className}  ${pretendard.variable} antialiased`}
       >
-        {children}
+        <SidebarContextProvider>
+          <Sidebar />
+          {children}
+        </SidebarContextProvider>
       </body>
     </html>
   );
