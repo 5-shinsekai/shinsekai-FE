@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFunnel } from '@/action/funnel';
 
-import { useSignUpForms } from '@/actions/signup-service';
+import { signup, useSignUpForms } from '@/actions/signup-service';
 
 import PolicyAgreePage from '@/components/pages/auth/signup/PolicyAgreePage';
 import EmailCertificationPage from '@/components/pages/auth/signup/EmailCertificationPage';
@@ -18,6 +18,8 @@ export default function SignUpSteps() {
   const signUpData = useSignUpForms();
   const handleSubmit = async () => {
     console.log(signUpData);
+    const res = await signup(signUpData);
+    console.log(res);
     router.push('/main');
   };
 
@@ -38,7 +40,7 @@ export default function SignUpSteps() {
           <PersonalInfoPage onNext={() => setStep('닉네임')} />
         </Step>
         <Step name="닉네임">
-          <NicknamePage onNext={() => handleSubmit} />
+          <NicknamePage onNext={handleSubmit} />
         </Step>
       </Funnel>
     </form>

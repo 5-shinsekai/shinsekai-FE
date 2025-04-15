@@ -6,6 +6,7 @@ import { useState, useContext } from 'react';
 import SignupInput from '@/components/ui/SignupInput';
 import SignupTitleWrapper from '@/components/ui/wrapper/SignupTitleWrapper';
 import InputSectionWrapper from '@/components/ui/wrapper/InputSectionWrapper';
+import { sendEmail } from '@/action/email-service';
 export default function EmailCertificationPage({
   onNext,
 }: {
@@ -20,9 +21,11 @@ export default function EmailCertificationPage({
     setEmail(e.target.value);
   };
 
-  const handleCerti = () => {
+  const handleCerti = async () => {
     setCerti(true);
     console.log('인증');
+    const res = await sendEmail(email, '회원가입');
+    console.log(res);
   };
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {

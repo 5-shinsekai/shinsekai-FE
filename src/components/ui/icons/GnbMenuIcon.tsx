@@ -1,9 +1,11 @@
+'use client';
 import React from 'react';
 import { cn } from '@/lib/utils';
-
+import { useSidebarContext } from '@/context/SideBarContext';
 export default function GnbMenuIcon({
   className,
 }: Readonly<{ className?: string }>) {
+  const { isOpen, setIsOpen } = useSidebarContext();
   return (
     <svg
       width="32"
@@ -12,6 +14,7 @@ export default function GnbMenuIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(className)}
+      onClick={() => setIsOpen(!isOpen)}
     >
       <path d="M24.3996 10H7.59961V11.2H24.3996V10Z" fill="#666767" />
       <path d="M24.3996 16.2H7.59961V17.4H24.3996V16.2Z" fill="#666767" />
