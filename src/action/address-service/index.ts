@@ -95,7 +95,7 @@ export const getAddress = async () => {
     throw new Error('등록된 스타벅스 카드 조회 실패');
   }
 
-  const cards = await res.json();
-  console.log('조회된 배송지 목록:', cards);
-  return cards;
+  const address = await res.json();
+  console.log('조회된 배송지 목록:', address);
+  return address;
 };

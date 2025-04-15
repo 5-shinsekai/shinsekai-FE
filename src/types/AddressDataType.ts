@@ -22,3 +22,15 @@ export interface RegisterAddressFormType {
   deliveryMemo: string;
   defaultAddress: string;
 }
+
+export interface GetAddressType {
+  addressUuid: string;
+  zipNo: string;
+  addressNickname: string;
+  deliveryMemo: string;
+  totalAddress: string;
+  firstPhoneNumber: string;
+  secondPhoneNumber: string;
+  receiverName: string;
+  mainAddress: boolean;
+}

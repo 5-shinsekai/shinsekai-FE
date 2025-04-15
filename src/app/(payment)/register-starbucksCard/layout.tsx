@@ -3,6 +3,8 @@
 import React from 'react';
 import SubHeader from '@/components/layouts/SubHeader';
 
+import RegisterCardTabMenu from '@/components/layouts/RegisterCardTabMenu';
+
 export default function Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -10,8 +12,9 @@ export default function Layout({
     <>
       <SubHeader title="" showCloseButton />
       <h1 className="text-[1.625rem] font-semibold py-[20px] px-[24px]">
-        결제하기
+        카드 등록
       </h1>
+      <RegisterCardTabMenu />
       {children}
     </>
   );

@@ -1,4 +1,4 @@
-import { myAddressListType } from '@/types/AddressDataType';
+import { GetAddressType, myAddressListType } from '@/types/AddressDataType';
 
 export const myAddressListData: myAddressListType[] = [
   {
@@ -84,5 +84,86 @@ export const myAddressListData: myAddressListType[] = [
     secondPhoneNumber: '01011112222',
     deliveryMemo: '배송메모',
     defaultAddress: '',
+  },
+];
+
+export const getAddressListData: GetAddressType[] = [
+  {
+    addressUuid: 'uuid',
+    zipNo: '12312',
+    addressNickname: '주소별칭',
+    deliveryMemo: '배송메모란',
+    totalAddress:
+      '전체 주소 test test test 러마ㅣㄴㅇ러ㅏㅣㅇ러ㅏㅇ너랑너ㅣㅓㅏㅣㅓㅏㅓㅋㅇ니ㅏ렁나',
+    firstPhoneNumber: '010-0000-0000',
+    secondPhoneNumber: '010-9999-9999',
+    receiverName: '받는 분',
+    mainAddress: true,
+  },
+  {
+    addressUuid: 'uuid',
+    zipNo: '12312',
+    addressNickname: '주소별칭',
+    deliveryMemo: '배송메모란',
+    totalAddress: '전체 주소',
+    firstPhoneNumber: '010-0000-0000',
+    secondPhoneNumber: '010-9999-9999',
+    receiverName: '받는 분',
+    mainAddress: true,
+  },
+  {
+    addressUuid: 'uuid',
+    zipNo: '13213',
+    addressNickname: '주소별칭',
+    deliveryMemo: '배송메모란',
+    totalAddress: '전체 주소',
+    firstPhoneNumber: '010-0000-0000',
+    secondPhoneNumber: '010-9999-9999',
+    receiverName: '받는 분',
+    mainAddress: false,
+  },
+  {
+    addressUuid: 'uuid',
+    zipNo: '13213',
+    addressNickname: '주소별칭',
+    deliveryMemo: '배송메모란',
+    totalAddress: '전체 주소',
+    firstPhoneNumber: '010-0000-0000',
+    secondPhoneNumber: '010-9999-9999',
+    receiverName: '받는 분',
+    mainAddress: false,
+  },
+  {
+    addressUuid: 'uuid',
+    zipNo: '13213',
+    addressNickname: '주소별칭',
+    deliveryMemo: '배송메모란',
+    totalAddress: '전체 주소',
+    firstPhoneNumber: '010-0000-0000',
+    secondPhoneNumber: '010-9999-9999',
+    receiverName: '받는 분',
+    mainAddress: false,
+  },
+  {
+    addressUuid: 'uuid',
+    zipNo: '13213',
+    addressNickname: '주소별칭',
+    deliveryMemo: '배송메모란',
+    totalAddress: '전체 주소',
+    firstPhoneNumber: '010-0000-0000',
+    secondPhoneNumber: '010-9999-9999',
+    receiverName: '받는 분',
+    mainAddress: false,
+  },
+  {
+    addressUuid: 'uuid',
+    zipNo: '13213',
+    addressNickname: '주소별칭',
+    deliveryMemo: '배송메모란',
+    totalAddress: '전체 주소',
+    firstPhoneNumber: '010-0000-0000',
+    secondPhoneNumber: '010-9999-9999',
+    receiverName: '받는 분',
+    mainAddress: false,
   },
 ];

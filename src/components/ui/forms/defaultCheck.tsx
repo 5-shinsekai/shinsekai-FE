@@ -9,7 +9,7 @@ import { Modal } from '../Modal';
 interface AgreeCheckPropsType {
   id: string;
   name: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: boolean;
   className?: string;
