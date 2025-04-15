@@ -8,6 +8,8 @@ import { getMainCategoryList } from '@/action/product-service';
 import { MainCategoryType } from '@/types/CategotyTypes';
 import Image from 'next/image';
 import Link from 'next/link';
+import { logout } from '@/action/login-service';
+
 export function Sidebar() {
   const { isOpen, setIsOpen } = useSidebarContext();
   const [mainCategoryList, setMainCategoryList] = useState<MainCategoryType[]>(
@@ -15,8 +17,17 @@ export function Sidebar() {
   );
   const route = useRouter();
   const onClick = () => setIsOpen((prev) => !prev);
-
+  const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
+    const getCookie = (name: string) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
+      return null;
+    };
+    const token = getCookie('accessToken');
+    setIsLogin(!!token);
+
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -72,11 +83,44 @@ export function Sidebar() {
         </header>
 
         <div className="space-y-2 py-5 border-b border-gray-200">
-          <h1 className="font-bold text-2xl">Welcome</h1>
-          <p className="text-sm">온라인 스토어에 오신 것을 환영합니다.</p>
+          <h1 className="font-bold text-2xl">
+            {isLogin ? 'Welcome' : 'Sign in to Online Store'}
+          </h1>
+          <p className="text-sm">
+            {isLogin ? (
+              <>
+                온라인 스토어에 오신 것을 환영합니다.
+                <br />
+                <button
+                  className="text-sm text-custom-green-200 underline underline-offset-2"
+                  onClick={() => {
+                    logout();
+                    setIsLogin(false);
+                  }}
+                >
+                  로그아웃
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-sm text-custom-green-200 underline underline-offset-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  로그인
+                </Link>
+                후 이용해보세요
+              </>
+            )}
+          </p>
         </div>
 
-        <Link href="/products" className="mt-7 block text-right">
+        <Link
+          href="/products"
+          className="mt-7 block text-right"
+          onClick={() => setIsOpen(false)}
+        >
           전체 상품 보기 <span className="text-sm"> &gt;</span>
         </Link>
         <nav className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-5 items-center justify-items-center text-center gap-y-5">

@@ -26,3 +26,9 @@ export const login = async (formData: FormData) => {
     console.log('로그인 실패');
   }
 };
+
+export const logout = async () => {
+  (await cookies()).delete('accessToken');
+  (await cookies()).delete('refreshToken');
+  redirect('/main');
+};
