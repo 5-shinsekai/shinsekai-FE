@@ -12,16 +12,17 @@ export default function ShowAddressList({
 
   const handleEdit = (item: Partial<AddressDataType>) => {
     const query = new URLSearchParams({
-      zipNo: item.zipNo || '',
-      addressNickname: item.addressNickname || '',
-      roadAddress: item.roadAddress || '',
-      detailedAddress: item.detailedAddress || '',
-      deliveryMemo: item.deliveryMemo || '',
-      firstPhoneNumber: item.firstPhoneNumber || '',
-      secondPhoneNumber: item.secondPhoneNumber || '',
-      receiverName: item.receiverName || '',
-      isMainAddress: String(item.isMainAddress || ''),
-      isPersonalMemo: String(item.isPersonalMemo || ''),
+      addressUuid: item.addressUuid || '',
+      // zipNo: item.zipNo || '',
+      // addressNickname: item.addressNickname || '',
+      // roadAddress: item.roadAddress || '',
+      // detailAddress: item.detailAddress || '',
+      // deliveryMemo: item.deliveryMemo || '',
+      // firstPhoneNumber: item.firstPhoneNumber || '',
+      // secondPhoneNumber: item.secondPhoneNumber || '',
+      // receiverName: item.receiverName || '',
+      // isMainAddress: String(item.isMainAddress || ''),
+      // isPersonalMemo: String(item.isPersonalMemo || ''),
     });
     router.push(`/edit-address?${query.toString()}`);
   };
@@ -51,7 +52,9 @@ export default function ShowAddressList({
                 </nav>
               ) : (
                 <nav className="text-xs text-custom-gray-400">
-                  <span className="px-3">수정</span>
+                  <span className="px-3" onClick={() => handleEdit(item)}>
+                    수정
+                  </span>
                   <span className="border-l px-3">삭제</span>
                 </nav>
               )}
@@ -60,7 +63,7 @@ export default function ShowAddressList({
               ({item.zipNo}){item.roadAddress}
             </p>
 
-            <p className="text-sm leading-tight">{item.detailedAddress}</p>
+            <p className="text-sm leading-tight">{item.detailAddress}</p>
             {item.secondPhoneNumber ? (
               <p className="text-xs text-custom-gray-700 py-2">
                 {item.firstPhoneNumber} | {item.secondPhoneNumber}

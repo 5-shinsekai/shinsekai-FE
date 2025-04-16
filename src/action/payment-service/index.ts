@@ -3,6 +3,7 @@
 import {
   ExternalStarbucksCardDataType,
   RegisterStarbucksCardDataType,
+  starbuckscardInfoType,
 } from '@/types/PaymentDataType';
 import { redirect } from 'next/navigation';
 
@@ -51,7 +52,7 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
 const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
   const registerStarbuckscardData: Partial<RegisterStarbucksCardDataType> = {
     cardName: data.cardName,
-    cardNumber: data.cardNumber,
+    cardNumber: data.cardNumber.replace(/-/g, ''),
     remainAmount: data.remainAmount,
     cardImageUrl: data.cardImageUrl,
     cardDescription: data.cardDescription,
@@ -76,10 +77,10 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
   const success = await res.json();
   console.log('register api 응답', success);
 
-  // return success;
+  return success;
 };
 
-export const getStarbuckscard = async () => {
+export const getStarbuckscard = async (): Promise<starbuckscardInfoType[]> => {
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
   const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {
@@ -97,7 +98,7 @@ export const getStarbuckscard = async () => {
     throw new Error('등록된 스타벅스 카드 조회 실패');
   }
 
-  const cards = await res.json();
-  console.log('조회된 카드 목록:', cards);
-  return cards;
+  const data = await res.json();
+  console.log('조회된 카드 목록:', data);
+  return data;
 };

@@ -28,7 +28,7 @@ export default function SelectAddressList({
       zipNo: item.zipNo || '',
       addressNickname: item.addressNickname || '',
       roadAddress: item.roadAddress || '',
-      detailedAddress: item.detailedAddress || '',
+      detailAddress: item.detailAddress || '',
       deliveryMemo:
         item.isPersonalMemo === true ? '직접입력' : item.deliveryMemo || '',
       firstPhoneNumber: item.firstPhoneNumber || '',
@@ -98,7 +98,7 @@ export default function SelectAddressList({
               ({item.zipNo}){item.roadAddress}
             </p>
 
-            <p className="text-sm leading-tight">{item.detailedAddress}</p>
+            <p className="text-sm leading-tight">{item.detailAddress}</p>
             {item.secondPhoneNumber ? (
               <p className="text-xs text-custom-gray-700 py-2">
                 {item.firstPhoneNumber} | {item.secondPhoneNumber}

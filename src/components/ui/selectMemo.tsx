@@ -86,7 +86,7 @@ export function SelectMemo({
           id="isDirectInputMemo"
           name="isDirectInputMemo"
           placeholder="배송 시 요청사항을 기재해 주세요."
-          className="w-full pt-6 border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
+          className="w-full pt-6 border-b outline-none text-[0.938rem] 3ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
           onChange={
             onChange &&
             ((e) => {

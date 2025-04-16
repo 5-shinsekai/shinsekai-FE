@@ -43,7 +43,7 @@ export interface postAddressDataType {
   receiverName: string;
   zipNo: string;
   roadAddress: string;
-  detailedAddress: string;
+  detailAddress: string;
   totalAddress: string;
   firstPhoneNumber: string;
   secondPhoneNumber: string;
@@ -58,7 +58,7 @@ export interface postAddressDataType {
 //   receiverName: string;
 //   zipNo: string;
 //   roadAddress: string;
-//   detailedAddress: string;
+//   detailAddress: string;
 //   totalAddress: string;
 //   firstPhoneNumber: string;
 //   secondPhoneNumber: string;

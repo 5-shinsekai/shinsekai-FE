@@ -3,7 +3,7 @@ import ShowAddressList from '@/components/pages/address/ShowAddressList';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import { Button } from '@/components/ui/button';
 import { getAddress } from '@/action/address-service';
-import { Link } from 'lucide-react';
+import Link from 'next/link';
 
 export default async function Page() {
   const addressListData = await getAddress();

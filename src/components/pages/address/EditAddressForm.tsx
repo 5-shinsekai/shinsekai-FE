@@ -7,16 +7,27 @@ import { SelectMemo } from '@/components/ui/selectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 // import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { registerAddressSchema } from '@/schemas/registerAddressSchema';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { RegisterAddressFormType } from '@/types/AddressDataType';
+import { useSearchParams } from 'next/navigation';
+import {
+  AddressDataType,
+  RegisterAddressFormType,
+} from '@/types/AddressDataType';
 import AutoTabInput from '@/components/ui/forms/autoTabInput';
 import { DefaultCheck } from '@/components/ui/forms/defaultCheck';
 
-export default function RegisterAddressForm({
+export default function EditAddressForm({
+  addressData,
   action,
 }: {
+  addressData: AddressDataType;
   action: (addressForm: FormData) => void;
 }) {
+  console.log(addressData);
+  const [isActive, setIsActive] = useState(false);
+  const searchParams = useSearchParams();
+  const [editAddressData, setEditAddressData] =
+    useState<AddressDataType>(addressData);
+
   const [errorMessages, setErrorMessages] = useState<
     Partial<RegisterAddressFormType>
   >({
@@ -31,28 +42,20 @@ export default function RegisterAddressForm({
     isMainAddress: '',
   });
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [isActive, setIsActive] = useState(false);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // e.preventDefault();
     const { name, value } = e.target;
-    const updatedSearchParams = new URLSearchParams(searchParams.toString());
-    if (updatedSearchParams.get(name) !== value) {
-      updatedSearchParams.set(name, value);
-      router.push(`/register-address?${updatedSearchParams.toString()}`, {
-        scroll: false,
-      });
-    }
+    console.log(e.target.name, e.target.value);
+    console.log('수정 정보', editAddressData);
+    setEditAddressData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
     const key = name as keyof typeof registerAddressSchema.shape;
     const res = registerAddressSchema.shape[key].safeParse(value);
 
-    console.log(res);
     if (!res.success) {
       const errorMessage = res.error.errors[0].message;
-
       setErrorMessages((prev) => ({
         ...prev,
         [name]: errorMessage,
@@ -63,27 +66,31 @@ export default function RegisterAddressForm({
         ...prev,
         [name]: '',
       }));
+      setIsActive(true);
     }
   };
 
   useEffect(() => {
-    const res = registerAddressSchema.safeParse(
-      Object.fromEntries(searchParams.entries())
-    );
+    const res = registerAddressSchema.safeParse(editAddressData);
     if (res.success) {
       setErrorMessages({});
       setIsActive(true);
     }
-  }, [searchParams]);
+  }, [editAddressData]);
 
   return (
     <form action={action} className="mb-[10rem] space-y-[1.25rem]">
+      <input
+        name="addressUuid"
+        type="hidden"
+        value={editAddressData.addressUuid}
+      />
       <InputType.FormInputInfo
         id="addressNickname"
         name="addressNickname"
         title="주소별칭"
         onChange={handleChange}
-        defaultValue={searchParams.get('addressNickname') || ''}
+        defaultValue={editAddressData.addressNickname}
         // value={inputValues.addressNickname}
         type="text"
         errorMessage={errorMessages.addressNickname}
@@ -94,7 +101,7 @@ export default function RegisterAddressForm({
         name="receiverName"
         title="받는 분"
         onChange={handleChange}
-        defaultValue={searchParams.get('receiverName') || ''}
+        defaultValue={editAddressData.receiverName}
         required
         errorMessage={errorMessages.receiverName}
       />
@@ -104,7 +111,7 @@ export default function RegisterAddressForm({
         name="zipNo"
         title="우편번호"
         buttonText="주소검색"
-        defaultValue={searchParams.get('zipNo') || ''}
+        defaultValue={editAddressData.zipNo}
         link={`search-address?${new URLSearchParams(searchParams.toString())}`}
         readonly={true}
         required
@@ -115,7 +122,7 @@ export default function RegisterAddressForm({
         name="roadAddress"
         title="기본주소"
         readonly={true}
-        defaultValue={searchParams.get('roadAddress') || ''}
+        defaultValue={editAddressData.roadAddress}
         required
       />
       <InputType.FormInputInfo
@@ -124,7 +131,7 @@ export default function RegisterAddressForm({
         name="detailAddress"
         title="상세주소"
         onChange={handleChange}
-        defaultValue={searchParams.get('detailAddress') || ''}
+        defaultValue={editAddressData.detailAddress}
         required
         errorMessage={errorMessages.detailAddress}
       />
@@ -148,7 +155,7 @@ export default function RegisterAddressForm({
         name="firstPhoneNumber"
         title="연락처1"
         onChange={handleChange}
-        defaultValue={searchParams.get('firstPhoneNumber') || ''}
+        defaultValue={editAddressData.firstPhoneNumber}
         required
         errorMessage={errorMessages.firstPhoneNumber}
         className="pt-4"
@@ -170,23 +177,27 @@ export default function RegisterAddressForm({
         name="secondPhoneNumber"
         title="연락처2"
         onChange={handleChange}
-        defaultValue={searchParams.get('secondPhoneNumber') || ''}
+        defaultValue={editAddressData.secondPhoneNumber}
         errorMessage={errorMessages.secondPhoneNumber}
         className="pt-4"
       />
       <SelectMemo
         onChange={handleChange}
-        directDefaultValue={searchParams.get('isDirectInputMemo') || ''}
-        defaultValue={searchParams.get('deliveryMemo') || ''}
+        directDefaultValue={
+          editAddressData.isPersonalMemo ? editAddressData.deliveryMemo : ''
+        }
+        defaultValue={
+          editAddressData.isPersonalMemo
+            ? '직접입력'
+            : editAddressData.deliveryMemo
+        }
       />
       <DefaultCheck
         id="isMainAddress"
         name="isMainAddress"
         value="true"
         onChange={handleChange}
-        defaultChecked={
-          searchParams.get('isMainAddress') === 'true' ? true : false
-        }
+        defaultChecked={editAddressData.isMainAddress}
       >
         기본배송지로 저장합니다.
       </DefaultCheck>
@@ -195,7 +206,7 @@ export default function RegisterAddressForm({
           type="submit"
           color={!isActive ? 'gray' : 'green'}
           className="w-full mx-auto"
-          disabled={!isActive}
+          // disabled={!isActive}
         >
           등록하기
         </Button>

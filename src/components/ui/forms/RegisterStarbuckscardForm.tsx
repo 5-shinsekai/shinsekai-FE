@@ -102,6 +102,7 @@ export default function RegisterStarbuckscardForm({
           name="pinNumber"
           title="pin번호 8자리 (필수)"
           onChange={handleChange}
+          maxLength={8}
           defaultValue={inputValues.pinNumber}
           type="text"
           errorMessage={errorMessages.pinNumber}

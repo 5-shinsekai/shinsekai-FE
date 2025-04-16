@@ -85,6 +85,8 @@ export default function AutoTabInput({
           >
             <input
               id={index === 0 ? id : undefined}
+              // name={name}
+              // key={index}
               value={values[index]}
               type={type}
               maxLength={maxLength[index]}
