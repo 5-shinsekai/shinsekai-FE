@@ -33,3 +33,12 @@ export interface productDetailType {
   isNew: boolean;
   isBest: boolean;
 }
+
+export interface productThumbnailType {
+  productCode: string;
+  productName: string;
+  productPrice: number;
+  thumbnailUrl: string;
+  discountRate: number;
+  new: boolean;
+}

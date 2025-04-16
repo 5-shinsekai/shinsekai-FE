@@ -16,11 +16,12 @@ export default function SignUpSteps() {
   const router = useRouter();
 
   const signUpData = useSignUpForms();
-  const handleSubmit = async () => {
+  const handleSubmit = async (item: string) => {
+    signUpData.nickname = item;
     console.log(signUpData);
     const res = await signup(signUpData);
     console.log(res);
-    router.push('/main');
+    // router.push('/main');
   };
 
   return (
