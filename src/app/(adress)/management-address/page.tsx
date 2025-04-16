@@ -5,16 +5,14 @@ import ShowAddressList from '@/components/pages/address/ShowAddressList';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { myAddressListData } from '@/data/DummyData/myAddressDummyData';
+import { getAddress } from '@/action/address-service';
+import { Link } from 'lucide-react';
 
-export default function Page() {
+export default async function Page() {
   const router = useRouter();
 
-  const handleClick = () => {
-    router.push('/register-address');
-  };
-
-  const sortedList = [...myAddressListData].sort((a) =>
+  const addressListData = await getAddress();
+  const sortedList = [...addressListData].sort((a) =>
     a.isMainAddress ? -1 : 1
   );
 
@@ -26,9 +24,11 @@ export default function Page() {
       </div>
       <div className="py-15"></div>
       <ButtonWrapper>
-        <Button color="green" className="w-full" onClick={handleClick}>
-          새 배송지 추가
-        </Button>
+        <Link href="/register-address">
+          <Button color="green" className="w-full">
+            새 배송지 추가
+          </Button>
+        </Link>
       </ButtonWrapper>
     </main>
   );
