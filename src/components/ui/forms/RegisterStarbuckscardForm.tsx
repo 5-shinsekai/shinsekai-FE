@@ -9,7 +9,7 @@ import { HasTermCheck } from './defaultCheck';
 import ButtonWrapper from '../wrapper/buttonWrapper';
 import { Button } from '../button';
 import { cn } from '@/lib/utils';
-import RegisterStarbuckscardTerm from '@/components/pages/payment/RegisterStarbucksCardForm/RegisterStarbucksCardTerm';
+import RegisterStarbuckscardTerm from '@/components/pages/payment/RegisterStarbucksCardForm/RegisterStarbuckscardTerm';
 
 export default function RegisterStarbuckscardForm({
   action,

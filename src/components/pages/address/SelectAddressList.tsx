@@ -67,13 +67,25 @@ export default function SelectAddressList({
               </p>
               {item.isMainAddress ? (
                 <nav className="text-xs text-custom-gray-400 z-50">
-                  <span className="px-3" onClick={() => handleEdit(item)}>
+                  <span
+                    className="px-3"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEdit(item);
+                    }}
+                  >
                     수정
                   </span>
                 </nav>
               ) : (
                 <nav className="text-xs text-custom-gray-400 z-50">
-                  <span className="px-3" onClick={() => handleEdit(item)}>
+                  <span
+                    className="px-3"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEdit(item);
+                    }}
+                  >
                     수정
                   </span>
                   <span className="border-l px-3">삭제</span>
