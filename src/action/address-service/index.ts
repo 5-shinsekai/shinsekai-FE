@@ -3,6 +3,8 @@
 import { addressApiType } from '@/types/addressApiType';
 import { AddressDataType } from '@/types/AddressDataType';
 
+const ACCESS_TOKEN =
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNMjAyNTA0MTYtYjJhZmY4NDQiLCJpYXQiOjE3NDQ3OTE4NjgsImV4cCI6MTc0NDk2NDY2OH0.wStxmfK60Clpma4M22__ngjIng9NjGKMSN5LARDWBP0';
 // 주소검색
 export const getAddressList = async (
   keyword: string,
@@ -52,7 +54,6 @@ export const postAddress = async (addressForm: FormData) => {
     isMainAddress:
       (addressForm.get('isMainAddress') as string) === 'true' ? true : false,
   };
-  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
   console.log(addressData);
   console.log(ACCESS_TOKEN);
@@ -76,9 +77,7 @@ export const postAddress = async (addressForm: FormData) => {
   return data;
 };
 
-export const getAddress = async () => {
-  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
-
+export const getAddress = async (): Promise<AddressDataType[]> => {
   const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
     method: 'GET',
     headers: {
@@ -94,7 +93,7 @@ export const getAddress = async () => {
     throw new Error('등록된 스타벅스 카드 조회 실패');
   }
 
-  const address = await res.json();
-  console.log('조회된 배송지 목록:', address);
-  return address;
+  const data = await res.json();
+  console.log('조회된 배송지 목록:', data.result);
+  return data.result;
 };

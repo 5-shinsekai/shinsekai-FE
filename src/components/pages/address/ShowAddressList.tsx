@@ -28,47 +28,51 @@ export default function ShowAddressList({
 
   return (
     <section className="w-full mx-auto relative">
-      {myAddressList.map((item) => (
-        <div className="border-b py-4 last:border-none" key={item.addressUuid}>
-          <div className="flex justify-between">
-            <p className="text-sm font-semibold py-0.5 inline-flex items-center">
-              {item.receiverName}({item.addressNickname})
-              {item.isMainAddress && (
-                <span className="text-[0.6rem] font-light bg-custom-green-300/15 text-custom-green-300 px-[0.2rem] py-[0.1rem] mx-2">
-                  기본
-                </span>
+      {myAddressList.length > 0 &&
+        myAddressList.map((item) => (
+          <div
+            className="border-b py-4 last:border-none"
+            key={item.addressUuid}
+          >
+            <div className="flex justify-between">
+              <p className="text-sm font-semibold py-0.5 inline-flex items-center">
+                {item.receiverName}({item.addressNickname})
+                {item.isMainAddress && (
+                  <span className="text-[0.6rem] font-light bg-custom-green-300/15 text-custom-green-300 px-[0.2rem] py-[0.1rem] mx-2">
+                    기본
+                  </span>
+                )}
+              </p>
+              {item.isMainAddress ? (
+                <nav className="text-xs text-custom-gray-400">
+                  <span className="px-3" onClick={() => handleEdit(item)}>
+                    수정
+                  </span>
+                </nav>
+              ) : (
+                <nav className="text-xs text-custom-gray-400">
+                  <span className="px-3">수정</span>
+                  <span className="border-l px-3">삭제</span>
+                </nav>
               )}
+            </div>
+            <p className="text-sm">
+              ({item.zipNo}){item.roadAddress}
             </p>
-            {item.isMainAddress ? (
-              <nav className="text-xs text-custom-gray-400">
-                <span className="px-3" onClick={() => handleEdit(item)}>
-                  수정
-                </span>
-              </nav>
-            ) : (
-              <nav className="text-xs text-custom-gray-400">
-                <span className="px-3">수정</span>
-                <span className="border-l px-3">삭제</span>
-              </nav>
-            )}
-          </div>
-          <p className="text-sm">
-            ({item.zipNo}){item.roadAddress}
-          </p>
 
-          <p className="text-sm leading-tight">{item.detailedAddress}</p>
-          {item.secondPhoneNumber ? (
-            <p className="text-xs text-custom-gray-700 py-2">
-              {item.firstPhoneNumber} | {item.secondPhoneNumber}
-            </p>
-          ) : (
-            <p className="text-xs text-custom-gray-700">
-              {item.firstPhoneNumber}
-            </p>
-          )}
-          <p className="text-xs text-custom-gray-700">{item.deliveryMemo}</p>
-        </div>
-      ))}
+            <p className="text-sm leading-tight">{item.detailedAddress}</p>
+            {item.secondPhoneNumber ? (
+              <p className="text-xs text-custom-gray-700 py-2">
+                {item.firstPhoneNumber} | {item.secondPhoneNumber}
+              </p>
+            ) : (
+              <p className="text-xs text-custom-gray-700">
+                {item.firstPhoneNumber}
+              </p>
+            )}
+            <p className="text-xs text-custom-gray-700">{item.deliveryMemo}</p>
+          </div>
+        ))}
     </section>
   );
 }
