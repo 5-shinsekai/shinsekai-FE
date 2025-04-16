@@ -183,6 +183,7 @@ export default function RegisterAddressForm({
       <DefaultCheck
         id="isMainAddress"
         name="isMainAddress"
+        value="true"
         onChange={handleChange}
         defaultChecked={
           searchParams.get('isMainAddress') === 'true' ? true : false

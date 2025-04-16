@@ -22,9 +22,16 @@ export default function Page() {
 
   return (
     <main className="px-5">
-      <h1 className="pt-[5rem] pb-[1.25rem] text-[1.625rem] font-semibold">
-        배송지 선택
-      </h1>
+      <div className="flex justify-between items-center py-10">
+        <h1 className="text-[1.625rem] font-semibold">배송지 선택</h1>
+        <button
+          onClick={() => router.push('/register-address')}
+          className="text-custom-green-100 inline-flex items-center space-x-1"
+        >
+          <span className="text-2xl font-light">+</span>
+          <span className="text-sm">새 배송지 추가</span>
+        </button>
+      </div>
       <div>
         <SelectAddressList
           myAddressList={sortedList}

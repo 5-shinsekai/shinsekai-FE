@@ -29,12 +29,14 @@ export default function SelectAddressList({
       addressNickname: item.addressNickname || '',
       roadAddress: item.roadAddress || '',
       detailedAddress: item.detailedAddress || '',
-      deliveryMemo: item.deliveryMemo || '',
+      deliveryMemo:
+        item.isPersonalMemo === true ? '직접입력' : item.deliveryMemo || '',
       firstPhoneNumber: item.firstPhoneNumber || '',
       secondPhoneNumber: item.secondPhoneNumber || '',
       receiverName: item.receiverName || '',
-      isMainAddress: String(item.isMainAddress || ''),
-      isPersonalMemo: String(item.isPersonalMemo || ''),
+      isMainAddress: String(item.isMainAddress || 'false'),
+      isDirectInputMemo:
+        (item.isPersonalMemo === true && item.deliveryMemo) || '',
     });
     router.push(`/edit-address?${query.toString()}`);
   };
@@ -57,10 +59,10 @@ export default function SelectAddressList({
           />
           <div className="w-full">
             <div className="flex justify-between">
-              <p className="text-sm font-semibold py-0.5">
+              <p className="text-sm font-semibold py-0.5 inline-flex items-center">
                 {item.receiverName}({item.addressNickname})
                 {item.isMainAddress && (
-                  <span className="text-[0.6rem] font-light bg-custom-green-300/20 text-custom-green-300 px-1 py-0.8 mx-2">
+                  <span className="text-[0.6rem] font-light bg-custom-green-300/15 text-custom-green-300 px-[0.2rem] py-[0.1rem] mx-2">
                     기본
                   </span>
                 )}

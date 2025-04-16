@@ -33,6 +33,7 @@ export const getAddressList = async (
 
 // 배송지 등록
 export const postAddress = async (addressForm: FormData) => {
+  console.log(addressForm);
   const addressData: Partial<AddressDataType> = {
     addressNickname: addressForm.get('addressNickname') as string,
     receiverName: addressForm.get('receiverName') as string,
@@ -49,7 +50,7 @@ export const postAddress = async (addressForm: FormData) => {
     isPersonalMemo:
       addressForm.get('deliveryMemo') === '직접입력' ? true : false,
     isMainAddress:
-      (addressForm.get('isMainAddress') as string) === 'on' ? true : false,
+      (addressForm.get('isMainAddress') as string) === 'true' ? true : false,
   };
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 

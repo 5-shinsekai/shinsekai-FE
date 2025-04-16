@@ -35,9 +35,9 @@ export default function AddressInfoSection() {
           </div>
           <div className="py-3 space-y-[0.4rem]">
             {address.isMainAddress ? (
-              <p className="font-semibold text-[1rem]">
+              <p className="font-semibold text-[1rem] inline-flex items-center">
                 {address.receiverName} ({address.addressNickname})
-                <span className="text-[0.7rem] font-light bg-custom-green-300/20 text-custom-green-300 px-[0.2rem] py-[0.1rem] mx-2">
+                <span className="text-[0.6rem] font-light bg-custom-green-300/15 text-custom-green-300 px-[0.3rem] py-[0.15rem] mx-2">
                   기본
                 </span>
               </p>
