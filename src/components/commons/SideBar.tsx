@@ -8,7 +8,8 @@ import { getMainCategoryList } from '@/action/product-service';
 import { MainCategoryType } from '@/types/CategotyTypes';
 import Image from 'next/image';
 import Link from 'next/link';
-import { logout } from '@/action/login-service';
+import { useSpharosSession } from '@/context/SessionContext';
+import { signOut } from 'next-auth/react';
 
 export function Sidebar() {
   const { isOpen, setIsOpen } = useSidebarContext();
@@ -17,17 +18,12 @@ export function Sidebar() {
   );
   const route = useRouter();
   const onClick = () => setIsOpen((prev) => !prev);
-  const [isLogin, setIsLogin] = useState(false);
+  const handleLogin = () => {
+    setIsOpen(false);
+    route.push('/login');
+  };
+  const isLogin = useSpharosSession();
   useEffect(() => {
-    const getCookie = (name: string) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
-      return null;
-    };
-    const token = getCookie('accessToken');
-    setIsLogin(!!token);
-
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -94,8 +90,7 @@ export function Sidebar() {
                 <button
                   className="text-sm text-custom-green-200 underline underline-offset-2"
                   onClick={() => {
-                    logout();
-                    setIsLogin(false);
+                    signOut();
                   }}
                 >
                   로그아웃
@@ -103,13 +98,12 @@ export function Sidebar() {
               </>
             ) : (
               <>
-                <Link
-                  href="/login"
+                <button
                   className="text-sm text-custom-green-200 underline underline-offset-2"
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleLogin}
                 >
                   로그인
-                </Link>
+                </button>
                 후 이용해보세요
               </>
             )}

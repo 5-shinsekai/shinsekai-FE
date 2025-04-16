@@ -1,6 +1,9 @@
 'use server';
 
+import { options } from '@/app/api/auth/[...nextauth]/options';
 import { addressApiType, postAddressDataType } from '@/types/addressApiType';
+import { getServerSession } from 'next-auth';
+import { getToken } from 'next-auth/jwt';
 
 // 주소검색
 export const getAddressList = async (
@@ -8,6 +11,9 @@ export const getAddressList = async (
   currentPage: string,
   countPerPage: string
 ): Promise<addressApiType> => {
+  const session = await getServerSession(options);
+  console.log('세션', session);
+
   const baseUrl = process.env.NEXT_PUBLIC_SEARCH_ADRESS_BASE_URL;
   const serviceKey = process.env.NEXT_PUBLIC_SEARCH_ADRESS_SECRET_KEY;
   const params = {

@@ -4,6 +4,9 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import { SidebarContextProvider } from '@/context/SideBarContext';
 import { Sidebar } from '@/components/commons/SideBar';
+import AuthContextProvider from '@/provider/AuthContextProvider';
+import { getServerSession } from 'next-auth';
+import { options } from './api/auth/[...nextauth]/options';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -33,20 +36,26 @@ export const metadata: Metadata = {
     images: [{ url: '/assets/images/og/og_image.png' }],
   },
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(options);
+  console.log('session', session);
+  const isAuth = !!session?.user;
+
   return (
     <html lang="ko">
       <body
         className={`${inter.variable} ${pretendard.className}  ${pretendard.variable} antialiased`}
       >
-        <SidebarContextProvider>
-          <Sidebar />
-          {children}
-        </SidebarContextProvider>
+        <AuthContextProvider isAuth={isAuth}>
+          <SidebarContextProvider>
+            <Sidebar />
+            {children}
+          </SidebarContextProvider>
+        </AuthContextProvider>
       </body>
     </html>
   );
