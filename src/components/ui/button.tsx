@@ -14,6 +14,7 @@ const buttonVariants = cva(
       size: {
         default:
           'h-[2.625rem] w-[20.875rem] text-[0.875rem] rounded-[3.125rem]',
+        xs: 'h-[1.7rem] px-3 text-[0.75rem] rounded-[1.25rem]',
         sm: 'h-[1.625rem] min-w-[4rem] text-[0.688rem] rounded-[3.125rem]',
         md: 'h-[2.75rem] w-[10.375rem] text-[0.875rem] rounded-[3.125rem]',
         lg: 'h-[3.125rem] w-[20.875rem] text-[0.875rem] rounded-3',
@@ -25,6 +26,7 @@ const buttonVariants = cva(
         gray: 'bg-custom-gray-300 text-white',
         blue: 'bg-custom-blue-100 text-white',
         green: 'bg-custom-green-200 text-white',
+        white: 'bg-white border-1',
       },
     },
     defaultVariants: {

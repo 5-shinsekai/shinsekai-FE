@@ -6,9 +6,10 @@ import React, { useRef, useState } from 'react';
 
 interface AutoTabInputProps {
   inputbox?: number;
-  maxLength?: number;
+  maxLength?: number[];
   id?: string;
   name?: string;
+  type: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
   defaultValue?: string;
@@ -18,8 +19,8 @@ interface AutoTabInputProps {
 }
 
 export default function AutoTabInput({
-  inputbox = 4,
-  maxLength = 4,
+  inputbox = 0,
+  maxLength = [0],
   id,
   name,
   onChange,
@@ -28,9 +29,19 @@ export default function AutoTabInput({
   title = '',
   required = false,
   className,
+  type = '',
 }: AutoTabInputProps) {
   const inputRef = useRef<(HTMLInputElement | null)[]>([]);
-  const [values, setValues] = useState<string[]>(Array(inputbox).fill(''));
+  const initialValues = Array.from({ length: inputbox }, (_, i) => {
+    if (!defaultValue) return '';
+    const split = defaultValue.split('-');
+    return split[i] || '';
+  });
+
+  const [values, setValues] = useState<string[]>(
+    Array.from({ length: inputbox }, (_, i) => initialValues[i] || '')
+  );
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = (
     index: number,
@@ -40,17 +51,14 @@ export default function AutoTabInput({
 
     const newValues = [...values];
     newValues[index] = inputValue;
-    // console.log('new', newValues, 'new');
     setValues(newValues);
-    // console.log(values);
 
-    if (inputValue.length === maxLength && index < inputbox - 1) {
+    if (inputValue.length === maxLength[index] && index < inputbox - 1) {
       inputRef.current[index + 1]?.focus();
     }
 
     if (onChange) {
-      const fullValue = newValues.join('');
-      console.log('full', fullValue);
+      const fullValue = newValues.join('-');
       const syntheticEvent = {
         ...e,
         target: {
@@ -64,7 +72,7 @@ export default function AutoTabInput({
   };
 
   return (
-    <div className={cn('relative pt-6', className)}>
+    <div className={cn('relative pt-5', className)}>
       <div className="flex flex-wrap">
         {Array.from({ length: inputbox }).map((item, index) => (
           <div
@@ -72,32 +80,35 @@ export default function AutoTabInput({
             className={cn(
               '',
               index < inputbox - 1 &&
-                "after:content-['-'] after:text-2xl after:text-gray-400 after:px-2"
+                "after:content-['-'] after:align-sub after:text-2xl after:text-gray-400 after:px-2"
             )}
           >
             <input
               id={index === 0 ? id : undefined}
               // name={name}
               // key={index}
-              type="text"
-              maxLength={maxLength}
+              value={values[index]}
+              type={type}
+              maxLength={maxLength[index]}
               ref={(e) => {
                 inputRef.current[index] = e;
               }}
               onChange={(e) => handleChange(index, e)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
               className={cn(
-                'peer w-18 border-b border-gray-300 py-1 text-center focus:outline-none focus:rounded focus:ring-2 focus:ring-custom-green-200'
+                ' w-15 md:w-30 border-b border-gray-300 py-0.5 text-center focus:outline-none focus:rounded focus:ring-1 focus:ring-custom-green-200'
               )}
             />
           </div>
         ))}
-        <input type="hidden" name={name} value={values.join('')} />
+        <input type="hidden" name={name} value={values.join('-')} />
 
         <label
           htmlFor={id}
           className={cn(
             'absolute left-0 top-1 text-[0.938rem] text-gray-600 font-medium ease-in-out duration-150',
-            defaultValue
+            isFocused || defaultValue
               ? 'top-0 text-xs text-custom-green-200'
               : 'peer-focus:top-0 peer-focus:text-xs peer-focus:text-custom-green-200'
           )}

@@ -1,10 +1,22 @@
-import React from 'react';
-export default function Page() {
+import React, { Suspense } from 'react';
+import { editAddress, getAddressByUuid } from '@/action/address-service';
+import EditAddressForm from '@/components/pages/address/EditAddressForm';
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ addressUuid: string }>;
+}) {
+  const { addressUuid } = await searchParams;
+  console.log('addressUuid', addressUuid);
+  const addressData = await getAddressByUuid(addressUuid);
+
   return (
     <main className="px-[1.5rem]">
-      <h1 className="pt-[5rem] pb-[1.25rem] text-[1.625rem] font-semibold">
-        배송지 수정
-      </h1>
+      <h1 className="py-8 text-[1.625rem] font-semibold">배송지 정보</h1>
+      <Suspense>
+        <EditAddressForm addressData={addressData!} action={editAddress} />
+      </Suspense>
     </main>
   );
 }

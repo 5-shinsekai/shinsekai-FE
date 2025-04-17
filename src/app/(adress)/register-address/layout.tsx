@@ -6,7 +6,7 @@ export default function layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <SubHeader title="배송지 등록" showBackButton showCloseButton />
+      <SubHeader title="배송지 등록" showBackButton />
       {children}
     </>
   );
