@@ -1,5 +1,5 @@
 import { commonResponseType, userDataType } from '@/types/common';
-import { NextAuthOptions } from 'next-auth';
+import { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KakaoProvider from 'next-auth/providers/kakao';
 
@@ -11,7 +11,7 @@ export const options: NextAuthOptions = {
         loginId: { label: 'loginId', type: 'text' },
         password: { label: 'password', type: 'password' },
       },
-      async authorize(credentials): Promise<any> {
+      async authorize(credentials): Promise<User | null> {
         if (!credentials?.loginId || !credentials?.password) {
           return null;
         }
@@ -20,7 +20,7 @@ export const options: NextAuthOptions = {
 
         try {
           const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API_URL}/member/sign-in`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/member/sign-in`,
             {
               method: 'POST',
               headers: {
@@ -35,9 +35,12 @@ export const options: NextAuthOptions = {
           if (!user.isSuccess) {
             return null;
           }
-          return user.result;
+          return {
+            ...user.result,
+            id: user.result.memberUuid,
+          };
         } catch (error) {
-          // console.error('error', error);
+          console.error('error', error);
         }
         return null;
       },
@@ -48,7 +51,7 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account, profile }) {
       if (profile && account) {
         console.log('profile', profile);
         console.log('account', account);
@@ -69,12 +72,12 @@ export const options: NextAuthOptions = {
               cache: 'no-cache',
             }
           );
-          const data = (await res.json()) as commonResType<userDataType>;
+          const data = (await res.json()) as commonResponseType<userDataType>;
           console.log('server data', data);
           user.accessToken = data.result.accessToken;
           user.refreshToken = data.result.refreshToken;
           user.name = data.result.name;
-          user.uuid = data.result.uuid;
+          user.memberUuid = data.result.memberUuid;
           console.log('kakao', user);
           return true;
         } catch (error) {
@@ -91,7 +94,7 @@ export const options: NextAuthOptions = {
     },
 
     async session({ session, token }) {
-      session.user = token as any;
+      session.user = token;
       return session;
     },
 

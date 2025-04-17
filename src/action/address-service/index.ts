@@ -3,7 +3,6 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { addressApiType, postAddressDataType } from '@/types/addressApiType';
 import { getServerSession } from 'next-auth';
-import { getToken } from 'next-auth/jwt';
 
 // 주소검색
 export const getAddressList = async (
