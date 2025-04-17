@@ -46,4 +46,5 @@ jobs:
             docker stop frontend || true
             docker rm frontend || true
             docker run -d --name frontend -p 3000:3000 \
-            009160040466.dkr.ecr.ap-northeast-2.amazonaws.com/shinsekai-frontend:latest
+              -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
+              009160040466.dkr.ecr.ap-northeast-2.amazonaws.com/shinsekai-frontend:latest
