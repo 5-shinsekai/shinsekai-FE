@@ -2,10 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { paymentMethodDummyData } from '@/data/DummyData/PaymentDummyData';
 import EmptyStarbuckscard from '@/components/ui/EmptyStarbuckscard';
 import { DefaultCheck } from '@/components/ui/forms/defaultCheck';
-import { getStarbuckscard } from '@/action/payment-service';
 import { starbuckscardInfoType } from '@/types/PaymentDataType';
 
 export default function PayMethodInfo({
@@ -73,27 +71,6 @@ export default function PayMethodInfo({
         {/* 카드 등록 버튼 */}
         <EmptyStarbuckscard />
       </div>
-      {/* <Image
-          src="/starbucksCard1.png"
-          alt="starbucksCard"
-          width={262}
-          height={166}
-          className="shadow-lg my-4"
-        />
-        <Image
-          src="/starbucksCard1.png"
-          alt="starbucksCard"
-          width={262}
-          height={166}
-          className="shadow-lg my-4"
-        />
-        <Image
-          src="/starbucksCard1.png"
-          alt="starbucksCard"
-          width={262}
-          height={166}
-          className="shadow-lg my-4"
-        /> */}
     </section>
   );
 }

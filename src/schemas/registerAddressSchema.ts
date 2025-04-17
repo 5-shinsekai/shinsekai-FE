@@ -12,13 +12,8 @@ export const registerAddressSchema = z.object({
   firstPhoneNumber: z
     .string()
     .regex(/^\d{3}-\d{4}-\d{4}$/, '연락처 형식이 아닙니다.'),
-  secondPhoneNumber: z
-    .string()
-    .optional()
-    .refine((val) => !val || /^\d{3}-\d{4}-\d{4}$/.test(val), {
-      message: '연락처 형식이 아닙니다.',
-    }),
+  secondPhoneNumber: z.string().optional(),
   deliveryMemo: z.string().optional(),
   isDirectInputMemo: z.string().optional(),
-  isMainAddress: z.string().optional(),
+  isMainAddress: z.string(),
 });

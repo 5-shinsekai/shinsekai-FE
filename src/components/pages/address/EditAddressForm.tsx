@@ -14,6 +14,7 @@ import {
 } from '@/types/AddressDataType';
 import AutoTabInput from '@/components/ui/forms/autoTabInput';
 import { DefaultCheck } from '@/components/ui/forms/defaultCheck';
+import { cn } from '@/lib/utils';
 
 export default function EditAddressForm({
   addressData,
@@ -22,8 +23,9 @@ export default function EditAddressForm({
   addressData: AddressDataType;
   action: (addressForm: FormData) => void;
 }) {
-  console.log(addressData);
+  // console.log(addressData);
   const [isActive, setIsActive] = useState(false);
+  const [isChange, setIsChange] = useState(false);
   const searchParams = useSearchParams();
   const [editAddressData, setEditAddressData] =
     useState<AddressDataType>(addressData);
@@ -43,14 +45,17 @@ export default function EditAddressForm({
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const name = e.target.name;
+    const value = e.target.value;
+
     console.log(e.target.name, e.target.value);
-    console.log('수정 정보', editAddressData);
     setEditAddressData((prev) => ({
       ...prev,
       [name]: value,
     }));
-
+    console.log('수정 정보', editAddressData);
+    // console.log(editAddressData);
+    console.log('name', name, typeof name, 'value', value, typeof value);
     const key = name as keyof typeof registerAddressSchema.shape;
     const res = registerAddressSchema.shape[key].safeParse(value);
 
@@ -66,6 +71,7 @@ export default function EditAddressForm({
         ...prev,
         [name]: '',
       }));
+      setIsChange(true);
       setIsActive(true);
     }
   };
@@ -76,7 +82,7 @@ export default function EditAddressForm({
       setErrorMessages({});
       setIsActive(true);
     }
-  }, [editAddressData]);
+  }, [editAddressData, isChange]);
 
   return (
     <form action={action} className="mb-[10rem] space-y-[1.25rem]">
@@ -115,6 +121,7 @@ export default function EditAddressForm({
         link={`search-address?${new URLSearchParams(searchParams.toString())}`}
         readonly={true}
         required
+        className="text-custom-gray-400 font-semibold"
       />
       <InputType.InputInfo
         type="text"
@@ -124,6 +131,7 @@ export default function EditAddressForm({
         readonly={true}
         defaultValue={editAddressData.roadAddress}
         required
+        className="text-custom-gray-400 font-semibold"
       />
       <InputType.FormInputInfo
         type="text"
@@ -195,9 +203,12 @@ export default function EditAddressForm({
       <DefaultCheck
         id="isMainAddress"
         name="isMainAddress"
-        value="true"
+        // value="true"
         onChange={handleChange}
         defaultChecked={editAddressData.isMainAddress}
+        className={cn(
+          editAddressData.isMainAddress ? 'transition-all text-black' : ''
+        )}
       >
         기본배송지로 저장합니다.
       </DefaultCheck>
@@ -208,7 +219,7 @@ export default function EditAddressForm({
           className="w-full mx-auto"
           // disabled={!isActive}
         >
-          등록하기
+          수정하기
         </Button>
       </ButtonWrapper>
     </form>

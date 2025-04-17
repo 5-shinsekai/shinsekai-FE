@@ -134,23 +134,75 @@ export const editAddress = async (addressForm: FormData) => {
   };
 
   console.log(addressData);
-  //   console.log(ACCESS_TOKEN);
-  //   const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${ACCESS_TOKEN}`,
-  //     },
-  //     body: JSON.stringify(addressData),
-  //   });
+  console.log(ACCESS_TOKEN);
+  const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+    body: JSON.stringify(addressData),
+  });
 
-  //   if (!res.ok) {
-  //     const text = await res.text();
-  //     console.error('서버 응답 상태 코드:', res.status);
-  //     console.error('서버 응답 내용:', text);
-  //     throw new Error('Failed to fetch data');
-  //   }
-  //   const data = await res.json();
-  //   console.log(data);
-  //   return data;
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+  const data = await res.json();
+  console.log(data);
+  return data;
+};
+
+export const getAddressByUuid = async (adressUuid: string) => {
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+  console.log('uuid (배송지): ', adressUuid);
+
+  const res = await fetch(
+    `http://3.37.52.123:8080/api/v1/address/${adressUuid}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
+  console.log('단일배송지 조회 결과:', data);
+  return data.result;
+};
+
+export const deleteAddressByUuid = async (adressUuid: string) => {
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+  console.log('uuid (배송지): ', adressUuid);
+
+  const res = await fetch(
+    `http://3.37.52.123:8080/api/v1/address/${adressUuid}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
+  console.log('배송지 삭제 결과:', data);
+  return data.result;
 };

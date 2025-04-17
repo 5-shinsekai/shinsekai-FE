@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { RegisterAddressFormType } from '@/types/AddressDataType';
 import AutoTabInput from '@/components/ui/forms/autoTabInput';
 import { DefaultCheck } from '@/components/ui/forms/defaultCheck';
+import { cn } from '@/lib/utils';
 
 export default function RegisterAddressForm({
   action,
@@ -37,7 +38,9 @@ export default function RegisterAddressForm({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // e.preventDefault();
-    const { name, value } = e.target;
+    const name = e.target.name;
+    const value = e.target.value;
+
     const updatedSearchParams = new URLSearchParams(searchParams.toString());
     if (updatedSearchParams.get(name) !== value) {
       updatedSearchParams.set(name, value);
@@ -49,7 +52,7 @@ export default function RegisterAddressForm({
     const key = name as keyof typeof registerAddressSchema.shape;
     const res = registerAddressSchema.shape[key].safeParse(value);
 
-    console.log(res);
+    // console.log(res);
     if (!res.success) {
       const errorMessage = res.error.errors[0].message;
 
@@ -187,6 +190,9 @@ export default function RegisterAddressForm({
         defaultChecked={
           searchParams.get('isMainAddress') === 'true' ? true : false
         }
+        className={cn(
+          searchParams.get('isMainAddress') ? 'transition-all text-black' : ''
+        )}
       >
         기본배송지로 저장합니다.
       </DefaultCheck>

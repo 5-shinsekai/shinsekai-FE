@@ -46,7 +46,7 @@ export function SelectMemo({
       <label className="font-medium text-[0.75rem]">배송메모</label>
       <Select
         name="deliveryMemo"
-        defaultValue={defaultValue}
+        // defaultValue={defaultValue}
         onValueChange={(value) => {
           handleSelectMemo(value);
           if (onChange) {

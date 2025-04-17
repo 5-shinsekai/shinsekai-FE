@@ -68,6 +68,7 @@ export function HasTermCheck({
   className,
   defaultChecked = false,
   termLink,
+  value,
 }: AgreeCheckPropsType) {
   const [modal, setModal] = useState(false);
   const handle = () => {
@@ -78,6 +79,7 @@ export function HasTermCheck({
       <div className="flex space-x-2">
         <Checkbox
           id={id}
+          value={value}
           name={name}
           checked={defaultChecked}
           onCheckedChange={(checked) => {

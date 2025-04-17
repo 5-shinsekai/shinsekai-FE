@@ -102,3 +102,30 @@ export const getStarbuckscard = async (): Promise<starbuckscardInfoType[]> => {
   console.log('조회된 카드 목록:', data);
   return data;
 };
+
+export const deleteStarbuckscard = async (memberStarbucksCardUuid: string) => {
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+  console.log('uuid (스벅카드): ', memberStarbucksCardUuid);
+
+  const res = await fetch(
+    `http://3.37.52.123:8080/api/v1/starbucks-card/${memberStarbucksCardUuid}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  // const { cardName, cardNumber } = starbuckscardData;
+  const data = await res.json();
+  console.log('삭제api 결과:', data);
+  return data;
+};

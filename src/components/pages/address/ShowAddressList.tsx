@@ -1,5 +1,6 @@
 'use client';
 
+import { DeleteAddressButton } from '@/components/ui/DeleteButtonComponent';
 import { AddressDataType } from '@/types/AddressDataType';
 import { useRouter } from 'next/navigation';
 
@@ -55,7 +56,7 @@ export default function ShowAddressList({
                   <span className="px-3" onClick={() => handleEdit(item)}>
                     수정
                   </span>
-                  <span className="border-l px-3">삭제</span>
+                  <DeleteAddressButton addressUuid={item.addressUuid} />
                 </nav>
               )}
             </div>
