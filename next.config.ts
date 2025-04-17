@@ -3,7 +3,11 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ['upload.wikimedia.org', 'image.istarbucks.co.kr'],
+    domains: [
+      'upload.wikimedia.org',
+      'image.istarbucks.co.kr',
+      'sitem.ssgcdn.com',
+    ],
   },
   async redirects() {
     return [

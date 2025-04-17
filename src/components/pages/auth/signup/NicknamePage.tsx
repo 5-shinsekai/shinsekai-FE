@@ -5,7 +5,11 @@ import SignupTitleWrapper from '@/components/ui/wrapper/SignupTitleWrapper';
 import { SignUpContext } from '@/context/SignUpContext';
 import { useState, useContext } from 'react';
 
-export default function NicknamePage({ onNext }: { onNext: () => void }) {
+export default function NicknamePage({
+  onNext,
+}: {
+  onNext: (item: string) => void;
+}) {
   const { setNicknameForm } = useContext(SignUpContext);
   const [nickname, setNickname] = useState<string>('');
 
@@ -15,7 +19,7 @@ export default function NicknamePage({ onNext }: { onNext: () => void }) {
 
   const handleSubmit = async () => {
     await setNicknameForm({ nickname });
-    onNext();
+    onNext(nickname);
   };
   return (
     <>

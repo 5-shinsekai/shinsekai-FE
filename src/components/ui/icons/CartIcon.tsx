@@ -1,9 +1,12 @@
-import React from "react";
-import { cn } from "@/lib/utils";
+'use client';
+import React from 'react';
+import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 export default function CartIcon({
   className,
 }: Readonly<{ className?: string }>) {
+  const router = useRouter();
   return (
     <svg
       width="32"
@@ -12,6 +15,7 @@ export default function CartIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(className)}
+      onClick={() => router.push('/cart')}
     >
       <path d="M24.4 12.4H10V13.6H24.4V12.4Z" fill="#666767" />
       <path
