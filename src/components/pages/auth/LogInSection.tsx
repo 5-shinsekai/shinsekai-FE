@@ -8,12 +8,10 @@ import { Button } from '@/components/ui/Button';
 
 export default function LogInSection() {
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('handleSignIn');
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const loginId = formData.get('loginId') as string;
     const password = formData.get('password') as string;
-    console.log(loginId, password);
     signIn('credentials', {
       loginId,
       password,
@@ -22,7 +20,6 @@ export default function LogInSection() {
   };
   return (
     <form onSubmit={handleSignIn} className="h-full">
-      {/* 버튼까지 포함해서 */}
       <LogInForm />
       <AuthMenu />
       <ButtonWrapper>
