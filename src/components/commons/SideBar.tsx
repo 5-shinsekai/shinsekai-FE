@@ -8,7 +8,7 @@ import { getMainCategoryList } from '@/action/product-service';
 import { MainCategoryType } from '@/types/CategotyTypes';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSpharosSession } from '@/context/SessionContext';
+import { useLoginSession } from '@/context/SessionContext';
 import { signOut } from 'next-auth/react';
 
 export function Sidebar() {
@@ -22,7 +22,7 @@ export function Sidebar() {
     setIsOpen(false);
     route.push('/login');
   };
-  const isLogin = useSpharosSession();
+  const isLogin = useLoginSession();
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';

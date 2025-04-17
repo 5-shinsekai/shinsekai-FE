@@ -3,7 +3,7 @@
 import { ProductThumbnailType } from '@/types/ProductDataTypes';
 
 export const getMainCategoryList = async () => {
-  const res = await fetch(`${process.env.BASE_API_URL}/category/main`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/category/main`);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -12,7 +12,7 @@ export const getMainCategoryList = async () => {
 
 export const getProductThumbnail = async (productCode: string) => {
   const res = await fetch(
-    `${process.env.BASE_API_URL}/product/${productCode}/outline`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product/${productCode}/outline`
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');
