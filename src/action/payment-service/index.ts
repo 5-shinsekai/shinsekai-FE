@@ -3,7 +3,15 @@
 import {
   ExternalStarbucksCardDataType,
   RegisterStarbucksCardDataType,
+  starbuckscardInfoType,
 } from '@/types/PaymentDataType';
+import { redirect } from 'next/navigation';
+
+// interface ActionState {
+//   success: boolean;
+//   data: any | null;
+//   error: string;
+// }
 
 // 스타벅스 카드 등록
 export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
@@ -13,7 +21,7 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
     pinNumber: starbuckscardForm.get('pinNumber') as string,
   };
 
-  console.log(starbuckscardData);
+  // console.log(starbuckscardData);
   const res = await fetch(
     'http://3.37.52.123:8080/api/v1/external/starbucks-card',
     {
@@ -31,16 +39,20 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
     console.error('서버 응답 내용:', text);
     throw new Error('Failed to fetch data');
   }
-  const data = await res.json();
-  console.log(data);
 
-  registerStarbuckscard(data);
+  // const { cardName, cardNumber } = starbuckscardData;
+  const data = await res.json();
+  console.log('API로부터 받은 데이터 (외부api):', data);
+  await registerStarbuckscard(data);
+  redirect(
+    `/card-complete?cardName=${encodeURIComponent(data.cardName)}&cardNumber=${data.cardNumber}` //uuid로 redirect 하기
+  );
 };
 
 const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
   const registerStarbuckscardData: Partial<RegisterStarbucksCardDataType> = {
     cardName: data.cardName,
-    cardNumber: data.cardNumber,
+    cardNumber: data.cardNumber.replace(/-/g, ''),
     remainAmount: data.remainAmount,
     cardImageUrl: data.cardImageUrl,
     cardDescription: data.cardDescription,
@@ -63,5 +75,57 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
     throw new Error('Failed to fetch data');
   }
   const success = await res.json();
-  console.log(success);
+  console.log('register api 응답', success);
+
+  return success;
+};
+
+export const getStarbuckscard = async (): Promise<starbuckscardInfoType[]> => {
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+
+  const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('등록된 스타벅스 카드 조회 실패');
+  }
+
+  const data = await res.json();
+  console.log('조회된 카드 목록:', data);
+  return data;
+};
+
+export const deleteStarbuckscard = async (memberStarbucksCardUuid: string) => {
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+  console.log('uuid (스벅카드): ', memberStarbucksCardUuid);
+
+  const res = await fetch(
+    `http://3.37.52.123:8080/api/v1/starbucks-card/${memberStarbucksCardUuid}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  // const { cardName, cardNumber } = starbuckscardData;
+  const data = await res.json();
+  console.log('삭제api 결과:', data);
+  return data;
 };

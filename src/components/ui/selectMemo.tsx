@@ -26,8 +26,9 @@ export function SelectMemo({
   const [isDirectInput, setIsDirectInput] = useState(false);
 
   const handleSelectMemo = (value: string) => {
+    console.log(value);
     // setSelectMemo(value);
-    if (value === '직접입력') {
+    if (defaultValue === '직접입력') {
       setIsDirectInput(true);
     } else {
       setIsDirectInput(false);
@@ -35,17 +36,17 @@ export function SelectMemo({
   };
 
   useEffect(() => {
-    if (defaultValue === '직접입력') {
+    if (defaultValue === '직접입력' || directDefaultValue) {
       setIsDirectInput(true);
     }
-  }, [defaultValue]);
+  }, [defaultValue, directDefaultValue]);
 
   return (
     <div className="w-full">
       <label className="font-medium text-[0.75rem]">배송메모</label>
       <Select
         name="deliveryMemo"
-        defaultValue={defaultValue}
+        // defaultValue={defaultValue}
         onValueChange={(value) => {
           handleSelectMemo(value);
           if (onChange) {
@@ -85,7 +86,7 @@ export function SelectMemo({
           id="isDirectInputMemo"
           name="isDirectInputMemo"
           placeholder="배송 시 요청사항을 기재해 주세요."
-          className="w-full pt-6 border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
+          className="w-full pt-6 border-b outline-none text-[0.938rem] 3ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
           onChange={
             onChange &&
             ((e) => {

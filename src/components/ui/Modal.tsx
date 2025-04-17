@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 interface props {
   title?: string;
-  setModal: () => void;
+  setModal?: () => void;
   children?: React.ReactNode;
   className?: string;
 }
@@ -29,7 +29,9 @@ export const Modal = ({ title, setModal, children, className }: props) => {
         id="모달"
         onClick={(e) => e.stopPropagation()}
         className={cn(
-          'bg-white w-2/3 rounded-md p-10 max-h-[80vh] overflow-y-auto z-[100]',
+          'bg-white w-3/4 rounded-md p-2 h-1/2 overflow-y-auto z-[100]',
+          'transition-all duration-300 ease-out',
+          'opacity-100 translate-y-0',
           className
         )}
       >
@@ -45,7 +47,7 @@ export const Modal = ({ title, setModal, children, className }: props) => {
         <Button
           color="green"
           size="hug"
-          className="text-[1rem] px-6 block mx-auto"
+          className="text-[1rem] px-6 block mx-auto mb-5"
           onClick={setModal}
         >
           확인

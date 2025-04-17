@@ -51,7 +51,7 @@ export default function SearchAddressForm() {
 
   return (
     <>
-      <section className="fixed top-[3.5rem] w-full text-2xl left-0 bg-white z-5 px-[1.5rem] py-[1.25rem]">
+      <section className="fixed top-[3.5rem] w-full text-2xl left-0 bg-white z-5 px-[1.5rem] py-[2rem]">
         <h1 className="">어디로 배송할까요?</h1>
         <form onSubmit={handleSearchSubmit} className="space-y-3 pt-3 relative">
           <p

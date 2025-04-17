@@ -95,6 +95,7 @@ function InputInfo({
   readonly = false,
   maxLength = 100,
   onChange,
+  className,
 }: InputInfoPropsType) {
   return (
     <div className="relative w-full pt-4 ">
@@ -108,7 +109,10 @@ function InputInfo({
         onChange={onChange}
         required={required}
         maxLength={maxLength}
-        className="peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200"
+        className={cn(
+          'peer w-full border-b outline-none text-[0.938rem] ease-in-out duration-150 border-gray-300 focus:border-custom-green-200',
+          className
+        )}
       />
       <label
         htmlFor={id}
