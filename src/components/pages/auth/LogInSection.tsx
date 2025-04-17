@@ -1,13 +1,27 @@
+'use client';
 import React from 'react';
 import LogInForm from './LogInInForm';
 import AuthMenu from './AuthMenu';
-import { Button } from '@/components/ui/button';
 import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
-import { login } from '@/action/login-service';
+import { signIn } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
 
 export default function LogInSection() {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log('handleSignIn');
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const loginId = formData.get('loginId') as string;
+    const password = formData.get('password') as string;
+    console.log(loginId, password);
+    signIn('credentials', {
+      loginId,
+      password,
+      redirect: true,
+    });
+  };
   return (
-    <form action={login} className="h-full">
+    <form onSubmit={handleSignIn} className="h-full">
       {/* 버튼까지 포함해서 */}
       <LogInForm />
       <AuthMenu />

@@ -11,6 +11,9 @@ export const getAddressList = async (
   currentPage: string,
   countPerPage: string
 ): Promise<addressApiType> => {
+  const session = await getServerSession(options);
+  console.log('세션', session);
+
   const baseUrl = process.env.NEXT_PUBLIC_SEARCH_ADRESS_BASE_URL;
   const serviceKey = process.env.NEXT_PUBLIC_SEARCH_ADRESS_SECRET_KEY;
   const params = {
