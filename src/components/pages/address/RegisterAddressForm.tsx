@@ -5,7 +5,6 @@ import { InputType } from '@/components/ui/InputInfo';
 import { Button } from '@/components/ui/Button';
 import { SelectMemo } from '@/components/ui/SelectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
-// import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { registerAddressSchema } from '@/schemas/registerAddressSchema';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { RegisterAddressFormType } from '@/types/AddressDataType';
@@ -18,6 +17,13 @@ export default function RegisterAddressForm({
 }: {
   action: (addressForm: FormData) => void;
 }) {
+  //     searchParams,
+  // }: {
+  //   searchParams: Promise<Readonly<{ page: number }>>;
+  // }) {
+  const params = useSearchParams();
+  const isMain = params.get('isMain') === 'true';
+  console.log('ismain', isMain);
   const [errorMessages, setErrorMessages] = useState<
     Partial<RegisterAddressFormType>
   >({
@@ -36,15 +42,24 @@ export default function RegisterAddressForm({
   const searchParams = useSearchParams();
   const [isActive, setIsActive] = useState(false);
 
+  const updatedSearchParams = new URLSearchParams(searchParams.toString());
+  useEffect(() => {
+    if (isMain) {
+      updatedSearchParams.set('isMainAddress', 'true');
+      router.replace(`/register-address?${updatedSearchParams.toString()}`, {
+        scroll: false,
+      });
+    }
+  }, [isMain]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
 
-    const updatedSearchParams = new URLSearchParams(searchParams.toString());
     if (updatedSearchParams.get(name) !== value) {
       updatedSearchParams.set(name, value);
-      router.push(`/register-address?${updatedSearchParams.toString()}`, {
+      router.replace(`/register-address?${updatedSearchParams.toString()}`, {
         scroll: false,
       });
     }
@@ -187,11 +202,19 @@ export default function RegisterAddressForm({
         name="isMainAddress"
         value="true"
         onChange={handleChange}
+        // disable={isMain}
+        hidden={isMain}
         defaultChecked={
-          searchParams.get('isMainAddress') === 'true' ? true : false
+          isMain
+            ? true
+            : searchParams.get('isMainAddress') === 'true'
+              ? true
+              : false
         }
         className={cn(
-          searchParams.get('isMainAddress') ? 'transition-all text-black' : ''
+          !isMain && searchParams.get('isMainAddress') === 'true'
+            ? 'transition-all text-black'
+            : ''
         )}
       >
         기본배송지로 저장합니다.
