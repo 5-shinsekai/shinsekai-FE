@@ -34,6 +34,12 @@ export interface ProductDetailType {
   isBest: boolean;
 }
 
+export interface EventThumbnailType {
+  id: number;
+  eventThumbnailImage: string;
+  eventThumbnailImageAltText: string;
+}
+
 export interface ProductThumbnailType {
   productCode: string;
   productName: string;
