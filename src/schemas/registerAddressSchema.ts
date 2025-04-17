@@ -15,5 +15,5 @@ export const registerAddressSchema = z.object({
   secondPhoneNumber: z.string().optional(),
   deliveryMemo: z.string().optional(),
   isDirectInputMemo: z.string().optional(),
-  isMainAddress: z.string(),
+  isMainAddress: z.union([z.string(), z.boolean().transform(String)]),
 });

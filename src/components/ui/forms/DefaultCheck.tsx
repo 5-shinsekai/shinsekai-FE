@@ -10,14 +10,17 @@ interface AgreeCheckPropsType {
   id: string;
   name: string;
   children?: React.ReactNode;
+  disable?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: boolean;
   className?: string;
   value?: string;
   termLink?: React.ReactNode;
+  hidden?: boolean;
 }
 
 export function DefaultCheck({
+  disable = false,
   id,
   value,
   children,
@@ -25,6 +28,7 @@ export function DefaultCheck({
   onChange,
   className,
   defaultChecked = false,
+  hidden,
 }: AgreeCheckPropsType) {
   return (
     <div className="flex items-center">
@@ -32,7 +36,9 @@ export function DefaultCheck({
         <Checkbox
           id={id}
           value={value}
+          hidden={hidden}
           name={name}
+          disabled={disable}
           checked={defaultChecked}
           onCheckedChange={(checked) => {
             if (onChange) {
@@ -49,6 +55,7 @@ export function DefaultCheck({
         <label
           id={id}
           htmlFor={id}
+          hidden={hidden}
           className={cn(
             'text-[0.875rem] text-custom-gray-600 font-medium ',
             className

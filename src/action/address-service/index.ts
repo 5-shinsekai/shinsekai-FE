@@ -2,9 +2,10 @@
 
 import { AddressApiType } from '@/types/AddressApiType';
 import { AddressDataType } from '@/types/AddressDataType';
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
-const ACCESS_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNMjAyNTA0MTYtYjJhZmY4NDQiLCJpYXQiOjE3NDQ3OTE4NjgsImV4cCI6MTc0NDk2NDY2OH0.wStxmfK60Clpma4M22__ngjIng9NjGKMSN5LARDWBP0';
+// const ACCESS_TOKEN =
+//   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNMjAyNTA0MTYtYjJhZmY4NDQiLCJpYXQiOjE3NDQ3OTE4NjgsImV4cCI6MTc0NDk2NDY2OH0.wStxmfK60Clpma4M22__ngjIng9NjGKMSN5LARDWBP0';
 // 주소검색
 export const getAddressList = async (
   keyword: string,

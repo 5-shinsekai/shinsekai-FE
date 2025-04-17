@@ -10,7 +10,7 @@ export default function Layout({
     <>
       <SubHeader title="" showCloseButton />
       <h1 className="text-[1.625rem] font-semibold py-[20px] px-[24px]">
-        결제하기
+        충전하기
       </h1>
       {children}
     </>

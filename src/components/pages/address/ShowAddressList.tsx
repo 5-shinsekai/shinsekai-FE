@@ -25,11 +25,16 @@ export default function ShowAddressList({
       // isMainAddress: String(item.isMainAddress || ''),
       // isPersonalMemo: String(item.isPersonalMemo || ''),
     });
-    router.push(`/edit-address?${query.toString()}`);
+    router.push(
+      `/edit-address?${query.toString()}&isMain=${item.isMainAddress}`
+    );
   };
 
   return (
     <section className="w-full mx-auto relative">
+      {myAddressList.length === 0 && (
+        <p>등록된 배송지가 없습니다. 배송지를 등록해주세요.</p>
+      )}
       {myAddressList.length > 0 &&
         myAddressList.map((item) => (
           <div

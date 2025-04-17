@@ -23,6 +23,9 @@ export default function EditAddressForm({
   addressData: AddressDataType;
   action: (addressForm: FormData) => void;
 }) {
+  const params = useSearchParams();
+  const isMain = params.get('isMain') === 'true';
+
   // console.log(addressData);
   const [isActive, setIsActive] = useState(false);
   const [isChange, setIsChange] = useState(false);
@@ -46,7 +49,14 @@ export default function EditAddressForm({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value: string;
+
+    // 체크박스일 경우 checked 값 사용
+    if (e.target.type === 'checkbox') {
+      value = String(e.target.checked); // "true" or "false"
+    } else {
+      value = e.target.value;
+    }
 
     console.log(e.target.name, e.target.value);
     setEditAddressData((prev) => ({
@@ -203,9 +213,10 @@ export default function EditAddressForm({
       <DefaultCheck
         id="isMainAddress"
         name="isMainAddress"
-        // value="true"
+        value="true"
+        disable={isMain}
         onChange={handleChange}
-        defaultChecked={editAddressData.isMainAddress}
+        defaultChecked={isMain ? true : editAddressData.isMainAddress}
         className={cn(
           editAddressData.isMainAddress ? 'transition-all text-black' : ''
         )}
@@ -217,7 +228,7 @@ export default function EditAddressForm({
           type="submit"
           color={!isActive ? 'gray' : 'green'}
           className="w-full mx-auto"
-          // disabled={!isActive}
+          disabled={!isActive}
         >
           수정하기
         </Button>
