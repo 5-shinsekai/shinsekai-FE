@@ -1,6 +1,6 @@
-import { starbuckscardInfoType } from '@/types/PaymentDataType';
+import { StarbuckscardInfoType } from '@/types/PaymentDataType';
 
-export const paymentMethodDummyData: starbuckscardInfoType[] = [
+export const paymentMethodDummyData: StarbuckscardInfoType[] = [
   {
     memberStarbucksCardListUuid: 'starbucksCardUuida1',
     cardName: '테스트1',

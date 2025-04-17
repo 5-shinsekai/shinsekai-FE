@@ -1,4 +1,4 @@
-export interface myAddressListType {
+export interface MyAddressListType {
   id: number;
   addressNickname: string;
   receiverName: string;

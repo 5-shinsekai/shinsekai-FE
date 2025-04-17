@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
-import { Button } from '@/components/ui/button';
+import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
+import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
-import { getAddressListData } from '@/data/DummyData/myAddressDummyData';
+import { GetAddressListData } from '@/data/DummyData/MyAddressDummyData';
 import SelectAddressList from '@/components/pages/address/SelectAddressList';
 
 export default function Page() {
@@ -16,7 +16,7 @@ export default function Page() {
     router.push(`/payment?selected=${selectedUuid}`);
   };
 
-  const sortedList = [...getAddressListData].sort((a) =>
+  const sortedList = [...GetAddressListData].sort((a) =>
     a.isMainAddress ? -1 : 1
   );
 

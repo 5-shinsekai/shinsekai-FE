@@ -1,5 +1,7 @@
 'use server';
-import { productThumbnailType } from '@/types/ProductDataTypes';
+
+import { ProductThumbnailType } from '@/types/ProductDataTypes';
+
 export const getMainCategoryList = async () => {
   const res = await fetch(`${process.env.BASE_API_URL}/category/main`);
   if (!res.ok) {
@@ -16,5 +18,5 @@ export const getProductThumbnail = async (productCode: string) => {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-  return data.result as productThumbnailType;
+  return data.result as ProductThumbnailType;
 };

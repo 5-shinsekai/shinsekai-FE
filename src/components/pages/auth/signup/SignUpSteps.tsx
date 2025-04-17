@@ -9,11 +9,8 @@ import LoginInfoInputPage from './LoginInfoInputPage';
 import PersonalInfoPage from './PersonalInfoPage';
 import NicknamePage from './NicknamePage';
 import Stepper from '@/components/ui/Stepper';
-import { useRouter } from 'next/navigation';
 export default function SignUpSteps() {
   const { Funnel, setStep, Step } = useFunnel('약관');
-
-  const router = useRouter();
 
   const signUpData = useSignUpForms();
   const handleSubmit = async (item: string) => {

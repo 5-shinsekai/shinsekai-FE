@@ -2,15 +2,15 @@
 
 import React, { useEffect, useState } from 'react';
 import { InputType } from '@/components/ui/InputInfo';
-import { Button } from '@/components/ui/button';
-import { SelectMemo } from '@/components/ui/selectMemo';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
+import { Button } from '@/components/ui/Button';
+import { SelectMemo } from '@/components/ui/SelectMemo';
+import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 // import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { registerAddressSchema } from '@/schemas/registerAddressSchema';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { RegisterAddressFormType } from '@/types/AddressDataType';
-import AutoTabInput from '@/components/ui/forms/autoTabInput';
-import { DefaultCheck } from '@/components/ui/forms/defaultCheck';
+import AutoTabInput from '@/components/ui/forms/AutoTabInput';
+import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
 import { cn } from '@/lib/utils';
 
 export default function RegisterAddressForm({

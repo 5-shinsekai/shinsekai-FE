@@ -5,9 +5,9 @@ import AmountInfo from '@/components/pages/payment/OrderInfo/AmountInfo';
 import CashReceiptInfo from '@/components/pages/payment/OrderInfo/CashReceiptInfo';
 import OrderLogInfoSection from '@/components/pages/payment/OrderInfo/OrderLogInfoSection';
 import PayMethodInfo from '@/components/pages/payment/OrderInfo/PayMethodInfo';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import Divider from '@/components/ui/Divider';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
+import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import React, { Suspense } from 'react';
 
 export default async function page() {

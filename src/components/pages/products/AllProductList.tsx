@@ -5,18 +5,18 @@ import LoadingIcon from '@/components/ui/icons/LoadingIcon';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 // import { getAllProductList } from '@/actions/product-service';
-import { productType } from '@/types/ProductDataTypes';
+import { ProductType } from '@/types/ProductDataTypes';
 import { cn } from '@/lib/utils';
 
 export default function AllProductList({
   data,
 }: {
-  data: { data: productType[]; pages: number };
+  data: { data: ProductType[]; pages: number };
 }) {
   const loaderRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [productData, setProductData] = useState<productType[]>([]);
+  const [productData, setProductData] = useState<ProductType[]>([]);
   const [totalPage, setTatalPage] = useState<number>(6);
 
   const changePage = React.useCallback(

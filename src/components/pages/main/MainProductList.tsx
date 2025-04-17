@@ -1,12 +1,12 @@
 import React from 'react';
 import { productDummyData } from '@/data/DummyData/ProductDummyData';
-import { seasonType } from '@/types/ProductDataTypes';
+import { SeasonType } from '@/types/ProductDataTypes';
 import ProductListItem from '../products/ProductListItem';
 import ScrollableList from '@/components/layouts/ScrollableList';
 
 export default function MainProductList({
   season,
-}: Readonly<{ season: seasonType }>) {
+}: Readonly<{ season: SeasonType }>) {
   // 데이터 fetch 관련 필요 현재 dummy 이용
   console.log(season);
   return (

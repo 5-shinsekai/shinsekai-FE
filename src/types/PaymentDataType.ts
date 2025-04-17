@@ -12,7 +12,7 @@ export interface RegisterStarbucksCardDataType {
   remainAmount: number;
 }
 
-export interface starbuckscardInfoType {
+export interface StarbuckscardInfoType {
   memberStarbucksCardListUuid: string;
   cardName: string;
   cardNumber: string;

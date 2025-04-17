@@ -1,6 +1,6 @@
-import { starbuckscardInfoType } from '@/types/PaymentDataType';
+import { StarbuckscardInfoType } from '@/types/PaymentDataType';
 
-export const starbuckscardInfoData: starbuckscardInfoType = {
+export const starbuckscardInfoData: StarbuckscardInfoType = {
   memberStarbucksCardListUuid: 'MS20250414-76ebab32',
   cardName: '카드번호테스트',
   cardNumber: '345678',

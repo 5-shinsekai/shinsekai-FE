@@ -1,6 +1,6 @@
 import { AddressDataType } from '@/types/AddressDataType';
 
-export const myAddressListData: AddressDataType[] = [
+export const MyAddressListData: AddressDataType[] = [
   {
     addressUuid: '1',
     addressNickname: 'dd',
@@ -59,7 +59,7 @@ export const myAddressListData: AddressDataType[] = [
   },
 ];
 
-export const getAddressListData: AddressDataType[] = [
+export const GetAddressListData: AddressDataType[] = [
   {
     addressUuid: 'addressUuid1',
     receiverName: '받는 분',

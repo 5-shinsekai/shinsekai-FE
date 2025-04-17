@@ -2,9 +2,9 @@
 import React from 'react';
 import LogInForm from './LogInInForm';
 import AuthMenu from './AuthMenu';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
+import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import { signIn } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 
 export default function LogInSection() {
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {

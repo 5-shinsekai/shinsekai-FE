@@ -1,5 +1,5 @@
 import React from 'react';
-import { deliveryStatusType } from '@/types/MypageDataType';
+import { DeliveryStatusType } from '@/types/MypageDataType';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
@@ -7,7 +7,7 @@ export default function DeliveryStatus({
   title,
   count,
   link,
-}: deliveryStatusType) {
+}: DeliveryStatusType) {
   return (
     <ul className="flex flex-col items-center">
       <Link href={link}>

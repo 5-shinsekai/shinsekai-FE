@@ -2,7 +2,7 @@ import React from 'react';
 import { getProductDetail } from '@/actions/product-service';
 import Image from 'next/image';
 import ProductDescription from './ProductDescription';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import CartIcon from '@/components/ui/icons/CartIcon';
 import ProductPrice from '@/components/commons/ProductPrice';
 import Tag from '@/components/commons/Tag';

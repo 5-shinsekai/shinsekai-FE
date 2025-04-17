@@ -1,4 +1,4 @@
-import { myPageInfoType, deliveryStatusType } from '@/types/MypageDataType';
+import { MyPageInfoType, DeliveryStatusType } from '@/types/MypageDataType';
 import AgreementIcon from '@/components/ui/icons/AgreementIcon';
 import AlarmIcon from '@/components/ui/icons/AlarmIcon';
 import CouponIcon from '@/components/ui/icons/CouponIcon';
@@ -6,7 +6,7 @@ import DeliveryIcon from '@/components/ui/icons/DeliveryIcon';
 import GiftIcon from '@/components/ui/icons/GiftIcon';
 import OrderLogIcon from '@/components/ui/icons/OrderLogIcon';
 
-export const shoppingInfoData: myPageInfoType[] = [
+export const shoppingInfoData: MyPageInfoType[] = [
   {
     id: 1,
     title: '주문 내역',
@@ -39,7 +39,7 @@ export const shoppingInfoData: myPageInfoType[] = [
   },
 ];
 
-export const settingData: myPageInfoType[] = [
+export const settingData: MyPageInfoType[] = [
   {
     id: 1,
     title: '배송지 정보 수집 및 이용 동의',
@@ -48,7 +48,7 @@ export const settingData: myPageInfoType[] = [
   },
 ];
 
-export const deliveryStatusData: deliveryStatusType[] = [
+export const deliveryStatusData: DeliveryStatusType[] = [
   {
     id: 1,
     title: '결제완료',

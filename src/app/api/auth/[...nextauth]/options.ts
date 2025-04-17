@@ -1,4 +1,4 @@
-import { commonResponseType, userDataType } from '@/types/common';
+import { CommonResponseType, UserDataType } from '@/types/Common';
 import { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KakaoProvider from 'next-auth/providers/kakao';
@@ -30,7 +30,7 @@ export const options: NextAuthOptions = {
             }
           );
 
-          const user = (await res.json()) as commonResponseType<userDataType>;
+          const user = (await res.json()) as CommonResponseType<UserDataType>;
           console.log('data', user);
           if (!user.isSuccess) {
             return null;
@@ -72,7 +72,7 @@ export const options: NextAuthOptions = {
               cache: 'no-cache',
             }
           );
-          const data = (await res.json()) as commonResponseType<userDataType>;
+          const data = (await res.json()) as CommonResponseType<UserDataType>;
           console.log('server data', data);
           user.accessToken = data.result.accessToken;
           user.refreshToken = data.result.refreshToken;

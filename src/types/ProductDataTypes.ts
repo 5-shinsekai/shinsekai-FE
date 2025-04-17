@@ -5,12 +5,12 @@ export interface CategoryDataType {
   name: string;
 }
 
-export interface seasonType {
+export interface SeasonType {
   id: number;
   seasonName: string;
 }
 
-export interface productType {
+export interface ProductType {
   id: number;
   title: string;
   price: number;
@@ -20,7 +20,7 @@ export interface productType {
   isBest: boolean;
 }
 
-export interface productDetailType {
+export interface ProductDetailType {
   id: number;
   productCode: string;
   productImagePath: string;
@@ -34,7 +34,7 @@ export interface productDetailType {
   isBest: boolean;
 }
 
-export interface productThumbnailType {
+export interface ProductThumbnailType {
   productCode: string;
   productName: string;
   productPrice: number;

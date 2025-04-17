@@ -1,5 +1,5 @@
 import { navLeftMenuData, navRightMenuData } from '@/data/InitialData';
-import { gnbMenuType } from '@/types/InitialDataTypes';
+import { GnbMenuType } from '@/types/InitialDataTypes';
 import React from 'react';
 import Image from 'next/image';
 import mainlogo from '@/components/ui/mainlogo.png';
@@ -16,7 +16,7 @@ export default function MainHeader({
       )}
     >
       <ul className="w-full flex justify-between items-center">
-        {navLeftMenuData.map((menu: gnbMenuType) => (
+        {navLeftMenuData.map((menu: GnbMenuType) => (
           <li key={menu.id}>
             <menu.icon />
           </li>
@@ -26,7 +26,7 @@ export default function MainHeader({
         <Image src={mainlogo} alt="mainlogo" width={120} className="mx-auto" />
       </Link>
       <ul className="w-full flex justify-around items-center">
-        {navRightMenuData.map((menu: gnbMenuType) => (
+        {navRightMenuData.map((menu: GnbMenuType) => (
           <li key={menu.id}>
             <menu.icon />
           </li>

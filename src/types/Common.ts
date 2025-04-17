@@ -1,4 +1,4 @@
-export interface commonResponseType<T> {
+export interface CommonResponseType<T> {
   httpStatus: string;
   isSuccess: boolean;
   message: string;
@@ -6,7 +6,7 @@ export interface commonResponseType<T> {
   result: T;
 }
 
-export interface userDataType {
+export interface UserDataType {
   accessToken: string;
   refreshToken: string;
   name: string;

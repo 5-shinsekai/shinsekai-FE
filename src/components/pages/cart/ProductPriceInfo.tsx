@@ -3,7 +3,7 @@ import ProductPrice from '@/components/commons/ProductPrice';
 import CircleMinusIcon from '@/components/ui/icons/CircleMinusIcon';
 import CirclePlusIcon from '@/components/ui/icons/CirclePlusIcon';
 import { cn } from '@/lib/utils';
-import { productThumbnailType } from '@/types/ProductDataTypes';
+import { ProductThumbnailType } from '@/types/ProductDataTypes';
 import React from 'react';
 
 export default function ProductPriceInfo({
@@ -11,7 +11,7 @@ export default function ProductPriceInfo({
   product,
 }: {
   quantity: number;
-  product: productThumbnailType;
+  product: ProductThumbnailType;
 }) {
   return (
     <div className="flex justify-between items-end">

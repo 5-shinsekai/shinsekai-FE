@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Checkbox } from './checkbox';
+import { Checkbox } from './Checkbox';
 
 export default function CustomCheckbox({
   name,

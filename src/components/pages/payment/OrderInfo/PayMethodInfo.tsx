@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import EmptyStarbuckscard from '@/components/ui/EmptyStarbuckscard';
-import { DefaultCheck } from '@/components/ui/forms/defaultCheck';
-import { starbuckscardInfoType } from '@/types/PaymentDataType';
+import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
+import { StarbuckscardInfoType } from '@/types/PaymentDataType';
 
 export default function PayMethodInfo({
   cardList = [],
 }: {
-  cardList?: starbuckscardInfoType[];
+  cardList?: StarbuckscardInfoType[];
 }) {
   const [selectedCard, setSelectedCard] = useState<number>(0);
 

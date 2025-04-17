@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { addressResultType, searchResultType } from '@/types/addressApiType';
+import { AddressResultType, SearchResultType } from '@/types/AddressApiType';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
@@ -7,13 +7,13 @@ export default function GetAddress({
   addressList,
   searchResult,
 }: {
-  addressList: addressResultType[];
-  searchResult: searchResultType;
+  addressList: AddressResultType[];
+  searchResult: SearchResultType;
 }) {
   const router = useRouter();
   const InputValues = useSearchParams();
 
-  const handleGetAddress = (address: addressResultType) => {
+  const handleGetAddress = (address: AddressResultType) => {
     const currentInputValues = new URLSearchParams(InputValues.toString());
     console.log(typeof address.zipNo, address.zipNo);
     currentInputValues.set('roadAddress', address.roadAddr);

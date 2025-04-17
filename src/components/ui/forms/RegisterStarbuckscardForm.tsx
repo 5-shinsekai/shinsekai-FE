@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { InputType } from '../InputInfo';
 import { ExternalStarbucksCardDataType } from '@/types/PaymentDataType';
 import { registerCardSchema } from '@/schemas/registerCardSchema';
-import AutoTabInput from './autoTabInput';
-import { HasTermCheck } from './defaultCheck';
-import ButtonWrapper from '../wrapper/buttonWrapper';
-import { Button } from '../button';
+import AutoTabInput from './AutoTabInput';
+import { HasTermCheck } from './DefaultCheck';
+import ButtonWrapper from '../wrapper/ButtonWrapper';
+import { Button } from '../Button';
 import { cn } from '@/lib/utils';
-import RegisterStarbuckscardTerm from '@/components/pages/payment/RegisterStarbucksCardForm/RegisterStarbuckscardTerm';
+import RegisterStarbucksCardTerm from '@/components/pages/payment/RegisterStarbucksCardForm/RegisterStarbucksCardTerm';
 
 export default function RegisterStarbuckscardForm({
   action,
@@ -115,7 +115,7 @@ export default function RegisterStarbuckscardForm({
           onChange={() => setIsChecked(!isChecked)}
           defaultChecked={isChecked}
           className={cn(isChecked ? 'transition-all text-black' : '')}
-          termLink={<RegisterStarbuckscardTerm />}
+          termLink={<RegisterStarbucksCardTerm />}
         >
           스타벅스 카드 이용약관 동의 [필수]
         </HasTermCheck>

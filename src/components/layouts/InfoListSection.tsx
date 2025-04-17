@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
-import { infoSectionLayoutType } from '@/types/MypageDataType';
+import { InfoSectionLayoutType } from '@/types/MypageDataType';
 
 export default function InfoListSectionLayout({
   title,
   items,
   className = '',
-}: infoSectionLayoutType) {
+}: InfoSectionLayoutType) {
   return (
     <section className={`bg-custom-gray-100 px-[1.5rem] ${className}`}>
       <h1 className="text-4 font-semibold pt-[1.875rem] pb-[1.25rem]">

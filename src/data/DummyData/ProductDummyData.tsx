@@ -1,6 +1,6 @@
-import { seasonType, productType } from '@/types/ProductDataTypes';
+import { SeasonType, ProductType } from '@/types/ProductDataTypes';
 import DummyItemImage from '@/components/images/DummyItemImage.png';
-export const seasons: seasonType[] = [
+export const seasons: SeasonType[] = [
   {
     id: 1,
     seasonName: 'MD FESTA',
@@ -19,7 +19,7 @@ export const seasons: seasonType[] = [
   },
 ];
 
-export const productDummyData: productType[] = [
+export const productDummyData: ProductType[] = [
   {
     id: 1,
     title: 'SS 핑크 탱크 텀블러 503ml',

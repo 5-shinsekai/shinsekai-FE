@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { Button } from './button';
+import { Button } from './Button';
 import { cn } from '@/lib/utils';
 
 interface props {

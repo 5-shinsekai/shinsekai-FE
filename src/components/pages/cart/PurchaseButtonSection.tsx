@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
+import { Button } from '@/components/ui/Button';
+import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import React from 'react';
 
 export default function PurchaseButtonSection() {

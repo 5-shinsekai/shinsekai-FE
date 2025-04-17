@@ -1,13 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
-import { starbuckscardInfoType } from '@/types/PaymentDataType';
+import { Button } from '@/components/ui/Button';
+import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
+import { StarbuckscardInfoType } from '@/types/PaymentDataType';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 interface Props {
-  card: starbuckscardInfoType;
+  card: StarbuckscardInfoType;
 }
 
 export default function CompleteRegisterCard({ card }: Props) {

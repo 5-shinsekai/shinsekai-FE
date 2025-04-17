@@ -1,7 +1,7 @@
 import React from 'react';
 import ShowAddressList from '@/components/pages/address/ShowAddressList';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
-import { Button } from '@/components/ui/button';
+import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
+import { Button } from '@/components/ui/Button';
 import { getAddress } from '@/action/address-service';
 import Link from 'next/link';
 

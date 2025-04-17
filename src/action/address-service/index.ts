@@ -1,6 +1,6 @@
 'use server';
 
-import { addressApiType } from '@/types/addressApiType';
+import { AddressApiType } from '@/types/AddressApiType';
 import { AddressDataType } from '@/types/AddressDataType';
 
 const ACCESS_TOKEN =
@@ -10,10 +10,7 @@ export const getAddressList = async (
   keyword: string,
   currentPage: string,
   countPerPage: string
-): Promise<addressApiType> => {
-  const session = await getServerSession(options);
-  console.log('세션', session);
-
+): Promise<AddressApiType> => {
   const baseUrl = process.env.NEXT_PUBLIC_SEARCH_ADRESS_BASE_URL;
   const serviceKey = process.env.NEXT_PUBLIC_SEARCH_ADRESS_SECRET_KEY;
   const params = {
@@ -31,7 +28,7 @@ export const getAddressList = async (
     throw new Error('Network response was not ok');
   }
 
-  const data = (await res.json()) as addressApiType;
+  const data = (await res.json()) as AddressApiType;
   console.log('주소 검색 API 응답:', data);
   return data;
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import ProductListItem from '@/components/pages/products/ProductListItem';
-import { productType } from '@/types/ProductDataTypes';
+import { ProductType } from '@/types/ProductDataTypes';
 export default function ProductList({
   data,
   bestTag = false,
-}: Readonly<{ data: productType[]; bestTag?: boolean }>) {
+}: Readonly<{ data: ProductType[]; bestTag?: boolean }>) {
   return (
     <section>
       <ul className=" grid grid-cols-2 p-6 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">

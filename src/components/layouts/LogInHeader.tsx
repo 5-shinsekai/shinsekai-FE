@@ -1,5 +1,5 @@
 import { navBackButton } from '@/data/InitialData';
-import { gnbMenuType } from '@/types/InitialDataTypes';
+import { GnbMenuType } from '@/types/InitialDataTypes';
 import React from 'react';
 
 export default function LogInHeader() {
@@ -7,7 +7,7 @@ export default function LogInHeader() {
     <header className="w-full h-14">
       <nav className="fixed">
         <ul className="py-[0.375rem]">
-          {navBackButton.map((menu: gnbMenuType) => (
+          {navBackButton.map((menu: GnbMenuType) => (
             <li key={menu.id}>
               <menu.icon className="mx-3 my-2.5" />
             </li>

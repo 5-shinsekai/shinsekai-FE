@@ -3,12 +3,12 @@ import gnbMenuIcon from '@/components/ui/icons/GnbMenuIcon';
 import SearchIcon from '@/components/ui/icons/SearchIcon';
 import LeftArrowIcon from '@/components/ui/icons/LeftArrowIcon';
 import {
-  gnbMenuType,
-  mainTabMenuType,
-  policyDataType,
+  GnbMenuType,
+  MainTabMenuType,
+  PolicyDataType,
 } from '@/types/InitialDataTypes';
 
-export const navLeftMenuData: gnbMenuType[] = [
+export const navLeftMenuData: GnbMenuType[] = [
   {
     id: 1,
     title: 'gnb',
@@ -16,7 +16,7 @@ export const navLeftMenuData: gnbMenuType[] = [
   },
 ];
 
-export const navRightMenuData: gnbMenuType[] = [
+export const navRightMenuData: GnbMenuType[] = [
   {
     id: 1,
     title: 'gnb',
@@ -29,7 +29,7 @@ export const navRightMenuData: gnbMenuType[] = [
   },
 ];
 
-export const navBackButton: gnbMenuType[] = [
+export const navBackButton: GnbMenuType[] = [
   {
     id: 1,
     title: 'back',
@@ -37,7 +37,7 @@ export const navBackButton: gnbMenuType[] = [
   },
 ];
 
-export const mainTabMenuData: mainTabMenuType[] = [
+export const mainTabMenuData: MainTabMenuType[] = [
   {
     id: 1,
     title: '메인',
@@ -60,7 +60,7 @@ export const mainTabMenuData: mainTabMenuType[] = [
   },
 ];
 
-export const authMenuData: mainTabMenuType[] = [
+export const authMenuData: MainTabMenuType[] = [
   {
     id: 1,
     title: '아이디 찾기',
@@ -78,7 +78,7 @@ export const authMenuData: mainTabMenuType[] = [
   },
 ];
 
-export const policyData: policyDataType[] = [
+export const policyData: PolicyDataType[] = [
   {
     id: 1,
     title: '[필수] 이용약관 동의',

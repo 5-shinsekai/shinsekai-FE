@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Button } from './button';
+import { Button } from './Button';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';

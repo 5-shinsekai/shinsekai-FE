@@ -1,4 +1,4 @@
-export interface addressResultType {
+export interface AddressResultType {
   detBdNmList: string;
   engAddr: string;
   rn: string;
@@ -24,21 +24,21 @@ export interface addressResultType {
   bdMgtSn: number;
   buldSlno: number;
 }
-export interface searchResultType {
+export interface SearchResultType {
   errorMessage: string;
   countPerPage: string;
   totalCount: string;
   errorCode: string;
   currentPage: string;
 }
-export interface addressApiType {
+export interface AddressApiType {
   results: {
-    common: searchResultType;
-    juso: addressResultType[];
+    common: SearchResultType;
+    juso: AddressResultType[];
   };
 }
 
-export interface postAddressDataType {
+export interface PostAddressDataType {
   addressNickname: string;
   receiverName: string;
   zipNo: string;

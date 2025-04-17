@@ -1,19 +1,19 @@
-export interface deliveryStatusType {
+export interface DeliveryStatusType {
   id: number;
   title: string;
   count: number;
   link: string;
 }
 
-export interface myPageInfoType {
+export interface MyPageInfoType {
   id: number;
   title: string;
   link: string;
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
-export interface infoSectionLayoutType {
+export interface InfoSectionLayoutType {
   title: string;
-  items: myPageInfoType[];
+  items: MyPageInfoType[];
   className?: string;
 }

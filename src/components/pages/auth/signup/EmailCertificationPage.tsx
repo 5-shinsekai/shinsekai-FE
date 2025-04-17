@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import NextButton from '@/components/ui/NextButton';
 import { SignUpContext } from '@/context/SignUpContext';
 import { cn } from '@/lib/utils';

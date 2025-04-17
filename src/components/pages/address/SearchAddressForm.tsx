@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import React, { ChangeEvent, useState } from 'react';
 import GetAddress from './SearchAddressResult';
 import { cn } from '@/lib/utils';
 import { InputType } from '@/components/ui/InputInfo';
 import { getAddressList } from '@/action/address-service';
-import { addressResultType, searchResultType } from '@/types/addressApiType';
+import { AddressResultType, SearchResultType } from '@/types/AddressApiType';
 
 export default function SearchAddressForm() {
   const [submitAddressInfo, setSubmitAddressInfo] = useState<string>();
@@ -14,8 +14,8 @@ export default function SearchAddressForm() {
     message: '',
   });
   const [isActive, setIsActive] = useState(false);
-  const [addressList, setAddressList] = useState<addressResultType[]>([]);
-  const [searchResult, setSearchResult] = useState<searchResultType | null>(
+  const [addressList, setAddressList] = useState<AddressResultType[]>([]);
+  const [searchResult, setSearchResult] = useState<SearchResultType | null>(
     null
   );
 

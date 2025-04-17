@@ -1,19 +1,19 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { getAddressListData } from '@/data/DummyData/myAddressDummyData';
+import { Button } from '@/components/ui/Button';
+import { MyAddressListData } from '@/data/DummyData/MyAddressDummyData';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
 export default function AddressInfoSection() {
   const searchParams = useSearchParams();
   const selectedUuid = searchParams.get('selected');
-  const selectedAddress = getAddressListData.find(
+  const selectedAddress = MyAddressListData.find(
     (item) => item.addressUuid === selectedUuid
   );
 
   const address =
-    selectedAddress || getAddressListData.find((item) => item.isMainAddress);
+    selectedAddress || MyAddressListData.find((item) => item.isMainAddress);
 
   console.log(address);
 

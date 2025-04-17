@@ -1,7 +1,7 @@
 import { tempService } from '@/action/input-check';
-import { Button } from '@/components/ui/button';
-import { DefaultCheck } from '@/components/ui/forms/defaultCheck';
-import ButtonWrapper from '@/components/ui/wrapper/buttonWrapper';
+import { Button } from '@/components/ui/Button';
+import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
+import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import React from 'react';
 
 export default function RegisterCardFrom() {

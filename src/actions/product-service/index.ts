@@ -1,7 +1,7 @@
 'use server';
 
-import { productDetailType } from '@/types/ProductDataTypes';
-import { productType } from '@/types/ProductDataTypes';
+import { ProductDetailType } from '@/types/ProductDataTypes';
+import { ProductType } from '@/types/ProductDataTypes';
 export const getProductDetail = async ({
   productCode,
 }: Readonly<{
@@ -14,7 +14,7 @@ export const getProductDetail = async ({
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-  return res.json() as Promise<productDetailType>;
+  return res.json() as Promise<ProductDetailType>;
 };
 
 export const getCategoryList = async ({
@@ -38,5 +38,5 @@ export const getAllProductList = async ({
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-  return res.json() as Promise<{ data: productType[]; pages: number }>;
+  return res.json() as Promise<{ data: ProductType[]; pages: number }>;
 };

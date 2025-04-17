@@ -3,7 +3,7 @@
 import {
   ExternalStarbucksCardDataType,
   RegisterStarbucksCardDataType,
-  starbuckscardInfoType,
+  StarbuckscardInfoType,
 } from '@/types/PaymentDataType';
 import { redirect } from 'next/navigation';
 
@@ -80,7 +80,7 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
   return success;
 };
 
-export const getStarbuckscard = async (): Promise<starbuckscardInfoType[]> => {
+export const getStarbuckscard = async (): Promise<StarbuckscardInfoType[]> => {
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
   const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {

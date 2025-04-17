@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { productType } from '@/types/ProductDataTypes';
+import { ProductType } from '@/types/ProductDataTypes';
 import Link from 'next/link';
 import RankingIcon from '@/components/ui/icons/RankingIcon';
 import Tag from '@/components/commons/Tag';
@@ -10,7 +10,7 @@ export default function ProductListItem({
   product,
   size,
   rank,
-}: Readonly<{ product: productType; size: number; rank?: number }>) {
+}: Readonly<{ product: ProductType; size: number; rank?: number }>) {
   return (
     <Link href={`/products/${product.id}`} className="shrink-0">
       <li
