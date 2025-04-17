@@ -1,14 +1,16 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { options } from '@/app/api/auth/[...nextauth]/options';
+import { getServerSession } from 'next-auth';
 
 export const getCartItems = async () => {
-  const cookieStore = await cookies();
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${cookieStore.get('accessToken')?.value}`,
+      'Authorization': `Bearer ${token}`,
     },
   });
   const data = await res.json();
@@ -21,12 +23,13 @@ export const updateCartItem = async (
   quantity?: number,
   checked?: boolean
 ) => {
-  const cookieStore = await cookies();
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${cookieStore.get('accessToken')?.value}`,
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify({ cartUuid, quantity, checked, productOptionListId }),
   });

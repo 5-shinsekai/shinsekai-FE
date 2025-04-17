@@ -22,7 +22,11 @@ export function Sidebar() {
     setIsOpen(false);
     route.push('/login');
   };
+
+  // const data = useSession();
   const isLogin = useLoginSession();
+  console.log('isLogin!', isLogin);
+  // console.log('data', data);
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
