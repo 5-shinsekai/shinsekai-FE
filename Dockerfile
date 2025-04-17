@@ -2,7 +2,10 @@
 FROM node:22 AS builder
 
 WORKDIR /app
+
+# .env.production 포함해서 복사
 COPY . .
+COPY .env.production .env.production
 
 RUN npm install
 RUN npm run build
