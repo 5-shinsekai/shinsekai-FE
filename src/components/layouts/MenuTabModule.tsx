@@ -1,20 +1,21 @@
 'use client';
 import React from 'react';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { MenuBarType } from '@/types/MenuTypes';
 import ScrollableList from '@/components/layouts/ScrollableList';
 export default function MenuTabModule({
-  data,
+  keyname,
+  category,
   isDefault,
   isMultiple,
   className,
 }: Readonly<MenuBarType & { className?: string }>) {
-  const menuName = data.keyname;
+  const menuName = keyname;
   const params = useSearchParams();
   const currentValues = params.get(menuName)?.split(',') || [];
 
+  const router = useRouter();
   const buildQueryString = (key: string, value: string) => {
     const query = new URLSearchParams(params.toString());
     let updatedValues = [...currentValues];
@@ -28,14 +29,17 @@ export default function MenuTabModule({
     } else {
       updatedValues = [value];
     }
-    query.set('page', '1');
     query.set(key, updatedValues.join(','));
-    return `?${query.toString()}`;
+
+    router.replace(`?${query.toString()}`);
   };
   return (
     <ScrollableList className={cn(`gap-x-5`, className)}>
-      {data.data.map((item, index) => (
-        <Link href={buildQueryString(menuName, String(item.code))} key={index}>
+      {category.map((item, index) => (
+        <button
+          onClick={() => buildQueryString(menuName, String(item.code))}
+          key={index}
+        >
           <li
             className={cn(
               'text-center font-normal text-nowrap py-3.5',
@@ -49,7 +53,7 @@ export default function MenuTabModule({
             {/* radio checkbox */}
             {item.name}
           </li>
-        </Link>
+        </button>
       ))}
     </ScrollableList>
   );

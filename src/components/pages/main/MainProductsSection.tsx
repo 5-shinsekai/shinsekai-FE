@@ -8,10 +8,8 @@ export default async function MainProductsSection() {
   return (
     <section className="space-y-[3.125rem] pb-20 pt-10">
       {eventList.map((event: EventType) => (
-        <div key={event.eventId}>
-          <p className="px-6 mb-[1.875rem] text-2xl font-bold">
-            {event.eventName}
-          </p>
+        <div key={event.code}>
+          <p className="px-6 mb-[1.875rem] text-2xl font-bold">{event.name}</p>
           <MainProductList event={event} />
         </div>
       ))}

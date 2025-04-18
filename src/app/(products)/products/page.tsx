@@ -15,7 +15,8 @@ export default async function page({
   return (
     <div>
       <MenuTab
-        data={{ keyname: 'highCategory', data: CategoryData }}
+        keyname="highCategory"
+        category={CategoryData}
         isDefault={true}
         isMultiple={false}
       />

@@ -5,8 +5,8 @@ import {
   ProductListType,
   ProductThumbnailType,
 } from '@/types/ProductDataTypes';
-import { MainCategoryType } from '@/types/CategotyTypes';
-import { EventType } from '@/types/ProductDataTypes';
+import { MainCategoryType } from '@/types/CategoryTypes';
+import { EventType, EventDetailType } from '@/types/ProductDataTypes';
 
 export const getMainCategoryList = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/category/main`);
@@ -36,6 +36,17 @@ export const getEventList = async () => {
     throw new Error('Failed to fetch data');
   }
   const data = (await res.json()) as CommonResponseType<EventType[]>;
+  return data.result;
+};
+
+export const getEventDetail = async (eventId: number) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/event/${eventId}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<EventDetailType>;
   return data.result;
 };
 
