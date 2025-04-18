@@ -11,7 +11,7 @@ export default function ProductList({
         {data.map((product, index) => (
           <ProductListItem
             key={product.id + index}
-            product={product}
+            productCode={product.title}
             size={165}
             {...(bestTag ? { rank: index + 1 } : {})}
           />

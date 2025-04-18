@@ -1,23 +1,5 @@
-import { SeasonType, ProductType } from '@/types/ProductDataTypes';
+import { ProductType } from '@/types/ProductDataTypes';
 import DummyItemImage from '@/components/images/DummyItemImage.png';
-export const seasons: SeasonType[] = [
-  {
-    id: 1,
-    seasonName: 'MD FESTA',
-  },
-  {
-    id: 2,
-    seasonName: 'Ways of Working',
-  },
-  {
-    id: 3,
-    seasonName: 'Flower Market',
-  },
-  {
-    id: 4,
-    seasonName: '초콜릿/스낵',
-  },
-];
 
 export const productDummyData: ProductType[] = [
   {
