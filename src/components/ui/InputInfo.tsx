@@ -20,6 +20,7 @@ interface InputInfoPropsType {
   type: string;
   errorMessage?: string;
   maxLength?: number;
+  disabled?: boolean;
 }
 
 function HasButtonInputInfo({
@@ -34,6 +35,7 @@ function HasButtonInputInfo({
   readonly = false,
   className,
   maxLength = 100,
+  disabled = false,
   onChange,
 }: InputInfoPropsType) {
   const router = useRouter();
@@ -73,10 +75,11 @@ function HasButtonInputInfo({
         size="hug"
         type="button"
         color="default"
+        disabled={disabled}
         className=" active:bg-custom-green-200/20"
         onClick={() => {
           if (link) {
-            router.push(`/${link}`);
+            router.replace(`/${link}`);
           }
         }}
       >

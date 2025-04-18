@@ -14,22 +14,15 @@ export default function ShowAddressList({
   const handleEdit = (item: Partial<AddressDataType>) => {
     const query = new URLSearchParams({
       addressUuid: item.addressUuid || '',
-      // zipNo: item.zipNo || '',
-      // addressNickname: item.addressNickname || '',
-      // roadAddress: item.roadAddress || '',
-      // detailAddress: item.detailAddress || '',
-      // deliveryMemo: item.deliveryMemo || '',
-      // firstPhoneNumber: item.firstPhoneNumber || '',
-      // secondPhoneNumber: item.secondPhoneNumber || '',
-      // receiverName: item.receiverName || '',
-      // isMainAddress: String(item.isMainAddress || ''),
-      // isPersonalMemo: String(item.isPersonalMemo || ''),
     });
     router.push(`/edit-address?${query.toString()}`);
   };
 
   return (
     <section className="w-full mx-auto relative">
+      {myAddressList.length === 0 && (
+        <p>등록된 배송지가 없습니다. 배송지를 등록해주세요.</p>
+      )}
       {myAddressList.length > 0 &&
         myAddressList.map((item) => (
           <div

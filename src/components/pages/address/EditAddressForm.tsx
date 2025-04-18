@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/Button';
 import { SelectMemo } from '@/components/ui/SelectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 // import DefaultCheck from '@/components/ui/forms/defaultCheck';
-import { registerAddressSchema } from '@/schemas/registerAddressSchema';
-import { useSearchParams } from 'next/navigation';
+import { editAddressSchema } from '@/schemas/registerAddressSchema';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   AddressDataType,
   RegisterAddressFormType,
@@ -15,15 +15,23 @@ import {
 import AutoTabInput from '@/components/ui/forms/AutoTabInput';
 import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
 import { cn } from '@/lib/utils';
+import { editAddress } from '@/action/address-service';
 
 export default function EditAddressForm({
   addressData,
-  action,
 }: {
   addressData: AddressDataType;
-  action: (addressForm: FormData) => void;
 }) {
-  // console.log(addressData);
+  const router = useRouter();
+
+  const handleAction = async (formData: FormData) => {
+    try {
+      await editAddress(formData);
+      router.back();
+    } catch (error) {
+      console.error('배송지 등록 실패:', error);
+    }
+  };
   const [isActive, setIsActive] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const searchParams = useSearchParams();
@@ -45,19 +53,21 @@ export default function EditAddressForm({
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
 
-    console.log(e.target.name, e.target.value);
     setEditAddressData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    console.log('수정 정보', editAddressData);
-    // console.log(editAddressData);
     console.log('name', name, typeof name, 'value', value, typeof value);
-    const key = name as keyof typeof registerAddressSchema.shape;
-    const res = registerAddressSchema.shape[key].safeParse(value);
+    console.log(
+      '수정 정보',
+      editAddressData.isMainAddress,
+      typeof editAddressData.isMainAddress
+    );
+    // console.log(editAddressData);
+    const key = name as keyof typeof editAddressSchema.shape;
+    const res = editAddressSchema.shape[key].safeParse(value);
 
     if (!res.success) {
       const errorMessage = res.error.errors[0].message;
@@ -77,15 +87,17 @@ export default function EditAddressForm({
   };
 
   useEffect(() => {
-    const res = registerAddressSchema.safeParse(editAddressData);
-    if (res.success) {
-      setErrorMessages({});
-      setIsActive(true);
+    if (isChange) {
+      const res = editAddressSchema.safeParse(editAddressData);
+      if (res.success) {
+        setErrorMessages({});
+        setIsActive(true);
+      }
     }
-  }, [editAddressData, isChange]);
+  }, [editAddressData]);
 
   return (
-    <form action={action} className="mb-[10rem] space-y-[1.25rem]">
+    <form action={handleAction} className="mb-[10rem] space-y-[1.25rem]">
       <input
         name="addressUuid"
         type="hidden"
@@ -121,6 +133,7 @@ export default function EditAddressForm({
         link={`search-address?${new URLSearchParams(searchParams.toString())}`}
         readonly={true}
         required
+        disabled={true}
         className="text-custom-gray-400 font-semibold"
       />
       <InputType.InputInfo
@@ -203,7 +216,8 @@ export default function EditAddressForm({
       <DefaultCheck
         id="isMainAddress"
         name="isMainAddress"
-        // value="true"
+        value={editAddressData.isMainAddress ? 'true' : 'false'}
+        hidden={addressData.isMainAddress}
         onChange={handleChange}
         defaultChecked={editAddressData.isMainAddress}
         className={cn(
@@ -217,7 +231,7 @@ export default function EditAddressForm({
           type="submit"
           color={!isActive ? 'gray' : 'green'}
           className="w-full mx-auto"
-          // disabled={!isActive}
+          disabled={!isActive}
         >
           수정하기
         </Button>

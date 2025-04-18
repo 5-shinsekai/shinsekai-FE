@@ -22,7 +22,9 @@ export function Sidebar() {
     setIsOpen(false);
     route.push('/login');
   };
+
   const isLogin = useLoginSession();
+  console.log('isLogin!', isLogin);
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -34,7 +36,7 @@ export function Sidebar() {
   useEffect(() => {
     const fetchMainCategoryList = async () => {
       const mainCategoryList = await getMainCategoryList();
-      setMainCategoryList(mainCategoryList.result);
+      setMainCategoryList(mainCategoryList);
     };
     fetchMainCategoryList();
   }, []);

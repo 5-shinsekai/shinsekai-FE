@@ -5,19 +5,28 @@ import { InputType } from '@/components/ui/InputInfo';
 import { Button } from '@/components/ui/Button';
 import { SelectMemo } from '@/components/ui/SelectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
-// import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { registerAddressSchema } from '@/schemas/registerAddressSchema';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { RegisterAddressFormType } from '@/types/AddressDataType';
 import AutoTabInput from '@/components/ui/forms/AutoTabInput';
 import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
 import { cn } from '@/lib/utils';
+import { postAddress } from '@/action/address-service';
 
-export default function RegisterAddressForm({
-  action,
-}: {
-  action: (addressForm: FormData) => void;
-}) {
+export default function RegisterAddressForm() {
+  const router = useRouter();
+
+  const handleAction = async (formData: FormData) => {
+    try {
+      await postAddress(formData);
+      router.back();
+    } catch (error) {
+      console.error('배송지 등록 실패:', error);
+    }
+  };
+  const params = useSearchParams();
+  const isMain = params.get('isMain') === 'true';
+  console.log('ismain', isMain);
   const [errorMessages, setErrorMessages] = useState<
     Partial<RegisterAddressFormType>
   >({
@@ -32,19 +41,25 @@ export default function RegisterAddressForm({
     isMainAddress: '',
   });
 
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [isActive, setIsActive] = useState(false);
+
+  const updatedSearchParams = new URLSearchParams(searchParams.toString());
+  useEffect(() => {
+    if (isMain) {
+      updatedSearchParams.set('isMainAddress', 'true');
+      router.replace(`/register-address?${updatedSearchParams.toString()}`, {});
+    }
+  }, [isMain]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
 
-    const updatedSearchParams = new URLSearchParams(searchParams.toString());
     if (updatedSearchParams.get(name) !== value) {
       updatedSearchParams.set(name, value);
-      router.push(`/register-address?${updatedSearchParams.toString()}`, {
+      router.replace(`/register-address?${updatedSearchParams.toString()}`, {
         scroll: false,
       });
     }
@@ -66,6 +81,7 @@ export default function RegisterAddressForm({
         ...prev,
         [name]: '',
       }));
+      setIsActive(true);
     }
   };
 
@@ -80,7 +96,7 @@ export default function RegisterAddressForm({
   }, [searchParams]);
 
   return (
-    <form action={action} className="mb-[10rem] space-y-[1.25rem]">
+    <form action={handleAction} className="mb-[10rem] space-y-[1.25rem]">
       <InputType.FormInputInfo
         id="addressNickname"
         name="addressNickname"
@@ -187,11 +203,19 @@ export default function RegisterAddressForm({
         name="isMainAddress"
         value="true"
         onChange={handleChange}
+        // disable={isMain}
+        hidden={isMain}
         defaultChecked={
-          searchParams.get('isMainAddress') === 'true' ? true : false
+          isMain
+            ? true
+            : searchParams.get('isMainAddress') === 'true'
+              ? true
+              : false
         }
         className={cn(
-          searchParams.get('isMainAddress') ? 'transition-all text-black' : ''
+          !isMain && searchParams.get('isMainAddress') === 'true'
+            ? 'transition-all text-black'
+            : ''
         )}
       >
         기본배송지로 저장합니다.

@@ -1,16 +1,18 @@
 import React from 'react';
-import { seasons } from '@/data/DummyData/ProductDummyData';
 import MainProductList from '@/components/pages/main/MainProductList';
-import { SeasonType } from '@/types/ProductDataTypes';
-export default function MainProductsSection() {
+import { EventType } from '@/types/ProductDataTypes';
+import { getEventList } from '@/action/product-service';
+
+export default async function MainProductsSection() {
+  const eventList = await getEventList();
   return (
     <section className="space-y-[3.125rem] pb-20 pt-10">
-      {seasons.map((season: SeasonType) => (
-        <div key={season.id}>
+      {eventList.map((event: EventType) => (
+        <div key={event.eventId}>
           <p className="px-6 mb-[1.875rem] text-2xl font-bold">
-            {season.seasonName}
+            {event.eventName}
           </p>
-          <MainProductList season={season} />
+          <MainProductList event={event} />
         </div>
       ))}
     </section>
