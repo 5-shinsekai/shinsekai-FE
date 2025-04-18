@@ -3,6 +3,7 @@
 import { deleteAddressByUuid } from '@/action/address-service';
 import { deleteStarbuckscard } from '@/action/payment-service';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 export function DeleteCardButton({
@@ -27,8 +28,11 @@ export function DeleteCardButton({
 }
 
 export function DeleteAddressButton({ addressUuid }: { addressUuid: string }) {
+  const router = useRouter();
+
   const handleDelete = async () => {
     await deleteAddressByUuid(addressUuid);
+    router.push('/management-address');
   };
 
   return <button onClick={handleDelete}>삭제</button>;

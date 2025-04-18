@@ -14,16 +14,6 @@ export default function ShowAddressList({
   const handleEdit = (item: Partial<AddressDataType>) => {
     const query = new URLSearchParams({
       addressUuid: item.addressUuid || '',
-      // zipNo: item.zipNo || '',
-      // addressNickname: item.addressNickname || '',
-      // roadAddress: item.roadAddress || '',
-      // detailAddress: item.detailAddress || '',
-      // deliveryMemo: item.deliveryMemo || '',
-      // firstPhoneNumber: item.firstPhoneNumber || '',
-      // secondPhoneNumber: item.secondPhoneNumber || '',
-      // receiverName: item.receiverName || '',
-      // isMainAddress: String(item.isMainAddress || ''),
-      // isPersonalMemo: String(item.isPersonalMemo || ''),
     });
     router.push(`/edit-address?${query.toString()}`);
   };

@@ -23,10 +23,6 @@ export default function EditAddressForm({
   addressData: AddressDataType;
   action: (addressForm: FormData) => void;
 }) {
-  // const params = useSearchParams();
-  // const isMain = params.get('isMain') === 'true';
-
-  // console.log(addressData);
   const [isActive, setIsActive] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const searchParams = useSearchParams();
