@@ -25,9 +25,7 @@ export default function ShowAddressList({
       // isMainAddress: String(item.isMainAddress || ''),
       // isPersonalMemo: String(item.isPersonalMemo || ''),
     });
-    router.push(
-      `/edit-address?${query.toString()}&isMain=${item.isMainAddress}`
-    );
+    router.push(`/edit-address?${query.toString()}`);
   };
 
   return (

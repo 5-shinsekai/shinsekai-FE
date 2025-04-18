@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { SelectMemo } from '@/components/ui/SelectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 // import DefaultCheck from '@/components/ui/forms/defaultCheck';
-import { registerAddressSchema } from '@/schemas/registerAddressSchema';
+import { editAddressSchema } from '@/schemas/registerAddressSchema';
 import { useSearchParams } from 'next/navigation';
 import {
   AddressDataType,
@@ -23,8 +23,8 @@ export default function EditAddressForm({
   addressData: AddressDataType;
   action: (addressForm: FormData) => void;
 }) {
-  const params = useSearchParams();
-  const isMain = params.get('isMain') === 'true';
+  // const params = useSearchParams();
+  // const isMain = params.get('isMain') === 'true';
 
   // console.log(addressData);
   const [isActive, setIsActive] = useState(false);
@@ -48,26 +48,21 @@ export default function EditAddressForm({
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    let value: string;
+    const { name, value } = e.target;
 
-    // 체크박스일 경우 checked 값 사용
-    if (e.target.type === 'checkbox') {
-      value = String(e.target.checked); // "true" or "false"
-    } else {
-      value = e.target.value;
-    }
-
-    console.log(e.target.name, e.target.value);
     setEditAddressData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    console.log('수정 정보', editAddressData);
-    // console.log(editAddressData);
     console.log('name', name, typeof name, 'value', value, typeof value);
-    const key = name as keyof typeof registerAddressSchema.shape;
-    const res = registerAddressSchema.shape[key].safeParse(value);
+    console.log(
+      '수정 정보',
+      editAddressData.isMainAddress,
+      typeof editAddressData.isMainAddress
+    );
+    // console.log(editAddressData);
+    const key = name as keyof typeof editAddressSchema.shape;
+    const res = editAddressSchema.shape[key].safeParse(value);
 
     if (!res.success) {
       const errorMessage = res.error.errors[0].message;
@@ -87,12 +82,14 @@ export default function EditAddressForm({
   };
 
   useEffect(() => {
-    const res = registerAddressSchema.safeParse(editAddressData);
-    if (res.success) {
-      setErrorMessages({});
-      setIsActive(true);
+    if (isChange) {
+      const res = editAddressSchema.safeParse(editAddressData);
+      if (res.success) {
+        setErrorMessages({});
+        setIsActive(true);
+      }
     }
-  }, [editAddressData, isChange]);
+  }, [editAddressData]);
 
   return (
     <form action={action} className="mb-[10rem] space-y-[1.25rem]">
@@ -213,10 +210,10 @@ export default function EditAddressForm({
       <DefaultCheck
         id="isMainAddress"
         name="isMainAddress"
-        value="true"
-        disable={isMain}
+        value={editAddressData.isMainAddress ? 'true' : 'false'}
+        hidden={addressData.isMainAddress}
         onChange={handleChange}
-        defaultChecked={isMain ? true : editAddressData.isMainAddress}
+        defaultChecked={editAddressData.isMainAddress}
         className={cn(
           editAddressData.isMainAddress ? 'transition-all text-black' : ''
         )}
