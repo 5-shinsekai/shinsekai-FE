@@ -14,7 +14,7 @@ interface SubHeaderPropsType {
 
 export default function SubHeader({
   title,
-  // showBackButton = false,
+  showBackButton = false,
   showCloseButton = false,
 }: SubHeaderPropsType) {
   const router = useRouter();
@@ -27,14 +27,20 @@ export default function SubHeader({
       <nav className="">
         <ul className="flex justify-between items-center">
           <li>
-            {showCloseButton ? (
+            {showBackButton ? (
               <button onClick={close}>
                 <LeftArrowIcon className="" />
               </button>
             ) : null}
           </li>
           <li className="text-[0.875rem] font-semibold">{title}</li>
-          <li>{showCloseButton ? <CloseIcon className="" /> : null}</li>
+          <li>
+            {showCloseButton ? (
+              <button onClick={close}>
+                <CloseIcon className="" />
+              </button>
+            ) : null}
+          </li>
         </ul>
       </nav>
     </header>

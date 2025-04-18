@@ -2,9 +2,11 @@
 
 import { AddressApiType } from '@/types/AddressApiType';
 import { AddressDataType } from '@/types/AddressDataType';
+import { getServerSession } from 'next-auth';
+import { options } from '@/app/api/auth/[...nextauth]/options';
 
-const ACCESS_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNMjAyNTA0MTYtYjJhZmY4NDQiLCJpYXQiOjE3NDQ3OTE4NjgsImV4cCI6MTc0NDk2NDY2OH0.wStxmfK60Clpma4M22__ngjIng9NjGKMSN5LARDWBP0';
+// const ACCESS_TOKEN =
+//   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNMjAyNTA0MTYtYjJhZmY4NDQiLCJpYXQiOjE3NDQ3OTE4NjgsImV4cCI6MTc0NDk2NDY2OH0.wStxmfK60Clpma4M22__ngjIng9NjGKMSN5LARDWBP0';
 // 주소검색
 export const getAddressList = async (
   keyword: string,
@@ -61,8 +63,9 @@ export const postAddress = async (addressForm: FormData) => {
       (addressForm.get('isMainAddress') as string) === 'true' ? true : false,
   };
 
-  console.log(addressData);
-  console.log(ACCESS_TOKEN);
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+
   const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
     method: 'POST',
     headers: {
@@ -84,6 +87,9 @@ export const postAddress = async (addressForm: FormData) => {
 };
 
 export const getAddress = async (): Promise<AddressDataType[]> => {
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+
   const res = await fetch('http://3.37.52.123:8080/api/v1/address/list', {
     method: 'GET',
     headers: {
@@ -106,7 +112,9 @@ export const getAddress = async (): Promise<AddressDataType[]> => {
 
 // 배송지 수정
 export const editAddress = async (addressForm: FormData) => {
-  console.log(addressForm);
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+
   const addressData: Partial<AddressDataType> = {
     addressUuid: addressForm.get('addressUuid') as string,
     addressNickname: addressForm.get('addressNickname') as string,
@@ -156,7 +164,9 @@ export const editAddress = async (addressForm: FormData) => {
 };
 
 export const getAddressByUuid = async (adressUuid: string) => {
-  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+
   console.log('uuid (배송지): ', adressUuid);
 
   const res = await fetch(
@@ -182,7 +192,9 @@ export const getAddressByUuid = async (adressUuid: string) => {
 };
 
 export const deleteAddressByUuid = async (adressUuid: string) => {
-  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+
   console.log('uuid (배송지): ', adressUuid);
 
   const res = await fetch(
