@@ -11,6 +11,11 @@ export default async function ProductListItem({
   rank,
 }: Readonly<{ productCode: string; size: number; rank?: number }>) {
   const product = await getProductThumbnail(productCode);
+  const validSrc =
+    product.thumbnailUrl && product.thumbnailUrl.trim() !== ''
+      ? product.thumbnailUrl
+      : '/ImageLoading.png';
+
   return (
     <Link href={`/products/${productCode}`} className="shrink-0">
       <li
@@ -20,7 +25,7 @@ export default async function ProductListItem({
         }}
       >
         <Image
-          src={product.thumbnailUrl}
+          src={validSrc}
           alt={product.productName}
           width={size}
           height={size}

@@ -18,8 +18,9 @@ export const getMainCategoryList = async () => {
 };
 
 export const getProductThumbnail = async (productCode: string) => {
+  console.log(productCode);
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/product/${productCode}/outline`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product/outline/${productCode}`
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -31,6 +32,7 @@ export const getProductThumbnail = async (productCode: string) => {
 export const getEventList = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/event`);
   if (!res.ok) {
+    console.log(res);
     throw new Error('Failed to fetch data');
   }
   const data = (await res.json()) as CommonResponseType<EventType[]>;
