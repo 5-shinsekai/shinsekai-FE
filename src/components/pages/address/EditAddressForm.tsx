@@ -124,6 +124,7 @@ export default function EditAddressForm({
         link={`search-address?${new URLSearchParams(searchParams.toString())}`}
         readonly={true}
         required
+        disabled={true}
         className="text-custom-gray-400 font-semibold"
       />
       <InputType.InputInfo
