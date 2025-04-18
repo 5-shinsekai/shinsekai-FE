@@ -10,10 +10,7 @@ export interface EventType {
   eventName: string;
 }
 
-export interface SeasonType {
-  id: number;
-  seasonName: string;
-}
+export type ProductListType = string[];
 
 export interface ProductType {
   id: number;
