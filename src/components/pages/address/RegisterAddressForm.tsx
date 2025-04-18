@@ -11,12 +11,19 @@ import { RegisterAddressFormType } from '@/types/AddressDataType';
 import AutoTabInput from '@/components/ui/forms/AutoTabInput';
 import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
 import { cn } from '@/lib/utils';
+import { postAddress } from '@/action/address-service';
 
-export default function RegisterAddressForm({
-  action,
-}: {
-  action: (addressForm: FormData) => void;
-}) {
+export default function RegisterAddressForm() {
+  const router = useRouter();
+
+  const handleAction = async (formData: FormData) => {
+    try {
+      await postAddress(formData);
+      router.back();
+    } catch (error) {
+      console.error('배송지 등록 실패:', error);
+    }
+  };
   const params = useSearchParams();
   const isMain = params.get('isMain') === 'true';
   console.log('ismain', isMain);
@@ -34,7 +41,6 @@ export default function RegisterAddressForm({
     isMainAddress: '',
   });
 
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [isActive, setIsActive] = useState(false);
 
@@ -90,7 +96,7 @@ export default function RegisterAddressForm({
   }, [searchParams]);
 
   return (
-    <form action={action} className="mb-[10rem] space-y-[1.25rem]">
+    <form action={handleAction} className="mb-[10rem] space-y-[1.25rem]">
       <InputType.FormInputInfo
         id="addressNickname"
         name="addressNickname"

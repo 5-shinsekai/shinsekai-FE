@@ -19,7 +19,7 @@ export default function GetAddress({
     currentInputValues.set('roadAddress', address.roadAddr);
     currentInputValues.set('zipNo', address.zipNo.toString());
 
-    router.push(`/register-address?${currentInputValues.toString()}`);
+    router.replace(`/register-address?${currentInputValues.toString()}`);
   };
   if (searchResult.errorCode !== '0' || searchResult.totalCount === '0') {
     // const [modal, setModal] = useState(false);

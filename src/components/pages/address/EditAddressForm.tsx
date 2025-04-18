@@ -7,7 +7,7 @@ import { SelectMemo } from '@/components/ui/SelectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 // import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { editAddressSchema } from '@/schemas/registerAddressSchema';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   AddressDataType,
   RegisterAddressFormType,
@@ -15,14 +15,23 @@ import {
 import AutoTabInput from '@/components/ui/forms/AutoTabInput';
 import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
 import { cn } from '@/lib/utils';
+import { editAddress } from '@/action/address-service';
 
 export default function EditAddressForm({
   addressData,
-  action,
 }: {
   addressData: AddressDataType;
-  action: (addressForm: FormData) => void;
 }) {
+  const router = useRouter();
+
+  const handleAction = async (formData: FormData) => {
+    try {
+      await editAddress(formData);
+      router.back();
+    } catch (error) {
+      console.error('배송지 등록 실패:', error);
+    }
+  };
   const [isActive, setIsActive] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const searchParams = useSearchParams();
@@ -88,7 +97,7 @@ export default function EditAddressForm({
   }, [editAddressData]);
 
   return (
-    <form action={action} className="mb-[10rem] space-y-[1.25rem]">
+    <form action={handleAction} className="mb-[10rem] space-y-[1.25rem]">
       <input
         name="addressUuid"
         type="hidden"

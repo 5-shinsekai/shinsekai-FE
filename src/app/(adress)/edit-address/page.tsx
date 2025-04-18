@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { editAddress, getAddressByUuid } from '@/action/address-service';
+import { getAddressByUuid } from '@/action/address-service';
 import EditAddressForm from '@/components/pages/address/EditAddressForm';
 
 export default async function Page({
@@ -15,7 +15,7 @@ export default async function Page({
     <main className="px-[1.5rem]">
       <h1 className="py-8 text-[1.625rem] font-semibold">배송지 정보</h1>
       <Suspense>
-        <EditAddressForm addressData={addressData!} action={editAddress} />
+        <EditAddressForm addressData={addressData!} />
       </Suspense>
     </main>
   );
