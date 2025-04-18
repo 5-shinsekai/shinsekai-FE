@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSidebarContext } from '@/context/SideBarContext';
 import { getMainCategoryList } from '@/action/product-service';
-import { MainCategoryType } from '@/types/CategotyTypes';
+import { MainCategoryType } from '@/types/CategoryTypes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLoginSession } from '@/context/SessionContext';

@@ -1,12 +1,9 @@
 import { CategoryDataType } from './ProductDataTypes';
-
-export interface CategoryType {
-  keyname: string;
-  data: CategoryDataType[];
-}
+import { EventType } from './ProductDataTypes';
 
 export interface MenuBarType {
-  data: CategoryType;
+  keyname: string;
+  category: CategoryDataType[] | EventType[];
   isDefault: boolean;
   isMultiple: boolean;
 }

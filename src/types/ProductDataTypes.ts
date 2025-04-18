@@ -6,8 +6,17 @@ export interface CategoryDataType {
 }
 
 export interface EventType {
+  code: number;
+  name: string;
+}
+
+export interface EventDetailType {
   eventId: number;
   eventName: string;
+  eventImage: string;
+  eventImageAltText: string;
+  startDate: string;
+  endDate: string;
 }
 
 export type ProductListType = string[];

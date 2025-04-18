@@ -3,7 +3,8 @@ import MenuTabModule from './MenuTabModule';
 import { MenuBarType } from '@/types/MenuTypes';
 
 export default function MenuTab({
-  data,
+  category,
+  keyname,
   isDefault,
   isMultiple,
   className,
@@ -11,7 +12,8 @@ export default function MenuTab({
   return (
     <Suspense>
       <MenuTabModule
-        data={data}
+        keyname={keyname}
+        category={category}
         isMultiple={isMultiple}
         isDefault={isDefault}
         className={className}

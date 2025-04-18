@@ -3,24 +3,28 @@ import ProductList from '@/components/pages/products/ProductList';
 import EventDummyImage from '@/components/images/EventDummyImage.png';
 import Image from 'next/image';
 import MenuTab from '@/components/layouts/MenuTab';
-import { eventData } from '@/data/DummyData/CategoryDummyData';
 import { productDummyData } from '@/data/DummyData/ProductDummyData';
-
-export default function Page() {
+import { getEventList } from '@/action/product-service';
+import EventDetailSection from '@/components/pages/main/EventDetailSection';
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<Readonly<{ eventId: number | undefined }>>;
+}) {
+  const eventList = await getEventList();
+  const { eventId } = await searchParams;
   return (
     <main>
-      <nav className=" sticky top-28 shadow z-10 bg-white">
-        <Suspense>
-          <MenuTab data={eventData} isMultiple={false} isDefault={true} />
-        </Suspense>
-      </nav>
+      <section className=" sticky top-28 shadow z-10 bg-white">
+        <MenuTab
+          category={eventList}
+          keyname="eventId"
+          isMultiple={false}
+          isDefault={true}
+        />
+      </section>
       {/* 안에 넣을 것 */}
-      <Image
-        src={EventDummyImage}
-        alt="EventDummyImage"
-        className=" w-full md:w-3xl justify-self-center"
-      />
-      <ProductList data={productDummyData} />
+      <EventDetailSection eventId={eventId ?? eventList[0].code} />
     </main>
   );
 }
