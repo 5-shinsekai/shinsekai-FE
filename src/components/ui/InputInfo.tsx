@@ -76,7 +76,7 @@ function HasButtonInputInfo({
         className=" active:bg-custom-green-200/20"
         onClick={() => {
           if (link) {
-            router.push(`/${link}`);
+            router.replace(`/${link}`);
           }
         }}
       >

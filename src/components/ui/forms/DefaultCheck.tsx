@@ -8,6 +8,7 @@ import { Modal } from '../Modal';
 
 interface AgreeCheckPropsType {
   id: string;
+  type?: string;
   name: string;
   children?: React.ReactNode;
   disable?: boolean;
@@ -34,6 +35,7 @@ export function DefaultCheck({
     <div className="flex items-center">
       <div className="flex items-center space-x-2 flex-1">
         <Checkbox
+          type="button"
           id={id}
           value={value}
           hidden={hidden}

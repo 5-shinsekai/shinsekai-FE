@@ -17,10 +17,6 @@ export default function RegisterAddressForm({
 }: {
   action: (addressForm: FormData) => void;
 }) {
-  //     searchParams,
-  // }: {
-  //   searchParams: Promise<Readonly<{ page: number }>>;
-  // }) {
   const params = useSearchParams();
   const isMain = params.get('isMain') === 'true';
   console.log('ismain', isMain);
@@ -46,9 +42,7 @@ export default function RegisterAddressForm({
   useEffect(() => {
     if (isMain) {
       updatedSearchParams.set('isMainAddress', 'true');
-      router.replace(`/register-address?${updatedSearchParams.toString()}`, {
-        scroll: false,
-      });
+      router.replace(`/register-address?${updatedSearchParams.toString()}`, {});
     }
   }, [isMain]);
 
@@ -81,6 +75,7 @@ export default function RegisterAddressForm({
         ...prev,
         [name]: '',
       }));
+      setIsActive(true);
     }
   };
 
