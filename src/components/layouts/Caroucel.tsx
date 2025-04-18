@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/CarouselModule';
 
 import Autoplay from 'embla-carousel-autoplay';
+import LoadingIcon from '../ui/icons/LoadingIcon';
 
 export default function Carousel() {
   const [carouselData, setCarouselData] = useState<EventThumbnailType[]>([]);
@@ -25,9 +26,11 @@ export default function Carousel() {
   }, []);
   return (
     <CarouselModule plugins={[Autoplay({ delay: 3000 })]}>
-      <CarouselContent className="relative">
+      <CarouselContent className="relative w-[100vw] h-[100vw]">
         {isLoading ? (
-          <div className="  bg-gray-200 animate-pulse" />
+          <div className=" w-[100vw] h-[100vw] flex items-center justify-center bg-gray-200 animate-pulse">
+            <LoadingIcon />
+          </div>
         ) : (
           carouselData.map((item, index) => (
             <CarouselItem key={index}>
