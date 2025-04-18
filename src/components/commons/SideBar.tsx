@@ -36,7 +36,7 @@ export function Sidebar() {
   useEffect(() => {
     const fetchMainCategoryList = async () => {
       const mainCategoryList = await getMainCategoryList();
-      setMainCategoryList(mainCategoryList.result);
+      setMainCategoryList(mainCategoryList);
     };
     fetchMainCategoryList();
   }, []);

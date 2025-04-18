@@ -1,14 +1,13 @@
 import React from 'react';
 import { productDummyData } from '@/data/DummyData/ProductDummyData';
-import { SeasonType } from '@/types/ProductDataTypes';
+import { EventType } from '@/types/ProductDataTypes';
 import ProductListItem from '../products/ProductListItem';
 import ScrollableList from '@/components/layouts/ScrollableList';
 
 export default function MainProductList({
-  season,
-}: Readonly<{ season: SeasonType }>) {
-  // 데이터 fetch 관련 필요 현재 dummy 이용
-  console.log(season);
+  event,
+}: Readonly<{ event: EventType }>) {
+  console.log(event);
   return (
     <ScrollableList className="gap-x-[1.125rem]">
       {productDummyData.map((product) => (

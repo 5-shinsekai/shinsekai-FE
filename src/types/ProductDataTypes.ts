@@ -5,6 +5,11 @@ export interface CategoryDataType {
   name: string;
 }
 
+export interface EventType {
+  eventId: number;
+  eventName: string;
+}
+
 export interface SeasonType {
   id: number;
   seasonName: string;
