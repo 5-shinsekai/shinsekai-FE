@@ -6,4 +6,5 @@ export const starbuckscardInfoData: StarbuckscardInfoType = {
   cardNumber: '345678',
   cardImageUrl: '/starbucksCard1.png',
   remainAmount: 80000,
+  agreed: true,
 };

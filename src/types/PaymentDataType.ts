@@ -10,6 +10,7 @@ export interface RegisterStarbucksCardDataType {
   cardImageUrl: string;
   cardDescription: string;
   remainAmount: number;
+  agreed: boolean;
 }
 
 export interface StarbuckscardInfoType {
@@ -19,4 +20,5 @@ export interface StarbuckscardInfoType {
   cardImageUrl: string;
   // cardDescription: string;
   remainAmount: number;
+  agreed: boolean;
 }

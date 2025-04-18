@@ -110,8 +110,8 @@ export default function RegisterStarbuckscardForm({
       </div>
       <ButtonWrapper>
         <HasTermCheck
-          id="RegisterCardAgreeCheck"
-          name="RegisterCardAgreeCheck"
+          id="agreed"
+          name="agreed"
           onChange={() => setIsChecked(!isChecked)}
           defaultChecked={isChecked}
           className={cn(isChecked ? 'transition-all text-black' : '')}

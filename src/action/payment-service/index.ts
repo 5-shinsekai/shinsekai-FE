@@ -6,7 +6,8 @@ import {
   StarbuckscardInfoType,
 } from '@/types/PaymentDataType';
 import { redirect } from 'next/navigation';
-
+import { getServerSession } from 'next-auth';
+import { options } from '@/app/api/auth/[...nextauth]/options';
 // interface ActionState {
 //   success: boolean;
 //   data: any | null;
@@ -43,9 +44,11 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
   // const { cardName, cardNumber } = starbuckscardData;
   const data = await res.json();
   console.log('API로부터 받은 데이터 (외부api):', data);
-  await registerStarbuckscard(data);
+  const cardData = await registerStarbuckscard(data);
+  console.log('카드 등록되었는지 확인', cardData);
   redirect(
-    `/card-complete?cardName=${encodeURIComponent(data.cardName)}&cardNumber=${data.cardNumber}` //uuid로 redirect 하기
+    //api response -> uuid 추가하고 수정해야함.
+    `/card-complete?cardUuid=${encodeURIComponent(cardData.memberStarbucksCardListUuid)}` //uuid로 redirect 하기
   );
 };
 
@@ -56,9 +59,10 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
     remainAmount: data.remainAmount,
     cardImageUrl: data.cardImageUrl,
     cardDescription: data.cardDescription,
+    agreed: true,
   };
-  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
-
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
   console.log(registerStarbuckscardData);
   const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {
     method: 'POST',
@@ -76,13 +80,13 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
   }
   const success = await res.json();
   console.log('register api 응답', success);
-
-  return success;
+  console.log(success);
+  return success.result;
 };
 
 export const getStarbuckscard = async (): Promise<StarbuckscardInfoType[]> => {
-  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
-
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
   const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {
     method: 'GET',
     headers: {
@@ -104,7 +108,8 @@ export const getStarbuckscard = async (): Promise<StarbuckscardInfoType[]> => {
 };
 
 export const deleteStarbuckscard = async (memberStarbucksCardUuid: string) => {
-  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
   console.log('uuid (스벅카드): ', memberStarbucksCardUuid);
 
   const res = await fetch(

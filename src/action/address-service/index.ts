@@ -187,7 +187,6 @@ export const getAddressByUuid = async (adressUuid: string) => {
   }
 
   const data = await res.json();
-  console.log('단일배송지 조회 결과:', data);
   return data.result;
 };
 
@@ -216,5 +215,27 @@ export const deleteAddressByUuid = async (adressUuid: string) => {
 
   const data = await res.json();
   console.log('배송지 삭제 결과:', data);
+  return data.result;
+};
+
+export const getMainAddress = async () => {
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+
+  const res = await fetch(`http://3.37.52.123:8080/api/v1/address/main`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
   return data.result;
 };
