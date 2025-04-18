@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       'upload.wikimedia.org',
       'image.istarbucks.co.kr',
       'sitem.ssgcdn.com',
+      'cp-image.starbucks.co.kr',
     ],
   },
   async redirects() {

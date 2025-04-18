@@ -5,10 +5,12 @@ export interface CategoryDataType {
   name: string;
 }
 
-export interface SeasonType {
-  id: number;
-  seasonName: string;
+export interface EventType {
+  eventId: number;
+  eventName: string;
 }
+
+export type ProductListType = string[];
 
 export interface ProductType {
   id: number;
@@ -32,6 +34,12 @@ export interface ProductDetailType {
   discountRate: number;
   isNew: boolean;
   isBest: boolean;
+}
+
+export interface EventThumbnailType {
+  id: number;
+  eventThumbnailImage: string;
+  eventThumbnailImageAltText: string;
 }
 
 export interface ProductThumbnailType {
