@@ -67,7 +67,8 @@ export default function ProductSubCategory() {
               </p>
               <MenuTab
                 key={index}
-                data={item}
+                keyname={item.keyname}
+                category={item.data}
                 isDefault={true}
                 isMultiple={false}
               />

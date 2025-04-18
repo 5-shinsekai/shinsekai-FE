@@ -1,7 +1,5 @@
 import React from 'react';
-import { productDummyData } from '@/data/DummyData/ProductDummyData';
 import ProductList from '@/components/pages/products/ProductList';
-import EventDummyImage from '@/components/images/EventDummyImage.png';
 import Image from 'next/image';
 import { getEventDetail, getEventProductList } from '@/action/product-service';
 export default async function EventDetailSection({

@@ -1,9 +1,6 @@
-import React, { Suspense } from 'react';
-import ProductList from '@/components/pages/products/ProductList';
-import EventDummyImage from '@/components/images/EventDummyImage.png';
-import Image from 'next/image';
+import React from 'react';
+
 import MenuTab from '@/components/layouts/MenuTab';
-import { productDummyData } from '@/data/DummyData/ProductDummyData';
 import { getEventList } from '@/action/product-service';
 import EventDetailSection from '@/components/pages/main/EventDetailSection';
 export default async function Page({
