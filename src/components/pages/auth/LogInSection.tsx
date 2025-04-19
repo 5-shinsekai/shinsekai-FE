@@ -25,14 +25,12 @@ export default function LogInSection() {
       });
 
       if (res?.error) {
-        console.log(res);
         setError('아이디 또는 비밀번호가 일치하지 않습니다.');
         return;
       }
 
       if (res?.ok) {
         const callbackUrl = searchParams.get('callbackUrl');
-        console.log(callbackUrl);
         router.push(callbackUrl || '/');
       }
     } catch (error) {

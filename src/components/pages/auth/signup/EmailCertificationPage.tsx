@@ -23,7 +23,6 @@ export default function EmailCertificationPage({
 
   const handleCerti = async () => {
     setCerti(true);
-    console.log('인증');
     const res = await sendEmail(email, '회원가입');
     console.log(res);
   };
