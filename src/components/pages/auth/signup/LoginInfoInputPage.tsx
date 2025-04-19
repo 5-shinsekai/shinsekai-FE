@@ -6,7 +6,7 @@ import { SignUpContext } from '@/context/SignUpContext';
 import { useState, useContext } from 'react';
 
 export default function LoginInfoInputPage({ onNext }: { onNext: () => void }) {
-  const { emailForm, setIdForm, setSteps } = useContext(SignUpContext);
+  const { setIdForm, setSteps } = useContext(SignUpContext);
   const [loginForm, setLoginForm] = useState<{
     loginId: string;
     password: string;
@@ -21,9 +21,7 @@ export default function LoginInfoInputPage({ onNext }: { onNext: () => void }) {
       ...prev,
       [name]: value,
     }));
-    console.log(`${name}:`, value);
   };
-  console.log(emailForm);
 
   const handleNext = () => {
     setSteps((prev) => prev + 1);

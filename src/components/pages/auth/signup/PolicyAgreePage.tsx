@@ -15,7 +15,6 @@ export default function PolicyAgreePage({ onNext }: { onNext: () => void }) {
       policyData.map((policy) => {
         setCheckedIds((prev) => [...prev, policy.id]);
       });
-      console.log(checkedIds);
     }
   };
   const allChecked = checkedIds.length == policyData.length;

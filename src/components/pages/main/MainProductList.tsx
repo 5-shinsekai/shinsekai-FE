@@ -8,7 +8,6 @@ export default async function MainProductList({
   event,
 }: Readonly<{ event: EventType }>) {
   const productList = await getEventProductList(event.code);
-  console.log(productList);
   return (
     <ScrollableList className="gap-x-[1.125rem]">
       {productList.slice(0, 10).map((product) => (

@@ -24,7 +24,6 @@ export function Sidebar() {
   };
 
   const isLogin = useLoginSession();
-  console.log('isLogin!', isLogin);
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
