@@ -5,6 +5,7 @@ import {
   ProductListType,
   ProductThumbnailType,
   ProductListResponseType,
+  ProductDetailType,
 } from '@/types/ProductDataTypes';
 import { MainCategoryType } from '@/types/CategoryTypes';
 import { EventType, EventDetailType } from '@/types/ProductDataTypes';
@@ -95,5 +96,20 @@ export const getProductList = async ({
   }
   const data =
     (await res.json()) as CommonResponseType<ProductListResponseType>;
+  return data.result;
+};
+
+export const getProductDetail = async ({
+  productCode,
+}: Readonly<{
+  productCode: string;
+}>) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product/${productCode}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<ProductDetailType>;
   return data.result;
 };

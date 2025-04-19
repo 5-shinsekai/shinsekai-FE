@@ -15,7 +15,6 @@ export default async function Page({
     mainCategoryId: mainCategoryId ?? eventList[0].code,
     size: 30,
   });
-  console.log(bestData);
   return (
     <main>
       <section className=" sticky top-28 shadow z-10 bg-white ">

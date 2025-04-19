@@ -60,17 +60,18 @@ export interface ProductType {
 }
 
 export interface ProductDetailType {
-  id: number;
   productCode: string;
-  productImagePath: string;
-  productDescriptionPath: string[];
+  productName: string;
   productPrice: number;
-  title: string;
+  productStatus: string;
   productSummary: string;
-  limitCount: number;
+  contentImages: string;
+  thumbnailUrl: string;
+  userPurchaseLimit: number;
   discountRate: number;
-  isNew: boolean;
-  isBest: boolean;
+  productOptionIds: number[];
+  frozen: boolean;
+  engraving: boolean;
 }
 
 export interface EventThumbnailType {

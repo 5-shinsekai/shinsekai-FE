@@ -1,10 +1,8 @@
 'use client';
 import React, { useRef, useEffect, useState } from 'react';
-// import ProductList from './ProductList';
 import LoadingIcon from '@/components/ui/icons/LoadingIcon';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-// import { getAllProductList } from '@/actions/product-service';
 import { ProductType } from '@/types/ProductDataTypes';
 import { cn } from '@/lib/utils';
 
