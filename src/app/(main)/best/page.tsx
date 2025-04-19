@@ -1,18 +1,34 @@
+import { getMainCategoryList, getProductList } from '@/action/product-service';
 import React, { Suspense } from 'react';
-// import MenuTab from '@/components/layouts/MenuTab';
-// import ProductList from '@/components/pages/products/ProductList';
-// import { bestData } from '@/data/DummyData/CategoryDummyData';
+import MenuTab from '@/components/layouts/MenuTab';
+import ProductList from '@/components/pages/products/ProductList';
 // import { productDummyData } from '@/data/DummyData/ProductDummyData';
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<Readonly<{ mainCategoryId: number | undefined }>>;
+}) {
+  const eventList = await getMainCategoryList();
+  const { mainCategoryId } = await searchParams;
+  const bestData = await getProductList({
+    mainCategoryId: mainCategoryId ?? eventList[0].code,
+    size: 30,
+  });
+  console.log(bestData);
   return (
     <main>
-      <nav className=" sticky top-28 shadow z-10 bg-white ">
+      <section className=" sticky top-28 shadow z-10 bg-white ">
         <Suspense>
-          {/* <MenuTab data={bestData} isDefault={true} isMultiple={false} /> */}
+          <MenuTab
+            keyname="mainCategoryId"
+            category={eventList}
+            isDefault={true}
+            isMultiple={false}
+          />
         </Suspense>
-      </nav>
-      {/* <ProductList data={productDummyData} bestTag={true} /> */}
+      </section>
+      <ProductList data={bestData.content} bestTag={true} />
     </main>
   );
 }
