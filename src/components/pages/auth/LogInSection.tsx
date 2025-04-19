@@ -36,6 +36,7 @@ export default function LogInSection() {
         router.push(callbackUrl || '/');
       }
     } catch (error) {
+      console.log(error);
       setError('로그인 중 오류가 발생했습니다.');
     }
   };
