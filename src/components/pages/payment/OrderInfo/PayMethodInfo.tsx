@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import EmptyStarbuckscard from '@/components/ui/EmptyStarbuckscard';
 import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
 import { StarbuckscardInfoType } from '@/types/PaymentDataType';
+import { StarbucksCard } from './StarbucksCard';
 
 export default function PayMethodInfo({
   cardList = [],
@@ -38,27 +38,12 @@ export default function PayMethodInfo({
                   defaultChecked={selectedCard === index}
                 />
               </div>
-              <Image
-                key={index}
-                src={card.cardImageUrl}
-                alt={card.cardName}
-                width={262}
-                height={166}
-                className="rounded-sm"
-                onClick={() => handleSelectCard(index)}
+
+              <StarbucksCard
+                card={card}
+                index={index}
+                handleSelectCard={handleSelectCard}
               />
-              <div className="flex justify-between py-2 px-1">
-                <div className="flex items-center gap-2 text-sm ">
-                  <p className="text-custom-gray-600">{card.cardName}</p>
-                  <button className="text-custom-green-100">
-                    카드충전하기
-                  </button>
-                </div>
-                <p className="font-semibold">
-                  {card.remainAmount.toLocaleString()}
-                  <span className="text-sm font-medium">원</span>
-                </p>
-              </div>
             </div>
           ))}
         {cardList[selectedCard] && (

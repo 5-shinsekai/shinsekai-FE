@@ -1,6 +1,6 @@
 import { getMainAddress } from '@/action/address-service';
 import { paymentTempService } from '@/action/input-check';
-import { getStarbuckscard } from '@/action/payment-service';
+import { getStarbuckscardList } from '@/action/payment-service';
 import AddressInfoSection from '@/components/pages/payment/OrderInfo/AddressInfoSection';
 import AmountInfo from '@/components/pages/payment/OrderInfo/AmountInfo';
 import CashReceiptInfo from '@/components/pages/payment/OrderInfo/CashReceiptInfo';
@@ -12,7 +12,7 @@ import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import React, { Suspense } from 'react';
 
 export default async function page() {
-  const cardList = await getStarbuckscard();
+  const cardList = await getStarbuckscardList();
   const mainAddress = await getMainAddress();
   console.log('기본배송지');
 

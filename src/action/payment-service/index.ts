@@ -1,18 +1,22 @@
 'use server';
 
 import {
+  ChargeStarbucksCardApiType,
   ExternalStarbucksCardDataType,
   RegisterStarbucksCardDataType,
   StarbuckscardInfoType,
 } from '@/types/PaymentDataType';
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { options } from '@/app/api/auth/[...nextauth]/options';
+// import { getServerSession } from 'next-auth';
+// import { options } from '@/app/api/auth/[...nextauth]/options';
 // interface ActionState {
 //   success: boolean;
 //   data: any | null;
 //   error: string;
 // }
+
+const ACCESS_TOKEN =
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNMjAyNTA0MTgtODY1NzhjYzQiLCJpYXQiOjE3NDUwMzk0NDMsImV4cCI6MTc0NTIxMjI0M30.WmvhRXUzrsBZXXU-W21sR13_VOwGEVctW4hxlidVNvI';
 
 // 스타벅스 카드 등록
 export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
@@ -61,8 +65,8 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
     cardDescription: data.cardDescription,
     agreed: true,
   };
-  const session = await getServerSession(options);
-  const ACCESS_TOKEN = session?.user.accessToken;
+  // const session = await getServerSession(options);
+  // const ACCESS_TOKEN = session?.user.accessToken;
   console.log(registerStarbuckscardData);
   const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {
     method: 'POST',
@@ -84,10 +88,12 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
   return success.result;
 };
 
-export const getStarbuckscard = async (): Promise<StarbuckscardInfoType[]> => {
-  const session = await getServerSession(options);
-  const ACCESS_TOKEN = session?.user.accessToken;
-  const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {
+export const getStarbuckscardList = async (): Promise<
+  StarbuckscardInfoType[]
+> => {
+  // const session = await getServerSession(options);
+  // const ACCESS_TOKEN = session?.user.accessToken;
+  const res = await fetch(`http://3.37.52.123:8080/api/v1/starbucks-card`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -107,9 +113,37 @@ export const getStarbuckscard = async (): Promise<StarbuckscardInfoType[]> => {
   return data;
 };
 
+export const getStarbuckscardbyUuid = async (
+  memberStarbucksCardUuid: string
+): Promise<StarbuckscardInfoType[]> => {
+  // const session = await getServerSession(options);
+  // const ACCESS_TOKEN = session?.user.accessToken;
+  const res = await fetch(
+    `http://3.37.52.123:8080/api/v1/starbucks-card/${memberStarbucksCardUuid}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('등록된 스타벅스 카드 조회 실패');
+  }
+
+  const data = await res.json();
+  console.log('조회된 카드:', data);
+  return data;
+};
+
 export const deleteStarbuckscard = async (memberStarbucksCardUuid: string) => {
-  const session = await getServerSession(options);
-  const ACCESS_TOKEN = session?.user.accessToken;
+  // const session = await getServerSession(options);
+  // const ACCESS_TOKEN = session?.user.accessToken;
   console.log('uuid (스벅카드): ', memberStarbucksCardUuid);
 
   const res = await fetch(
@@ -129,8 +163,39 @@ export const deleteStarbuckscard = async (memberStarbucksCardUuid: string) => {
     throw new Error('Failed to fetch data');
   }
 
-  // const { cardName, cardNumber } = starbuckscardData;
   const data = await res.json();
   console.log('삭제api 결과:', data);
+  return data;
+};
+
+export const chargeStarbuckscard = async (
+  chargeInfo: ChargeStarbucksCardApiType
+) => {
+  const starbuckscardData: Partial<ChargeStarbucksCardApiType> = {
+    memberStarbucksCardUuid: chargeInfo['memberStarbucksCardUuid'],
+    price: chargeInfo['price'],
+  };
+
+  console.log(starbuckscardData);
+  const res = await fetch(
+    'http://3.37.52.123:8080/api/v1/starbucks-card/charge',
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(starbuckscardData),
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
+  console.log(data);
   return data;
 };
