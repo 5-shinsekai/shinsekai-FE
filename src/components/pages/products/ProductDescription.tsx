@@ -1,9 +1,9 @@
 'use client';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronUp } from 'lucide-react';
+import Image from 'next/image';
+
 export default function ProductDescription({
   ImageHTML,
 }: Readonly<{ ImageHTML: string }>) {
@@ -11,13 +11,21 @@ export default function ProductDescription({
   const [extractedImages, setExtractedImages] = useState<
     Array<{ src: string; alt: string }>
   >([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
+
+    // 접을 때 상단으로 스크롤
+    if (isExpanded && containerRef.current) {
+      containerRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
   };
 
   useEffect(() => {
-    // 클라이언트 사이드에서만 실행되도록
     if (typeof window !== 'undefined' && ImageHTML) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(ImageHTML, 'text/html');
@@ -32,48 +40,43 @@ export default function ProductDescription({
     }
   }, [ImageHTML]);
 
-  // overflow 활용 - hidden 높이 조절
-  // 컴포넌트 분리하기
   return (
-    <div className="relative">
-      {isExpanded
-        ? extractedImages.map((item, index) => (
-            <Image
-              key={index}
-              src={item.src}
-              alt={item.alt}
-              width={600}
-              height={600}
-              className="mx-auto w-full md:w-3xl"
-            />
-          ))
-        : extractedImages
-            .slice(0, 1)
-            .map((item, index) => (
-              <Image
-                key={index}
-                src={item.src}
-                alt={item.alt}
-                width={600}
-                height={600}
-                className="mx-auto w-full md:w-3xl"
-              />
-            ))}
+    <section className="relative" ref={containerRef}>
+      <h2 className="text-lg font-bold px-6 pb-4 pt-10">상품 정보</h2>
       <div
-        className="flex justify-center items-center h-12 text-md mt-6 bg-white text-center w-5/6 rounded-full shadow-md inset-shadow-sm mx-auto"
-        onClick={toggleExpand}
+        className={`image-container ${!isExpanded ? 'max-h-[150vh] overflow-hidden' : ''}`}
       >
-        <p className="w-[120px] text-left pr-2">
-          상품접기{isExpanded ? '접기' : '더보기'}
-        </p>
-        <ChevronUp
-          size={16}
-          className={cn(
-            isExpanded ? 'rotate-0' : 'rotate-180',
-            'stroke-black transition-all'
-          )}
-        />
+        {extractedImages.map((item, index) => (
+          <Image
+            key={index}
+            src={item.src}
+            alt={item.alt}
+            width={600}
+            height={600}
+            className="mx-auto w-full md:w-3xl"
+          />
+        ))}
       </div>
-    </div>
+
+      <div className={cn(isExpanded ? 'mt-5' : 'absolute bottom-5 w-full')}>
+        <div
+          className={`flex justify-center items-center h-12 text-md mt-2 bg-white text-center w-5/6 rounded-full shadow-md inset-shadow-sm mx-auto cursor-pointer ${
+            !isExpanded ? 'sticky bottom-4' : ''
+          }`}
+          onClick={toggleExpand}
+        >
+          <p className="w-[120px] pr-2">
+            상품정보 {isExpanded ? '접기' : '더보기'}
+          </p>
+          <ChevronUp
+            size={16}
+            className={cn(
+              isExpanded ? 'rotate-0' : 'rotate-180',
+              'stroke-black transition-all'
+            )}
+          />
+        </div>
+      </div>
+    </section>
   );
 }

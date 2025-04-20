@@ -1,12 +1,11 @@
 import React from 'react';
 import { getProductDetail } from '@/action/product-service';
 import Image from 'next/image';
-import { Button } from '@/components/ui/Button';
-import CartIcon from '@/components/ui/icons/CartIcon';
 import ProductPrice from '@/components/commons/ProductPrice';
 import Tag from '@/components/commons/Tag';
 import ShareIcon from '@/components/ui/icons/ShareIcon';
 import ProductDescription from './ProductDescription';
+import ProductActionBar from './ProductActionBar';
 export default async function ProductDetail({
   productId,
 }: Readonly<{ productId: string }>) {
@@ -21,7 +20,7 @@ export default async function ProductDetail({
         height={600}
         className="mx-auto w-full md:w-3xl"
       />
-      <div id="productSummary" className="p-6 space-y-4">
+      <section id="productSummary" className="p-6 space-y-4">
         <div className="flex justify-between">
           <h1 className=" text-[1.375rem] font-bold w-fit space-x-2 ">
             <span>{productDetail.productName}</span>
@@ -43,7 +42,7 @@ export default async function ProductDetail({
         </h2>
         <ProductPrice
           price={productDetail.productPrice}
-          discountRate={2}
+          discountRate={productDetail.discountRate}
           priceClassName={
             productDetail.discountRate ? 'text-[1.25rem]' : 'text-[1.125rem]'
           }
@@ -51,20 +50,11 @@ export default async function ProductDetail({
           discountRateClassName="text-[1.25rem]"
           discountContainerClassName="justify-end gap-x-4 flex-row-reverse"
         />
-      </div>
-      <ProductDescription ImageHTML={productDetail.contentImages} />
-      {/* 임시 */}
-      {/* <div
-        id="상품 임시설명"
-        dangerouslySetInnerHTML={{ __html: productDetail.contentImages }}
-      /> */}
+      </section>
 
-      <div className="flex px-6 pt-4 justify-between bg-white inset-shadow-xs h-28 w-full rounded-t-3xl fixed bottom-0">
-        <CartIcon className="min-w-9 size-9 " />
-        <Button size="md" color="green" className="w-5/6">
-          구매하기
-        </Button>
-      </div>
+      <ProductDescription ImageHTML={productDetail.contentImages} />
+
+      <ProductActionBar />
     </div>
   );
 }
