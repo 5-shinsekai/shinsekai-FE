@@ -6,6 +6,7 @@ import CartIcon from '@/components/ui/icons/CartIcon';
 import ProductPrice from '@/components/commons/ProductPrice';
 import Tag from '@/components/commons/Tag';
 import ShareIcon from '@/components/ui/icons/ShareIcon';
+import ProductDescription from './ProductDescription';
 export default async function ProductDetail({
   productId,
 }: Readonly<{ productId: string }>) {
@@ -51,12 +52,12 @@ export default async function ProductDetail({
           discountContainerClassName="justify-end gap-x-4 flex-row-reverse"
         />
       </div>
-      {/* <ProductDescription ImagePath={productDetail.contentImages} /> */}
+      <ProductDescription ImageHTML={productDetail.contentImages} />
       {/* 임시 */}
-      <div
+      {/* <div
         id="상품 임시설명"
         dangerouslySetInnerHTML={{ __html: productDetail.contentImages }}
-      />
+      /> */}
 
       <div className="flex px-6 pt-4 justify-between bg-white inset-shadow-xs h-28 w-full rounded-t-3xl fixed bottom-0">
         <CartIcon className="min-w-9 size-9 " />

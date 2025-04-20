@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
       'sitem.ssgcdn.com',
       'cp-image.starbucks.co.kr',
       'search.pstatic.net',
+      'simg.ssgcdn.com',
+      'sitem.ssgcdn.com',
+      'sstatic.ssgcdn.com',
+      'prod-starbucks-product-details.s3.ap-northeast-2.amazonaws.com',
     ],
   },
   async redirects() {

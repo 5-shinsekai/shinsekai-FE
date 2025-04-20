@@ -1,41 +1,64 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { ChevronUp } from 'lucide-react';
 export default function ProductDescription({
-  ImagePath,
-}: Readonly<{ ImagePath: string[] }>) {
+  ImageHTML,
+}: Readonly<{ ImageHTML: string }>) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [extractedImages, setExtractedImages] = useState<
+    Array<{ src: string; alt: string }>
+  >([]);
+
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
+
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행되도록
+    if (typeof window !== 'undefined' && ImageHTML) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(ImageHTML, 'text/html');
+      const imgElements = doc.querySelectorAll('img');
+
+      const images = Array.from(imgElements).map((img) => ({
+        src: img.getAttribute('src') || '/ImageLoading.png',
+        alt: img.getAttribute('alt') || '상품 이미지',
+      }));
+
+      setExtractedImages(images);
+    }
+  }, [ImageHTML]);
+
   // overflow 활용 - hidden 높이 조절
   // 컴포넌트 분리하기
   return (
     <div className="relative">
       {isExpanded
-        ? ImagePath.map((path, index) => (
+        ? extractedImages.map((item, index) => (
             <Image
               key={index}
-              src={path}
-              alt={`Product Description ${index + 1}`}
+              src={item.src}
+              alt={item.alt}
               width={600}
               height={600}
               className="mx-auto w-full md:w-3xl"
             />
           ))
-        : ImagePath.slice(0, 1).map((path, index) => (
-            <Image
-              key={index}
-              src={path}
-              alt={`Product Description ${index + 1}`}
-              width={600}
-              height={600}
-              className="mx-auto w-full md:w-3xl"
-            />
-          ))}
+        : extractedImages
+            .slice(0, 1)
+            .map((item, index) => (
+              <Image
+                key={index}
+                src={item.src}
+                alt={item.alt}
+                width={600}
+                height={600}
+                className="mx-auto w-full md:w-3xl"
+              />
+            ))}
       <div
         className="flex justify-center items-center h-12 text-md mt-6 bg-white text-center w-5/6 rounded-full shadow-md inset-shadow-sm mx-auto"
         onClick={toggleExpand}
