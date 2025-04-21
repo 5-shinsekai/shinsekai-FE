@@ -49,7 +49,10 @@ export function StarbucksCard({
       </div>
       {modal && (
         <CardDetailModal title="충전하기" setModal={handleClick}>
-          <StarbuckscardDetail cardInfo={card} />
+          <StarbuckscardDetail
+            cardInfo={card}
+            // onClose={() => setModal(false)}
+          />
         </CardDetailModal>
       )}
     </>

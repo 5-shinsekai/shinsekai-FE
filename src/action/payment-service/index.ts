@@ -200,3 +200,29 @@ export const chargeStarbuckscard = async (
   console.log(data);
   return data;
 };
+
+// interface GetProductInfoType
+// Cart-Service
+export const getProductInfoByProductCode = async (productCode: string) => {
+  console.log(productCode);
+  const res = await fetch(
+    `http://3.37.52.123:8080/api/v1/product/${productCode}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
+  console.log(data.result);
+  return data.result;
+};

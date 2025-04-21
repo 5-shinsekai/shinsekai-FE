@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
       'image.istarbucks.co.kr',
       'sitem.ssgcdn.com',
       'cp-image.starbucks.co.kr',
+      'search.pstatic.net',
+      'blogfiles.naver.net',
     ],
   },
   async redirects() {
