@@ -1,7 +1,7 @@
 export interface GnbMenuType {
   id: number;
   title: string;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: React.FC<{ className?: string; onClick?: () => void }>;
 }
 
 export interface MainTabMenuType {
