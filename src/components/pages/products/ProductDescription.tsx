@@ -31,10 +31,17 @@ export default function ProductDescription({
       const doc = parser.parseFromString(ImageHTML, 'text/html');
       const imgElements = doc.querySelectorAll('img');
 
-      const images = Array.from(imgElements).map((img) => ({
-        src: img.getAttribute('src') || '/ImageLoading.png',
-        alt: img.getAttribute('alt') || '상품 이미지',
-      }));
+      const images = Array.from(imgElements).map((img) => {
+        let src = img.getAttribute('src') || '/ImageLoading.png';
+        // Convert protocol-relative URLs to https
+        if (src.startsWith('//')) {
+          src = `https:${src}`;
+        }
+        return {
+          src,
+          alt: img.getAttribute('alt') || '상품 이미지',
+        };
+      });
 
       setExtractedImages(images);
     }

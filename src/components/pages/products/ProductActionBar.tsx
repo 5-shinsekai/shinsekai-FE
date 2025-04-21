@@ -8,10 +8,45 @@ import { cn } from '@/lib/utils';
 export default function ProductActionBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedOption, setSelectedOption] = useState('각인 옵션');
+  const [selectedColor, setSelectedColor] = useState<number | null>(null);
+  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+
+  const options = [
+    { id: 1, color: 3, size: 2 },
+    { id: 2, color: 4, size: 3 },
+    { id: 3, color: 5, size: 4 },
+    { id: 4, color: 5, size: 5 },
+  ];
+
+  // 중복되지 않은 color와 size 목록 생성
+  const uniqueColors = Array.from(
+    new Set(options.map((option) => option.color))
+  );
+
+  const handleColorChange = (colorId: number) => {
+    setSelectedColor(colorId);
+    // 선택된 color에 해당하는 size만 필터링
+    const availableSizes = options
+      .filter((option) => option.color === colorId)
+      .map((option) => option.size);
+    if (selectedSize !== null && !availableSizes.includes(selectedSize)) {
+      setSelectedSize(null);
+    }
+  };
+
+  const handleSizeChange = (sizeId: number) => {
+    setSelectedSize(sizeId);
+  };
 
   const handleCartClick = () => {
     if (isExpanded) {
-      console.log('장바구니 담기');
+      const selectedOption = options.find(
+        (option) =>
+          option.color === selectedColor && option.size === selectedSize
+      );
+      if (selectedOption) {
+        console.log('장바구니 담기:', selectedOption);
+      }
     } else {
       setIsExpanded(true);
     }
@@ -19,11 +54,20 @@ export default function ProductActionBar() {
 
   const handlePurchaseClick = () => {
     if (isExpanded) {
-      console.log('구매하기');
+      const selectedOption = options.find(
+        (option) =>
+          option.color === selectedColor && option.size === selectedSize
+      );
+      if (selectedOption) {
+        console.log('구매하기:', selectedOption);
+      }
     } else {
       setIsExpanded(true);
     }
   };
+
+  // 모든 옵션이 선택되었는지 확인
+  const isAllOptionsSelected = selectedColor !== null && selectedSize !== null;
 
   return (
     <section className="rounded-t-3xl transition-all fixed bottom-0 w-full">
@@ -44,13 +88,45 @@ export default function ProductActionBar() {
             </button>
           </div>
           <div className="space-y-4">
-            <button
-              className="w-full p-4 border rounded-lg text-left flex justify-between items-center"
-              onClick={() => setSelectedOption('각인 옵션')}
-            >
-              <span>{selectedOption}</span>
-              <span>▼</span>
-            </button>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                색상
+              </label>
+              <select
+                className="w-full p-2 border rounded-lg"
+                value={selectedColor || ''}
+                onChange={(e) => handleColorChange(Number(e.target.value))}
+              >
+                <option value="">색상을 선택하세요</option>
+                {uniqueColors.map((color) => (
+                  <option key={color} value={color}>
+                    색상 {color}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                사이즈
+              </label>
+              <select
+                className="w-full p-2 border rounded-lg"
+                value={selectedSize || ''}
+                onChange={(e) => handleSizeChange(Number(e.target.value))}
+                disabled={!selectedColor}
+              >
+                <option value="">사이즈를 선택하세요</option>
+                {selectedColor &&
+                  options
+                    .filter((option) => option.color === selectedColor)
+                    .map((option) => (
+                      <option key={option.size} value={option.size}>
+                        사이즈 {option.size}
+                      </option>
+                    ))}
+              </select>
+            </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium">총 금액</span>
@@ -73,6 +149,7 @@ export default function ProductActionBar() {
             color="green"
             className="w-5/6"
             onClick={handlePurchaseClick}
+            disabled={isExpanded && !isAllOptionsSelected}
           >
             구매하기
           </Button>
