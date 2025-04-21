@@ -54,7 +54,7 @@ export default async function ProductDetail({
 
       <ProductDescription ImageHTML={productDetail.contentImages} />
 
-      <ProductActionBar />
+      <ProductActionBar productDetail={productDetail} />
     </div>
   );
 }

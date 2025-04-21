@@ -89,3 +89,19 @@ export interface ProductThumbnailType {
   new: boolean;
   best: boolean;
 }
+
+export interface ProductOptionType {
+  id: number;
+  productCode: string;
+  sizeId: number;
+  colorId: number;
+  optionStatus: string;
+  optionPrice: number;
+  stockCount: number;
+  minStockCount: number;
+}
+
+export interface OptionNameType {
+  code: number;
+  name: string;
+}

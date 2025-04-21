@@ -1,72 +1,159 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import CartIcon from '@/components/ui/icons/CartIcon';
 import { cn } from '@/lib/utils';
+import { ProductDetailType, ProductOptionType } from '@/types/ProductDataTypes';
+import { getProductOption, getOptionName } from '@/action/product-service';
+import OptionSelector from './OptionSelector';
+import QuantitySelector from './QuantitySelector';
+import { addCartItem } from '@/action/cart-service';
 
-export default function ProductActionBar() {
+export default function ProductActionBar({
+  productDetail,
+}: {
+  productDetail: ProductDetailType;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('각인 옵션');
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
+  const [quantity, setQuantity] = useState(1);
+  const [selectedOption, setSelectedOption] =
+    useState<ProductOptionType | null>(null);
+  const [productOption, setProductOption] = useState<ProductOptionType[]>([]);
+  const [colorNames, setColorNames] = useState<{ [key: number]: string }>({});
+  const [sizeNames, setSizeNames] = useState<{ [key: number]: string }>({});
 
-  const options = [
-    { id: 1, color: 3, size: 2 },
-    { id: 2, color: 4, size: 3 },
-    { id: 3, color: 5, size: 4 },
-    { id: 4, color: 5, size: 5 },
-  ];
+  const basePrice =
+    productDetail.productPrice * (1 - productDetail.discountRate / 100);
 
-  // 중복되지 않은 color와 size 목록 생성
-  const uniqueColors = Array.from(
-    new Set(options.map((option) => option.color))
-  );
+  useEffect(() => {
+    const fetchProductOptions = async () => {
+      const options = await Promise.all(
+        productDetail.productOptionIds.map((productOptionId) =>
+          getProductOption({ productOptionId })
+        )
+      );
+      setProductOption(options);
+    };
+
+    fetchProductOptions();
+  }, [productDetail.productOptionIds]);
+
+  useEffect(() => {
+    const fetchOptionNames = async () => {
+      const colorPromises = Array.from(
+        new Set(productOption.map((option) => option.colorId))
+      ).map(async (colorId) => {
+        const name = await getOptionName({
+          optionType: 'color',
+          optionId: colorId,
+        });
+        return { colorId, name: name.name };
+      });
+
+      const colorResults = await Promise.all(colorPromises);
+      const colorNameMap = colorResults.reduce(
+        (acc, { colorId, name }) => {
+          acc[colorId] = name;
+          return acc;
+        },
+        {} as { [key: number]: string }
+      );
+      setColorNames(colorNameMap);
+
+      const allSizeIds = Array.from(
+        new Set(productOption.map((option) => option.sizeId))
+      );
+      const sizePromises = allSizeIds.map(async (sizeId) => {
+        const name = await getOptionName({
+          optionId: sizeId,
+          optionType: 'size',
+        });
+        return { sizeId, name: name.name };
+      });
+
+      const sizeResults = await Promise.all(sizePromises);
+      const sizeNameMap = sizeResults.reduce(
+        (acc, { sizeId, name }) => {
+          acc[sizeId] = name;
+          return acc;
+        },
+        {} as { [key: number]: string }
+      );
+      setSizeNames(sizeNameMap);
+    };
+
+    if (productOption.length > 0) {
+      fetchOptionNames();
+    }
+  }, [productOption]);
 
   const handleColorChange = (colorId: number) => {
     setSelectedColor(colorId);
-    // 선택된 color에 해당하는 size만 필터링
-    const availableSizes = options
-      .filter((option) => option.color === colorId)
-      .map((option) => option.size);
-    if (selectedSize !== null && !availableSizes.includes(selectedSize)) {
-      setSelectedSize(null);
-    }
+    setSelectedSize(null);
+    setSelectedOption(null);
   };
 
   const handleSizeChange = (sizeId: number) => {
     setSelectedSize(sizeId);
+    const option = productOption.find(
+      (option) => option.colorId === selectedColor && option.sizeId === sizeId
+    );
+    if (option) {
+      setSelectedOption(option);
+    }
   };
 
-  const handleCartClick = () => {
-    if (isExpanded) {
-      const selectedOption = options.find(
-        (option) =>
-          option.color === selectedColor && option.size === selectedSize
-      );
-      if (selectedOption) {
-        console.log('장바구니 담기:', selectedOption);
-      }
+  const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity >= 1 && newQuantity <= productDetail.userPurchaseLimit) {
+      setQuantity(newQuantity);
+    }
+  };
+
+  const handleClose = () => {
+    setIsExpanded(false);
+    setSelectedColor(null);
+    setSelectedSize(null);
+    setQuantity(1);
+    setSelectedOption(null);
+  };
+
+  const calculateTotalPrice = () => {
+    if (selectedOption) {
+      return (basePrice + selectedOption.optionPrice) * quantity;
+    }
+    return 0;
+  };
+
+  const handlePurchase = () => {
+    if (isAllOptionsSelected) {
+      console.log(selectedOption);
     } else {
       setIsExpanded(true);
     }
   };
 
-  const handlePurchaseClick = () => {
-    if (isExpanded) {
-      const selectedOption = options.find(
-        (option) =>
-          option.color === selectedColor && option.size === selectedSize
+  const handleCart = async () => {
+    if (isAllOptionsSelected) {
+      const res = await addCartItem(
+        productDetail.productCode,
+        productDetail.frozen,
+        quantity,
+        selectedOption?.id.toString()
       );
-      if (selectedOption) {
-        console.log('구매하기:', selectedOption);
+      if (res.isSuccess) {
+        alert('장바구니에 추가되었습니다.');
+        console.log(res);
+      } else {
+        alert(res.message);
+        console.log(res);
       }
     } else {
       setIsExpanded(true);
     }
   };
-
-  // 모든 옵션이 선택되었는지 확인
   const isAllOptionsSelected = selectedColor !== null && selectedSize !== null;
 
   return (
@@ -80,58 +167,37 @@ export default function ProductActionBar() {
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-bold">옵션(필수)</h3>
-            <button
-              onClick={() => setIsExpanded(false)}
-              className="text-gray-500"
-            >
+            <button onClick={handleClose} className="text-gray-500">
               ✕
             </button>
           </div>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">
-                색상
-              </label>
-              <select
-                className="w-full p-2 border rounded-lg"
-                value={selectedColor || ''}
-                onChange={(e) => handleColorChange(Number(e.target.value))}
-              >
-                <option value="">색상을 선택하세요</option>
-                {uniqueColors.map((color) => (
-                  <option key={color} value={color}>
-                    색상 {color}
-                  </option>
-                ))}
-              </select>
-            </div>
 
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">
-                사이즈
-              </label>
-              <select
-                className="w-full p-2 border rounded-lg"
-                value={selectedSize || ''}
-                onChange={(e) => handleSizeChange(Number(e.target.value))}
-                disabled={!selectedColor}
-              >
-                <option value="">사이즈를 선택하세요</option>
-                {selectedColor &&
-                  options
-                    .filter((option) => option.color === selectedColor)
-                    .map((option) => (
-                      <option key={option.size} value={option.size}>
-                        사이즈 {option.size}
-                      </option>
-                    ))}
-              </select>
-            </div>
+          <OptionSelector
+            selectedColor={selectedColor}
+            selectedSize={selectedSize}
+            productOption={productOption}
+            colorNames={colorNames}
+            sizeNames={sizeNames}
+            onColorChange={handleColorChange}
+            onSizeChange={handleSizeChange}
+          />
 
-            <div className="flex justify-between items-center">
-              <span className="font-medium">총 금액</span>
-              <span className="text-xl font-bold">0원</span>
+          {selectedOption && (
+            <div className="mt-4">
+              <QuantitySelector
+                quantity={quantity}
+                basePrice={basePrice}
+                optionPrice={selectedOption.optionPrice}
+                onQuantityChange={handleQuantityChange}
+              />
             </div>
+          )}
+
+          <div className="flex justify-between items-center mt-4">
+            <span className="font-medium">총 금액</span>
+            <span className="text-xl font-bold">
+              {calculateTotalPrice().toLocaleString()}원
+            </span>
           </div>
         </div>
       </div>
@@ -143,12 +209,12 @@ export default function ProductActionBar() {
         )}
       >
         <div className="flex px-6 pt-4 justify-between">
-          <CartIcon className="min-w-9 size-9 " />
+          <CartIcon className="min-w-9 size-9" onClick={handleCart} />
           <Button
             size="md"
             color="green"
             className="w-5/6"
-            onClick={handlePurchaseClick}
+            onClick={handlePurchase}
             disabled={isExpanded && !isAllOptionsSelected}
           >
             구매하기
