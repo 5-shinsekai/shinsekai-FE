@@ -43,6 +43,7 @@ export const Modal = ({ title, setModal, children, className }: props) => {
           <div className="text-black">{children}</div>
         </main>
         <Button
+          type="button"
           color="green"
           size="hug"
           className="text-[1rem] px-6 block mx-auto mb-5"

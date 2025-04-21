@@ -1,6 +1,7 @@
 import { chargeStarbuckscard } from '@/action/payment-service';
 import StarbuckscardCharge from '@/components/pages/payment/StarbuckscardInfo/StarbuckscardCharge';
 import { Button } from '@/components/ui/Button';
+import { ChargeResultModal } from '@/components/ui/ChargeResultModal';
 import { DeleteCardButton } from '@/components/ui/DeleteButtonComponent';
 import Divider from '@/components/ui/Divider';
 import PaymentNotice from '@/components/ui/PaymentNotice';
@@ -12,13 +13,16 @@ import { useState } from 'react';
 
 export default function StarbuckscardDetail({
   cardInfo,
-  onClose,
+  // onClose,
 }: {
   cardInfo: StarbuckscardInfoType;
-  onClose?: () => void;
+  // onClose?: () => void;
 }) {
   const chargeOptions = chargeOptionsData;
   const [chargeAmount, setChargeAmount] = useState(chargeOptions[0]);
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState<boolean | null>(null);
 
   const handleSubmit = async () => {
     try {
@@ -26,11 +30,12 @@ export default function StarbuckscardDetail({
         memberStarbucksCardUuid: cardInfo.memberStarbucksCardListUuid,
         price: chargeAmount.amount,
       });
-      alert('카드 충전에 성공했습니다!');
-      onClose?.();
+      setModalSuccess(true);
+      setShowModal(true);
     } catch (error) {
       console.error('충전 실패:', error);
-      alert('충전에 실패했습니다. 다시 시도해주세요.');
+      setModalSuccess(false);
+      setShowModal(true);
     }
   };
 
@@ -76,12 +81,22 @@ export default function StarbuckscardDetail({
         <Button
           className="w-full mx-auto"
           color="green"
-          type="submit"
+          type="button"
           onClick={handleSubmit}
         >
           충전하기
         </Button>
       </ButtonWrapper>
+      {showModal && (
+        <ChargeResultModal
+          cardInfo={cardInfo}
+          totalAmount={Number(cardInfo.remainAmount) + chargeAmount.amount}
+          title=""
+          success={modalSuccess || false}
+          message="카드 충전"
+          setModal={setShowModal}
+        />
+      )}
     </div>
   );
 }

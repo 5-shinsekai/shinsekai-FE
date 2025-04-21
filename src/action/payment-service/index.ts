@@ -15,8 +15,10 @@ import { redirect } from 'next/navigation';
 //   error: string;
 // }
 
-const ACCESS_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNMjAyNTA0MTgtODY1NzhjYzQiLCJpYXQiOjE3NDUwMzk0NDMsImV4cCI6MTc0NTIxMjI0M30.WmvhRXUzrsBZXXU-W21sR13_VOwGEVctW4hxlidVNvI';
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+
+// const session = await getServerSession(options);
+// const ACCESS_TOKEN = session?.user.accessToken;
 
 // 스타벅스 카드 등록
 export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
@@ -25,7 +27,8 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
     cardNumber: starbuckscardForm.get('cardNumber') as string,
     pinNumber: starbuckscardForm.get('pinNumber') as string,
   };
-
+  // const session = await getServerSession(options);
+  // const ACCESS_TOKEN = session?.user.accessToken;
   // console.log(starbuckscardData);
   const res = await fetch(
     'http://3.37.52.123:8080/api/v1/external/starbucks-card',
@@ -33,7 +36,7 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
       },
       body: JSON.stringify(starbuckscardData),
     }
@@ -50,10 +53,7 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
   console.log('API로부터 받은 데이터 (외부api):', data);
   const cardData = await registerStarbuckscard(data);
   console.log('카드 등록되었는지 확인', cardData);
-  redirect(
-    //api response -> uuid 추가하고 수정해야함.
-    `/card-complete?cardUuid=${encodeURIComponent(cardData.memberStarbucksCardListUuid)}` //uuid로 redirect 하기
-  );
+  redirect(`/payment`);
 };
 
 const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
@@ -65,8 +65,7 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
     cardDescription: data.cardDescription,
     agreed: true,
   };
-  // const session = await getServerSession(options);
-  // const ACCESS_TOKEN = session?.user.accessToken;
+
   console.log(registerStarbuckscardData);
   const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {
     method: 'POST',
@@ -141,6 +140,8 @@ export const getStarbuckscardbyUuid = async (
   return data;
 };
 
+// 0원일 때만 가능.
+//
 export const deleteStarbuckscard = async (memberStarbucksCardUuid: string) => {
   // const session = await getServerSession(options);
   // const ACCESS_TOKEN = session?.user.accessToken;
@@ -165,7 +166,7 @@ export const deleteStarbuckscard = async (memberStarbucksCardUuid: string) => {
 
   const data = await res.json();
   console.log('삭제api 결과:', data);
-  return data;
+  return data.result;
 };
 
 export const chargeStarbuckscard = async (

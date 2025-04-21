@@ -46,6 +46,7 @@ export default function AddressInfoSection({
             <Button
               color="white"
               size="xs"
+              type="button"
               className="font-light border-gray-300"
               onClick={() =>
                 router.push(

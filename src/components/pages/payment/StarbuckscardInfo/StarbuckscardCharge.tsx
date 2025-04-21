@@ -24,6 +24,7 @@ export default function StarbuckscardCharge({
       <div className="py-3 flex flex-wrap">
         {chargeOptions.map(({ option, amount }) => (
           <button
+            type="button"
             key={option}
             name="chargeAmount"
             value={option}

@@ -5,8 +5,8 @@ import { AddressDataType } from '@/types/AddressDataType';
 // import { getServerSession } from 'next-auth';
 // import { options } from '@/app/api/auth/[...nextauth]/options';
 
-const ACCESS_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNMjAyNTA0MTgtODY1NzhjYzQiLCJpYXQiOjE3NDUwMzk0NDMsImV4cCI6MTc0NTIxMjI0M30.WmvhRXUzrsBZXXU-W21sR13_VOwGEVctW4hxlidVNvI';
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+
 // 주소검색
 export const getAddressList = async (
   keyword: string,

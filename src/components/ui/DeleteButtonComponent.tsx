@@ -19,6 +19,7 @@ export function DeleteCardButton({
 
   return (
     <button
+      type="button"
       onClick={handleDelete}
       className={cn('text-custom-red-100', className)}
     >

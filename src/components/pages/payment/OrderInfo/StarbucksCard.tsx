@@ -35,6 +35,7 @@ export function StarbucksCard({
         <div className="flex items-center gap-2 text-sm ">
           <p className="text-custom-gray-600">{card.cardName}</p>
           <button
+            type="button"
             className="text-custom-green-100 py-2 text-[0.7rem]"
             onClick={handleClick}
           >
@@ -47,11 +48,8 @@ export function StarbucksCard({
         </p>
       </div>
       {modal && (
-        <CardDetailModal title="카드 상세" setModal={handleClick}>
-          <StarbuckscardDetail
-            cardInfo={card}
-            onClose={() => setModal(false)}
-          />
+        <CardDetailModal title="충전하기" setModal={handleClick}>
+          <StarbuckscardDetail cardInfo={card} />
         </CardDetailModal>
       )}
     </>

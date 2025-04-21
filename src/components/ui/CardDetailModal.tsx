@@ -7,6 +7,7 @@ interface props {
   children?: React.ReactNode;
   className?: string;
 }
+
 export const CardDetailModal = ({ title, children, className }: props) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden'; // 모달 띄워졌을 때 스크롤 막기
@@ -31,9 +32,9 @@ export const CardDetailModal = ({ title, children, className }: props) => {
         )}
       >
         <header>
-          <ul className="flex justify-between">
-            <li className="text-gray-400">{title}</li>
-          </ul>
+          <h1 className="px-6 pt-10 pb-3 text-[1.625rem] font-semibold ">
+            {title}
+          </h1>
         </header>
         <main>
           <div className="text-black">{children}</div>
