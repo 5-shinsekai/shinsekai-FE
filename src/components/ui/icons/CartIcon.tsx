@@ -5,8 +5,16 @@ import { useRouter } from 'next/navigation';
 
 export default function CartIcon({
   className,
-}: Readonly<{ className?: string }>) {
+  onClick,
+}: Readonly<{ className?: string; onClick?: () => void }>) {
   const router = useRouter();
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      router.push('/cart');
+    }
+  };
   return (
     <svg
       width="32"
@@ -15,7 +23,7 @@ export default function CartIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(className)}
-      onClick={() => router.push('/cart')}
+      onClick={handleClick}
     >
       <path d="M24.4 12.4H10V13.6H24.4V12.4Z" fill="#666767" />
       <path
