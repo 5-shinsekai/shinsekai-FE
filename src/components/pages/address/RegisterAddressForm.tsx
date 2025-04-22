@@ -103,7 +103,6 @@ export default function RegisterAddressForm() {
         title="주소별칭"
         onChange={handleChange}
         defaultValue={searchParams.get('addressNickname') || ''}
-        // value={inputValues.addressNickname}
         type="text"
         errorMessage={errorMessages.addressNickname}
       />
@@ -147,18 +146,7 @@ export default function RegisterAddressForm() {
         required
         errorMessage={errorMessages.detailAddress}
       />
-      {/* <InputType.FormInputInfo
-        type="text"
-        id="firstPhoneNumber"
-        name="firstPhoneNumber"
-        title="연락처1"
-        onChange={handleChange}
-        defaultValue={searchParams.get('firstPhoneNumber') || ''}
-        required
-        errorMessage={
-          errorMessages.firstPhoneNumber ? errorMessages.firstPhoneNumber : ''
-        }
-      /> */}
+
       <AutoTabInput
         type="text"
         inputbox={3}
@@ -172,15 +160,7 @@ export default function RegisterAddressForm() {
         errorMessage={errorMessages.firstPhoneNumber}
         className="pt-4"
       />
-      {/* <InputType.FormInputInfo
-        type="text"
-        id="secondPhoneNumber"
-        name="secondPhoneNumber"
-        onChange={handleChange}
-        defaultValue={searchParams.get('secondPhoneNumber') || ''}
-        title="연락처2"
-        errorMessage={errorMessages.secondPhoneNumber}
-      /> */}
+
       <AutoTabInput
         type="text"
         inputbox={3}
@@ -203,7 +183,6 @@ export default function RegisterAddressForm() {
         name="isMainAddress"
         value="true"
         onChange={handleChange}
-        // disable={isMain}
         hidden={isMain}
         defaultChecked={
           isMain

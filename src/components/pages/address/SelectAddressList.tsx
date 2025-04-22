@@ -1,7 +1,7 @@
 'use client';
 
 import { AddressDataType } from '@/types/AddressDataType';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 export default function SelectAddressList({
@@ -11,8 +11,9 @@ export default function SelectAddressList({
   myAddressList: AddressDataType[];
   onSelect?: (uuid: string) => void;
 }) {
+  const params = useSearchParams();
   const [selectedAddressUuid, setSelectedAddressUuid] = useState<string | null>(
-    myAddressList.find((item) => item.isMainAddress)?.addressUuid ?? null
+    params.get('addressUuid') || null
   );
 
   const handleChange = (uuid: string) => {

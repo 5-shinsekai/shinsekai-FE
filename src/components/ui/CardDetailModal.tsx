@@ -1,8 +1,5 @@
-'use client';
-
-import React, { useEffect } from 'react';
-import { Button } from './Button';
 import { cn } from '@/lib/utils';
+import React, { useEffect } from 'react';
 
 interface props {
   title?: string;
@@ -11,7 +8,7 @@ interface props {
   className?: string;
 }
 
-export const Modal = ({ title, setModal, children, className }: props) => {
+export const CardDetailModal = ({ title, children, className }: props) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden'; // 모달 띄워졌을 때 스크롤 막기
     return () => {
@@ -28,29 +25,20 @@ export const Modal = ({ title, setModal, children, className }: props) => {
         id="모달"
         onClick={(e) => e.stopPropagation()}
         className={cn(
-          'bg-white w-3/4 rounded-md p-2 h-1/2 overflow-y-auto z-[100]',
+          'bg-white w-full rounded-md h-full not-odd:overflow-y-auto z-[100]',
           'transition-all duration-300 ease-out',
           'opacity-100 translate-y-0',
           className
         )}
       >
         <header>
-          <ul className="flex justify-between">
-            <li className="text-gray-400">{title}</li>
-          </ul>
+          <h1 className="px-6 pt-10 pb-3 text-[1.625rem] font-semibold ">
+            {title}
+          </h1>
         </header>
         <main>
           <div className="text-black">{children}</div>
         </main>
-        <Button
-          type="button"
-          color="green"
-          size="hug"
-          className="text-[1rem] px-6 block mx-auto mb-5"
-          onClick={setModal}
-        >
-          확인
-        </Button>
       </div>
     </div>
   );

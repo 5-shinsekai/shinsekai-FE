@@ -1,24 +1,38 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
-import { GetAddressListData } from '@/data/DummyData/MyAddressDummyData';
 import SelectAddressList from '@/components/pages/address/SelectAddressList';
+import { getAddress } from '@/action/address-service';
+import { AddressDataType } from '@/types/AddressDataType';
 
 export default function Page() {
+  const [addressList, setAddressList] = useState<AddressDataType[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchAddressList = async () => {
+      try {
+        const data = await getAddress();
+        setAddressList(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAddressList();
+  }, []);
+
+  const sortedList = [...addressList].sort((a) => (a.isMainAddress ? -1 : 1));
+
   const [selectedUuid, setSelectedUuid] = useState<string | null>(null);
 
   const handleClick = () => {
     if (!selectedUuid) return;
-    router.push(`/payment?selected=${selectedUuid}`);
+    router.push(`/payment?addressUuid=${selectedUuid}`);
   };
-
-  const sortedList = [...GetAddressListData].sort((a) =>
-    a.isMainAddress ? -1 : 1
-  );
 
   return (
     <main className="px-5">

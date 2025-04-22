@@ -1,4 +1,4 @@
-// import { getStarbuckscard } from '@/action/payment-service';
+// import { getStarbuckscardList } from '@/action/payment-service';
 import CompleteRegisterCard from '@/components/pages/payment/RegisterStarbucksCardForm/CompleteRegisterCard';
 import { starbuckscardInfoData } from '@/data/DummyData/StarbuckscardDummyData';
 
@@ -12,7 +12,7 @@ import { starbuckscardInfoData } from '@/data/DummyData/StarbuckscardDummyData';
 // export default async function CardCompletePage({ searchParams }: Props) {
 //   const { cardName, cardNumber } = searchParams; //카드 uuid로 변경
 
-//   const cardList = await getStarbuckscard();
+//   const cardList = await getStarbuckscardList();
 //   console.log(cardList);
 //   const matchedCard = cardList.find(
 //     (card: { cardName: string; cardNumber: string }) =>
@@ -28,7 +28,7 @@ import { starbuckscardInfoData } from '@/data/DummyData/StarbuckscardDummyData';
 export default async function CardCompletePage() {
   // const { cardName, cardNumber } = searchParams; //카드 uuid로 변경
 
-  // const cardList = await getStarbuckscard();
+  // const cardList = await getStarbuckscardList();
   // console.log(cardList);
   // const matchedCard = cardList.find(
   //   (card: { cardName: string; cardNumber: string }) =>

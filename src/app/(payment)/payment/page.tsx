@@ -1,5 +1,6 @@
-import { tempService } from '@/action/input-check';
-import { getStarbuckscard } from '@/action/payment-service';
+import { getMainAddress } from '@/action/address-service';
+import { paymentTempService } from '@/action/input-check';
+import { getStarbuckscardList } from '@/action/payment-service';
 import AddressInfoSection from '@/components/pages/payment/OrderInfo/AddressInfoSection';
 import AmountInfo from '@/components/pages/payment/OrderInfo/AmountInfo';
 import CashReceiptInfo from '@/components/pages/payment/OrderInfo/CashReceiptInfo';
@@ -11,13 +12,15 @@ import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import React, { Suspense } from 'react';
 
 export default async function page() {
-  const cardList = await getStarbuckscard();
-  console.log(cardList, '카드 조회되는지 테스트');
+  const cardList = await getStarbuckscardList();
+  const mainAddress = await getMainAddress();
+  console.log('기본배송지');
+
   return (
     <main className="w-full h-screen mx-auto">
       <Suspense>
-        <form action={tempService}>
-          <AddressInfoSection />
+        <form action={paymentTempService}>
+          <AddressInfoSection mainAddress={mainAddress} />
           <Divider />
           <OrderLogInfoSection />
           <Divider />
@@ -26,7 +29,9 @@ export default async function page() {
           <CashReceiptInfo />
           <AmountInfo />
           <ButtonWrapper>
-            <Button className="w-full">결제하기</Button>
+            <Button type="submit" className="w-full">
+              결제하기
+            </Button>
           </ButtonWrapper>
         </form>
       </Suspense>

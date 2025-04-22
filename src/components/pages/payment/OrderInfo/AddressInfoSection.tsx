@@ -1,19 +1,38 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
-import { MyAddressListData } from '@/data/DummyData/MyAddressDummyData';
+import { AddressDataType } from '@/types/AddressDataType';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
+import { getAddressByUuid } from '@/action/address-service';
 
-export default function AddressInfoSection() {
+export default function AddressInfoSection({
+  mainAddress,
+}: {
+  mainAddress: AddressDataType;
+}) {
+  const [selectedAddress, setSelectAddress] =
+    useState<AddressDataType>(mainAddress);
+
   const searchParams = useSearchParams();
-  const selectedUuid = searchParams.get('selected');
-  const selectedAddress = MyAddressListData.find(
-    (item) => item.addressUuid === selectedUuid
-  );
+  const selectedUuid = searchParams.get('addressUuid');
 
-  const address =
-    selectedAddress || MyAddressListData.find((item) => item.isMainAddress);
+  useEffect(() => {
+    const fetchAddress = async () => {
+      if (!selectedUuid) return;
+      try {
+        const data = await getAddressByUuid(selectedUuid);
+        if (data) {
+          setSelectAddress(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAddress();
+  }, [selectedUuid]);
+
+  const address = selectedAddress || mainAddress;
 
   console.log(address);
 
@@ -27,8 +46,13 @@ export default function AddressInfoSection() {
             <Button
               color="white"
               size="xs"
+              type="button"
               className="font-light border-gray-300"
-              onClick={() => router.push('/select-address')}
+              onClick={() =>
+                router.push(
+                  `/select-address?addressUuid=${address.addressUuid}`
+                )
+              }
             >
               변경
             </Button>
