@@ -7,18 +7,15 @@ import {
   StarbuckscardInfoType,
 } from '@/types/PaymentDataType';
 import { redirect } from 'next/navigation';
-// import { getServerSession } from 'next-auth';
-// import { options } from '@/app/api/auth/[...nextauth]/options';
+import { getServerSession } from 'next-auth';
+import { options } from '@/app/api/auth/[...nextauth]/options';
 // interface ActionState {
 //   success: boolean;
 //   data: any | null;
 //   error: string;
 // }
 
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
-
-// const session = await getServerSession(options);
-// const ACCESS_TOKEN = session?.user.accessToken;
+// const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 // 스타벅스 카드 등록
 export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
@@ -27,8 +24,8 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
     cardNumber: starbuckscardForm.get('cardNumber') as string,
     pinNumber: starbuckscardForm.get('pinNumber') as string,
   };
-  // const session = await getServerSession(options);
-  // const ACCESS_TOKEN = session?.user.accessToken;
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
   // console.log(starbuckscardData);
   const res = await fetch(
     'http://3.37.52.123:8080/api/v1/external/starbucks-card',
@@ -66,6 +63,9 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
     agreed: true,
   };
 
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+
   console.log(registerStarbuckscardData);
   const res = await fetch('http://3.37.52.123:8080/api/v1/starbucks-card', {
     method: 'POST',
@@ -90,8 +90,8 @@ const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
 export const getStarbuckscardList = async (): Promise<
   StarbuckscardInfoType[]
 > => {
-  // const session = await getServerSession(options);
-  // const ACCESS_TOKEN = session?.user.accessToken;
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
   const res = await fetch(`http://3.37.52.123:8080/api/v1/starbucks-card`, {
     method: 'GET',
     headers: {
@@ -115,8 +115,8 @@ export const getStarbuckscardList = async (): Promise<
 export const getStarbuckscardbyUuid = async (
   memberStarbucksCardUuid: string
 ): Promise<StarbuckscardInfoType[]> => {
-  // const session = await getServerSession(options);
-  // const ACCESS_TOKEN = session?.user.accessToken;
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
   const res = await fetch(
     `http://3.37.52.123:8080/api/v1/starbucks-card/${memberStarbucksCardUuid}`,
     {
@@ -143,8 +143,8 @@ export const getStarbuckscardbyUuid = async (
 // 0원일 때만 가능.
 //
 export const deleteStarbuckscard = async (memberStarbucksCardUuid: string) => {
-  // const session = await getServerSession(options);
-  // const ACCESS_TOKEN = session?.user.accessToken;
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
   console.log('uuid (스벅카드): ', memberStarbucksCardUuid);
 
   const res = await fetch(
@@ -177,6 +177,9 @@ export const chargeStarbuckscard = async (
     price: chargeInfo['price'],
   };
 
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+
   console.log(starbuckscardData);
   const res = await fetch(
     'http://3.37.52.123:8080/api/v1/starbucks-card/charge',
@@ -201,10 +204,32 @@ export const chargeStarbuckscard = async (
   return data;
 };
 
-// interface GetProductInfoType
+export const getCartData = async () => {
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+  const res = await fetch(`http://3.37.52.123:8080/api/v1/cart/checked`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
+  console.log(data.result);
+  console.log('호출결과');
+  return data.result;
+};
+
 // Cart-Service
 export const getProductInfoByProductCode = async (productCode: string) => {
-  console.log(productCode);
+  console.log('productCode', productCode);
   const res = await fetch(
     `http://3.37.52.123:8080/api/v1/product/${productCode}`,
     {
@@ -223,6 +248,54 @@ export const getProductInfoByProductCode = async (productCode: string) => {
   }
 
   const data = await res.json();
-  console.log(data.result);
+  console.log(data);
   return data.result;
+};
+
+export const getOutlineDataByProductCode = async (productCode: string) => {
+  console.log(productCode);
+  const res = await fetch(
+    `http://3.37.52.123:8080/api/v1/product/outline/${productCode}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
+  console.log('outlinedata', data);
+  return data.result;
+};
+
+export const getOptionDataByOptionId = async (optionId: number) => {
+  console.log(optionId);
+  const res = await fetch(
+    `http://3.37.52.123:8080/api/v1/product-options/${optionId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      },
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
+  console.log(data);
+  return data;
 };
