@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { StarbuckscardInfoType } from '@/types/PaymentDataType';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 interface props {
@@ -15,6 +14,7 @@ interface props {
   success?: boolean;
   cardInfo?: StarbuckscardInfoType;
   totalAmount?: number;
+  onClose?: () => void;
 }
 
 export const ChargeResultModal = ({
@@ -25,9 +25,8 @@ export const ChargeResultModal = ({
   success,
   cardInfo,
   totalAmount,
+  onClose,
 }: props) => {
-  const router = useRouter();
-
   useEffect(() => {
     document.body.style.overflow = 'hidden'; // 모달 띄워졌을 때 스크롤 막기
     return () => {
@@ -60,7 +59,7 @@ export const ChargeResultModal = ({
           <div className="text-black text-[1.4rem]">
             {success ? (
               <div className="flex flex-col items-center justify-center">
-                <p className="py-6 text-custom-gray-700 font-semibold text-2xl md:py-15">
+                <p className="py-5.5 text-custom-gray-700 font-semibold text-2xl md:py-15">
                   {message}이 완료되었습니다
                 </p>
                 <Image
@@ -70,11 +69,11 @@ export const ChargeResultModal = ({
                   height={250}
                   className="mb-2 shadow-lg"
                 />
-                <p className="text-[1.2rem]">
+                <p className="text-[1.1rem]">
                   {cardInfo?.cardName}({cardInfo?.cardNumber})
                 </p>
-                <p>
-                  <span className="text-[1.3rem]">현재 잔액:</span>{' '}
+                <p className=" leading-5">
+                  <span className="text-[1.2rem]">현재 잔액:</span>{' '}
                   <strong>{totalAmount?.toLocaleString()}</strong>원
                 </p>
               </div>
@@ -95,14 +94,7 @@ export const ChargeResultModal = ({
             )}
             color={success ? 'green' : 'default'}
             size="hug"
-            onClick={
-              success
-                ? () => {
-                    router.push('/payment');
-                    router.refresh();
-                  }
-                : () => setModal?.(false)
-            }
+            onClick={success ? () => onClose?.() : () => setModal?.(false)}
           >
             확인
           </Button>

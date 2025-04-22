@@ -13,10 +13,10 @@ import { useState } from 'react';
 
 export default function StarbuckscardDetail({
   cardInfo,
-  // onClose,
+  onClose,
 }: {
   cardInfo: StarbuckscardInfoType;
-  // onClose?: () => void;
+  onClose?: () => void;
 }) {
   const chargeOptions = chargeOptionsData;
   const [chargeAmount, setChargeAmount] = useState(chargeOptions[0]);
@@ -95,6 +95,7 @@ export default function StarbuckscardDetail({
           success={modalSuccess || false}
           message="카드 충전"
           setModal={setShowModal}
+          onClose={onClose}
         />
       )}
     </div>
