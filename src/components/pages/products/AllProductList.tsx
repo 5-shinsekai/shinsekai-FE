@@ -1,10 +1,8 @@
 'use client';
 import React, { useRef, useEffect, useState } from 'react';
-import ProductList from './ProductList';
 import LoadingIcon from '@/components/ui/icons/LoadingIcon';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-// import { getAllProductList } from '@/actions/product-service';
 import { ProductType } from '@/types/ProductDataTypes';
 import { cn } from '@/lib/utils';
 
@@ -18,7 +16,7 @@ export default function AllProductList({
   const searchParams = useSearchParams();
   const [productData, setProductData] = useState<ProductType[]>([]);
   const [totalPage, setTatalPage] = useState<number>(6);
-
+  console.log(productData);
   const changePage = React.useCallback(
     (page: number) => {
       if (totalPage && page >= totalPage) {
@@ -31,21 +29,6 @@ export default function AllProductList({
     },
     [router, searchParams]
   );
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const page = Number(searchParams.get('page')) || 1;
-  //     const data = await getAllProductList({ page });
-  //     if (page === 1) {
-  //       setProductData(data.data);
-  //     } else {
-  //       setProductData([...productData, ...data.data]);
-  //     }
-
-  //     setTatalPage(data.pages);
-  //   };
-  //   fetchData();
-  // }, [searchParams]);
 
   useEffect(() => {
     setProductData((prev) => {
@@ -101,7 +84,8 @@ export default function AllProductList({
       >
         <LoadingIcon />
       </div>
-      <ProductList data={productData} />
+      {/* 여기 살리기 */}
+      {/* <ProductList data={productData} /> */}
       {/* 마지막 페이지 여부 주기 */}
       {/* div 옵저버 높이 */}
       {/* 위치파악 ref */}

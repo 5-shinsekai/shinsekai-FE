@@ -1,7 +1,7 @@
 import { CommonResponseType, UserDataType } from '@/types/Common';
 import { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import KakaoProvider from 'next-auth/providers/kakao';
+// import KakaoProvider from 'next-auth/providers/kakao';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -33,6 +33,8 @@ export const options: NextAuthOptions = {
           const user = (await res.json()) as CommonResponseType<UserDataType>;
           console.log('data', user);
           if (!user.isSuccess) {
+            console.log('로그인에 실패했습니다.');
+
             return null;
           }
           return {
@@ -45,10 +47,10 @@ export const options: NextAuthOptions = {
         return null;
       },
     }),
-    KakaoProvider({
-      clientId: process.env.KAKAO_CLIENT_ID || '',
-      clientSecret: process.env.KAKAO_CLIENT_SECERET || '',
-    }),
+    // KakaoProvider({
+    //   clientId: process.env.KAKAO_CLIENT_ID || '',
+    //   clientSecret: process.env.KAKAO_CLIENT_SECERET || '',
+    // }),
   ],
   callbacks: {
     // async signIn({ user, account, profile }) {
@@ -99,8 +101,8 @@ export const options: NextAuthOptions = {
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
-  // pages: {
-  //   signIn: '/login',
-  //   error: '/error',
-  // },
+  pages: {
+    signIn: '/login',
+    error: '/error',
+  },
 };

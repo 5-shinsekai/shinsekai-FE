@@ -34,7 +34,6 @@ export default function PersonalInfoPage({ onNext }: { onNext: () => void }) {
       ...prev,
       [name]: name === 'phone' ? formatPhoneNumber(value) : value, // Apply formatting for phone
     }));
-    console.log(`${name}:`, value);
   };
 
   const handleNext = () => {

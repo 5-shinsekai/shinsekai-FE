@@ -39,7 +39,7 @@ export default async function ProductListItem({
             className="text-custom-green-100"
           />
           <Tag
-            active={product.new}
+            active={product.best}
             text="Best"
             className="text-custom-red-100"
           />

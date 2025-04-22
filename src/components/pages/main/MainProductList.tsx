@@ -7,8 +7,7 @@ import { getEventProductList } from '@/action/product-service';
 export default async function MainProductList({
   event,
 }: Readonly<{ event: EventType }>) {
-  const productList = await getEventProductList(event.eventId);
-  console.log(productList);
+  const productList = await getEventProductList(event.code);
   return (
     <ScrollableList className="gap-x-[1.125rem]">
       {productList.slice(0, 10).map((product) => (

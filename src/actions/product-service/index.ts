@@ -1,21 +1,6 @@
 'use server';
 
-import { ProductDetailType } from '@/types/ProductDataTypes';
 import { ProductType } from '@/types/ProductDataTypes';
-export const getProductDetail = async ({
-  productCode,
-}: Readonly<{
-  productCode: string;
-}>) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/products/${productCode}`
-  );
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  return res.json() as Promise<ProductDetailType>;
-};
 
 export const getCategoryList = async ({
   categoryId,
