@@ -3,6 +3,7 @@ import React from 'react';
 import { CartDataType } from '@/types/CartDataType';
 import { cn } from '@/lib/utils';
 import CartItem from './CartItem';
+import AllChecker from './AllChecker';
 export default function CartList({
   name,
   cartItems,
@@ -15,7 +16,7 @@ export default function CartList({
   return (
     <div className={cn(cartItemLength ? 'block' : 'hidden')}>
       <div className="flex items-center gap-x-2 shadow-md py-3 px-6">
-        <CustomCheckbox id={name} name={name} checked={checked} />
+        <AllChecker id={name} name={name} checked={checked} />
         <label htmlFor={name}>{name} 선택</label>
       </div>
       <div>
