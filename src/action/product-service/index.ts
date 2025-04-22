@@ -23,11 +23,17 @@ export const getMainCategoryList = async () => {
 
 export const getProductThumbnail = async (productCode: string) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/product/outline/${productCode}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product/outline/${productCode}`,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    }
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
+  // console.log('다시작동' + productCode);
   const data = (await res.json()) as CommonResponseType<ProductThumbnailType>;
   return data.result;
 };
@@ -43,7 +49,12 @@ export const getEventList = async () => {
 
 export const getEventDetail = async (eventId: number) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/event/${eventId}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/event/${eventId}`,
+    {
+      // next: {
+      //   revalidate: 3600,
+      // },
+    }
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -54,7 +65,12 @@ export const getEventDetail = async (eventId: number) => {
 
 export const getEventProductList = async (eventId: number) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/product-event/${eventId}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product-event/${eventId}`,
+    {
+      // next: {
+      //   revalidate: 3600,
+      // },
+    }
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -146,4 +162,18 @@ export const getOptionName = async ({
   }
   const data = (await res.json()) as CommonResponseType<OptionNameType>;
   return data.result;
+};
+
+export const getProductPrice = async ({
+  productCode,
+  productOptionListId,
+}: {
+  productCode: string;
+  productOptionListId: number;
+}) => {
+  const res1 = await getProductThumbnail(productCode);
+  const res2 = await getProductOption({
+    productOptionId: productOptionListId,
+  });
+  return (res1.productPrice + res2.optionPrice) * (1 - res1.discountRate);
 };

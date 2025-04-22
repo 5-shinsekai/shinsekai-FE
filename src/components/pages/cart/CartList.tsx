@@ -5,13 +5,13 @@ import { cn } from '@/lib/utils';
 import CartItem from './CartItem';
 export default function CartList({
   name,
-  cartItem,
+  cartItems,
 }: {
   name: string;
-  cartItem: CartDataType[];
+  cartItems: CartDataType[];
 }) {
-  const cartItemLength = cartItem.length;
-  const checked = cartItem.every((item) => item.checked);
+  const cartItemLength = cartItems.length;
+  const checked = cartItems.every((item) => item.checked);
   return (
     <div className={cn(cartItemLength ? 'block' : 'hidden')}>
       <div className="flex items-center gap-x-2 shadow-md py-3 px-6">
@@ -19,8 +19,8 @@ export default function CartList({
         <label htmlFor={name}>{name} 선택</label>
       </div>
       <div>
-        {cartItem.map((item) => (
-          <CartItem key={item.cartUuid} CartItem={item} />
+        {cartItems.map((item) => (
+          <CartItem key={item.productCode} cartItem={item} />
         ))}
       </div>
     </div>

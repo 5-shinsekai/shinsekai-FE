@@ -1,14 +1,43 @@
+import { getCheckoutCartItemList } from '@/action/cart-service';
+import { getProductPrice } from '@/action/product-service';
 import { Button } from '@/components/ui/Button';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import React from 'react';
 
-export default function PurchaseButtonSection() {
+export default async function PurchaseButtonSection() {
+  const checkoutCartItemList = await getCheckoutCartItemList();
+  const checkedOrdinaryList = checkoutCartItemList.ordinaryProducts;
+  const checkedFrozenList = checkoutCartItemList.frozenProducts;
+  const ordinaryTotalPrice = await checkedOrdinaryList?.reduce(
+    async (accPromise, curr) => {
+      const acc = await accPromise;
+      const price = await getProductPrice({
+        productCode: curr.productCode,
+        productOptionListId: curr.productOptionListId,
+      });
+      return acc + price;
+    },
+    Promise.resolve(0)
+  );
+  const frozenTotalPrice = await checkedFrozenList?.reduce(
+    async (accPromise, curr) => {
+      const acc = await accPromise;
+      const price = await getProductPrice({
+        productCode: curr.productCode,
+        productOptionListId: curr.productOptionListId,
+      });
+      return acc + price;
+    },
+    Promise.resolve(0)
+  );
   return (
     <section>
       <ButtonWrapper>
         <div className="flex items-center justify-between mb-4">
-          <span className="text-sm">총 0건</span>
-          <span className="text-lg font-bold">0원</span>
+          <span className="text-sm">총 {checkedOrdinaryList.length}건</span>
+          <span className="text-lg font-bold">
+            {(ordinaryTotalPrice + frozenTotalPrice).toLocaleString()}원
+          </span>
         </div>
 
         <div className="flex gap-2 justify-center">

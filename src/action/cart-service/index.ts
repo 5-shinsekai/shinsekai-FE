@@ -2,6 +2,13 @@
 
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
+import { CommonResponseType } from '@/types/Common';
+import {
+  CartDataType,
+  CartListType,
+  CartUuidListType,
+} from '@/types/CartDataType';
+import { revalidateTag } from 'next/cache';
 
 export const addCartItem = async (
   productCode: string,
@@ -30,23 +37,51 @@ export const addCartItem = async (
   return data;
 };
 
-export const getCartItems = async () => {
+export const getCartItemList = async () => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart/uuid`, {
     method: 'GET',
+    next: {
+      tags: [`cart-list`],
+    },
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
   });
-  const data = await res.json();
-  return data;
+
+  const data = (await res.json()) as CommonResponseType<CartUuidListType>;
+  return data.result;
+};
+
+export const getCartItem = async (cartUuid: string) => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
+  // const start = performance.now();
+  // const end = performance.now();
+  // console.log(`✅ Product ${cartUuid} fetched in ${end - start}ms`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/cart/${cartUuid}`,
+    {
+      next: {
+        tags: [`cart-${cartUuid}`],
+      },
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = (await res.json()) as CommonResponseType<CartDataType>;
+  return data.result;
 };
 
 export const updateCartItem = async (
   cartUuid: string,
-  productOptionListId: string,
+  productOptionListId: number,
   quantity?: number,
   checked?: boolean
 ) => {
@@ -60,6 +95,22 @@ export const updateCartItem = async (
     },
     body: JSON.stringify({ cartUuid, quantity, checked, productOptionListId }),
   });
-  const data = await res.json();
+  revalidateTag(`cart-${cartUuid}`);
+
+  const data = (await res.json()) as CommonResponseType<''>;
   return data;
+};
+
+export const getCheckoutCartItemList = async () => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart/checked`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  const data = (await res.json()) as CommonResponseType<CartListType>;
+  return data.result;
 };

@@ -11,6 +11,9 @@ export const getEventThumbnail = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
+      // next: {
+      //   revalidate: 3600,
+      // },
     }
   );
   const data = (await response.json()) as CommonResponseType<

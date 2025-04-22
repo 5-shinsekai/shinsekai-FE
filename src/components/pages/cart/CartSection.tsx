@@ -1,18 +1,24 @@
 import CartList from './CartList';
 import React from 'react';
-import { CartListType } from '@/types/CartDataType';
+import { CartDataType } from '@/types/CartDataType';
 import EmptyCart from './EmptyCart';
 import CustomCheckbox from '@/components/ui/CustomCheckbox';
 import { cn } from '@/lib/utils';
 
-export default function CartSection({ data }: { data: CartListType }) {
-  const isEmpty =
-    data.ordinaryProducts.length === 0 && data.frozenProducts.length === 0;
+export default function CartSection({
+  ordinaryProducts,
+  frozenProducts,
+}: {
+  ordinaryProducts: CartDataType[];
+  frozenProducts: CartDataType[];
+}) {
+  const isEmpty = ordinaryProducts.length === 0 && frozenProducts.length === 0;
   const checkedAll =
-    data.ordinaryProducts.every((item) => item.checked) &&
-    data.frozenProducts.every((item) => item.checked);
+    ordinaryProducts.every((item) => item.checked) &&
+    frozenProducts.every((item) => item.checked);
+
   return (
-    <section className="min-h-[60vh]">
+    <section className="min-h-[60vh] relative">
       <EmptyCart className={`${isEmpty ? 'block' : 'hidden'}`} />
 
       <div className={cn(isEmpty ? 'hidden' : 'block')}>
@@ -32,8 +38,8 @@ export default function CartSection({ data }: { data: CartListType }) {
           </div>
         </div>
 
-        <CartList name="일반" cartItem={data.ordinaryProducts} />
-        <CartList name="냉동" cartItem={data.frozenProducts} />
+        <CartList name="일반" cartItems={ordinaryProducts} />
+        <CartList name="냉동" cartItems={frozenProducts} />
       </div>
     </section>
   );
