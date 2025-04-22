@@ -1,4 +1,7 @@
-import { getMainCategoryList, getProductList } from '@/action/product-service';
+import {
+  getMainCategoryList,
+  getBestProductList,
+} from '@/action/product-service';
 import React, { Suspense } from 'react';
 import MenuTab from '@/components/layouts/MenuTab';
 import ProductList from '@/components/pages/products/ProductList';
@@ -11,7 +14,7 @@ export default async function Page({
 }) {
   const eventList = await getMainCategoryList();
   const { mainCategoryId } = await searchParams;
-  const bestData = await getProductList({
+  const bestData = await getBestProductList({
     mainCategoryId: mainCategoryId ?? eventList[0].code,
     size: 30,
   });

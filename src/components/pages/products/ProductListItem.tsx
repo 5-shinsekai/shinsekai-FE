@@ -1,16 +1,33 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import RankingIcon from '@/components/ui/icons/RankingIcon';
 import Tag from '@/components/commons/Tag';
 import ProductPrice from '@/components/commons/ProductPrice';
 import { getProductThumbnail } from '@/action/product-service';
-export default async function ProductListItem({
+import { ProductThumbnailType } from '@/types/ProductDataTypes';
+export default function ProductListItem({
   productCode,
   size,
   rank,
 }: Readonly<{ productCode: string; size: number; rank?: number }>) {
-  const product = await getProductThumbnail(productCode);
+  const [product, setProduct] = useState<ProductThumbnailType>({
+    thumbnailUrl: '',
+    productName: '',
+    productPrice: 0,
+    discountRate: 0,
+    new: false,
+    best: false,
+    productCode: '',
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getProductThumbnail(productCode);
+      setProduct(data);
+    };
+    fetchData();
+  }, []);
   const validSrc =
     product.thumbnailUrl && product.thumbnailUrl.trim() !== ''
       ? product.thumbnailUrl

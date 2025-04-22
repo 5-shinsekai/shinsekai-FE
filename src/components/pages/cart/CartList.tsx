@@ -1,4 +1,3 @@
-import CustomCheckbox from '@/components/ui/CustomCheckbox';
 import React from 'react';
 import { CartDataType } from '@/types/CartDataType';
 import { cn } from '@/lib/utils';

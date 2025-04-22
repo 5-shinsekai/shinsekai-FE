@@ -10,29 +10,48 @@ export default function MenuTabModule({
   isDefault,
   isMultiple,
   className,
-}: Readonly<MenuBarType & { className?: string }>) {
+  highCategory,
+}: Readonly<MenuBarType & { className?: string; highCategory?: boolean }>) {
   const menuName = keyname;
   const params = useSearchParams();
-  const currentValues = params.get(menuName)?.split(',') || [];
-
   const router = useRouter();
-  const buildQueryString = (key: string, value: string) => {
-    const query = new URLSearchParams(params.toString());
-    let updatedValues = [...currentValues];
 
+  const isValueSelected = (value: string) => {
     if (isMultiple) {
-      if (updatedValues.includes(value)) {
-        updatedValues = updatedValues.filter((v) => v !== value);
-      } else {
-        updatedValues.push(value);
-      }
-    } else {
-      updatedValues = [value];
+      return params.getAll(menuName).includes(value);
     }
-    query.set(key, updatedValues.join(','));
-
-    router.replace(`?${query.toString()}`);
+    return (
+      params.get(menuName) === value ||
+      (isDefault && !params.get(menuName) && value === String(category[0].code))
+    );
   };
+
+  const buildQueryString = (key: string, value: string) => {
+    if (highCategory) {
+      const query = new URLSearchParams();
+      query.set(key, value);
+      router.replace(`?${query.toString()}`);
+    } else {
+      const query = new URLSearchParams(params.toString());
+      if (isMultiple) {
+        if (isValueSelected(value)) {
+          const values = params.getAll(key).filter((v) => v !== value);
+          query.delete(key);
+          values.forEach((v) => query.append(key, v));
+        } else {
+          query.append(key, value);
+        }
+      } else {
+        if (isValueSelected(value)) {
+          query.delete(key);
+        } else {
+          query.set(key, value);
+        }
+      }
+      router.replace(`?${query.toString()}`);
+    }
+  };
+
   return (
     <ScrollableList className={cn(`gap-x-5`, className)}>
       {category.map((item, index) => (
@@ -43,14 +62,12 @@ export default function MenuTabModule({
           <li
             className={cn(
               'text-center font-normal text-nowrap py-3.5',
-              currentValues.includes(String(item.code)) ||
-                (isDefault && currentValues.length === 0 && index === 0)
+              isValueSelected(String(item.code)) ||
+                (isDefault && !params.get(menuName) && index === 0)
                 ? 'text-custom-green-200 font-bold'
                 : 'text-custom-gray-500'
             )}
           >
-            {/* 컴포넌트로 안으로 던져서 위로 받는 로직이 필요 한 파일에서 다 진행X */}
-            {/* radio checkbox */}
             {item.name}
           </li>
         </button>
