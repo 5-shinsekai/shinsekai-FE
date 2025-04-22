@@ -7,6 +7,15 @@ export interface CartDataType {
   engravingMessage: string | null;
 }
 
+export interface CartUuidType {
+  cartUuid: string;
+}
+
+export interface CartUuidListType {
+  ordinaryProducts: CartUuidType[];
+  frozenProducts: CartUuidType[];
+}
+
 export interface CartListType {
   ordinaryProducts: CartDataType[];
   frozenProducts: CartDataType[];

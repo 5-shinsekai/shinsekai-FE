@@ -1,5 +1,3 @@
-import CustomCheckbox from '@/components/ui/CustomCheckbox';
-import { CartDataType } from '@/types/CartDataType';
 import React from 'react';
 import Image from 'next/image';
 import { getProductThumbnail } from '@/action/product-service';
@@ -7,20 +5,17 @@ import { getProductThumbnail } from '@/action/product-service';
 import CircleXIcon from '@/components/ui/icons/CircleXIcon';
 
 import ProductPriceInfo from './ProductPriceInfo';
+import CartCheckbox from './CartCheckbox';
+import { CartDataType } from '@/types/CartDataType';
 export default async function CartItem({
-  CartItem,
+  cartItem,
 }: {
-  CartItem: CartDataType;
+  cartItem: CartDataType;
 }) {
-  const product = await getProductThumbnail(CartItem.productCode);
-
+  const product = await getProductThumbnail(cartItem.productCode);
   return (
     <div className="flex gap-x-3 border-b border-gray-200 py-5 px-6">
-      <CustomCheckbox
-        id={CartItem.cartUuid}
-        name={CartItem.cartUuid}
-        checked={CartItem.checked}
-      />
+      <CartCheckbox cartItem={cartItem} />
       <Image
         src={product.thumbnailUrl}
         alt={product.productName}
@@ -34,7 +29,7 @@ export default async function CartItem({
           </p>
           <CircleXIcon className="min-w-6 min-h-6 stroke-1 stroke-custom-gray-400" />
         </div>
-        <ProductPriceInfo quantity={CartItem.quantity} product={product} />
+        <ProductPriceInfo cartItem={cartItem} product={product} />
       </div>
     </div>
   );

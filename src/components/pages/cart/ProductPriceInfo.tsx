@@ -1,32 +1,50 @@
 'use client';
+import { updateCartItem } from '@/action/cart-service';
 import ProductPrice from '@/components/commons/ProductPrice';
 import CircleMinusIcon from '@/components/ui/icons/CircleMinusIcon';
 import CirclePlusIcon from '@/components/ui/icons/CirclePlusIcon';
 import { cn } from '@/lib/utils';
+import { CartDataType } from '@/types/CartDataType';
 import { ProductThumbnailType } from '@/types/ProductDataTypes';
 import React from 'react';
 
 export default function ProductPriceInfo({
-  quantity,
+  cartItem,
   product,
 }: {
-  quantity: number;
+  cartItem: CartDataType;
   product: ProductThumbnailType;
 }) {
+  const handleQuantityChange = async (type: 'plus' | 'minus') => {
+    const newQuantity =
+      type === 'plus' ? cartItem.quantity + 1 : cartItem.quantity - 1;
+    if (newQuantity > 0) {
+      const res = await updateCartItem(
+        cartItem.cartUuid,
+        cartItem.productOptionListId,
+        newQuantity
+      );
+      if (!res.isSuccess) {
+        alert(res.message);
+      }
+    }
+  };
   return (
     <div className="flex justify-between items-end">
       <div className="flex gap-x-4">
         <CircleMinusIcon
           className={cn(
             'w-6 h-6 stroke-1 ',
-            quantity === 2 ? 'stroke-custom-gray-300' : 'stroke-custom-gray-600'
+            cartItem.quantity === 1
+              ? 'stroke-custom-gray-300'
+              : 'stroke-custom-gray-600 cursor-not-allowed'
           )}
-          onClick={() => console.log('minus')}
+          onClick={() => handleQuantityChange('minus')}
         />
-        <p className="font-semibold">{quantity}</p>
+        <p className="font-semibold">{cartItem.quantity}</p>
         <CirclePlusIcon
-          className="w-6 h-6 stroke-1 stroke-custom-gray-600"
-          onClick={() => console.log('plus')}
+          className={cn('w-6 h-6 stroke-1 stroke-custom-gray-600')}
+          onClick={() => handleQuantityChange('plus')}
         />
       </div>
       <ProductPrice
