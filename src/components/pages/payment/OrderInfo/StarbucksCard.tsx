@@ -51,7 +51,7 @@ export function StarbucksCard({
         <CardDetailModal title="충전하기" setModal={handleClick}>
           <StarbuckscardDetail
             cardInfo={card}
-            // onClose={() => setModal(false)}
+            onClose={() => setModal(false)}
           />
         </CardDetailModal>
       )}
