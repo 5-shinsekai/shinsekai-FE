@@ -9,10 +9,12 @@ import StarbuckscardDetail from '@/components/pages/payment/StarbuckscardInfo/St
 export function StarbucksCard({
   card,
   index,
+  totalAmount,
   handleSelectCard,
 }: {
   card: StarbuckscardInfoType;
   index: number;
+  totalAmount?: number;
   handleSelectCard: (index: number) => void;
 }) {
   const [modal, setModal] = useState(false);
@@ -42,10 +44,13 @@ export function StarbucksCard({
             카드충전하기
           </button>
         </div>
-        <p className="font-semibold">
+        <div className="font-semibold">
           {card.remainAmount.toLocaleString()}
           <span className="text-sm font-medium">원</span>
-        </p>
+          {totalAmount! > card.remainAmount && (
+            <p className="text-right text-xs text-red-400">잔액 부족</p>
+          )}
+        </div>
       </div>
       {modal && (
         <CardDetailModal title="충전하기" setModal={handleClick}>

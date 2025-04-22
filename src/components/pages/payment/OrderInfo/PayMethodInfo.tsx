@@ -8,8 +8,10 @@ import { StarbucksCard } from './StarbucksCard';
 
 export default function PayMethodInfo({
   cardList = [],
+  totalAmount,
 }: {
   cardList?: StarbuckscardInfoType[];
+  totalAmount: number;
 }) {
   const [selectedCard, setSelectedCard] = useState<number>(0);
 
@@ -43,6 +45,7 @@ export default function PayMethodInfo({
                 card={card}
                 index={index}
                 handleSelectCard={handleSelectCard}
+                totalAmount={totalAmount}
               />
             </div>
           ))}
@@ -51,6 +54,7 @@ export default function PayMethodInfo({
             type="hidden"
             name="paymentCardUuid"
             value={cardList[selectedCard].memberStarbucksCardListUuid}
+            readOnly
           />
         )}
         {/* 카드 등록 버튼 */}
