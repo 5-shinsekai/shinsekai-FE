@@ -113,30 +113,17 @@ export const getEventProductList = async (eventId: number) => {
 
 export const getBestProductList = async ({
   mainCategoryId,
-  sort = [],
-  page = 1,
-  size = 10,
 }: {
   mainCategoryId?: number;
-  sort?: string[];
-  page?: number;
-  size?: number;
 }) => {
-  const params = new URLSearchParams();
-
-  params.set('mainCategoryId', mainCategoryId?.toString() ?? '');
-  params.set('page', page.toString());
-  params.set('size', size.toString());
-  params.set('sort', sort?.join(',') ?? '');
-
+  console.log(mainCategoryId);
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/product/filter?${params.toString()}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/best-products?mainCategoryId=${mainCategoryId}`
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-  const data =
-    (await res.json()) as CommonResponseType<ProductListResponseType>;
+  const data = (await res.json()) as CommonResponseType<ProductListType>;
   return data.result;
 };
 

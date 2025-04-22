@@ -1,6 +1,7 @@
 import { navBackButton } from '@/data/InitialData';
 import { GnbMenuType } from '@/types/InitialDataTypes';
 import React from 'react';
+import Link from 'next/link';
 
 export default function LogInHeader() {
   return (
@@ -8,9 +9,9 @@ export default function LogInHeader() {
       <nav className="fixed">
         <ul className="py-[0.375rem]">
           {navBackButton.map((menu: GnbMenuType) => (
-            <li key={menu.id}>
+            <Link key={menu.id} href="/">
               <menu.icon className="mx-3 my-2.5" />
-            </li>
+            </Link>
           ))}
         </ul>
       </nav>

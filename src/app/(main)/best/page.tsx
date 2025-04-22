@@ -16,7 +16,6 @@ export default async function Page({
   const { mainCategoryId } = await searchParams;
   const bestData = await getBestProductList({
     mainCategoryId: mainCategoryId ?? eventList[0].code,
-    size: 30,
   });
   return (
     <main>
@@ -30,7 +29,7 @@ export default async function Page({
           />
         </Suspense>
       </section>
-      <ProductList data={bestData.content} bestTag={true} />
+      <ProductList data={bestData} bestTag={true} />
     </main>
   );
 }

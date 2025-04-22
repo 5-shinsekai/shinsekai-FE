@@ -34,7 +34,7 @@ export default function ProductListItem({
       : '/ImageLoading.png';
 
   return (
-    <Link href={`/products/${productCode}`} className="shrink-0">
+    <Link href={`/products/${product.productCode}`} className="shrink-0">
       <li
         className="mx-auto relative"
         style={{
