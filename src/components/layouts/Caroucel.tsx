@@ -12,6 +12,7 @@ import {
 
 import Autoplay from 'embla-carousel-autoplay';
 import LoadingIcon from '../ui/icons/LoadingIcon';
+import Link from 'next/link';
 
 export default function Carousel() {
   const [carouselData, setCarouselData] = useState<EventThumbnailType[]>([]);
@@ -34,13 +35,15 @@ export default function Carousel() {
         ) : (
           carouselData.map((item, index) => (
             <CarouselItem key={index}>
-              <Image
-                src={item.eventThumbnailImage}
-                alt={item.eventThumbnailImageAltText}
-                width={800}
-                height={800}
-                className="mx-auto h-full w-full"
-              />
+              <Link href={`/event?eventId=${item.id}`}>
+                <Image
+                  src={item.eventThumbnailImage}
+                  alt={item.eventThumbnailImageAltText}
+                  width={800}
+                  height={800}
+                  className="mx-auto h-full w-full"
+                />
+              </Link>
             </CarouselItem>
           ))
         )}

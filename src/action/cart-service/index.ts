@@ -65,7 +65,7 @@ export const getCartItem = async (cartUuid: string) => {
     `${process.env.NEXT_PUBLIC_BASE_URL}/cart/${cartUuid}`,
     {
       next: {
-        tags: [`cart-${cartUuid}`],
+        tags: [`cart-${cartUuid}`, 'cart-item'],
       },
       method: 'GET',
       headers: {
@@ -113,4 +113,20 @@ export const getCheckoutCartItemList = async () => {
   });
   const data = (await res.json()) as CommonResponseType<CartListType>;
   return data.result;
+};
+
+export const updateAllChecked = async (itemType: string, checked: boolean) => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart/checked`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({ itemType, checked }),
+  });
+  revalidateTag(`cart-item`);
+
+  return res.json();
 };
