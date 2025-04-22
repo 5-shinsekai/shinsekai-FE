@@ -2,7 +2,18 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    unoptimized: true,
+    domains: [
+      'upload.wikimedia.org',
+      'image.istarbucks.co.kr',
+      'sitem.ssgcdn.com',
+      'cp-image.starbucks.co.kr',
+      'search.pstatic.net',
+      'simg.ssgcdn.com',
+      'sitem.ssgcdn.com',
+      'sstatic.ssgcdn.com',
+      'prod-starbucks-product-details.s3.ap-northeast-2.amazonaws.com',
+      'blogfiles.naver.net',
+    ],
   },
   async redirects() {
     return [

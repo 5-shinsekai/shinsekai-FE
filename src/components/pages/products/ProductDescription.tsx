@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronUp } from 'lucide-react';
-import Image from 'next/image';
 
 export default function ProductDescription({
   ImageHTML,
@@ -54,7 +53,7 @@ export default function ProductDescription({
         className={`image-container ${!isExpanded ? 'max-h-[150vh] overflow-hidden' : ''}`}
       >
         {extractedImages.map((item, index) => (
-          <Image
+          <img
             key={index}
             src={item.src}
             alt={item.alt}
