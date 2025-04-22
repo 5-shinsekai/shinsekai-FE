@@ -8,8 +8,10 @@ import {
   ProductDetailType,
   ProductOptionType,
   OptionNameType,
+  FilterDataType,
+  MainCategoryType,
+  CategoryDataType,
 } from '@/types/ProductDataTypes';
-import { MainCategoryType } from '@/types/CategoryTypes';
 import { EventType, EventDetailType } from '@/types/ProductDataTypes';
 
 export const getMainCategoryList = async () => {
@@ -18,6 +20,36 @@ export const getMainCategoryList = async () => {
     throw new Error('Failed to fetch data');
   }
   const data = (await res.json()) as CommonResponseType<MainCategoryType[]>;
+  return data.result;
+};
+
+export const getSubCategoryList = async ({
+  mainCategoryId,
+}: {
+  mainCategoryId: number;
+}) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/category/sub/${mainCategoryId}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<CategoryDataType[]>;
+  return data.result;
+};
+
+export const getFilterList = async ({
+  mainCategoryId,
+}: {
+  mainCategoryId: number | undefined;
+}) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/filter?mainCategoryId=${mainCategoryId == 0 ? '' : mainCategoryId}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<FilterDataType>;
   return data.result;
 };
 
@@ -79,32 +111,23 @@ export const getEventProductList = async (eventId: number) => {
   return data.result;
 };
 
-export const getProductList = async ({
+export const getBestProductList = async ({
   mainCategoryId,
-  subCategoryIds,
-  seasonIds,
-  priceRangeId,
   sort = [],
   page = 1,
   size = 10,
 }: {
-  mainCategoryId: number;
-  subCategoryIds?: number[] | undefined;
-  seasonIds?: number[] | undefined;
-  priceRangeId?: number | undefined;
+  mainCategoryId?: number;
   sort?: string[];
   page?: number;
   size?: number;
 }) => {
   const params = new URLSearchParams();
 
-  params.set('mainCategoryId', mainCategoryId.toString());
+  params.set('mainCategoryId', mainCategoryId?.toString() ?? '');
   params.set('page', page.toString());
   params.set('size', size.toString());
   params.set('sort', sort?.join(',') ?? '');
-  params.set('subCategoryIds', subCategoryIds?.join(',') ?? '');
-  params.set('seasonIds', seasonIds?.join(',') ?? '');
-  params.set('priceRangeId', priceRangeId?.toString() ?? '');
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/product/filter?${params.toString()}`
@@ -147,6 +170,32 @@ export const getProductOption = async ({
   return data.result;
 };
 
+export const getProductList = async ({
+  params = '',
+  page = 1,
+  sort = [],
+  size = 10,
+}: {
+  params?: string;
+  page?: number;
+  sort?: string[];
+  size?: number;
+}) => {
+  const newparam = new URLSearchParams(params);
+  newparam.set('page', page.toString());
+  newparam.set('size', size.toString());
+  newparam.set('sort', sort?.join(',') ?? '');
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product/filter?${newparam.toString()}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data =
+    (await res.json()) as CommonResponseType<ProductListResponseType>;
+  return data.result;
+};
 export const getOptionName = async ({
   optionType,
   optionId,

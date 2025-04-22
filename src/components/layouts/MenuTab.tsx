@@ -8,7 +8,8 @@ export default function MenuTab({
   isDefault,
   isMultiple,
   className,
-}: Readonly<MenuBarType & { className?: string }>) {
+  highCategory,
+}: Readonly<MenuBarType & { className?: string; highCategory?: boolean }>) {
   return (
     <Suspense>
       <MenuTabModule
@@ -17,6 +18,7 @@ export default function MenuTab({
         isMultiple={isMultiple}
         isDefault={isDefault}
         className={className}
+        highCategory={highCategory}
       />
     </Suspense>
   );

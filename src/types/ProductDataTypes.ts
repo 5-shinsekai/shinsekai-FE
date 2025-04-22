@@ -1,8 +1,22 @@
 import { StaticImageData } from 'next/image';
 
+export interface MainCategoryType {
+  code: number | undefined;
+  image: string;
+  imageAltText: string;
+  name: string;
+}
+
 export interface CategoryDataType {
   code: number;
   name: string;
+}
+
+export interface FilterDataType {
+  seasons: CategoryDataType[];
+  sizes: CategoryDataType[];
+  colors: CategoryDataType[];
+  priceRanges: CategoryDataType[];
 }
 
 export interface EventType {

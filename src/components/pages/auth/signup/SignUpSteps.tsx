@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFunnel } from '@/action/funnel';
 
-import { signup, useSignUpForms } from '@/actions/signup-service';
+import { signup, useSignUpForms } from '@/action/signup-service';
 
 import PolicyAgreePage from '@/components/pages/auth/signup/PolicyAgreePage';
 import EmailCertificationPage from '@/components/pages/auth/signup/EmailCertificationPage';

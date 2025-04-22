@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSidebarContext } from '@/context/SideBarContext';
 import { getMainCategoryList } from '@/action/product-service';
-import { MainCategoryType } from '@/types/CategoryTypes';
+import { MainCategoryType } from '@/types/ProductDataTypes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLoginSession } from '@/context/SessionContext';
@@ -122,7 +122,7 @@ export function Sidebar() {
           {mainCategoryList.map((category) => (
             <div
               key={category.code}
-              onClick={() => handleRouteChange(category.code)}
+              onClick={() => handleRouteChange(category.code ?? 0)}
               className=" space-y-2 "
             >
               <Image

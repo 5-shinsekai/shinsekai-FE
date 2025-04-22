@@ -1,28 +1,49 @@
 import MenuTab from '@/components/layouts/MenuTab';
 import ProductSubCategory from '@/components/pages/products/ProductSubCategory';
-import { CategoryData } from '@/data/DummyData/CategoryDummyData';
-import AllProductList from '@/components/pages/products/AllProductList';
 import React, { Suspense } from 'react';
-import { getAllProductList } from '@/actions/product-service';
+import {
+  getFilterList,
+  getMainCategoryList,
+  getSubCategoryList,
+} from '@/action/product-service';
+import AllProductList from '@/components/pages/products/AllProductList';
 
 export default async function page({
   searchParams,
 }: {
-  searchParams: Promise<Readonly<{ page: number }>>;
+  searchParams: Promise<Readonly<{ highCategory: number }>>;
 }) {
-  const { page } = await searchParams;
-  const data = await getAllProductList({ page });
+  const { highCategory } = await searchParams;
+  const Category = await getMainCategoryList();
+  const MainCategory = [
+    {
+      code: 0,
+      image: '/ImageLoading.png',
+      imageAltText: '전체이미지',
+      name: '전체',
+    },
+    ...Category,
+  ];
+
+  const subCategory = await getSubCategoryList({
+    mainCategoryId: highCategory ?? 0,
+  });
+
+  const filter = await getFilterList({
+    mainCategoryId: highCategory ?? 0,
+  });
   return (
     <div>
       <MenuTab
-        keyname="highCategory"
-        category={CategoryData}
+        keyname="mainCategoryId"
+        category={MainCategory}
         isDefault={true}
         isMultiple={false}
+        highCategory={true}
       />
       <Suspense>
-        <ProductSubCategory />
-        <AllProductList data={data} />
+        <ProductSubCategory subCategory={subCategory} filter={filter} />
+        <AllProductList />
       </Suspense>
     </div>
   );
