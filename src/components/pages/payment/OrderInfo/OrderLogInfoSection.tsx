@@ -46,6 +46,7 @@ export default function ShowOrderProductList({
                 });
 
                 return {
+                  productOptionId: outlineData.productOptionListId,
                   productCode: item.productCode || '',
                   productName: outlineData.productName || '',
                   productPrice: outlineData.productPrice,
@@ -109,6 +110,12 @@ export default function ShowOrderProductList({
       {showInfoList.map((item, index) => (
         <div key={index}>
           <input
+            name={`orderList[${index}].productOptionListId`}
+            value={item.productOptionListId?.[0] ?? ''}
+            hidden
+            readOnly
+          />
+          <input
             name={`orderList[${index}].productCode`}
             value={item.productCode}
             hidden
@@ -121,14 +128,14 @@ export default function ShowOrderProductList({
             readOnly
           />
           <input
-            name={`orderList[${index}].quantity`}
-            value={item.quantity}
+            name={`orderList[${index}].productPrice`}
+            value={item.productPrice}
             hidden
             readOnly
           />
           <input
-            name={`orderList[${index}].productPrice`}
-            value={item.productPrice}
+            name={`orderList[${index}].quantity`}
+            value={item.quantity}
             hidden
             readOnly
           />
