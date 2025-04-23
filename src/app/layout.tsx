@@ -7,7 +7,7 @@ import { Sidebar } from '@/components/commons/SideBar';
 import AuthContextProvider from '@/provider/AuthContextProvider';
 import { getServerSession } from 'next-auth';
 import { options } from './api/auth/[...nextauth]/options';
-
+import NotificationListener from '@/components/commons/SSEListener';
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
   variable: '--font-pretendard',
@@ -43,7 +43,8 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession(options);
   const isAuth = !!session?.user;
-
+  const memberUuid = session?.user?.memberUuid;
+  console.log(memberUuid);
   return (
     <html lang="ko">
       <body
@@ -54,6 +55,7 @@ export default async function RootLayout({
             <Sidebar />
             {children}
           </SidebarContextProvider>
+          {memberUuid && <NotificationListener memberUuid={memberUuid} />}
         </AuthContextProvider>
       </body>
     </html>
