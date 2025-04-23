@@ -9,6 +9,8 @@ import { getProductOption, getOptionName } from '@/action/product-service';
 import OptionSelector from './OptionSelector';
 import QuantitySelector from './QuantitySelector';
 import { addCartItem } from '@/action/cart-service';
+import Dialog from '@/components/commons/Dialog';
+import { useRouter } from 'next/navigation';
 
 export default function ProductActionBar({
   productDetail,
@@ -24,7 +26,9 @@ export default function ProductActionBar({
   const [productOption, setProductOption] = useState<ProductOptionType[]>([]);
   const [colorNames, setColorNames] = useState<{ [key: number]: string }>({});
   const [sizeNames, setSizeNames] = useState<{ [key: number]: string }>({});
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const route = useRouter();
   const basePrice =
     productDetail.productPrice * (1 - productDetail.discountRate / 100);
 
@@ -221,6 +225,17 @@ export default function ProductActionBar({
           </Button>
         </div>
       </div>
+      <Dialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        onConfirm={() =>
+          route.push(
+            '/login??callbackUrl=/products/' + productDetail.productCode
+          )
+        }
+        title="구매하기"
+        content="구매하시겠습니까?"
+      />
     </section>
   );
 }
