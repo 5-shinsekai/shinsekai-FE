@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { paymentTempService } from '@/action/input-check';
 import AddressInfoSection from '@/components/pages/payment/OrderInfo/AddressInfoSection';
 import AmountInfo from '@/components/pages/payment/OrderInfo/AmountInfo';
 import CashReceiptInfo from '@/components/pages/payment/OrderInfo/CashReceiptInfo';
@@ -15,8 +14,9 @@ import {
   CartOrderItemInfoType,
   StarbuckscardInfoType,
 } from '@/types/PaymentDataType';
-import { getCartData } from '@/action/payment-service';
+import { getCartData, purchase } from '@/action/payment-service';
 import { AddressDataType } from '@/types/AddressDataType';
+import { PurchaseResultModal } from '@/components/ui/ChargeResultModal';
 
 export default function PaymentForm({
   cardList,
@@ -28,7 +28,7 @@ export default function PaymentForm({
   const [totalAmount, setTotalAmount] = useState(0);
   const params = useSearchParams();
   const productCode = params.get('productCode') || '';
-  const productOptionListId = Number(params.get('productOptionListId')) || 0;
+  const productOptionListId = Number(params.get('productOptiontId')) || 0;
   const quantity = Number(params.get('quantity')) || 1;
   const engravingMessage = params.get('engravingMessage') || '';
 
@@ -55,25 +55,58 @@ export default function PaymentForm({
     };
     fetchData();
   }, [productCode]);
+  console.log('orderLogInfo 테스트', orderLogInfo);
 
+  const [showModal, setShowModal] = useState(false);
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await purchase(formData);
+
+      if (response?.isSuccess) {
+        setIsSuccess(true);
+      } else {
+        setIsSuccess(false);
+      }
+      setShowModal(true);
+    } catch (err) {
+      console.error('결제 오류:', err);
+      setIsSuccess(false);
+      setShowModal(true);
+    }
+  };
   return (
-    <form action={paymentTempService}>
-      <AddressInfoSection mainAddress={mainAddress} />
-      <Divider />
-      <OrderLogInfoSection
-        orderLogInfo={orderLogInfo!}
-        onTotalAmountChange={setTotalAmount}
-      />
-      <Divider />
-      <PayMethodInfo cardList={cardList} totalAmount={totalAmount} />
-      <Divider />
-      <CashReceiptInfo />
-      <AmountInfo totalAmount={totalAmount} />
-      <ButtonWrapper>
-        <Button type="submit" className="w-full">
-          결제하기
-        </Button>
-      </ButtonWrapper>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <AddressInfoSection mainAddress={mainAddress} />
+        <Divider />
+        <OrderLogInfoSection
+          orderLogInfo={orderLogInfo!}
+          onTotalAmountChange={setTotalAmount}
+        />
+        <Divider />
+        <PayMethodInfo cardList={cardList} totalAmount={totalAmount} />
+        <Divider />
+        <CashReceiptInfo />
+        <AmountInfo totalAmount={totalAmount} />
+        <ButtonWrapper>
+          <Button type="submit" className="w-full">
+            결제하기
+          </Button>
+        </ButtonWrapper>
+      </form>
+
+      {showModal && (
+        <PurchaseResultModal
+          message="결제"
+          success={isSuccess || false}
+          setModal={setShowModal}
+        />
+      )}
+    </>
   );
 }

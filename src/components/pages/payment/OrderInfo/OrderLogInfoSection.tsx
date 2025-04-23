@@ -11,6 +11,7 @@ import {
   ShowOrderLog,
   ExpandedShowOrderLog,
 } from '@/components/ui/ShowOrderLog';
+import LoadingIcon from '@/components/ui/icons/LoadingIcon';
 
 export default function ShowOrderProductList({
   orderLogInfo,
@@ -19,7 +20,7 @@ export default function ShowOrderProductList({
   orderLogInfo: Partial<CartOrderItemInfoType>[];
   onTotalAmountChange?: (amount: number) => void;
 }) {
-  console.log('orderLogInfo', orderLogInfo);
+  const [isLoading, setIsLoading] = useState(true);
   const [showInfoList, setShowInfoList] = useState<
     Partial<ShowOrderProductDataType>[]
   >([]);
@@ -36,17 +37,18 @@ export default function ShowOrderProductList({
               .filter((item) => !!item.productCode)
               .map(async (item) => {
                 console.log('item.productCode', item.productCode);
+                console.log('item.productOptionId', item.productOptionListId);
                 const outlineData = await getOutlineDataByProductCode(
                   item.productCode || ''
                 );
-
+                console.log('item.productCode', item.productCode);
                 const price = await getProductPrice?.({
                   productCode: item.productCode || '',
                   productOptionListId: item.productOptionListId || 0,
                 });
 
                 return {
-                  productOptionId: outlineData.productOptionListId,
+                  productOptionId: item.productOptionListId,
                   productCode: item.productCode || '',
                   productName: outlineData.productName || '',
                   productPrice: outlineData.productPrice,
@@ -64,13 +66,20 @@ export default function ShowOrderProductList({
           0
         );
         onTotalAmountChange?.(total);
+        setIsLoading(false);
       }
     };
     fetchProductsData();
   }, [orderLogInfo]);
+  console.log(showInfoList);
+
   console.log('showInfoList', showInfoList);
 
-  return (
+  return isLoading ? (
+    <section className="w-full flex items-center justify-center animate-pulse">
+      <LoadingIcon otherContent="주문 정보를 불러오는 중입니다..." />
+    </section>
+  ) : (
     <section className="px-6">
       <header className="relative flex items-center">
         <h1 className="font-semibold text-[1.125rem] py-2">주문내역</h1>
@@ -110,32 +119,51 @@ export default function ShowOrderProductList({
       {showInfoList.map((item, index) => (
         <div key={index}>
           <input
-            name={`orderList[${index}].productOptionListId`}
-            value={item.productOptionListId?.[0] ?? ''}
+            name={`orderProductList[${index}].productOptionId`}
+            type="number"
+            value={item.productOptionId}
             hidden
             readOnly
           />
           <input
-            name={`orderList[${index}].productCode`}
+            name={`orderProductList[${index}].productCode`}
             value={item.productCode}
+            type="string"
             hidden
             readOnly
           />
           <input
-            name={`orderList[${index}].productName`}
+            name={`orderProductList[${index}].productName`}
             value={item.productName}
+            type="string"
             hidden
             readOnly
           />
           <input
-            name={`orderList[${index}].productPrice`}
+            name={`orderProductList[${index}].productPrice`}
             value={item.productPrice}
+            type="number"
             hidden
             readOnly
           />
           <input
-            name={`orderList[${index}].quantity`}
+            name={`orderProductList[${index}].quantity`}
             value={item.quantity}
+            type="number"
+            hidden
+            readOnly
+          />
+          <input
+            name={`orderProductList[${index}].thumbnailUrl`}
+            value={item.thumbnailUrl}
+            type="string"
+            hidden
+            readOnly
+          />
+          <input
+            name={`orderProductList[${index}].productImageDescription`}
+            type="string"
+            value=""
             hidden
             readOnly
           />

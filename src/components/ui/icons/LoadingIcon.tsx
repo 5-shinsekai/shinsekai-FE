@@ -2,7 +2,8 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 export default function LoadingIcon({
   className,
-}: Readonly<{ className?: string }>) {
+  otherContent,
+}: Readonly<{ className?: string; otherContent?: string }>) {
   return (
     <div
       className={cn('flex justify-center items-center space-x-3', className)}
@@ -22,7 +23,11 @@ export default function LoadingIcon({
           fill="currentFill"
         />
       </svg>
-      <span>로딩중입니다...</span>
+      {otherContent ? (
+        <span>{otherContent}</span>
+      ) : (
+        <span>로딩중입니다...</span>
+      )}
     </div>
   );
 }

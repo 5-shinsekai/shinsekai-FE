@@ -42,7 +42,6 @@ export interface StarbuckscardChargeOptionType {
 
 export interface CartOrderItemInfoType {
   cartUuid: string;
-
   productCode: string;
   productOptionListId: number;
   quantity: number;
@@ -76,7 +75,7 @@ export interface ShowOrderProductDataType {
   productName: string;
   productPrice: number;
   discountRate: number;
-  productOptionListId: number[];
+  productOptionId: number;
   quantity: number;
   thumbnailUrl: string;
   productTotalPrice: number;

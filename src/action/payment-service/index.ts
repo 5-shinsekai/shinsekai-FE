@@ -3,6 +3,8 @@
 import {
   ChargeStarbucksCardApiType,
   ExternalStarbucksCardDataType,
+  PurchaseDataType,
+  PurchaseProductLogDataType,
   RegisterStarbucksCardDataType,
   StarbuckscardInfoType,
 } from '@/types/PaymentDataType';
@@ -298,4 +300,117 @@ export const getOptionDataByOptionId = async (optionId: number) => {
   const data = await res.json();
   console.log(data);
   return data;
+};
+
+export const parsePurchaseFormData = async (paymentForm: FormData) => {
+  const entries = Array.from(paymentForm.entries());
+
+  const productInfoMap: Record<
+    number,
+    Partial<PurchaseProductLogDataType>
+  > = {};
+
+  const orderProductInfo = {
+    productOptionId: 'productOptionId',
+    productCode: 'productCode',
+    productName: 'productName',
+    productPrice: 'productPrice',
+    quantity: 'quantity',
+    thumbnailUrl: 'productImageUrl',
+    productImageDescription: 'productImageDescription',
+  } as const;
+
+  type FieldMapKey = keyof typeof orderProductInfo;
+  type ProductKey = keyof PurchaseProductLogDataType;
+
+  for (const [key, value] of entries) {
+    const match = key.match(/^orderProductList\[(\d+)\]\.(\w+)$/);
+    if (!match) continue;
+
+    const index = Number(match[1]);
+    const rawField = match[2] as FieldMapKey;
+    const mappedField = orderProductInfo[rawField] as ProductKey;
+
+    if (!mappedField) continue;
+
+    if (!productInfoMap[index]) productInfoMap[index] = {};
+
+    const isNumberField = [
+      'productOptionId',
+      'productPrice',
+      'quantity',
+    ].includes(rawField);
+    console.log(isNumberField);
+
+    if (
+      mappedField === 'productOptionId' ||
+      mappedField === 'productPrice' ||
+      mappedField === 'quantity'
+    ) {
+      productInfoMap[index][mappedField] = Number(
+        value
+      ) as PurchaseProductLogDataType[typeof mappedField];
+    } else {
+      productInfoMap[index][mappedField] = String(
+        value
+      ) as PurchaseProductLogDataType[typeof mappedField];
+    }
+  }
+
+  const orderProductList: PurchaseProductLogDataType[] = Object.values(
+    productInfoMap
+  ) as PurchaseProductLogDataType[];
+
+  const purchaseData: PurchaseDataType = {
+    purchaseStatus: 'PAYMENT_COMPLETED',
+    giftCertificationUuid:
+      paymentForm.get('giftCertificationUuid')?.toString() || '',
+    couponUuid: paymentForm.get('couponUuid')?.toString() || '',
+    shipmentFee: Number(paymentForm.get('shipmentFee')) || 0,
+    productTotalPrice: Number(paymentForm.get('productTotalPrice')) || 0,
+    addressUuid: paymentForm.get('addressUuid')?.toString() || '',
+    orderName: paymentForm.get('orderName')?.toString() || '',
+    paymentPrice: Number(paymentForm.get('paymentPrice')) || 0,
+    paymentMethod:
+      paymentForm.get('paymentMethod')?.toString() || 'starbuckscard',
+    paymentStatus: 'DONE',
+    receiptUrl: paymentForm.get('receiptUrl')?.toString() || '',
+    memberStarbucksCardUuid:
+      paymentForm.get('paymentCardUuid')?.toString() || '',
+    orderProductList,
+  };
+
+  console.log('최종 결제 정보:', purchaseData);
+  return purchaseData;
+};
+
+export const submitPurchaseData = async (purchaseData: PurchaseDataType) => {
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+  const res = await fetch(`http://3.37.52.123:8080/api/v1/purchase`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+    body: JSON.stringify(purchaseData),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await res.json();
+  console.log(data);
+  return data;
+};
+
+export const purchase = async (paymentForm: FormData) => {
+  const purchaseData = await parsePurchaseFormData(paymentForm);
+  const response = await submitPurchaseData(purchaseData);
+  console.log('결제 완료:', response);
+  return { isSuccess: response.isSuccess };
 };
