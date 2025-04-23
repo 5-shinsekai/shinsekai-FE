@@ -9,16 +9,19 @@ import LoginInfoInputPage from './LoginInfoInputPage';
 import PersonalInfoPage from './PersonalInfoPage';
 import NicknamePage from './NicknamePage';
 import Stepper from '@/components/ui/Stepper';
+import { useRouter } from 'next/navigation';
 export default function SignUpSteps() {
   const { Funnel, setStep, Step } = useFunnel('약관');
 
   const signUpData = useSignUpForms();
+  const router = useRouter();
   const handleSubmit = async (item: string) => {
     signUpData.nickname = item;
-    console.log(signUpData);
     const res = await signup(signUpData);
-    console.log(res);
-    // router.push('/main');
+    if (res.isSuccess) {
+      alert('회원가입이 완료되었습니다.');
+      router.push('/main');
+    }
   };
 
   return (
