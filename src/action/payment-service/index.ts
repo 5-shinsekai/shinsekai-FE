@@ -329,7 +329,6 @@ export const parsePurchaseFormData = async (paymentForm: FormData) => {
     orderProductList,
   };
 
-  console.log('최종 결제 정보:', purchaseData);
   return purchaseData;
 };
 
@@ -427,13 +426,6 @@ export const submitPurchaseData = async (purchaseData: PurchaseDataType) => {
     body: JSON.stringify(purchaseData),
   });
 
-  if (!res.ok) {
-    const text = await res.text();
-    console.error('서버 응답 상태 코드:', res.status);
-    console.error('서버 응답 내용:', text);
-    throw new Error('Failed to fetch data');
-  }
-
   const data = await res.json();
   console.log(data);
   return data;
@@ -446,7 +438,11 @@ export const purchase = async (paymentForm: FormData) => {
   const purchaseData = await parsePurchaseFormData(paymentForm);
   const response = await submitPurchaseData(purchaseData);
   console.log('결제 완료:', response);
-  await deleteCartList(cartUuidList);
+
+  if (response?.isSuccess) {
+    await deleteCartList(cartUuidList);
+  }
+
   return { isSuccess: response.isSuccess };
 };
 

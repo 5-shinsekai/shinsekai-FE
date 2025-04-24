@@ -21,23 +21,11 @@ export default function SelectAddressList({
     onSelect?.(uuid);
   };
 
-  //   const item = myAddressListData[0]; // 첫 번째  주소 객체
   const router = useRouter();
 
   const handleEdit = (item: Partial<AddressDataType>) => {
     const query = new URLSearchParams({
-      zipNo: item.zipNo || '',
-      addressNickname: item.addressNickname || '',
-      roadAddress: item.roadAddress || '',
-      detailAddress: item.detailAddress || '',
-      deliveryMemo:
-        item.isPersonalMemo === true ? '직접입력' : item.deliveryMemo || '',
-      firstPhoneNumber: item.firstPhoneNumber || '',
-      secondPhoneNumber: item.secondPhoneNumber || '',
-      receiverName: item.receiverName || '',
-      isMainAddress: String(item.isMainAddress || 'false'),
-      isDirectInputMemo:
-        (item.isPersonalMemo === true && item.deliveryMemo) || '',
+      addressUuid: item.addressUuid || '',
     });
     router.push(`/edit-address?${query.toString()}`);
   };
@@ -69,7 +57,7 @@ export default function SelectAddressList({
                 )}
               </p>
               {item.isMainAddress ? (
-                <nav className="text-xs text-custom-gray-400 z-50">
+                <nav className="text-xs text-custom-gray-400 z-30">
                   <span
                     className="px-3"
                     onClick={(e) => {
@@ -81,7 +69,7 @@ export default function SelectAddressList({
                   </span>
                 </nav>
               ) : (
-                <nav className="text-xs text-custom-gray-400 z-50">
+                <nav className="text-xs text-custom-gray-400 z-30">
                   <span
                     className="px-3"
                     onClick={(e) => {
@@ -91,7 +79,6 @@ export default function SelectAddressList({
                   >
                     수정
                   </span>
-                  <span className="border-l px-3">삭제</span>
                 </nav>
               )}
             </div>

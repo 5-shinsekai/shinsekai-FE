@@ -44,7 +44,7 @@ export default function ShowOrderProductList({
                 const outlineData = await getOutlineDataByProductCode(
                   item.productCode || ''
                 );
-                console.log('item.productCode', item.productCode);
+                console.log('item.productCode', item.productOptionListId);
                 const price = await getProductPrice?.({
                   productCode: item.productCode || '',
                   productOptionListId: item.productOptionListId || 0,
@@ -121,7 +121,6 @@ export default function ShowOrderProductList({
         </div>
       )}
 
-      {/* input은 항상 렌더링 */}
       {showInfoList.length > 0 && (
         <>
           <input

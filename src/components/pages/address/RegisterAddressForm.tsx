@@ -15,16 +15,19 @@ import { postAddress } from '@/action/address-service';
 
 export default function RegisterAddressForm() {
   const router = useRouter();
+  const params = useSearchParams();
+  const back = params.get('back');
 
   const handleAction = async (formData: FormData) => {
     try {
       await postAddress(formData);
-      router.back();
+      if (back) {
+        router.push(`/${back}`);
+      }
     } catch (error) {
       console.error('배송지 등록 실패:', error);
     }
   };
-  const params = useSearchParams();
   const isMain = params.get('isMain') === 'true';
   console.log('ismain', isMain);
   const [errorMessages, setErrorMessages] = useState<
@@ -122,6 +125,7 @@ export default function RegisterAddressForm() {
         name="zipNo"
         title="우편번호"
         buttonText="주소검색"
+        nav="push"
         defaultValue={searchParams.get('zipNo') || ''}
         link={`search-address?${new URLSearchParams(searchParams.toString())}`}
         readonly={true}
@@ -199,7 +203,7 @@ export default function RegisterAddressForm() {
       >
         기본배송지로 저장합니다.
       </DefaultCheck>
-      <ButtonWrapper>
+      <ButtonWrapper className="z-50">
         <Button
           type="submit"
           color={!isActive ? 'gray' : 'green'}
