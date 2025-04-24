@@ -8,6 +8,8 @@ import SelectAddressList from '@/components/pages/address/SelectAddressList';
 import { getAddress } from '@/action/address-service';
 import { AddressDataType } from '@/types/AddressDataType';
 
+export const dynamic = 'force-dynamic';
+
 export default function Page() {
   const [addressList, setAddressList] = useState<AddressDataType[]>([]);
   const router = useRouter();
@@ -25,7 +27,7 @@ export default function Page() {
     fetchAddressList();
   }, []);
 
-  const sortedList = [...addressList].sort((a) => (a.isMainAddress ? -1 : 1));
+  // const sortedList = [...addressList].sort((a) => (a.isMainAddress ? -1 : 1));
 
   const [selectedUuid, setSelectedUuid] = useState<string | null>(null);
 
@@ -39,7 +41,7 @@ export default function Page() {
       <div className="flex justify-between items-center py-10">
         <h1 className="text-[1.625rem] font-semibold">배송지 선택</h1>
         <button
-          onClick={() => router.push('/register-address')}
+          onClick={() => router.push('/register-address?back=select-address')}
           className="text-custom-green-100 inline-flex items-center space-x-1"
         >
           <span className="text-2xl font-light">+</span>
@@ -48,12 +50,12 @@ export default function Page() {
       </div>
       <div>
         <SelectAddressList
-          myAddressList={sortedList}
+          myAddressList={addressList}
           onSelect={setSelectedUuid}
         />
       </div>
       <div className="py-15"></div>
-      <ButtonWrapper>
+      <ButtonWrapper className="z-50">
         <Button color="green" className="w-full" onClick={handleClick}>
           변경
         </Button>

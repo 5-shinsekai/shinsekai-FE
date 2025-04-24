@@ -3,6 +3,8 @@ const nextConfig: NextConfig = {
   /* config options here */
   images: {
     domains: [
+      'image.ajunews.com',
+      'www.ikea.com',
       'upload.wikimedia.org',
       'image.istarbucks.co.kr',
       'sitem.ssgcdn.com',

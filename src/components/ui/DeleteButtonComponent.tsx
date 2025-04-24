@@ -32,8 +32,16 @@ export function DeleteAddressButton({ addressUuid }: { addressUuid: string }) {
   const router = useRouter();
 
   const handleDelete = async () => {
-    await deleteAddressByUuid(addressUuid);
-    router.push('/management-address');
+    const confirmed = confirm('정말 삭제하시겠습니까?');
+    if (!confirmed) return;
+
+    try {
+      await deleteAddressByUuid(addressUuid);
+      router.push('/management-address');
+      router.refresh();
+    } catch (error) {
+      console.error('삭제 중 오류 발생:', error);
+    }
   };
 
   return <button onClick={handleDelete}>삭제</button>;

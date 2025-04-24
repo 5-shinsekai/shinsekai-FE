@@ -21,6 +21,7 @@ interface InputInfoPropsType {
   errorMessage?: string;
   maxLength?: number;
   disabled?: boolean;
+  nav?: string;
 }
 
 function HasButtonInputInfo({
@@ -32,6 +33,7 @@ function HasButtonInputInfo({
   required = false,
   buttonText,
   link,
+  nav,
   readonly = false,
   className,
   maxLength = 100,
@@ -77,11 +79,19 @@ function HasButtonInputInfo({
         color="default"
         disabled={disabled}
         className=" active:bg-custom-green-200/20"
-        onClick={() => {
-          if (link) {
-            router.replace(`/${link}`);
-          }
-        }}
+        onClick={
+          nav === 'push'
+            ? () => {
+                if (link) {
+                  router.push(`/${link}`);
+                }
+              }
+            : () => {
+                if (link) {
+                  router.replace(`/${link}`);
+                }
+              }
+        }
       >
         {buttonText}
       </Button>

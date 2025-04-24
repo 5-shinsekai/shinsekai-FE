@@ -142,13 +142,13 @@ export const PurchaseResultModal = ({
           </ul>
         </header>
         <main className="relative flex flex-col items-center justify-center">
-          <div className="text-black text-[1.5rem]">
+          <div className="text-black">
             {success ? (
-              <p className="text-center py-14 md:py-15 ">
+              <p className="text-center text-[1.4rem] py-10 md:py-15 ">
                 {message}가 완료되었습니다
               </p>
             ) : (
-              <p className="text-center py-9 md:py-15 font-medium">
+              <p className="text-[1.2rem] text-center py-7 md:py-15 font-medium">
                 {message}에 실패했습니다
                 <br />
                 <span className="font-light">다시 시도해주세요</span>
@@ -158,7 +158,7 @@ export const PurchaseResultModal = ({
           <Button
             type="button"
             className={cn(
-              'fixed text-[1.2rem] pt-5 bottom-5 border-3 border-custom-gray-500 rounded-none  border-b-0 border-x-0 border-t rounded-b-md w-full'
+              'fixed text-[1.2rem] pt-3 bottom-3 border-3 border-custom-gray-500 rounded-none  border-b-0 border-x-0 border-t rounded-b-md w-full'
             )}
             color="default"
             size="hug"
