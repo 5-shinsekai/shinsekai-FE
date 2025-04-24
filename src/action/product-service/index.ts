@@ -16,9 +16,9 @@ import { EventType, EventDetailType } from '@/types/ProductDataTypes';
 
 export const getMainCategoryList = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/category/main`, {
-    next: {
-      revalidate: 3600,
-    },
+    // next: {
+    //   revalidate: 3600,
+    // },
   });
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -63,9 +63,9 @@ export const getProductThumbnail = async (productCode: string) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/product/outline/${productCode}`,
     {
-      next: {
-        revalidate: 3600,
-      },
+      // next: {
+      //   revalidate: 3600,
+      // },
     }
   );
   if (!res.ok) {
@@ -89,9 +89,9 @@ export const getEventDetail = async (eventId: number) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/event/${eventId}`,
     {
-      next: {
-        revalidate: 3600,
-      },
+      // next: {
+      //   revalidate: 3600,
+      // },
     }
   );
   if (!res.ok) {
@@ -105,9 +105,9 @@ export const getEventProductList = async (eventId: number) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/product-event/${eventId}`,
     {
-      next: {
-        revalidate: 3600,
-      },
+      // next: {
+      //   revalidate: 3600,
+      // },
     }
   );
   if (!res.ok) {
