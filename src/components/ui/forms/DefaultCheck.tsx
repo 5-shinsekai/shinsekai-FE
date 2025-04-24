@@ -126,11 +126,7 @@ export function HasTermCheck({
         <RightArrowIcon />
       </button>
       {modal && (
-        <Modal
-          title="카드 등록 이용약관"
-          setModal={handle}
-          className="h-full w-full "
-        >
+        <Modal title="카드 등록 이용약관" className="h-full w-full ">
           {termLink}
         </Modal>
       )}
