@@ -1,4 +1,3 @@
-'use server';
 import React from 'react';
 import AdressSelectSection from '@/components/pages/cart/AdressSelectSection';
 import CartSection from '@/components/pages/cart/CartSection';

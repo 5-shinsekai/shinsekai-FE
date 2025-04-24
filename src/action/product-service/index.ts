@@ -32,6 +32,7 @@ export const getSubCategoryList = async ({
     `${process.env.NEXT_PUBLIC_BASE_URL}/category/sub/${mainCategoryId}`
   );
   if (!res.ok) {
+    console.log(await res.json());
     throw new Error('Failed to fetch data');
   }
   const data = (await res.json()) as CommonResponseType<CategoryDataType[]>;
@@ -43,6 +44,7 @@ export const getFilterList = async ({
 }: {
   mainCategoryId: number | undefined;
 }) => {
+  console.log(mainCategoryId);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/filter?mainCategoryId=${mainCategoryId == 0 ? '' : mainCategoryId}`
   );
@@ -158,23 +160,32 @@ export const getProductOption = async ({
 };
 
 export const getProductList = async ({
-  params = '',
-  page = 1,
-  sort = [],
+  searchParam,
   size = 10,
 }: {
-  params?: string;
-  page?: number;
-  sort?: string[];
+  searchParam: {
+    [key: string]: string | string[] | undefined;
+  };
   size?: number;
 }) => {
-  const newparam = new URLSearchParams(params);
-  newparam.set('page', page.toString());
-  newparam.set('size', size.toString());
-  newparam.set('sort', sort?.join(',') ?? '');
+  const params = new URLSearchParams();
+  params.set('size', size.toString());
+  Object.entries(searchParam).forEach(([key, value]) => {
+    if (typeof value === 'string') {
+      params.append(key, value);
+    } else if (Array.isArray(value)) {
+      value.forEach((v) => params.append(key, v));
+    }
+  });
+  params.set('size', size.toString());
+  if (params.get('mainCategoryId') === '0') {
+    params.set('mainCategoryId', '');
+  }
+
+  console.log(params.toString());
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/product/filter?${newparam.toString()}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product/filter?${params.toString()}`
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');

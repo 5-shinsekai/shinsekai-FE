@@ -11,9 +11,12 @@ import AllProductList from '@/components/pages/products/AllProductList';
 export default async function page({
   searchParams,
 }: {
-  searchParams: Promise<Readonly<{ highCategory: number }>>;
+  searchParams: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
 }) {
-  const { highCategory } = await searchParams;
+  const searchParam = await searchParams;
+
   const Category = await getMainCategoryList();
   const MainCategory = [
     {
@@ -26,11 +29,15 @@ export default async function page({
   ];
 
   const subCategory = await getSubCategoryList({
-    mainCategoryId: highCategory ?? 0,
+    mainCategoryId: searchParam.mainCategoryId
+      ? Number(searchParam.mainCategoryId)
+      : 0,
   });
 
   const filter = await getFilterList({
-    mainCategoryId: highCategory ?? 0,
+    mainCategoryId: searchParam.mainCategoryId
+      ? Number(searchParam.mainCategoryId)
+      : 0,
   });
   return (
     <div>
@@ -43,7 +50,7 @@ export default async function page({
       />
       <Suspense>
         <ProductSubCategory subCategory={subCategory} filter={filter} />
-        <AllProductList />
+        <AllProductList searchParam={searchParam} />
       </Suspense>
     </div>
   );

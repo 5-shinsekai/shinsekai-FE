@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
       'sstatic.ssgcdn.com',
       'prod-starbucks-product-details.s3.ap-northeast-2.amazonaws.com',
       'blogfiles.naver.net',
+      'www.ikea.com',
+      'image.ajunews.com',
     ],
   },
   async redirects() {

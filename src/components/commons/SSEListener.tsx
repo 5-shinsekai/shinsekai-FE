@@ -16,7 +16,7 @@ export default function NotificationListener({
       `${process.env.NEXT_PUBLIC_BASE_URL}/sse/${memberUuid}`
     );
     eventSourceRef.current = eventSource;
-
+    console.log('SSE 연결 성공');
     // 기본 메시지 수신 처리 (onmessage는 "message" 이벤트 핸들링)
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -31,7 +31,18 @@ export default function NotificationListener({
       console.log('🔔 커스텀 알림:', data);
     });
 
+    eventSource.addEventListener('restock', (event) => {
+      const data = JSON.parse((event as MessageEvent).data);
+      console.log('🔔 커스텀 알림 restock:', data);
+    });
+    eventSource.addEventListener('connected', (event) => {
+      const data = JSON.parse((event as MessageEvent).data);
+      console.log('🔔 연결됨: 진짜루', data);
+    });
+
     eventSource.onerror = (err) => {
+      if (memberUuid) {
+      }
       console.error('❌ SSE 연결 오류', err);
       eventSource.close();
     };
