@@ -9,12 +9,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   const addressList = await getAddress();
-  // const sortedList = addressListData?.length
-  //   ? addressListData.sort((a, b) => {
-  //       if (a.isMainAddress === b.isMainAddress) return 0;
-  //       return a.isMainAddress ? -1 : 1;
-  //     })
-  //   : [];
+
   return (
     <main className="px-5">
       <h1 className="pt-10 pb-6 text-[1.625rem] font-semibold">배송지 관리</h1>

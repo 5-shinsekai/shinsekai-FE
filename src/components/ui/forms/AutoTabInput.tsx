@@ -32,6 +32,7 @@ export default function AutoTabInput({
   type = '',
 }: AutoTabInputProps) {
   const inputRef = useRef<(HTMLInputElement | null)[]>([]);
+
   const initialValues = Array.from({ length: inputbox }, (_, i) => {
     if (!defaultValue) return '';
     const split = defaultValue.split('-');

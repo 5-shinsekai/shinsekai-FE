@@ -71,13 +71,15 @@ export interface ProductDataType {
 }
 
 export interface ShowOrderProductDataType {
+  cartUuid: string;
   productCode: string;
   productName: string;
   productPrice: number;
   discountRate: number;
-  productOptionListId: number[];
+  productOptionId: number;
   quantity: number;
-  thumbnailUrl: string;
+  productImageUrl: string;
+  productTotalPrice: number;
 }
 
 export interface ProductOptionDataType {
@@ -99,4 +101,30 @@ export interface ProductOutlineDataType {
   discountRate: number;
   new: boolean;
   best: boolean;
+}
+
+export interface PurchaseProductLogDataType {
+  productOptionId: number;
+  productCode: string;
+  productName: string;
+  productPrice: number;
+  quantity: number;
+  productImageUrl: string;
+  productImageDescription: string;
+}
+
+export interface PurchaseDataType {
+  purchaseStatus: string;
+  giftCertificationUuid: string;
+  couponUuid: string;
+  shipmentFee: number;
+  productTotalPrice: number;
+  addressUuid: string;
+  orderName: string;
+  paymentPrice: number;
+  paymentMethod: string;
+  paymentStatus: string;
+  receiptUrl: string;
+  memberStarbucksCardUuid: string;
+  orderProductList: PurchaseProductLogDataType[];
 }

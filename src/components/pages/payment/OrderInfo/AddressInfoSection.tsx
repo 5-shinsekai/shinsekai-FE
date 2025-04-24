@@ -87,7 +87,12 @@ export default function AddressInfoSection({
               </p>
             )}
           </div>
-          <input type="hidden" name="addressUuid" value={address.addressUuid} />
+          <input
+            type="hidden"
+            name="addressUuid"
+            value={address.addressUuid}
+            readOnly
+          />
         </section>
       )}
       {address === null && (

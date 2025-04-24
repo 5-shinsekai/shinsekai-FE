@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/Button';
 import React, { ChangeEvent, useState } from 'react';
 import GetAddress from './SearchAddressResult';
 import { cn } from '@/lib/utils';
-import { InputType } from '@/components/ui/InputInfo';
 import { getAddressList } from '@/action/address-service';
 import { AddressResultType, SearchResultType } from '@/types/AddressApiType';
 
@@ -21,14 +20,16 @@ export default function SearchAddressForm() {
 
   const handleInputchange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value.length < 1) {
+    setSubmitAddressInfo(value);
+
+    if (value.trim().length === 0) {
       setError({ message: '검색어를 입력해 주세요.' });
       setIsActive(false);
       return;
     }
-    setIsActive(value.length > 0);
+
     setError({ message: '' });
-    setSubmitAddressInfo(value);
+    setIsActive(true);
     console.log('keyword:', value);
   };
 
@@ -56,23 +57,23 @@ export default function SearchAddressForm() {
         <form onSubmit={handleSearchSubmit} className="space-y-3 pt-3 relative">
           <p
             className={cn(
-              'w-fit px-4 py-1 bg-red-400 text-xs text-white rounded-full absolute top-[-1.8rem] left-[-0.3rem]',
-              'after:content-[""] after:absolute after:left-[2rem] after:transform after:-translate-x-1/2 after:-bottom-2 after:w-0 after:h-0 after:border-l-8 after:border-l-transparent after:border-r-8 after:border-r-transparent after:border-t-8 after:border-t-red-400',
+              'w-fit px-3 py-1 bg-red-400 text-[0.6rem] text-white rounded-full absolute top-[-1.8rem] left-[-0.3rem]',
+              'after:content-[""] after:absolute after:left-[1.5rem] after:transform after:-translate-x-1/2 after:-bottom-1.5 after:w-0 after:h-0 after:border-l-8 after:border-l-transparent after:border-r-8 after:border-r-transparent after:border-t-8 after:border-t-red-400',
               error.message ? 'block' : 'hidden',
               'transition-all duration-300 ease-in-out',
-              'top-[-1.6rem]'
+              'top-[0rem]'
             )}
           >
             {error.message}
           </p>
-          <InputType.InputInfo
+          <input
             onChange={handleInputchange}
             type="text"
-            defaultValue={submitAddressInfo}
+            value={submitAddressInfo || ''}
             id="searchAddress"
             name="searchAddress"
-            title="주소입력"
-            className="border px-3 py-2 rounded w-full"
+            placeholder="주소를 입력해주세요"
+            className="text-sm border mt-5 px-3 py-2 w-full placeholder:text-sm"
           />
           <Button
             type="submit"
