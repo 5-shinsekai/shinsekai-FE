@@ -133,6 +133,9 @@ export default function ProductActionBar({
 
   const handlePurchase = () => {
     if (isAllOptionsSelected) {
+      route.push(
+        `/payment?productCode=${productDetail.productCode}&productOptionId=${selectedOption?.id}&quantity=${quantity}&engravingMessage=""`
+      );
       console.log(selectedOption);
     } else {
       setIsExpanded(true);
