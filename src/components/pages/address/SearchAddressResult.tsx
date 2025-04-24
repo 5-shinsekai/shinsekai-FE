@@ -50,14 +50,14 @@ export default function GetAddress({
         >
           총 {searchResult.totalCount}건의 검색결과
         </p>
-        <ul className="px-2 py-2.5">
+        <ul className="px-2">
           {addressList.map((item, index) => (
             <li
               key={index}
               className="py-4 bg-white border-b-1 border-b-gray-200 cursor-pointer"
               onClick={() => handleGetAddress(item)}
             >
-              <p>{item.zipNo}</p>
+              <p>{item.zipNo} </p>
               <p>{item.roadAddr}</p>
             </li>
           ))}
