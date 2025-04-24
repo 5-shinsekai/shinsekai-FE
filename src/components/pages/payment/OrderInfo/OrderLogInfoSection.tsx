@@ -25,6 +25,9 @@ export default function ShowOrderProductList({
     Partial<ShowOrderProductDataType>[]
   >([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const cartUuidList = orderLogInfo
+    .filter((item) => !!item.cartUuid)
+    .map((item) => item.cartUuid as string);
 
   useEffect(() => {
     console.log('orderLogInfo', orderLogInfo);
@@ -48,19 +51,22 @@ export default function ShowOrderProductList({
                 });
 
                 return {
+                  // cartUuid: item.cartUuid,
                   productOptionId: item.productOptionListId,
-                  productCode: item.productCode || '',
-                  productName: outlineData.productName || '',
+                  productCode: item.productCode,
+                  productName: outlineData.productName,
                   productPrice: outlineData.productPrice,
-                  discountRate: outlineData.discountRate || 0,
-                  quantity: item.quantity || 1,
+                  discountRate: outlineData.discountRate,
+                  quantity: item.quantity,
                   productTotalPrice: price * (item.quantity || 0),
-                  thumbnailUrl: outlineData.thumbnailUrl || '',
+                  productImageUrl: outlineData.thumbnailUrl,
+                  productImageDescription: '',
                 };
               })
           );
         console.log('productInfoList', productInfoList);
         setShowInfoList(productInfoList);
+
         const total = productInfoList.reduce(
           (acc, cur) => acc + (cur.productTotalPrice || 0),
           0
@@ -116,59 +122,22 @@ export default function ShowOrderProductList({
       )}
 
       {/* input은 항상 렌더링 */}
-      {showInfoList.map((item, index) => (
-        <div key={index}>
+      {showInfoList.length > 0 && (
+        <>
           <input
-            name={`orderProductList[${index}].productOptionId`}
-            type="number"
-            value={item.productOptionId}
-            hidden
+            type="hidden"
+            name="cartUuidList"
+            value={JSON.stringify(cartUuidList)}
             readOnly
           />
           <input
-            name={`orderProductList[${index}].productCode`}
-            value={item.productCode}
-            type="string"
-            hidden
+            type="hidden"
+            name="orderProductList"
+            value={JSON.stringify(showInfoList)}
             readOnly
           />
-          <input
-            name={`orderProductList[${index}].productName`}
-            value={item.productName}
-            type="string"
-            hidden
-            readOnly
-          />
-          <input
-            name={`orderProductList[${index}].productPrice`}
-            value={item.productPrice}
-            type="number"
-            hidden
-            readOnly
-          />
-          <input
-            name={`orderProductList[${index}].quantity`}
-            value={item.quantity}
-            type="number"
-            hidden
-            readOnly
-          />
-          <input
-            name={`orderProductList[${index}].thumbnailUrl`}
-            value={item.thumbnailUrl}
-            type="string"
-            hidden
-            readOnly
-          />
-          <input
-            name={`orderProductList[${index}].productImageDescription`}
-            type="string"
-            value=""
-            hidden
-            readOnly
-          />
-        </div>
-      ))}
+        </>
+      )}
     </section>
   );
 }

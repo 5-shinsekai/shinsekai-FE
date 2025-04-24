@@ -63,7 +63,7 @@ export default function ShowAddressList({
                 {item.firstPhoneNumber} | {item.secondPhoneNumber}
               </p>
             ) : (
-              <p className="text-xs text-custom-gray-700">
+              <p className="text-xs text-custom-gray-700 py-2">
                 {item.firstPhoneNumber}
               </p>
             )}

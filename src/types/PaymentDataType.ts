@@ -71,13 +71,14 @@ export interface ProductDataType {
 }
 
 export interface ShowOrderProductDataType {
+  cartUuid: string;
   productCode: string;
   productName: string;
   productPrice: number;
   discountRate: number;
   productOptionId: number;
   quantity: number;
-  thumbnailUrl: string;
+  productImageUrl: string;
   productTotalPrice: number;
 }
 

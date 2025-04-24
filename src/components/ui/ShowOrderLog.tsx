@@ -12,7 +12,7 @@ export function ShowOrderLog({
   return (
     <div className="relative py-2 flex items-center gap-4">
       <Image
-        src={productInfoList.thumbnailUrl || ''}
+        src={productInfoList.productImageUrl || ''}
         alt={productInfoList.productName || ''}
         width={70}
         height={70}
@@ -34,7 +34,7 @@ export function ExpandedShowOrderLog({
   return (
     <div className="flex items-center gap-4">
       <Image
-        src={productInfoList.thumbnailUrl || ''}
+        src={productInfoList.productImageUrl || ''}
         alt={productInfoList.productName || ''}
         width={70}
         height={70}
