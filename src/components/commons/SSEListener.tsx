@@ -11,7 +11,13 @@ export default function NotificationListener({
 }) {
   const eventSourceRef = useRef<EventSource | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [notificationData, setNotificationData] = useState<any>(null);
+  const [notificationData, setNotificationData] = useState<{
+    productCode: string;
+    productName: string;
+  }>({
+    productCode: '',
+    productName: '',
+  });
   const router = useRouter();
   useEffect(() => {
     if (!memberUuid) return;
@@ -30,20 +36,17 @@ export default function NotificationListener({
     };
 
     // 커스텀 이벤트 리스닝 예시
-    eventSource.addEventListener('notification', (event) => {
-      const data = JSON.parse((event as MessageEvent).data);
-      console.log('🔔 커스텀 알림:', data);
-    });
 
     eventSource.addEventListener('restock', (event) => {
-      const data = (event as MessageEvent).data;
+      const data = JSON.parse((event as MessageEvent).data);
       console.log('🔔 커스텀 알림 restock:', data);
+      console.log(data);
+      setNotificationData(data);
+      setShowModal(true);
     });
     eventSource.addEventListener('connected', (event) => {
       const data = (event as MessageEvent).data;
       console.log('🔔 연결됨: 진짜루', data);
-      setNotificationData(data);
-      setShowModal(true);
     });
 
     eventSource.onerror = (err) => {
@@ -64,14 +67,16 @@ export default function NotificationListener({
         <Modal className="h-1/3 rounded-2xl">
           <div className="flex flex-col gap-2 p-5">
             <h1 className="text-2xl text-center font-bold">재입고 알림</h1>
-            <p className="text-center mt-3 text-lg">{notificationData}</p>
+            <p className="text-center mt-3 text-lg">
+              등록하신 {notificationData.productName} 제품이 제입고 되었습니다!
+            </p>
           </div>
           <div className="gap-2 flex justify-center pb-5">
             <Button
               color="green"
               size="md"
               onClick={() => {
-                router.push('/products');
+                router.push(`/products/${notificationData.productCode}`);
                 setShowModal(false);
               }}
             >
