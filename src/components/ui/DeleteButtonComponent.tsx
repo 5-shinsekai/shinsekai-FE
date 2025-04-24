@@ -3,7 +3,6 @@
 import { deleteAddressByUuid } from '@/action/address-service';
 import { deleteStarbuckscard } from '@/action/payment-service';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 import React from 'react';
 
 export function DeleteCardButton({
@@ -29,16 +28,13 @@ export function DeleteCardButton({
 }
 
 export function DeleteAddressButton({ addressUuid }: { addressUuid: string }) {
-  const router = useRouter();
-
   const handleDelete = async () => {
     const confirmed = confirm('정말 삭제하시겠습니까?');
     if (!confirmed) return;
 
     try {
       await deleteAddressByUuid(addressUuid);
-      router.push('/management-address');
-      router.refresh();
+      window.location.reload();
     } catch (error) {
       console.error('삭제 중 오류 발생:', error);
     }

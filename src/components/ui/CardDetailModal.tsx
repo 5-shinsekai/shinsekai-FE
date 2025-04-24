@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import React, { useEffect } from 'react';
+import CloseIcon from './icons/CloseIcon';
 
 interface props {
   title?: string;
@@ -8,7 +9,12 @@ interface props {
   className?: string;
 }
 
-export const CardDetailModal = ({ title, children, className }: props) => {
+export const CardDetailModal = ({
+  title,
+  children,
+  className,
+  setModal,
+}: props) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden'; // 모달 띄워졌을 때 스크롤 막기
     return () => {
@@ -31,10 +37,13 @@ export const CardDetailModal = ({ title, children, className }: props) => {
           className
         )}
       >
-        <header>
+        <header className="relative">
           <h1 className="px-6 pt-10 pb-3 text-[1.625rem] font-semibold ">
             {title}
           </h1>
+          <button onClick={setModal} className="absolute top-3 right-3">
+            <CloseIcon className="size-9" />
+          </button>
         </header>
         <main>
           <div className="text-black">{children}</div>

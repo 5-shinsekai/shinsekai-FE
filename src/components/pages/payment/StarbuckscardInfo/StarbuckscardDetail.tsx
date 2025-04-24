@@ -43,7 +43,7 @@ export default function StarbuckscardDetail({
     <div className="px-6 py-6 min-h-screen">
       {/* 카드 정보 */}
       <div className="relative flex gap-3 w-full mx-auto">
-        <Image src="/starbucksCard1.png" alt="card" width={100} height={50} />
+        <Image src={cardInfo.cardImageUrl} alt="card" width={100} height={50} />
         <div>
           <p>
             {cardInfo.cardName}({cardInfo.cardNumber})

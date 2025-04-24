@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import EmptyStarbuckscard from '@/components/ui/EmptyStarbuckscard';
 import { DefaultCheck } from '@/components/ui/forms/DefaultCheck';
 import { StarbuckscardInfoType } from '@/types/PaymentDataType';
-import { StarbucksCard } from './StarbucksCard';
+import { PaymentPageStarbucksCards } from './StarbucksCard';
 
 export default function PayMethodInfo({
   cardList = [],
@@ -41,7 +41,7 @@ export default function PayMethodInfo({
                 />
               </div>
 
-              <StarbucksCard
+              <PaymentPageStarbucksCards
                 card={card}
                 index={index}
                 handleSelectCard={handleSelectCard}
@@ -58,7 +58,7 @@ export default function PayMethodInfo({
           />
         )}
         {/* 카드 등록 버튼 */}
-        <EmptyStarbuckscard />
+        <EmptyStarbuckscard redirectPage="payment" />
       </div>
     </section>
   );

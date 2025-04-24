@@ -17,7 +17,7 @@ export default function DeliveryStatus({
           {count}
         </li>
       </Link>
-      <li className="text-[0.75rem] pt-1">{title}</li>
+      <li className="text-[0.75rem]">{title}</li>
     </ul>
   );
 }

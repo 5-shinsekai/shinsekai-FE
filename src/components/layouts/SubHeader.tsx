@@ -42,7 +42,7 @@ export default function SubHeader({
   };
 
   return (
-    <header className="sticky top-0 bg-white w-full h-14 content-center px-4 shadow-sm z-50">
+    <header className="sticky top-0 bg-white w-full h-14 content-center px-4 shadow-md z-50">
       <nav className="">
         <ul className="relative flex justify-between items-center">
           <li>

@@ -128,3 +128,15 @@ export interface PurchaseDataType {
   memberStarbucksCardUuid: string;
   orderProductList: PurchaseProductLogDataType[];
 }
+
+export interface MyOrderInfoDataType {
+  purchaseCode: string;
+  paymentCode: string;
+  purchaseStatus: string;
+  addressUuid: string;
+  giftCertificationUuid: string;
+  couponUuid: string;
+  shipmentFee: number;
+  productTotalPrice: number;
+  orderProductList: PurchaseProductLogDataType[];
+}

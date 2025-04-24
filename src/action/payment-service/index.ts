@@ -3,6 +3,7 @@
 import {
   ChargeStarbucksCardApiType,
   ExternalStarbucksCardDataType,
+  MyOrderInfoDataType,
   PurchaseDataType,
   PurchaseProductLogDataType,
   RegisterStarbucksCardDataType,
@@ -20,7 +21,10 @@ import { options } from '@/app/api/auth/[...nextauth]/options';
 // const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 // 스타벅스 카드 등록
-export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
+export const externalStarbuckscard = async (
+  starbuckscardForm: FormData,
+  link: string
+) => {
   const starbuckscardData: Partial<ExternalStarbucksCardDataType> = {
     cardName: starbuckscardForm.get('cardName') as string,
     cardNumber: starbuckscardForm.get('cardNumber') as string,
@@ -52,7 +56,7 @@ export const externalStarbuckscard = async (starbuckscardForm: FormData) => {
   console.log('API로부터 받은 데이터 (외부api):', data);
   const cardData = await registerStarbuckscard(data);
   console.log('카드 등록되었는지 확인', cardData);
-  redirect(`/payment`);
+  redirect(`/${link}`);
 };
 
 const registerStarbuckscard = async (data: RegisterStarbucksCardDataType) => {
@@ -332,88 +336,6 @@ export const parsePurchaseFormData = async (paymentForm: FormData) => {
   return purchaseData;
 };
 
-// export const parsePurchaseFormData = async (paymentForm: FormData) => {
-//   const entries = Array.from(paymentForm.entries());
-//   console.log(entries);
-//   const productInfoMap: Record<
-//     number,
-//     Partial<PurchaseProductLogDataType>
-//   > = {};
-
-//   const orderProductInfo = {
-//     productOptionId: 'productOptionId',
-//     productCode: 'productCode',
-//     productName: 'productName',
-//     productPrice: 'productPrice',
-//     quantity: 'quantity',
-//     thumbnailUrl: 'productImageUrl',
-//     productImageDescription: 'productImageDescription',
-//   } as const;
-
-//   type FieldMapKey = keyof typeof orderProductInfo;
-//   type ProductKey = keyof PurchaseProductLogDataType;
-
-//   for (const [key, value] of entries) {
-//     const match = key.match(/^orderProductList\[(\d+)\]\.(\w+)$/);
-//     if (!match) continue;
-
-//     const index = Number(match[1]);
-//     const rawField = match[2] as FieldMapKey;
-//     const mappedField = orderProductInfo[rawField] as ProductKey;
-
-//     if (!mappedField) continue;
-
-//     if (!productInfoMap[index]) productInfoMap[index] = {};
-
-//     const isNumberField = [
-//       'productOptionId',
-//       'productPrice',
-//       'quantity',
-//     ].includes(rawField);
-//     console.log(isNumberField);
-
-//     if (
-//       mappedField === 'productOptionId' ||
-//       mappedField === 'productPrice' ||
-//       mappedField === 'quantity'
-//     ) {
-//       productInfoMap[index][mappedField] = Number(
-//         value
-//       ) as PurchaseProductLogDataType[typeof mappedField];
-//     } else {
-//       productInfoMap[index][mappedField] = String(
-//         value
-//       ) as PurchaseProductLogDataType[typeof mappedField];
-//     }
-//   }
-
-//   const orderProductList: PurchaseProductLogDataType[] = Object.values(
-//     productInfoMap
-//   ) as PurchaseProductLogDataType[];
-
-//   const purchaseData: PurchaseDataType = {
-//     purchaseStatus: 'PAYMENT_COMPLETED',
-//     giftCertificationUuid:
-//       paymentForm.get('giftCertificationUuid')?.toString() || '',
-//     couponUuid: paymentForm.get('couponUuid')?.toString() || '',
-//     shipmentFee: Number(paymentForm.get('shipmentFee')) || 0,
-//     productTotalPrice: Number(paymentForm.get('productTotalPrice')) || 0,
-//     addressUuid: paymentForm.get('addressUuid')?.toString() || '',
-//     orderName: paymentForm.get('orderName')?.toString() || '',
-//     paymentPrice: Number(paymentForm.get('paymentPrice')) || 0,
-//     paymentMethod:
-//       paymentForm.get('paymentMethod')?.toString() || 'starbuckscard',
-//     paymentStatus: 'DONE',
-//     receiptUrl: paymentForm.get('receiptUrl')?.toString() || '',
-//     memberStarbucksCardUuid:
-//       paymentForm.get('paymentCardUuid')?.toString() || '',
-//     orderProductList,
-//   };
-
-//   console.log('최종 결제 정보:', purchaseData);
-//   return purchaseData;
-// };
-
 export const submitPurchaseData = async (purchaseData: PurchaseDataType) => {
   const session = await getServerSession(options);
   const ACCESS_TOKEN = session?.user.accessToken;
@@ -473,4 +395,27 @@ export const deleteCartList = async (cartUuidList: string[]) => {
   const data = await res.json();
   console.log('장바구니 삭제 API 결과:', data);
   return data.result;
+};
+
+export const getMyOrderList = async (): Promise<MyOrderInfoDataType> => {
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+  const res = await fetch(`http://3.37.52.123:8080/api/v1/purchase`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('등록된 스타벅스 카드 조회 실패');
+  }
+
+  const data = await res.json();
+  console.log('조회된  목록:', data);
+  return data;
 };

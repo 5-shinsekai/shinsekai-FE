@@ -10,12 +10,15 @@ import ButtonWrapper from '../wrapper/ButtonWrapper';
 import { Button } from '../Button';
 import { cn } from '@/lib/utils';
 import RegisterStarbucksCardTerm from '@/components/pages/payment/RegisterStarbucksCardForm/RegisterStarbucksCardTerm';
+import { useSearchParams } from 'next/navigation';
 
 export default function RegisterStarbuckscardForm({
   action,
 }: {
-  action: (starbuckscardForm: FormData) => void;
+  action: (formData: FormData, link: string) => void;
 }) {
+  const params = useSearchParams();
+
   const [isValid, setIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [inputValues, setInputValues] = useState<ExternalStarbucksCardDataType>(
@@ -73,7 +76,10 @@ export default function RegisterStarbuckscardForm({
   }, [inputValues, isChecked]);
 
   return (
-    <form action={action} className="h-full mx-4 my-10">
+    <form
+      action={(formData) => action(formData, params.get('redirect') || '')}
+      className="h-full mx-4 my-10"
+    >
       <div className="space-y-13">
         <InputType.FormInputInfo
           id="cardName"

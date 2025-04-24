@@ -3,7 +3,6 @@ import AgreementIcon from '@/components/ui/icons/AgreementIcon';
 import AlarmIcon from '@/components/ui/icons/AlarmIcon';
 import CouponIcon from '@/components/ui/icons/CouponIcon';
 import DeliveryIcon from '@/components/ui/icons/DeliveryIcon';
-import GiftIcon from '@/components/ui/icons/GiftIcon';
 import OrderLogIcon from '@/components/ui/icons/OrderLogIcon';
 
 export const shoppingInfoData: MyPageInfoType[] = [
@@ -13,29 +12,24 @@ export const shoppingInfoData: MyPageInfoType[] = [
     link: './myorder',
     icon: OrderLogIcon,
   },
+
   {
     id: 2,
-    title: '선물함',
-    link: './mygift',
-    icon: GiftIcon,
-  },
-  {
-    id: 3,
-    title: '쿠폰',
-    link: './mycoupon',
-    icon: CouponIcon,
-  },
-  {
-    id: 4,
     title: '배송지 관리',
     link: './management-address',
     icon: DeliveryIcon,
   },
   {
-    id: 5,
+    id: 3,
     title: '알림 신청 내역',
     link: './myalert',
     icon: AlarmIcon,
+  },
+  {
+    id: 4,
+    title: '스타벅스 카드',
+    link: './myStarbuckscard',
+    icon: CouponIcon,
   },
 ];
 
