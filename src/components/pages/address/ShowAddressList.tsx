@@ -39,14 +39,26 @@ export default function ShowAddressList({
                 )}
               </p>
               {item.isMainAddress ? (
-                <nav className="text-xs text-custom-gray-400">
-                  <span className="px-3" onClick={() => handleEdit(item)}>
+                <nav className="text-xs text-custom-gray-400 z-30">
+                  <span
+                    className="px-3"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEdit(item);
+                    }}
+                  >
                     수정
                   </span>
                 </nav>
               ) : (
-                <nav className="text-xs text-custom-gray-400">
-                  <span className="px-3" onClick={() => handleEdit(item)}>
+                <nav className="text-xs text-custom-gray-400 z-30">
+                  <span
+                    className="px-3"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEdit(item);
+                    }}
+                  >
                     수정
                   </span>
                   <DeleteAddressButton addressUuid={item.addressUuid} />

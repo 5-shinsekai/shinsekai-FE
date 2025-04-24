@@ -134,6 +134,7 @@ export default function EditAddressForm({
         readonly={true}
         required
         disabled={true}
+        nav="push"
         className="text-custom-gray-400 font-semibold"
       />
       <InputType.InputInfo
@@ -156,18 +157,6 @@ export default function EditAddressForm({
         required
         errorMessage={errorMessages.detailAddress}
       />
-      {/* <InputType.FormInputInfo
-        type="text"
-        id="firstPhoneNumber"
-        name="firstPhoneNumber"
-        title="연락처1"
-        onChange={handleChange}
-        defaultValue={searchParams.get('firstPhoneNumber') || ''}
-        required
-        errorMessage={
-          errorMessages.firstPhoneNumber ? errorMessages.firstPhoneNumber : ''
-        }
-      /> */}
       <AutoTabInput
         type="text"
         inputbox={3}
@@ -181,15 +170,6 @@ export default function EditAddressForm({
         errorMessage={errorMessages.firstPhoneNumber}
         className="pt-4"
       />
-      {/* <InputType.FormInputInfo
-        type="text"
-        id="secondPhoneNumber"
-        name="secondPhoneNumber"
-        onChange={handleChange}
-        defaultValue={searchParams.get('secondPhoneNumber') || ''}
-        title="연락처2"
-        errorMessage={errorMessages.secondPhoneNumber}
-      /> */}
       <AutoTabInput
         type="text"
         inputbox={3}

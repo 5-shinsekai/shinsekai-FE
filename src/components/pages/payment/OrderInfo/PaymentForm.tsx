@@ -28,7 +28,7 @@ export default function PaymentForm({
   const [totalAmount, setTotalAmount] = useState(0);
   const params = useSearchParams();
   const productCode = params.get('productCode') || '';
-  const productOptionListId = Number(params.get('productOptiontId')) || 0;
+  const productOptionListId = Number(params.get('productOptionId')) || 0;
   const quantity = Number(params.get('quantity')) || 1;
   const engravingMessage = params.get('engravingMessage') || '';
 

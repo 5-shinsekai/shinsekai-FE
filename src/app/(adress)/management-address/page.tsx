@@ -1,14 +1,27 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import ShowAddressList from '@/components/pages/address/ShowAddressList';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
 import { Button } from '@/components/ui/Button';
 import { getAddress } from '@/action/address-service';
-import Link from 'next/link';
+import { AddressDataType } from '@/types/AddressDataType';
+import { useRouter } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Page() {
-  const addressList = await getAddress();
+export default function Page() {
+  const router = useRouter();
+
+  const [addressList, setAddressList] = useState<AddressDataType[]>([]);
+  useEffect(() => {
+    const fetchAddressList = async () => {
+      const addressList = await getAddress();
+      setAddressList(addressList);
+      return addressList;
+    };
+    fetchAddressList();
+  }, []);
 
   return (
     <main className="px-5">
@@ -17,19 +30,30 @@ export default async function Page() {
         <ShowAddressList myAddressList={addressList} />
       </div>
       <div className="py-15"></div>
-      <ButtonWrapper>
+      <ButtonWrapper className="z-50">
         {addressList.length === 0 ? (
-          <Link href="/register-address?isMain=true">
-            <Button color="green" className="w-full">
-              새 배송지 추가
-            </Button>
-          </Link>
+          <Button
+            onClick={() =>
+              router.push(
+                '/register-address?back=management-address&isMain=true'
+              )
+            }
+            color="green"
+            className="w-full"
+          >
+            새 배송지 추가
+          </Button>
         ) : (
-          <Link href="/register-address">
-            <Button color="green" className="w-full">
-              새 배송지 추가
-            </Button>
-          </Link>
+          <Button
+            onClick={() =>
+              router.push('/register-address?back=management-address')
+            }
+            color="green"
+            className="w-full"
+          >
+            새 배송지 추가
+          </Button>
+          // </Link>
         )}
       </ButtonWrapper>
     </main>
