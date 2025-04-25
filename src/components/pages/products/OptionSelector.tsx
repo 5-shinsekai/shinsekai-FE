@@ -40,12 +40,12 @@ export default function OptionSelector({
         </select>
       </div>
 
-      <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
+      <div className="space-y-2 group">
+        <label className="block text-sm font-medium text-gray-700 group-has-disabled:opacity-50">
           사이즈
         </label>
         <select
-          className="w-full p-2 border rounded-lg"
+          className="w-full p-2 border rounded-lg disabled:opacity-50"
           value={selectedSize || ''}
           onChange={(e) => onSizeChange(Number(e.target.value))}
           disabled={!selectedColor}

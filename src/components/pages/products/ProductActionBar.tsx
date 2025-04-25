@@ -5,7 +5,11 @@ import { Button } from '@/components/ui/Button';
 import CartIcon from '@/components/ui/icons/CartIcon';
 import { cn } from '@/lib/utils';
 import { ProductDetailType, ProductOptionType } from '@/types/ProductDataTypes';
-import { getProductOption, getOptionName } from '@/action/product-service';
+import {
+  getProductOption,
+  getOptionName,
+  reorderProduct,
+} from '@/action/product-service';
 import OptionSelector from './OptionSelector';
 import QuantitySelector from './QuantitySelector';
 import { addCartItem } from '@/action/cart-service';
@@ -27,12 +31,39 @@ export default function ProductActionBar({
   const [colorNames, setColorNames] = useState<{ [key: number]: string }>({});
   const [sizeNames, setSizeNames] = useState<{ [key: number]: string }>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  const [dialogType, setDialogType] = useState<'reload' | 'cart' | 'login'>(
+    'reload'
+  );
   const isLoggedIn = useLoginSession();
   const route = useRouter();
   const basePrice =
     productDetail.productPrice * (1 - productDetail.discountRate / 100);
 
+  const dialogOption = {
+    reload: {
+      title: '재입고 신청',
+      content:
+        '재입고 신청이 완료되었습니다. 알람 신청 페이지로 이동 하시겠습니까?',
+      confirmText: '확인',
+      cancelText: '취소',
+      router: '/myalert',
+    },
+    cart: {
+      title: '장바구니 추가',
+      content: '장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?',
+      confirmText: '확인',
+      cancelText: '취소',
+      router: '/cart',
+    },
+    login: {
+      title: '로그인 필요',
+      content:
+        '로그인 후 이용하실 수 있습니다. 로그인 페이지로 이동하시겠습니까?',
+      confirmText: '확인',
+      cancelText: '취소',
+      router: '/login?callbackUrl=/products/' + productDetail.productCode,
+    },
+  };
   useEffect(() => {
     const fetchProductOptions = async () => {
       const options = await Promise.all(
@@ -127,9 +158,18 @@ export default function ProductActionBar({
 
   const calculateTotalPrice = () => {
     if (selectedOption) {
+      if (selectedOption.stockCount === 0) {
+        return 0;
+      }
       return (basePrice + selectedOption.optionPrice) * quantity;
     }
     return 0;
+  };
+
+  const handleReorder = async () => {
+    const res = await reorderProduct(selectedOption?.id.toString() ?? '', 30);
+    setDialogType('reload');
+    setIsDialogOpen(true);
   };
 
   const handlePurchase = () => {
@@ -156,7 +196,8 @@ export default function ProductActionBar({
         selectedOption?.id.toString()
       );
       if (res.isSuccess) {
-        alert('장바구니에 추가되었습니다.');
+        setDialogType('cart');
+        setIsDialogOpen(true);
         console.log(res);
       } else {
         alert(res.message);
@@ -164,6 +205,7 @@ export default function ProductActionBar({
       }
     } else {
       if (!isLoggedIn) {
+        setDialogType('login');
         setIsDialogOpen(true);
       } else {
         setIsExpanded(true);
@@ -205,6 +247,7 @@ export default function ProductActionBar({
                 basePrice={basePrice}
                 optionPrice={selectedOption.optionPrice}
                 onQuantityChange={handleQuantityChange}
+                stockCount={selectedOption.stockCount}
               />
             </div>
           )}
@@ -226,29 +269,36 @@ export default function ProductActionBar({
       >
         <div className="flex px-6 pt-4 justify-between">
           <CartIcon className="min-w-9 size-9" onClick={handleCart} />
-          <Button
-            size="md"
-            color="green"
-            className="w-5/6"
-            onClick={handlePurchase}
-            disabled={isExpanded && !isAllOptionsSelected}
-          >
-            구매하기
-          </Button>
+          {selectedOption?.stockCount === 0 ? (
+            <Button
+              size="md"
+              color="green"
+              className="w-5/6"
+              onClick={handleReorder}
+              disabled={isExpanded && !isAllOptionsSelected}
+            >
+              재입고 신청
+            </Button>
+          ) : (
+            <Button
+              size="md"
+              color="green"
+              className="w-5/6"
+              onClick={handlePurchase}
+              disabled={isExpanded && !isAllOptionsSelected}
+            >
+              구매하기
+            </Button>
+          )}
         </div>
       </div>
+
       <Dialog
+        dialogOption={dialogOption}
+        dialogType={dialogType}
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
-        onConfirm={() =>
-          route.push(
-            '/login?callbackUrl=/products/' + productDetail.productCode
-          )
-        }
-        title="로그인 필요"
-        content={`로그인 후 이용하실 수 있습니다.\n로그인 페이지로 이동하시겠습니까?`}
-        cancelText="취소"
-        confirmText="로그인"
+        onConfirm={() => route.push(dialogOption[dialogType].router)}
       />
     </section>
   );

@@ -7,20 +7,23 @@ interface DialogProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  title: string;
-  content: string;
-  confirmText?: string;
-  cancelText?: string;
+  dialogOption: {
+    [key: string]: {
+      title: string;
+      content: string;
+      confirmText?: string;
+      cancelText?: string;
+    };
+  };
+  dialogType: string;
 }
 
 export default function Dialog({
+  dialogOption,
+  dialogType,
   isOpen,
   onClose,
   onConfirm,
-  title,
-  content,
-  confirmText = '확인',
-  cancelText = '취소',
 }: DialogProps) {
   if (!isOpen) return null;
 
@@ -35,14 +38,18 @@ export default function Dialog({
         className="bg-white p-6 rounded-lg w-[90%] max-w-md shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">{title}</h2>
-        <p className="text-gray-600 mb-6  break-keep text-balance">{content}</p>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          {dialogOption[dialogType].title}
+        </h2>
+        <p className="text-gray-600 mb-6  break-keep text-balance">
+          {dialogOption[dialogType].content}
+        </p>
         <div className="flex justify-center gap-2">
           <Button onClick={onClose} size="md">
-            {cancelText}
+            {dialogOption[dialogType].cancelText}
           </Button>
           <Button onClick={onConfirm} color="green" size="md">
-            {confirmText}
+            {dialogOption[dialogType].confirmText}
           </Button>
         </div>
       </div>
