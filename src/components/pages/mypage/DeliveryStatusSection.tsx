@@ -6,14 +6,14 @@ import { deliveryStatusData } from '@/data/MypageData';
 export default function DeliveryStatusSection() {
   return (
     <section className="py-10">
-      <header className="flex justify-between items-center px-[1.5rem] pb-[1.5rem]">
-        <h1 className="font-semibold text-[1rem]">주문/배송현황</h1>
+      <header className="flex justify-between items-center px-8 pb-[1.5rem]">
+        <h1 className="font-semibold text-[1.1rem]">주문/배송현황</h1>
         <p className="text-custom-gray-700 text-[0.688rem]">
           최근 3개월동안 구매한 상품
         </p>
       </header>
       <nav className="">
-        <ul className="flex items-center justify-center md:space-x-4 lg:space-x-8">
+        <ul className="flex items-center justify-center space-x-1.5">
           {deliveryStatusData.map((status, index) => (
             <React.Fragment key={status.id}>
               <DeliveryStatus

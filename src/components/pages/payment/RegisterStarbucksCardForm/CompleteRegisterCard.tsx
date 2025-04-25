@@ -33,7 +33,13 @@ export default function CompleteRegisterCard({ card }: Props) {
         <p className="py-1">잔액: {card.remainAmount.toLocaleString()}원</p>
       </main>
       <ButtonWrapper>
-        <Button color="green" onClick={() => router.push('/payment')}>
+        <Button
+          color="green"
+          onClick={() => {
+            router.push('/payment');
+            router.refresh();
+          }}
+        >
           확인
         </Button>
       </ButtonWrapper>

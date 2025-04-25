@@ -8,6 +8,8 @@ export default function AmountInfo({ totalAmount }: { totalAmount: number }) {
       <div className="bg-custom-gray-200 px-6 py-5 my-5 space-y-1.5">
         <div className="flex justify-between text-[1rem] font-semibold">
           <h2>주문 금액</h2>
+          <input hidden name="productTotalPrice" value={totalAmount} readOnly />
+
           <p>{totalAmount.toLocaleString()}</p>
         </div>
         <div className="flex justify-between text-[0.875rem] font-medium">

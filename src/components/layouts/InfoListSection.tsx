@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { InfoSectionLayoutType } from '@/types/MypageDataType';
+import { cn } from '@/lib/utils';
 
 export default function InfoListSectionLayout({
   title,
@@ -8,16 +9,17 @@ export default function InfoListSectionLayout({
   className = '',
 }: InfoSectionLayoutType) {
   return (
-    <section className={`bg-custom-gray-100 px-[1.5rem] ${className}`}>
-      <h1 className="text-4 font-semibold pt-[1.875rem] pb-[1.25rem]">
-        {title}
-      </h1>
+    <section className={cn('bg-custom-gray-100 px-8', className)}>
+      <h1 className="text-[1.1rem] font-semibold pt-6 pb-4">{title}</h1>
       <nav>
-        <ul className="flex flex-col justify-between gap-[1.75rem]">
+        <ul className="grid grid-cols-2 gap-5 px-2">
           {items.map((item) => (
-            <li key={item.id} className="flex items-center gap-2">
-              <item.icon className="size-[30px]" />
-              <Link href={item.link} key={item.id}>
+            <li
+              key={item.id}
+              className="flex flex-col items-center bg-white rounded-2xl py-4 shadow-md"
+            >
+              <item.icon className="size-7.5" />
+              <Link className="text-[1rem]" href={item.link} key={item.id}>
                 {item.title}
               </Link>
             </li>
