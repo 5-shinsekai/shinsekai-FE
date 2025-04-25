@@ -13,7 +13,7 @@ export default function DeliveryStatusSection() {
         </p>
       </header>
       <nav className="">
-        <ul className="flex items-center justify-center space-x-2.5">
+        <ul className="flex items-center justify-center space-x-1.5">
           {deliveryStatusData.map((status, index) => (
             <React.Fragment key={status.id}>
               <DeliveryStatus

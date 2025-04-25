@@ -22,7 +22,7 @@ export const shoppingInfoData: MyPageInfoType[] = [
   {
     id: 3,
     title: '알림 신청 내역',
-    link: './myalert',
+    link: './mypage/myalert',
     icon: AlarmIcon,
   },
   {

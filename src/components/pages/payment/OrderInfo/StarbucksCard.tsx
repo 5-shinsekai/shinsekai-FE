@@ -79,8 +79,8 @@ export function MypageStarbucksCards({
 
   return (
     <>
-      <section className="flex flex-col items-center pt-2 pb-4 bg-white rounded-2xl shadow-xl">
-        <div className="flex justify-between py-2 px-1 w-[260px]">
+      <section className="flex flex-col items-center pt-2 pb-4 mx-3 bg-white rounded-2xl shadow-xl">
+        <div className="flex justify-between py-2 px-1= w-[200px]">
           <p className="text-md text-custom-gray-600">{card.cardName}</p>
           <p className="font-semibold">
             {card.remainAmount.toLocaleString()}
@@ -90,7 +90,7 @@ export function MypageStarbucksCards({
         <Image
           src={card.cardImageUrl}
           alt={card.cardName}
-          width={262}
+          width={200}
           height={166}
           className="rounded-sm "
           onClick={handleClick}

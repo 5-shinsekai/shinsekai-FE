@@ -49,17 +49,15 @@ export default function ShowOrderProductList({
                   productCode: item.productCode || '',
                   productOptionListId: item.productOptionListId || 0,
                 });
-
                 return {
-                  // cartUuid: item.cartUuid,
-                  productOptionId: item.productOptionListId,
-                  productCode: item.productCode,
-                  productName: outlineData.productName,
-                  productPrice: outlineData.productPrice,
-                  discountRate: outlineData.discountRate,
-                  quantity: item.quantity,
-                  productTotalPrice: price * (item.quantity || 0),
-                  productImageUrl: outlineData.thumbnailUrl,
+                  productOptionId: item.productOptionListId ?? 0,
+                  productCode: item.productCode ?? '',
+                  productName: outlineData.productName ?? '',
+                  productPrice: outlineData.productPrice ?? 0,
+                  discountRate: outlineData.discountRate ?? 0,
+                  quantity: item.quantity ?? 1,
+                  productTotalPrice: price ? price * (item.quantity ?? 1) : 0,
+                  productImageUrl: outlineData.thumbnailUrl ?? '',
                   productImageDescription: '',
                 };
               })
@@ -121,7 +119,7 @@ export default function ShowOrderProductList({
         </div>
       )}
 
-      {showInfoList.length > 0 && (
+      {!isLoading && showInfoList.length > 0 && (
         <>
           <input
             type="hidden"

@@ -21,7 +21,7 @@ export default function MyStarbuckscards({
   return (
     <section className="">
       <header className="flex justify-between items-center py-10  px-6 fixed w-full top-13 z-50 bg-white shadow-md">
-        <h1 className="text-[1.625rem] font-semibold">
+        <h1 className="text-xl font-semibold">
           스타벅스 카드
           <span className="font-medium px-1">({cardList.length})</span>
         </h1>
@@ -29,7 +29,10 @@ export default function MyStarbuckscards({
           + 새 카드 추가
         </button>
       </header>
-      <div className="px-6 py-45 flex flex-col items-center gap-6 mx-2">
+      <div
+        className="px-6 py-35 flex flex-col items-center gap-4
+       mx-2"
+      >
         {/* 등록된 카드 리스트 */}
         <>
           {cardList.length > 0 &&

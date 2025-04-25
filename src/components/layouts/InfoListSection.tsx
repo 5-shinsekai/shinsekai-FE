@@ -18,8 +18,8 @@ export default function InfoListSectionLayout({
               key={item.id}
               className="flex flex-col items-center bg-white rounded-2xl py-4 shadow-md"
             >
-              <item.icon className="size-10" />
-              <Link className="text-[1.1rem]" href={item.link} key={item.id}>
+              <item.icon className="size-7.5" />
+              <Link className="text-[1rem]" href={item.link} key={item.id}>
                 {item.title}
               </Link>
             </li>

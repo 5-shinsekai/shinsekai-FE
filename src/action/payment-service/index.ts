@@ -332,25 +332,8 @@ export const parsePurchaseFormData = async (paymentForm: FormData) => {
       paymentForm.get('paymentCardUuid')?.toString() || '',
     orderProductList,
   };
-
+  console.log('purchaseData', purchaseData);
   return purchaseData;
-};
-
-export const submitPurchaseData = async (purchaseData: PurchaseDataType) => {
-  const session = await getServerSession(options);
-  const ACCESS_TOKEN = session?.user.accessToken;
-  const res = await fetch(`http://3.37.52.123:8080/api/v1/purchase`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${ACCESS_TOKEN}`,
-    },
-    body: JSON.stringify(purchaseData),
-  });
-
-  const data = await res.json();
-  console.log(data);
-  return data;
 };
 
 export const purchase = async (paymentForm: FormData) => {
@@ -366,6 +349,25 @@ export const purchase = async (paymentForm: FormData) => {
   }
 
   return { isSuccess: response.isSuccess };
+};
+
+export const submitPurchaseData = async (purchaseData: PurchaseDataType) => {
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+  const res = await fetch(`http://3.37.52.123:8080/api/v1/purchase`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+    body: JSON.stringify(purchaseData),
+  });
+
+  const data = await res.json();
+  console.log('purchase', purchaseData);
+
+  console.log(data);
+  return data;
 };
 
 export const deleteCartList = async (cartUuidList: string[]) => {
@@ -397,7 +399,7 @@ export const deleteCartList = async (cartUuidList: string[]) => {
   return data.result;
 };
 
-export const getMyOrderList = async (): Promise<MyOrderInfoDataType> => {
+export const getMyOrderList = async (): Promise<MyOrderInfoDataType[]> => {
   const session = await getServerSession(options);
   const ACCESS_TOKEN = session?.user.accessToken;
   const res = await fetch(`http://3.37.52.123:8080/api/v1/purchase`, {
