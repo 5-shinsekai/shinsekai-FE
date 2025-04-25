@@ -180,6 +180,7 @@ export default function ProductActionBar({
       console.log(selectedOption);
     } else {
       if (!isLoggedIn) {
+        setDialogType('login');
         setIsDialogOpen(true);
       } else {
         setIsExpanded(true);
