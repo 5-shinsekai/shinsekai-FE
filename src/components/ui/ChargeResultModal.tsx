@@ -230,7 +230,7 @@ export const OrderDetailModal = ({
           ))}
           <h1 className="text-lg font-semibold py-2 px-2 mt-6">주문 정보</h1>
           <div className="bg-custom-gray-100 rounded-sm shadow-md px-4 py-3">
-            <ShortInfo title="주문 일시" content="202020 오후 몇시" />
+            <ShortInfo title="주문 일시" content="2025.04.25 16:03" />
             <ShortInfo title="주문 번호" content={orderInfo.purchaseCode} />
           </div>
           <Divider className="w-full mx-auto" />
