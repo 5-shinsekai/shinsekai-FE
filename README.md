@@ -37,11 +37,33 @@ pnpm run dev
 
 ```
 src/
-  ├── components/     # 재사용 가능한 컴포넌트
-  ├── types/         # TypeScript 타입 정의
-  ├── services/      # API 서비스
-  └── ...
+├── app/                # Next.js App Router 페이지 및 레이아웃
+├── components/         # 재사용 가능한 UI 컴포넌트
+├── action/            # API 요청 및 서버 액션
+├── config/            # next-auth 설정 관련 파일
+├── context/           # Contextapi 관련 파일
+├── data/              # 정적 데이터 및 상수
+├── fonts/             # 폰트 파일
+├── lib/               # 유틸리티 함수 및 라이브러리
+├── provider/          # React Provider 컴포넌트
+├── schemas/           # 데이터 검증 스키마
+├── types/             # TypeScript 타입 정의
+└── middleware.ts      # Next.js 미들웨어
+
+public/               # 정적 파일 (이미지, 아이콘 등)
 ```
+
+### 주요 파일 설명
+
+- `next.config.ts`: Next.js 설정 파일
+- `tsconfig.json`: TypeScript 설정 파일
+- `package.json`: 프로젝트 의존성 및 스크립트
+- `Dockerfile`: Docker 컨테이너 설정
+- `docker-compose.yml`: Docker Compose 설정
+- `.env`: 환경 변수 설정
+- `.prettierrc`: 코드 포맷팅 설정
+- `eslint.config.mjs`: ESLint 설정
+- `postcss.config.mjs`: PostCSS 설정
 
 ## 개발 가이드
 
@@ -56,6 +78,8 @@ src/
 ```bash
 git config core.ignorecase false
 ```
+
+- 프로젝트 파일의 대소문자 구분을 위해 설정 변경
 
 ### FE 컨벤션
 
@@ -74,34 +98,11 @@ git config core.ignorecase false
 
 ### 커밋 메시지 컨벤션
 
-- feat: 새로운 기능 추가
-- fix: 버그 수정
-- docs: 문서 수정
-- style: 코드 스타일 변경
-- refactor: 코드 리팩토링
-- test: 테스트 코드 추가/수정
-- chore: 빌드 프로세스 또는 보조 도구 변경
-
-## 배포
-
-1. 빌드
-
-```bash
-pnpm run build
-```
-
-2. 배포 프로세스
-
-- [배포 프로세스 설명]
-
-## 기여 방법
-
-1. 이슈 생성
-2. 브랜치 생성
-3. 코드 수정
-4. PR 제출
-5. 코드 리뷰
-
-## 라이센스
-
-[라이센스 정보]
+- Feat: 새로운 기능 추가
+- Fix: 버그 수정
+- Docs: 문서 수정
+- Style: 코드 스타일 변경
+- Refactor: 코드 리팩토링
+- Test: 테스트 코드 추가/수정
+- Chore: 빌드 프로세스 또는 보조 도구 변경
+- Merge : 코드 merge
