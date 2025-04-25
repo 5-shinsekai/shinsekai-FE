@@ -32,6 +32,7 @@ export default function LogInSection() {
       if (res?.ok) {
         const callbackUrl = searchParams.get('callbackUrl');
         router.push(callbackUrl || '/');
+        router.refresh();
       }
     } catch (error) {
       console.log(error);

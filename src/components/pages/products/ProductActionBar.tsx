@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import CartIcon from '@/components/ui/icons/CartIcon';
 import { cn } from '@/lib/utils';
@@ -11,7 +11,7 @@ import QuantitySelector from './QuantitySelector';
 import { addCartItem } from '@/action/cart-service';
 import Dialog from '@/components/commons/Dialog';
 import { useRouter } from 'next/navigation';
-
+import { useLoginSession } from '@/context/SessionContext';
 export default function ProductActionBar({
   productDetail,
 }: {
@@ -28,6 +28,7 @@ export default function ProductActionBar({
   const [sizeNames, setSizeNames] = useState<{ [key: number]: string }>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const isLoggedIn = useLoginSession();
   const route = useRouter();
   const basePrice =
     productDetail.productPrice * (1 - productDetail.discountRate / 100);
@@ -138,7 +139,11 @@ export default function ProductActionBar({
       );
       console.log(selectedOption);
     } else {
-      setIsExpanded(true);
+      if (!isLoggedIn) {
+        setIsDialogOpen(true);
+      } else {
+        setIsExpanded(true);
+      }
     }
   };
 
@@ -158,7 +163,11 @@ export default function ProductActionBar({
         console.log(res);
       }
     } else {
-      setIsExpanded(true);
+      if (!isLoggedIn) {
+        setIsDialogOpen(true);
+      } else {
+        setIsExpanded(true);
+      }
     }
   };
   const isAllOptionsSelected = selectedColor !== null && selectedSize !== null;
@@ -233,11 +242,13 @@ export default function ProductActionBar({
         onClose={() => setIsDialogOpen(false)}
         onConfirm={() =>
           route.push(
-            '/login??callbackUrl=/products/' + productDetail.productCode
+            '/login?callbackUrl=/products/' + productDetail.productCode
           )
         }
-        title="구매하기"
-        content="구매하시겠습니까?"
+        title="로그인 필요"
+        content={`로그인 후 이용하실 수 있습니다.\n로그인 페이지로 이동하시겠습니까?`}
+        cancelText="취소"
+        confirmText="로그인"
       />
     </section>
   );

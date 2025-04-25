@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Button } from '../ui/Button';
 
 interface DialogProps {
   isOpen: boolean;
@@ -25,7 +26,7 @@ export default function Dialog({
 
   return (
     <div
-      className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${
+      className={`fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-50 ${
         isOpen ? 'block' : 'hidden'
       }`}
       onClick={onClose}
@@ -35,20 +36,14 @@ export default function Dialog({
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-xl font-semibold text-gray-800 mb-4">{title}</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">{content}</p>
-        <div className="flex justify-end gap-2">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
-          >
+        <p className="text-gray-600 mb-6  break-keep text-balance">{content}</p>
+        <div className="flex justify-center gap-2">
+          <Button onClick={onClose} size="md">
             {cancelText}
-          </button>
-          <button
-            onClick={onConfirm}
-            className="px-4 py-2 bg-[#00704a] text-white rounded hover:bg-[#005c3d] transition-colors"
-          >
+          </Button>
+          <Button onClick={onConfirm} color="green" size="md">
             {confirmText}
-          </button>
+          </Button>
         </div>
       </div>
     </div>
