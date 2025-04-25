@@ -6,7 +6,7 @@ import {
   getColor,
 } from '@/action/product-service';
 import Link from 'next/link';
-
+import Image from 'next/image';
 export default async function AlertCard({
   productionOptionId,
   validUntil,
@@ -24,10 +24,12 @@ export default async function AlertCard({
     <Link href={`/products/${productData.productCode}`}>
       <div className="flex items-center p-4 border rounded-lg mb-4 shadow-sm">
         <div className="w-20 h-20 mr-4">
-          <img
+          <Image
             src={thumbnail.thumbnailUrl}
             alt={thumbnail.productName}
             className="w-full h-full object-cover rounded"
+            width={80}
+            height={80}
           />
         </div>
         <div className="flex-1">

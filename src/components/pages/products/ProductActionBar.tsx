@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import CartIcon from '@/components/ui/icons/CartIcon';
 import { cn } from '@/lib/utils';
@@ -167,7 +167,7 @@ export default function ProductActionBar({
   };
 
   const handleReorder = async () => {
-    const res = await reorderProduct(selectedOption?.id.toString() ?? '', 30);
+    await reorderProduct(selectedOption?.id.toString() ?? '', 30);
     setDialogType('reload');
     setIsDialogOpen(true);
   };
