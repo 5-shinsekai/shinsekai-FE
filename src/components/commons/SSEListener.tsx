@@ -18,46 +18,51 @@ export default function NotificationListener({
     productCode: '',
     productName: '',
   });
+  const reconnectAttempts = useRef(0);
+  const maxReconnectAttempts = 3;
   const router = useRouter();
-  useEffect(() => {
+
+  const connectSSE = () => {
     if (!memberUuid) return;
 
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_BASE_URL}/sse/${memberUuid}`
     );
     eventSourceRef.current = eventSource;
-    console.log('SSE 연결 성공');
-    // 기본 메시지 수신 처리 (onmessage는 "message" 이벤트 핸들링)
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      console.log('📩 알림 수신:', data);
-
-      // 알림 처리 로직 (예: toast, state 업데이트 등)
-    };
-
-    // 커스텀 이벤트 리스닝 예시
 
     eventSource.addEventListener('restock', (event) => {
       const data = JSON.parse((event as MessageEvent).data);
       console.log('🔔 커스텀 알림 restock:', data);
-      console.log(data);
       setNotificationData(data);
       setShowModal(true);
     });
+
     eventSource.addEventListener('connected', (event) => {
       const data = (event as MessageEvent).data;
-      console.log('🔔 연결됨: 진짜루', data);
+      console.log('🔔 연결됨:', data);
+      reconnectAttempts.current = 0; // 연결 성공 시 재시도 횟수 초기화
     });
 
     eventSource.onerror = (err) => {
-      if (memberUuid) {
+      if (reconnectAttempts.current < maxReconnectAttempts) {
+        reconnectAttempts.current += 1;
+        console.log(
+          `재연결 시도 ${reconnectAttempts.current}/${maxReconnectAttempts}`
+        );
+        setTimeout(connectSSE, 3000); // 3초 후 재연결 시도
+      } else {
+        console.error('❌ SSE 연결 오류', err);
+        eventSource.close();
       }
-      console.error('❌ SSE 연결 오류', err);
-      eventSource.close();
     };
+  };
 
+  useEffect(() => {
+    connectSSE();
     return () => {
-      eventSource.close();
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+      }
     };
   }, [memberUuid]);
 
