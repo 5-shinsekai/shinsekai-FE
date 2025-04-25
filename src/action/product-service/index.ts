@@ -19,9 +19,9 @@ import { options } from '@/app/api/auth/[...nextauth]/options';
 
 export const getMainCategoryList = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/category/main`, {
-    // next: {
-    //   revalidate: 3600,
-    // },
+    next: {
+      revalidate: 3600,
+    },
   });
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -36,7 +36,12 @@ export const getSubCategoryList = async ({
   mainCategoryId: number;
 }) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/category/sub/${mainCategoryId}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/category/sub/${mainCategoryId}`,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    }
   );
   if (!res.ok) {
     console.log(await res.json());
@@ -53,7 +58,12 @@ export const getFilterList = async ({
 }) => {
   console.log(mainCategoryId);
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/filter?mainCategoryId=${mainCategoryId == 0 ? '' : mainCategoryId}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/filter?mainCategoryId=${mainCategoryId == 0 ? '' : mainCategoryId}`,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    }
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -66,9 +76,9 @@ export const getProductThumbnail = async (productCode: string) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/product/outline/${productCode}`,
     {
-      // next: {
-      //   revalidate: 3600,
-      // },
+      next: {
+        revalidate: 3600,
+      },
     }
   );
   if (!res.ok) {
@@ -80,7 +90,11 @@ export const getProductThumbnail = async (productCode: string) => {
 };
 
 export const getEventList = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/event`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/event`, {
+    next: {
+      revalidate: 3600,
+    },
+  });
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -92,9 +106,9 @@ export const getEventDetail = async (eventId: number) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/event/${eventId}`,
     {
-      // next: {
-      //   revalidate: 3600,
-      // },
+      next: {
+        revalidate: 3600,
+      },
     }
   );
   if (!res.ok) {
@@ -108,9 +122,9 @@ export const getEventProductList = async (eventId: number) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/product-event/${eventId}`,
     {
-      // next: {
-      //   revalidate: 3600,
-      // },
+      next: {
+        revalidate: 3600,
+      },
     }
   );
   if (!res.ok) {
@@ -192,7 +206,12 @@ export const getProductList = async ({
   console.log(params.toString());
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/product/filter?${params.toString()}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product/filter?${params.toString()}`,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    }
   );
   if (!res.ok) {
     throw new Error('Failed to fetch data');

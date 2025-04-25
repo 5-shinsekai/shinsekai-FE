@@ -7,6 +7,7 @@ import {
   getSubCategoryList,
 } from '@/action/product-service';
 import AllProductList from '@/components/pages/products/AllProductList';
+import LoadingIcon from '@/components/ui/icons/LoadingIcon';
 
 export default async function page({
   searchParams,
@@ -48,7 +49,7 @@ export default async function page({
         isMultiple={false}
         highCategory={true}
       />
-      <Suspense>
+      <Suspense fallback={<LoadingIcon />}>
         <ProductSubCategory subCategory={subCategory} filter={filter} />
         <AllProductList searchParam={searchParam} />
       </Suspense>
