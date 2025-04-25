@@ -11,6 +11,7 @@ import {
   FilterDataType,
   MainCategoryType,
   CategoryDataType,
+  AlertType,
 } from '@/types/ProductDataTypes';
 import { EventType, EventDetailType } from '@/types/ProductDataTypes';
 import { getServerSession } from 'next-auth';
@@ -255,5 +256,42 @@ export const reorderProduct = async (
     throw new Error('Failed to fetch data');
   }
   const data = (await res.json()) as CommonResponseType<null>;
+  return data.result;
+};
+
+export const getAlertList = async () => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/restock/find`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<AlertType[]>;
+  return data.result;
+};
+
+export const getSize = async (sizeId: number) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/option/size/${sizeId}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<OptionNameType>;
+  return data.result;
+};
+
+export const getColor = async (colorId: number) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/option/color/${colorId}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<OptionNameType>;
   return data.result;
 };

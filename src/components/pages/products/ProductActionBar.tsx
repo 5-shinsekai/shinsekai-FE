@@ -46,7 +46,7 @@ export default function ProductActionBar({
         '재입고 신청이 완료되었습니다. 알람 신청 페이지로 이동 하시겠습니까?',
       confirmText: '확인',
       cancelText: '취소',
-      router: '/myalert',
+      router: '/mypage/myalert',
     },
     cart: {
       title: '장바구니 추가',
