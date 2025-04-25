@@ -226,5 +226,5 @@ export const getProductPrice = async ({
   const res2 = await getProductOption({
     productOptionId: productOptionListId,
   });
-  return (res1.productPrice + res2.optionPrice) * (1 - res1.discountRate);
+  return (res1.productPrice + res2.optionPrice) * (1 - res1.discountRate / 100);
 };
