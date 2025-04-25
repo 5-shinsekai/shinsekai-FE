@@ -6,10 +6,20 @@
 
 ## 기술 스택
 
+### 💻 Frontend
+
 - React
 - TypeScript
+- Next.js (App Router)
 - pnpm (10.6.4)
+- Tailwind CSS
+
+### 🛠 Development Tools
+
 - Git
+- ESLint
+- Prettier
+- PostCSS
 
 ## 설치 및 실행 방법
 
@@ -53,17 +63,30 @@ src/
 public/               # 정적 파일 (이미지, 아이콘 등)
 ```
 
-### 주요 파일 설명
+## 🚀 주요 기능 (Features)
 
-- `next.config.ts`: Next.js 설정 파일
-- `tsconfig.json`: TypeScript 설정 파일
-- `package.json`: 프로젝트 의존성 및 스크립트
-- `Dockerfile`: Docker 컨테이너 설정
-- `docker-compose.yml`: Docker Compose 설정
-- `.env`: 환경 변수 설정
-- `.prettierrc`: 코드 포맷팅 설정
-- `eslint.config.mjs`: ESLint 설정
-- `postcss.config.mjs`: PostCSS 설정
+### 🛒 장바구니 시스템
+
+- 상품 종류 최대 20개 제한
+- 옵션 중복 포함 최대 수량 5개 제한
+- 실시간 수량 업데이트
+- 장바구니 상품 삭제/수정 기능
+
+### 🔍 상품 필터링
+
+- 카테고리 기반 필터링
+- 검색어 기반 필터링
+- 정렬 기능 (가격, 인기순 등)
+
+### 🔔 실시간 알림
+
+- SSE 기반 실시간 알림
+- 재입고 알림 서비스
+
+### 🔐 인증/인가
+
+- JWT 기반 사용자 인증
+- OAuth2.0 기반 소셜 로그인 (카카오)
 
 ## 개발 가이드
 
@@ -106,3 +129,10 @@ git config core.ignorecase false
 - Test: 테스트 코드 추가/수정
 - Chore: 빌드 프로세스 또는 보조 도구 변경
 - Merge : 코드 merge
+
+## 📚 참고자료 (References)
+
+- [Next.js 공식 문서](https://nextjs.org/docs)
+- [React 공식 문서](https://react.dev/)
+- [TypeScript 공식 문서](https://www.typescriptlang.org/docs/)
+- [Tailwind CSS 공식 문서](https://tailwindcss.com/docs)
