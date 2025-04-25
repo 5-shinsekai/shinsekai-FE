@@ -42,7 +42,7 @@ export function Sidebar() {
 
   const handleRouteChange = (code: number) => {
     setIsOpen(false);
-    route.push(`/products?mainCategoryCode=${code}`);
+    route.push(`/products?mainCategoryId=${code}`);
   };
 
   return (
