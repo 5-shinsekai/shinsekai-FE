@@ -119,3 +119,12 @@ export interface OptionNameType {
   code: number;
   name: string;
 }
+
+export interface AlertType {
+  id: number;
+  memberUuid: string;
+  productionOptionId: number;
+  validUntil: string;
+  mailNotified: boolean;
+  sseNotified: boolean;
+}

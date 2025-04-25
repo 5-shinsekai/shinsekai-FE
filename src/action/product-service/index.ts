@@ -11,8 +11,11 @@ import {
   FilterDataType,
   MainCategoryType,
   CategoryDataType,
+  AlertType,
 } from '@/types/ProductDataTypes';
 import { EventType, EventDetailType } from '@/types/ProductDataTypes';
+import { getServerSession } from 'next-auth';
+import { options } from '@/app/api/auth/[...nextauth]/options';
 
 export const getMainCategoryList = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/category/main`, {
@@ -226,5 +229,69 @@ export const getProductPrice = async ({
   const res2 = await getProductOption({
     productOptionId: productOptionListId,
   });
-  return (res1.productPrice + res2.optionPrice) * (1 - res1.discountRate);
+  return (res1.productPrice + res2.optionPrice) * (1 - res1.discountRate / 100);
+};
+
+export const reorderProduct = async (
+  productOptionId: string,
+  durationDays: number
+) => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/restock/notify`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        productOptionId,
+        durationDays,
+      }),
+    }
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<null>;
+  return data.result;
+};
+
+export const getAlertList = async () => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/restock/find`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<AlertType[]>;
+  return data.result;
+};
+
+export const getSize = async (sizeId: number) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/option/size/${sizeId}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<OptionNameType>;
+  return data.result;
+};
+
+export const getColor = async (colorId: number) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/option/color/${colorId}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const data = (await res.json()) as CommonResponseType<OptionNameType>;
+  return data.result;
 };
