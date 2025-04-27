@@ -138,5 +138,14 @@ export interface MyOrderInfoDataType {
   couponUuid: string;
   shipmentFee: number;
   productTotalPrice: number;
+  createdAt: string;
   orderProductList: PurchaseProductLogDataType[];
+}
+
+export interface MyOrderStatusDataType {
+  paymentCompleted: number;
+  preparing: number;
+  shipping: number;
+  delivered: number;
+  cancelled: number;
 }

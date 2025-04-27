@@ -1,4 +1,4 @@
-import { MyPageInfoType, DeliveryStatusType } from '@/types/MypageDataType';
+import { MyPageInfoType } from '@/types/MypageDataType';
 import AgreementIcon from '@/components/ui/icons/AgreementIcon';
 import AlarmIcon from '@/components/ui/icons/AlarmIcon';
 import CouponIcon from '@/components/ui/icons/CouponIcon';
@@ -39,32 +39,5 @@ export const settingData: MyPageInfoType[] = [
     title: '배송지 정보 수집 및 이용 동의',
     link: './ 배송지정보수집동의',
     icon: AgreementIcon,
-  },
-];
-
-export const deliveryStatusData: DeliveryStatusType[] = [
-  {
-    id: 1,
-    title: '결제완료',
-    count: 0,
-    link: './결제완료',
-  },
-  {
-    id: 2,
-    title: '상품준비중',
-    count: 2,
-    link: './상품준비중',
-  },
-  {
-    id: 3,
-    title: '배송중',
-    count: 1,
-    link: './배송중',
-  },
-  {
-    id: 4,
-    title: '배송완료',
-    count: 4,
-    link: './배송완료',
   },
 ];

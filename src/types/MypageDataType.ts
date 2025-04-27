@@ -1,8 +1,6 @@
 export interface DeliveryStatusType {
-  id: number;
   title: string;
   count: number;
-  link: string;
 }
 
 export interface MyPageInfoType {
