@@ -39,13 +39,11 @@ export default function RegisterStarbuckscardForm({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
 
     setInputValues((prev) => ({
       ...prev,
       [name]: value,
     }));
-    console.log(inputValues);
 
     const key = name as keyof typeof registerCardSchema.shape;
     const res = registerCardSchema.shape[key].safeParse(value);

@@ -16,6 +16,7 @@ export default function AddressInfoSection({
 
   const searchParams = useSearchParams();
   const selectedUuid = searchParams.get('addressUuid');
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAddress = async () => {
@@ -34,9 +35,6 @@ export default function AddressInfoSection({
 
   const address = selectedAddress || mainAddress;
 
-  console.log(address);
-
-  const router = useRouter();
   return (
     <>
       {address && (

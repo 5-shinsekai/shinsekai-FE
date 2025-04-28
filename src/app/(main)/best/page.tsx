@@ -5,7 +5,6 @@ import {
 import React, { Suspense } from 'react';
 import MenuTab from '@/components/layouts/MenuTab';
 import ProductList from '@/components/pages/products/ProductList';
-// import { productDummyData } from '@/data/DummyData/ProductDummyData';
 
 export default async function Page({
   searchParams,

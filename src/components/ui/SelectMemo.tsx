@@ -22,12 +22,10 @@ export function SelectMemo({
   directDefaultValue?: string;
   defaultValue?: string;
 }) {
-  // const [selectMemo, setSelectMemo] = useState<string | null>(null);
   const [isDirectInput, setIsDirectInput] = useState(false);
 
   const handleSelectMemo = (value: string) => {
     console.log(value);
-    // setSelectMemo(value);
     if (defaultValue === '직접입력') {
       setIsDirectInput(true);
     } else {
@@ -46,7 +44,6 @@ export function SelectMemo({
       <label className="font-medium text-[0.75rem]">배송메모</label>
       <Select
         name="deliveryMemo"
-        // defaultValue={defaultValue}
         onValueChange={(value) => {
           handleSelectMemo(value);
           if (onChange) {
@@ -90,7 +87,6 @@ export function SelectMemo({
           onChange={
             onChange &&
             ((e) => {
-              // setSelectMemo(e.target.value);
               onChange({
                 target: {
                   name: 'isDirectInputMemo',
@@ -101,7 +97,6 @@ export function SelectMemo({
           }
           defaultValue={directDefaultValue}
           type="text"
-          // required={selectMemo == '직접입력' ? true : false}
         />
       )}
     </div>

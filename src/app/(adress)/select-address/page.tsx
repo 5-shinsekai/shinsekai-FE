@@ -27,8 +27,6 @@ export default function Page() {
     fetchAddressList();
   }, []);
 
-  // const sortedList = [...addressList].sort((a) => (a.isMainAddress ? -1 : 1));
-
   const [selectedUuid, setSelectedUuid] = useState<string | null>(null);
 
   const handleClick = () => {

@@ -15,18 +15,12 @@ export default function GetAddress({
 
   const handleGetAddress = (address: AddressResultType) => {
     const currentInputValues = new URLSearchParams(InputValues.toString());
-    console.log(typeof address.zipNo, address.zipNo);
     currentInputValues.set('roadAddress', address.roadAddr);
     currentInputValues.set('zipNo', address.zipNo.toString());
 
     router.replace(`/register-address?${currentInputValues.toString()}`);
   };
   if (searchResult.errorCode !== '0' || searchResult.totalCount === '0') {
-    // const [modal, setModal] = useState(false);
-    // const handle = () => {
-    //   setModal(!modal);
-    // };
-
     return (
       <section className="mt-[20rem]">
         <p className="text-center text-xs text-red-700">
@@ -37,7 +31,6 @@ export default function GetAddress({
       </section>
     );
   }
-  console.log(addressList);
 
   return (
     <>
