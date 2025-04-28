@@ -4,6 +4,7 @@ import {
   ChargeStarbucksCardApiType,
   ExternalStarbucksCardDataType,
   MyOrderInfoDataType,
+  MyOrderStatusDataType,
   PurchaseDataType,
   PurchaseProductLogDataType,
   RegisterStarbucksCardDataType,
@@ -420,4 +421,27 @@ export const getMyOrderList = async (): Promise<MyOrderInfoDataType[]> => {
   const data = await res.json();
   console.log('조회된  목록:', data);
   return data;
+};
+
+export const getMyOrderStatus = async (): Promise<MyOrderStatusDataType> => {
+  const session = await getServerSession(options);
+  const ACCESS_TOKEN = session?.user.accessToken;
+  const res = await fetch(`http://3.37.52.123:8080/api/v1/purchase/status`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error('서버 응답 상태 코드:', res.status);
+    console.error('서버 응답 내용:', text);
+    throw new Error('등록된 스타벅스 카드 조회 실패');
+  }
+
+  const data = await res.json();
+  console.log('조회된  배송현황:', data);
+  return data.result;
 };

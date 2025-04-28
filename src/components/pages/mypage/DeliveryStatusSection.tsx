@@ -1,9 +1,28 @@
-import React from 'react';
-import DeliveryStatus from '@/components/ui/DeliveryStatus';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
-import { deliveryStatusData } from '@/data/MypageData';
+import { getMyOrderStatus } from '@/action/payment-service';
+import { MyOrderStatusDataType } from '@/types/PaymentDataType';
+import DeliveryStatus from '@/components/ui/DeliveryStatus';
 
 export default function DeliveryStatusSection() {
+  const [deliveryStatus, setDeliveryStatus] = useState<MyOrderStatusDataType>({
+    cancelled: 0,
+    delivered: 0,
+    paymentCompleted: 0,
+    preparing: 0,
+    shipping: 0,
+  });
+
+  useEffect(() => {
+    const fetchDeliveryStatus = async () => {
+      const deliveryStatusData = await getMyOrderStatus();
+      console.log(deliveryStatusData, 'deliveryStatusData');
+      setDeliveryStatus(deliveryStatusData);
+    };
+    fetchDeliveryStatus();
+  }, []);
   return (
     <section className="py-10">
       <header className="flex justify-between items-center px-8 pb-[1.5rem]">
@@ -14,17 +33,16 @@ export default function DeliveryStatusSection() {
       </header>
       <nav className="">
         <ul className="flex items-center justify-center space-x-1.5">
-          {deliveryStatusData.map((status, index) => (
-            <React.Fragment key={status.id}>
-              <DeliveryStatus
-                id={status.id}
-                title={status.title}
-                count={status.count}
-                link={status.link}
-              />
-              {index !== deliveryStatusData.length - 1 && <RightArrowIcon />}
-            </React.Fragment>
-          ))}
+          <DeliveryStatus
+            title="결제완료"
+            count={deliveryStatus.paymentCompleted}
+          />
+          <RightArrowIcon />
+          <DeliveryStatus title="배송준비중" count={deliveryStatus.preparing} />
+          <RightArrowIcon />
+          <DeliveryStatus title="배송중" count={deliveryStatus.shipping} />
+          <RightArrowIcon />
+          <DeliveryStatus title="배송완료" count={deliveryStatus.delivered} />
         </ul>
       </nav>
     </section>

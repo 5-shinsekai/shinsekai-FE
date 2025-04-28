@@ -8,7 +8,7 @@ import {
 } from '@/types/PaymentDataType';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CloseIcon from './icons/CloseIcon';
 import Divider from './Divider';
 import { MyOrderProductInfo } from '../pages/mypage/MyOrderLog';
@@ -190,12 +190,17 @@ export const OrderDetailModal = ({
   className?: string;
   setModal?: (value: boolean) => void;
 }) => {
+  const [showAnimation, setShowAnimation] = useState(false);
+
   useEffect(() => {
-    document.body.style.overflow = 'hidden'; // 모달 띄워졌을 때 스크롤 막기
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      setShowAnimation(true);
+    }, 10);
     return () => {
       document.body.style.overflow = 'auto';
     };
-  });
+  }, []);
   return (
     <div
       id="모달 외부"
@@ -205,16 +210,18 @@ export const OrderDetailModal = ({
         id="모달"
         onClick={(e) => e.stopPropagation()}
         className={cn(
-          'fixed overflow-scroll bg-white w-full h-11/12 rounded-lg shadow-xl -bottom-2',
-          'transition-all duration-500 transform ease-in',
-          'opacity-100 translate-y-0',
+          'fixed bottom-0 overflow-scroll bg-white w-full h-11/12 rounded-lg shadow-xl',
+          'transition-all duration-300 ease-in-out',
+          showAnimation
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-full opacity-0',
 
           className
         )}
       >
         <header className="py-2 px-5">
           <div className="flex justify-between">
-            <p className=" text-gray-400 text-md">{orderInfo.purchaseCode}</p>
+            <p className=" text-gray-400 text-md">{orderInfo.paymentCode}</p>
             <button type="button" onClick={() => setModal?.(false)}>
               <CloseIcon className="size-6" />
             </button>
@@ -230,7 +237,10 @@ export const OrderDetailModal = ({
           ))}
           <h1 className="text-lg font-semibold py-2 px-2 mt-6">주문 정보</h1>
           <div className="bg-custom-gray-100 rounded-sm shadow-md px-4 py-3">
-            <ShortInfo title="주문 일시" content="2025.04.25 16:03" />
+            <ShortInfo
+              title="주문 일시"
+              content={`${orderInfo.createdAt.split('T')[0]} ${orderInfo.createdAt.split('T')[1].split('.')[0]}`}
+            />
             <ShortInfo title="주문 번호" content={orderInfo.purchaseCode} />
           </div>
           <Divider className="w-full mx-auto" />
