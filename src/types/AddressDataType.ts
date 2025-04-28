@@ -23,20 +23,6 @@ export interface RegisterAddressFormType {
   isMainAddress: string;
 }
 
-// export interface GetAddressDataType {
-//   addressUuid: string;
-//   zipNo: string;
-//   roadAddress: string;
-//   detailAddress: string;
-//   addressNickname: string;
-//   deliveryMemo: string;
-//   totalAddress: string;
-//   firstPhoneNumber: string;
-//   secondPhoneNumber: string;
-//   receiverName: string;
-//   ismainAddress: boolean;
-// }
-
 export interface AddressDataType {
   addressUuid: string;
   addressNickname: string;

@@ -16,8 +16,6 @@ export default function StarbuckscardCharge({
   setChargeAmount: (amount: { option: string; amount: number }) => void;
   chargeOptions: StarbuckscardChargeOptionType[];
 }) {
-  console.log(chargeAmount);
-
   return (
     <>
       <h1 className="text-xl font-medium">충전 금액</h1>

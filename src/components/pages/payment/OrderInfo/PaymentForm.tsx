@@ -47,7 +47,6 @@ export default function PaymentForm({
     const fetchData = async () => {
       if (productCode === '') {
         const cartData = await getCartData();
-        console.log(cartData);
         setOrderLogInfo(cartData.ordinaryProducts);
       } else {
         setOrderLogInfo([directOrderLog]);
@@ -55,7 +54,6 @@ export default function PaymentForm({
     };
     fetchData();
   }, [productCode]);
-  console.log('orderLogInfo 테스트', orderLogInfo);
 
   const [showModal, setShowModal] = useState(false);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);

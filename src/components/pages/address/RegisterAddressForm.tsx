@@ -29,7 +29,6 @@ export default function RegisterAddressForm() {
     }
   };
   const isMain = params.get('isMain') === 'true';
-  console.log('ismain', isMain);
   const [errorMessages, setErrorMessages] = useState<
     Partial<RegisterAddressFormType>
   >({
@@ -56,7 +55,6 @@ export default function RegisterAddressForm() {
   }, [isMain]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
 
@@ -70,7 +68,6 @@ export default function RegisterAddressForm() {
     const key = name as keyof typeof registerAddressSchema.shape;
     const res = registerAddressSchema.shape[key].safeParse(value);
 
-    // console.log(res);
     if (!res.success) {
       const errorMessage = res.error.errors[0].message;
 

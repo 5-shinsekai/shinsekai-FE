@@ -19,3 +19,12 @@ export interface PolicyDataType {
     policy: PolicyDataType[];
   };
 }
+
+export interface SubHeaderPropsType {
+  title: string;
+  showBackButton?: boolean;
+  showCloseButton?: boolean;
+  className?: string;
+  backButtonLink?: string;
+  closeButtonLink?: string;
+}

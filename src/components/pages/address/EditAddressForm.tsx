@@ -5,7 +5,6 @@ import { InputType } from '@/components/ui/InputInfo';
 import { Button } from '@/components/ui/Button';
 import { SelectMemo } from '@/components/ui/SelectMemo';
 import ButtonWrapper from '@/components/ui/wrapper/ButtonWrapper';
-// import DefaultCheck from '@/components/ui/forms/defaultCheck';
 import { editAddressSchema } from '@/schemas/registerAddressSchema';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -59,13 +58,7 @@ export default function EditAddressForm({
       ...prev,
       [name]: value,
     }));
-    console.log('name', name, typeof name, 'value', value, typeof value);
-    console.log(
-      '수정 정보',
-      editAddressData.isMainAddress,
-      typeof editAddressData.isMainAddress
-    );
-    // console.log(editAddressData);
+
     const key = name as keyof typeof editAddressSchema.shape;
     const res = editAddressSchema.shape[key].safeParse(value);
 
@@ -109,7 +102,6 @@ export default function EditAddressForm({
         title="주소별칭"
         onChange={handleChange}
         defaultValue={editAddressData.addressNickname}
-        // value={inputValues.addressNickname}
         type="text"
         errorMessage={errorMessages.addressNickname}
       />

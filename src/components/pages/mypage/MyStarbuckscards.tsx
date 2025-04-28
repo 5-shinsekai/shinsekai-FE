@@ -11,7 +11,6 @@ export default function MyStarbuckscards({
 }: {
   cardList: StarbuckscardInfoType[];
 }) {
-  console.log(cardList, '테스트');
   const router = useRouter();
 
   const handleClick = () => {

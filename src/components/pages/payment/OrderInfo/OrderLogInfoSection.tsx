@@ -30,8 +30,6 @@ export default function ShowOrderProductList({
     .map((item) => item.cartUuid as string);
 
   useEffect(() => {
-    console.log('orderLogInfo', orderLogInfo);
-
     const fetchProductsData = async () => {
       if (orderLogInfo.length >= 1) {
         const productInfoList: Partial<ShowOrderProductDataType>[] =
@@ -39,12 +37,9 @@ export default function ShowOrderProductList({
             orderLogInfo
               .filter((item) => !!item.productCode)
               .map(async (item) => {
-                console.log('item.productCode', item.productCode);
-                console.log('item.productOptionId', item.productOptionListId);
                 const outlineData = await getOutlineDataByProductCode(
                   item.productCode || ''
                 );
-                console.log('item.productCode', item.productOptionListId);
                 const price = await getProductPrice?.({
                   productCode: item.productCode || '',
                   productOptionListId: item.productOptionListId || 0,
@@ -62,7 +57,6 @@ export default function ShowOrderProductList({
                 };
               })
           );
-        console.log('productInfoList', productInfoList);
         setShowInfoList(productInfoList);
 
         const total = productInfoList.reduce(
@@ -75,9 +69,6 @@ export default function ShowOrderProductList({
     };
     fetchProductsData();
   }, [orderLogInfo]);
-  console.log(showInfoList);
-
-  console.log('showInfoList', showInfoList);
 
   return isLoading ? (
     <section className="w-full flex items-center justify-center animate-pulse">
