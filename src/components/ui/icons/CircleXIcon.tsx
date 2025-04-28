@@ -1,10 +1,28 @@
 'use client';
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { deleteCartItem } from '@/action/cart-service';
 export default function CircleXIcon({
   className,
   onClick,
-}: Readonly<{ className?: string; onClick?: () => void }>) {
+  type,
+  cartUuid,
+}: Readonly<{
+  className?: string;
+  onClick?: () => void;
+  type?: string;
+  cartUuid?: string;
+}>) {
+  const isCart = type === 'cart';
+
+  const handleClick = () => {
+    if (isCart) {
+      deleteCartItem(cartUuid ?? '');
+    } else {
+      onClick?.();
+    }
+  };
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +35,7 @@ export default function CircleXIcon({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={cn('lucide lucide-circle-x-icon lucide-circle-x', className)}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <circle cx="12" cy="12" r="10" />
       <path d="m15 9-6 6" />

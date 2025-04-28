@@ -130,3 +130,20 @@ export const updateAllChecked = async (itemType: string, checked: boolean) => {
 
   return res.json();
 };
+
+export const deleteCartItem = async (cartUuid: string) => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/cart/${cartUuid}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    }
+  );
+  revalidateTag(`cart-list`);
+  return res.json();
+};

@@ -27,7 +27,11 @@ export default async function CartItem({
           <p className="text-xs font-semibold break-keep">
             {product.productName}
           </p>
-          <CircleXIcon className="min-w-6 min-h-6 stroke-1 stroke-custom-gray-400" />
+          <CircleXIcon
+            className="min-w-6 min-h-6 stroke-1 stroke-custom-gray-400"
+            type="cart"
+            cartUuid={cartItem.cartUuid}
+          />
         </div>
         <ProductPriceInfo cartItem={cartItem} product={product} />
       </div>
