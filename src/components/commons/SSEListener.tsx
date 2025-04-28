@@ -73,7 +73,7 @@ export default function NotificationListener({
           <div className="flex flex-col gap-2 p-5">
             <h1 className="text-2xl text-center font-bold">재입고 알림</h1>
             <p className="text-center mt-3 text-lg">
-              등록하신 {notificationData.productName} 제품이 제입고 되었습니다!
+              등록하신 {notificationData.productName} 제품이 재입고 되었습니다!
             </p>
           </div>
           <div className="gap-2 flex justify-center pb-5">
