@@ -8,7 +8,6 @@ export default async function Page({
   searchParams: Promise<{ addressUuid: string }>;
 }) {
   const { addressUuid } = await searchParams;
-  console.log('addressUuid', addressUuid);
   const addressData = await getAddressByUuid(addressUuid);
 
   return (

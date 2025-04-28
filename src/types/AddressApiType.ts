@@ -51,18 +51,3 @@ export interface PostAddressDataType {
   isPersonalMemo: boolean;
   isMainAddress: boolean;
 }
-
-// export interface getAddressDataType {
-//   addressUuid: string;
-//   addressNickname: string;
-//   receiverName: string;
-//   zipNo: string;
-//   roadAddress: string;
-//   detailAddress: string;
-//   totalAddress: string;
-//   firstPhoneNumber: string;
-//   secondPhoneNumber: string;
-//   deliveryMemo: string;
-//   isPersonalMemo: boolean;
-//   isMainAddress: boolean;
-// }

@@ -1,4 +1,3 @@
-// components/AutoTabInput.tsx
 'use client';
 
 import { cn } from '@/lib/utils';
@@ -86,8 +85,6 @@ export default function AutoTabInput({
           >
             <input
               id={index === 0 ? id : undefined}
-              // name={name}
-              // key={index}
               value={values[index]}
               type={type}
               maxLength={maxLength[index]}

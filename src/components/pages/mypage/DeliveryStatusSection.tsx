@@ -18,7 +18,6 @@ export default function DeliveryStatusSection() {
   useEffect(() => {
     const fetchDeliveryStatus = async () => {
       const deliveryStatusData = await getMyOrderStatus();
-      console.log(deliveryStatusData, 'deliveryStatusData');
       setDeliveryStatus(deliveryStatusData);
     };
     fetchDeliveryStatus();

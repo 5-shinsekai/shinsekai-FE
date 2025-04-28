@@ -31,7 +31,6 @@ export interface StarbuckscardInfoType {
   cardName: string;
   cardNumber: string;
   cardImageUrl: string;
-  // cardDescription: string;
   remainAmount: number;
 }
 

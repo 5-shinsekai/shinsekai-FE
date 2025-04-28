@@ -30,19 +30,16 @@ export default function SearchAddressForm() {
 
     setError({ message: '' });
     setIsActive(true);
-    console.log('keyword:', value);
   };
 
   const getData = async (keyword: string) => {
     const res = await getAddressList(keyword, '1', '100');
     setAddressList(res.results.juso);
     setSearchResult(res.results.common);
-    console.log('주소 검색 결과:', res);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('주소 검색:', submitAddressInfo);
     if (!submitAddressInfo) {
       setError({ message: '검색어를 입력해 주세요.' });
       return;

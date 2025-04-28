@@ -16,7 +16,7 @@ export const CardDetailModal = ({
   setModal,
 }: props) => {
   useEffect(() => {
-    document.body.style.overflow = 'hidden'; // 모달 띄워졌을 때 스크롤 막기
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'auto';
     };

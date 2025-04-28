@@ -5,8 +5,6 @@ import { AddressDataType } from '@/types/AddressDataType';
 import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 
-// const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
-
 // 주소검색
 export const getAddressList = async (
   keyword: string,
@@ -16,7 +14,7 @@ export const getAddressList = async (
   const baseUrl = process.env.NEXT_PUBLIC_SEARCH_ADRESS_BASE_URL;
   const serviceKey = process.env.NEXT_PUBLIC_SEARCH_ADRESS_SECRET_KEY;
   const params = {
-    keyword: keyword.trim(), // 공백 제거 후 넘겨주기 (띄어쓰기 여러 번 했을 때 검색 안되는 것 방지)
+    keyword: keyword.trim(),
     currentPage: currentPage,
     countPerPage: countPerPage,
     resultType: 'json',
@@ -31,7 +29,6 @@ export const getAddressList = async (
   }
 
   const data = (await res.json()) as AddressApiType;
-  console.log('주소 검색 API 응답:', data);
   return data;
 };
 
@@ -82,7 +79,6 @@ export const postAddress = async (addressForm: FormData) => {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-  console.log(data);
   return data;
 };
 
@@ -106,7 +102,6 @@ export const getAddress = async (): Promise<AddressDataType[]> => {
   }
 
   const data = await res.json();
-  console.log('조회된 배송지 목록:', data.result);
   return data.result;
 };
 
@@ -141,8 +136,6 @@ export const editAddress = async (addressForm: FormData) => {
       (addressForm.get('isMainAddress') as string) === 'true' ? true : false,
   };
 
-  console.log(addressData);
-  console.log(ACCESS_TOKEN);
   const res = await fetch('http://3.37.52.123:8080/api/v1/address', {
     method: 'PUT',
     headers: {
@@ -159,15 +152,12 @@ export const editAddress = async (addressForm: FormData) => {
     throw new Error('Failed to fetch data');
   }
   const data = await res.json();
-  console.log(data);
   return data;
 };
 
 export const getAddressByUuid = async (adressUuid: string) => {
   const session = await getServerSession(options);
   const ACCESS_TOKEN = session?.user.accessToken;
-
-  console.log('uuid (배송지): ', adressUuid);
 
   const res = await fetch(
     `http://3.37.52.123:8080/api/v1/address/${adressUuid}`,
@@ -194,8 +184,6 @@ export const deleteAddressByUuid = async (adressUuid: string) => {
   const session = await getServerSession(options);
   const ACCESS_TOKEN = session?.user.accessToken;
 
-  console.log('uuid (배송지): ', adressUuid);
-
   const res = await fetch(
     `http://3.37.52.123:8080/api/v1/address/${adressUuid}`,
     {
@@ -214,7 +202,6 @@ export const deleteAddressByUuid = async (adressUuid: string) => {
   }
 
   const data = await res.json();
-  console.log('배송지 삭제 결과:', data);
   return data.result;
 };
 

@@ -4,15 +4,7 @@ import LeftArrowIcon from '../ui/icons/LeftArrowIcon';
 import CloseIcon from '../ui/icons/CloseIcon';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-
-interface SubHeaderPropsType {
-  title: string;
-  showBackButton?: boolean;
-  showCloseButton?: boolean;
-  className?: string;
-  backButtonLink?: string;
-  closeButtonLink?: string;
-}
+import { SubHeaderPropsType } from '@/types/InitialDataTypes';
 
 export default function SubHeader({
   backButtonLink,
